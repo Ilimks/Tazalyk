@@ -1,0 +1,21 @@
+.footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .footer__bottom__text {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 157%;
+        color: #6b7280;
+    }
+
+    .footer__bottom__icons {
+        display: flex;
+        column-gap: 16px;
+
+        .footer__bottom__icon {
+            cursor: pointer;
+        }
+    }
+}

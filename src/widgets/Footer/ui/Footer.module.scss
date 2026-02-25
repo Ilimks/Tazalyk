@@ -1,0 +1,10 @@
+.footer {
+    background-color: #162A45;
+    padding: 68px 0 32px;
+
+    &__box {
+        display: flex;
+        flex-direction: column;
+        gap: 82px;
+    }
+}

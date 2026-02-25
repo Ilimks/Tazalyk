@@ -1,0 +1,69 @@
+.hero {
+    width: 100%;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+    padding: 150px 0;
+
+    &__video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }   
+
+    &__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.60);
+    }
+
+
+    &__box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        z-index: 1;
+
+        .hero__title {
+            font-family: "Roboto";
+            font-weight: 500;
+            font-size: 30px;
+            color: #fff;
+            position: relative;
+            text-align: center;
+        }
+
+        .hero__text{
+            position: relative;
+            font-weight: 500;
+            font-size: 44px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .hero__btn {
+            position: relative;
+            border: 1px solid #cfe9fa;
+            border-radius: 5px;
+            padding: 10px 30px;
+            font-weight: 700;
+            font-size: 16px;
+            color: white;
+            transition: all .3s ease;
+            background: none;
+        }
+
+        .hero__btn:hover {
+            background-color: #1b36b9;
+            color: white;
+            border: 1px solid #1b36b9;
+        }
+    }
+}
