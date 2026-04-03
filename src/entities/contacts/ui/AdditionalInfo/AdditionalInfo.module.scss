@@ -1,0 +1,79 @@
+.infoBlock {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 20px;
+    padding: 24px 28px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    @media (max-width: 640px) {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+}
+
+.infoBlockIcon {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    svg {
+        stroke: white;
+        width: 28px;
+        height: 28px;
+    }
+    
+    @media (max-width: 640px) {
+        width: 48px;
+        height: 48px;
+        
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+    }
+}
+
+.infoBlockContent {
+    flex: 1;
+}
+
+.infoBlockTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+    
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+}
+
+.infoBlockText {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #475569;
+    margin: 0;
+    
+    strong {
+        color: #3b82f6;
+        font-weight: 600;
+    }
+    
+    @media (max-width: 768px) {
+        font-size: 13px;
+    }
+}

@@ -1,0 +1,50 @@
+.contactInfo {
+    padding: 28px;
+    background: #ffffff;
+    border-radius: 24px;
+    
+    @media (max-width: 768px) {
+        padding: 24px;
+    }
+    
+    @media (max-width: 480px) {
+        padding: 20px;
+    }
+}
+
+.infoHeader {
+    margin-bottom: 28px;
+    
+    @media (max-width: 768px) {
+        margin-bottom: 24px;
+    }
+}
+
+.infoTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+    
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+}
+
+.infoDescription {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.contactGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    
+    @media (max-width: 640px) {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}

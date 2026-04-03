@@ -1,0 +1,1 @@
+export { ActsHeader } from './ActsHeader'

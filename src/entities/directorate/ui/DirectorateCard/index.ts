@@ -1,0 +1,1 @@
+export { DirectorateCard } from './DirectorateCard';

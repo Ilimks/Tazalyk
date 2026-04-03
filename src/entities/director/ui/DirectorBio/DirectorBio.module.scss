@@ -1,0 +1,36 @@
+.directorBio {
+    flex: 1;
+    background-color: rgb(245, 245, 245);
+    padding: 25px 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+
+    &__title {
+        color: #102382;
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+        position: relative;
+        padding-bottom: 8px; 
+        
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #22c55e;
+            border-radius: 2px;
+        }
+    }
+
+    &__text {
+        color: #333;
+        font-size: 16px; 
+        line-height: 1.6; 
+        margin: 0;
+        text-align: justify;
+        letter-spacing: 0.2px;
+    }
+}

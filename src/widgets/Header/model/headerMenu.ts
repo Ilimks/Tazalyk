@@ -4,58 +4,39 @@ export const headerMenu = [
   {
     title: "О НАС",
     dropdown: [
-      { label: "История", href: "/about/history" },
-      { label: "Дирекция", href: "/about/management" },
-      { label: "Структура и деятельность", href: "/about/structure" },
-      { label: "Зона обслуживания", href: "/about/area" },
-      { label: "Итоги работы", href: "/about/results" },
-      { label: "Вакансии", href: "/about/jobs" },
-      { label: "Инновационные технологии", href: "/about/innovation" },
+      { label: "История", href: "/history" },
+      { label: "Руководство", href: "/directorate" },
+      { label: "Структура и деятельность", href: "/structure" },
+      { label: "Зона обслуживания", href: "/services" },
+      { label: "Итоги работы", href: "/results" },
+      { label: "Вакансии", href: "/vacancies" }
     ],
   },
 
   {
     title: "АБОНЕНТАМ",
     dropdown: [
-      { label: "Тарифы", href: "/clients/tariffs" },
-      { label: "Подключение", href: "/clients/connect" },
-      { label: "Документы", href: "/clients/docs" },
+      { label: "Тарифы", href: "/tariffs" }
     ],
   },
 
   {
     title: "ПРЕСС-ЦЕНТР",
     dropdown: [
-      { label: "Новости", href: "/press/news" },
-      { label: "Медиа", href: "/press/media" },
+      { label: "Новости", href: "/news" },
+      { label: "Медиа", href: "/media" },
     ],
   },
 
-  { title: "ЗАКУПКИ", href: "/purchases", dropdown: null },
+  { title: "ЗАКУПКИ", href: "/procurement", dropdown: null },
 
-  {
-    title: "КОНТАКТЫ",
-    dropdown: [
-      { label: "Контакты", href: "/contacts" },
-      { label: "Обратная связь", href: "/contacts/feedback" },
-    ],
-  },
-
-  { title: "ИНВЕСТОРЫ", href: "/investors", dropdown: null},
-
-  {
-    title: "ОТЧЕТЫ",
-    dropdown: [
-      { label: "Финансовые", href: "/reports/finance" },
-      { label: "Годовые", href: "/reports/year" },
-    ],
-  },
+  { title: "КОНТАКТЫ", href: "/contacts", dropdown: null },
 
   {
     title: "НОРМОТИВНАЯ БАЗА",
     dropdown: [
-      { label: "Финансовые", href: "/reports/finance" },
-      { label: "Годовые", href: "/reports/year" },
+      { label: "Законодательство КР", href: "/legislation" },
+      { label: "Локальные акты", href: "/acts" },
     ],
   },
 ];

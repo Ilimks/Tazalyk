@@ -1,0 +1,28 @@
+// widgets/procurement/ProcurementTable/ui/components/ErrorState/ErrorState.module.scss
+.errorContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    padding: 40px;
+}
+
+.errorMessage {
+    text-align: center;
+    
+    svg {
+        margin-bottom: 16px;
+    }
+    
+    h3 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #0f172a;
+        margin-bottom: 8px;
+    }
+    
+    p {
+        color: #64748b;
+        margin-bottom: 20px;
+    }
+}

@@ -1,0 +1,1 @@
+export { DocumentIcons } from './DocumentIcons'

@@ -1,0 +1,49 @@
+@media (max-width: 768px) {
+    .card {
+        width: 280px;
+        
+        &__imageContainer {
+            height: 180px;
+        }
+        
+        &__content {
+            padding: 10px 14px;
+            
+            &__title {
+                font-size: 15px;
+            }
+        }
+        
+        &__photoCount {
+            font-size: 11px;
+            padding: 3px 8px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 260px;
+        
+        &__imageContainer {
+            height: 160px;
+        }
+        
+        &__content {
+            padding: 10px 12px;
+            
+            &__date {
+                font-size: 11px;
+            }
+            
+            &__title {
+                font-size: 14px;
+            }
+        }
+        
+        &__photoCount {
+            font-size: 10px;
+            padding: 3px 8px;
+        }
+    }
+}

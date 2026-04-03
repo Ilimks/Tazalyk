@@ -1,0 +1,1 @@
+export { LegalTariff } from './LegalTariff';

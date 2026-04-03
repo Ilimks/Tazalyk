@@ -1,0 +1,1 @@
+export { DirectorHomeWidget } from './ui/DirectorHomeWidget/DirectorHomeWidget'

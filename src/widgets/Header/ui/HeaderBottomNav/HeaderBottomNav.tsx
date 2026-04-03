@@ -12,13 +12,13 @@ export const HeaderBottomNav: React.FC = () => {
     return (
         <div className={`${styles.header__bottom} ${mobile.header__bottom}`}>
           <div className="container">
-            <nav className={styles.header__bottom__nav}>
-              <ul className={styles.header__bottom__ul}>
+            <nav className={`${styles.header__bottom__nav} ${mobile.header__bottom__nav}`}>
+              <ul className={`${styles.header__bottom__ul} ${mobile.header__bottom__ul}`}>
     
                 {headerMenu.map((item, index) => (
                   <li
                     key={item.title}
-                    className={styles.header__bottom__li}
+                    className={`${styles.header__bottom__li} ${mobile.header__bottom__li}`}
                     onClick={() =>
                       item.dropdown
                         ? setOpenIndex(openIndex === index ? null : index)
@@ -32,7 +32,7 @@ export const HeaderBottomNav: React.FC = () => {
                     )}
     
                     {item.dropdown && openIndex === index && (
-                      <div className={styles.dropdown}>
+                      <div className={`${styles.dropdown} ${mobile.dropdown}`}>
                         <ul>
                           {item.dropdown.map(sub => (
                             <li key={sub.href}>

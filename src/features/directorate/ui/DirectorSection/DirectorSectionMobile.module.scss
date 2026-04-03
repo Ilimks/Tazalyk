@@ -1,0 +1,12 @@
+@media (max-width: 1000px) {
+    .directorSection {
+        flex-direction: column;
+        height: auto; 
+        gap: 20px;
+        
+        &__left {
+            width: 100%;
+            align-items: center;
+        }
+    }
+}

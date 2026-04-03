@@ -1,0 +1,13 @@
+.newsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+    .newsGrid {
+        gap: 24px;
+    }
+}

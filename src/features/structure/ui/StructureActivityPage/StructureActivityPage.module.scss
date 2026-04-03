@@ -1,0 +1,483 @@
+.structureActivity {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    
+    @media (max-width: 768px) {
+        padding: 40px 0;
+    }
+}
+
+// Заголовок страницы
+.pageHeader {
+    text-align: left;
+    margin-bottom: 48px;
+    
+    @media (max-width: 768px) {
+        margin-bottom: 32px;
+    }
+}
+
+.pageTitleWrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.pageTitle {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+    letter-spacing: -0.02em;
+    
+    @media (max-width: 768px) {
+        font-size: 32px;
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 28px;
+    }
+}
+
+.pageDescription {
+    max-width: 700px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #64748b;
+    margin: 0;
+    
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+}
+
+// Секции
+.structureSection,
+.activitySection,
+.schemeSection {
+    margin-bottom: 60px;
+    
+    @media (max-width: 768px) {
+        margin-bottom: 40px;
+    }
+}
+
+.sectionTitle {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 32px 0;
+    position: relative;
+    
+    span {
+        position: relative;
+        display: inline-block;
+        
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #22c55e;
+            border-radius: 2px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        font-size: 24px;
+        margin-bottom: 24px;
+    }
+}
+
+// Структура
+.structureGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.structureCard {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    border-radius: 24px;
+    padding: 28px;
+    color: white;
+    
+    @media (max-width: 768px) {
+        padding: 20px;
+    }
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    
+    h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0;
+        
+        @media (max-width: 768px) {
+            font-size: 20px;
+        }
+    }
+}
+
+.cardIcon {
+    width: 52px;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    svg {
+        stroke: white;
+    }
+}
+
+.structureCard p {
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+    opacity: 0.95;
+}
+
+.cardFooter {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 16px;
+}
+
+.directorInfo {
+    display: flex;
+    gap: 8px;
+    font-size: 14px;
+    
+    .label {
+        opacity: 0.8;
+    }
+    
+    .value {
+        font-weight: 600;
+    }
+}
+
+.departmentsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 24px;
+    
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.departmentCard {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        border-color: #cbd5e1;
+    }
+    
+    p {
+        font-size: 14px;
+        line-height: 1.5;
+        color: #475569;
+        margin: 0 0 16px 0;
+    }
+}
+
+.departmentHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    
+    h4 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #0f172a;
+        margin: 0;
+        flex: 1;
+    }
+}
+
+.departmentIcon {
+    width: 40px;
+    height: 40px;
+    background: #f0fdf4;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    svg {
+        stroke: #22c55e;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.expandBtn {
+    width: 28px;
+    height: 28px;
+    background: #f1f5f9;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+        background: #e2e8f0;
+        color: #22c55e;
+    }
+}
+
+.headInfo {
+    font-size: 13px;
+    color: #64748b;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+    
+    strong {
+        color: #0f172a;
+        margin-left: 8px;
+    }
+}
+
+.subDepartments {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+    
+    .subTitle {
+        font-size: 12px;
+        font-weight: 600;
+        color: #64748b;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 8px;
+    }
+    
+    ul {
+        margin: 0;
+        padding-left: 20px;
+        
+        li {
+            font-size: 13px;
+            color: #475569;
+            margin-bottom: 6px;
+            
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+// Деятельность
+.activityGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+.activityCard {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.1);
+        border-color: #cbd5e1;
+    }
+    
+    h3 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #0f172a;
+        margin: 16px 0 12px 0;
+        
+        @media (max-width: 768px) {
+            font-size: 18px;
+        }
+    }
+    
+    p {
+        font-size: 14px;
+        line-height: 1.5;
+        color: #64748b;
+        margin: 0 0 16px 0;
+    }
+}
+
+.activityIcon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    svg {
+        stroke: #22c55e;
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.activityDetails {
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        
+        li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #475569;
+            margin-bottom: 10px;
+            
+            svg {
+                flex-shrink: 0;
+                stroke: #22c55e;
+                width: 14px;
+                height: 14px;
+            }
+            
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+// Схема управления
+.schemeSection {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px;
+    border: 1px solid #e2e8f0;
+    
+    @media (max-width: 768px) {
+        padding: 20px;
+        overflow-x: auto;
+    }
+}
+
+.orgChart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    
+    @media (max-width: 768px) {
+        min-width: 600px;
+    }
+}
+
+.orgLevel {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    position: relative;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #22c55e, transparent);
+    }
+    
+    &:first-child::before {
+        display: none;
+    }
+}
+
+.orgNode {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #0f172a;
+    text-align: center;
+    transition: all 0.3s ease;
+    min-width: 160px;
+    
+    &:hover {
+        border-color: #22c55e;
+        background: #f0fdf4;
+        transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+        padding: 10px 16px;
+        font-size: 12px;
+        min-width: 130px;
+    }
+}
+
+// Анимации
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.structureCard,
+.departmentCard,
+.activityCard,
+.schemeSection {
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+.structureCard { animation-delay: 0s; }
+.departmentCard:nth-child(1) { animation-delay: 0.1s; }
+.departmentCard:nth-child(2) { animation-delay: 0.15s; }
+.departmentCard:nth-child(3) { animation-delay: 0.2s; }
+.departmentCard:nth-child(4) { animation-delay: 0.25s; }
+.departmentCard:nth-child(5) { animation-delay: 0.3s; }
+.departmentCard:nth-child(6) { animation-delay: 0.35s; }
+.activityCard:nth-child(1) { animation-delay: 0.4s; }
+.activityCard:nth-child(2) { animation-delay: 0.45s; }
+.activityCard:nth-child(3) { animation-delay: 0.5s; }
+.activityCard:nth-child(4) { animation-delay: 0.55s; }
+.activityCard:nth-child(5) { animation-delay: 0.6s; }
+.activityCard:nth-child(6) { animation-delay: 0.65s; }
+.schemeSection { animation-delay: 0.7s; }

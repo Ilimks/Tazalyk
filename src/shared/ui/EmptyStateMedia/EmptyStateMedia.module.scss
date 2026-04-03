@@ -1,0 +1,29 @@
+.emptyState {
+    text-align: center;
+    padding: 60px 20px;
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+}
+
+.emptyIcon {
+    color: #94a3b8;
+    margin-bottom: 20px;
+
+    svg {
+        stroke: currentColor;
+    }
+}
+
+.emptyTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+}
+
+.emptyText {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0;
+}

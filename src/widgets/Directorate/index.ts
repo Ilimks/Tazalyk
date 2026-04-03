@@ -1,0 +1,1 @@
+export { DirectoratePage } from './ui/DirectoratePage/DirectoratePage';

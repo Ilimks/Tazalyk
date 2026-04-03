@@ -25,3 +25,24 @@
     height: 20px;
     background-color: #cbd5e1;
 }
+
+
+@media (max-width: 600px) {
+    .lang {
+        gap: 4px;
+    }
+
+    .langItem {
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 8px;
+    }
+
+    .active {
+        border-radius: 4px;
+    }
+
+    .divider {
+        height: 16px;
+    }
+}

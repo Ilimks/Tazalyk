@@ -1,14 +1,16 @@
-import { HeroSection } from "@/features/home/ui/HeroSection/HeroSection";
+import { HeroSection } from "@/widgets/Hero";
 import { NewsHomeSection } from "@/features/home/ui/NewsHomeSection/NewsHomeSection";
-import { VideosHomeSection } from "@/features/home/ui/VideosHomeSection/VideosHomeSection";
+import { VideosPhotoHomeSection } from "@/features/home/ui/VideosPhotoHomeSection/VideosPhotoHomeSection";
+import { DirectorHomeWidget } from "@/widgets/Director";
 
 
 export default function Home() {
   return (
       <main>
         <HeroSection/>
+        <DirectorHomeWidget />
         <NewsHomeSection/>
-        <VideosHomeSection/>
+        <VideosPhotoHomeSection/>
       </main>
   );
 }

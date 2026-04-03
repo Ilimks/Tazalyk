@@ -1,0 +1,130 @@
+.contactCard {
+    background: #f8fafc;
+    border-radius: 20px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+    
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        border-color: #cbd5e1;
+    }
+}
+
+.contactIcon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    
+    svg {
+        stroke: white;
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.contactTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 0 0 12px 0;
+}
+
+.contactDetails {
+    margin-bottom: 16px;
+}
+
+.detailItem {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dashed #e2e8f0;
+    
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.detailText {
+    flex: 1;
+    font-size: 14px;
+    color: #334155;
+    line-height: 1.4;
+}
+
+.copyBtn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    color: #94a3b8;
+    
+    svg {
+        stroke: currentColor;
+    }
+    
+    &:hover {
+        color: #3b82f6;
+        background: #eff6ff;
+    }
+}
+
+.copyTooltip {
+    position: absolute;
+    right: 0;
+    top: -24px;
+    background: #0f172a;
+    color: white;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    animation: fadeInOut 1.5s ease;
+    
+    @keyframes fadeInOut {
+        0% { opacity: 0; transform: translateY(5px); }
+        20% { opacity: 1; transform: translateY(0); }
+        80% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(-5px); }
+    }
+}
+
+.contactLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #3b82f6;
+    text-decoration: none;
+    padding: 6px 12px;
+    background: #eff6ff;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    margin-top: 8px;
+    
+    svg {
+        stroke: currentColor;
+        transition: transform 0.2s ease;
+    }
+    
+    &:hover {
+        background: #3b82f6;
+        color: white;
+        
+        svg {
+            transform: translateX(3px);
+        }
+    }
+}

@@ -1,0 +1,40 @@
+.quote {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border-radius: 30px;
+    padding: 60px 40px;
+    margin: 40px 0 80px;
+    text-align: center;
+    
+    @media (max-width: 768px) {
+        padding: 40px 24px;
+        margin: 40px 0 60px;
+    }
+}
+
+.quoteContent {
+    max-width: 700px;
+    margin: 0 auto;
+    
+    svg {
+        color: #22c55e;
+        margin-bottom: 20px;
+    }
+    
+    blockquote {
+        font-size: 24px;
+        font-weight: 500;
+        color: #0f172a;
+        line-height: 1.4;
+        margin: 0 0 16px 0;
+        
+        @media (max-width: 768px) {
+            font-size: 20px;
+        }
+    }
+    
+    cite {
+        font-size: 14px;
+        color: #64748b;
+        font-style: normal;
+    }
+}

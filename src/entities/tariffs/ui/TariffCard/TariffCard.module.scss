@@ -1,0 +1,140 @@
+.tariffCard {
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+    
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.1);
+        border-color: #cbd5e1;
+    }
+}
+
+.cardHeader {
+    padding: 24px;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    
+    h3 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #0f172a;
+        margin: 0;
+        
+        @media (max-width: 480px) {
+            font-size: 18px;
+        }
+    }
+}
+
+.cardIcon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    svg {
+        stroke: #22c55e;
+    }
+}
+
+.tariffBody {
+    padding: 24px;
+}
+
+.priceRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px dashed #e2e8f0;
+    
+    &:last-of-type {
+        border-bottom: none;
+    }
+}
+
+.priceLabel {
+    font-size: 15px;
+    color: #64748b;
+}
+
+.priceValue {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0f172a;
+    
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+}
+
+.priceTotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0 12px;
+    margin-top: 8px;
+    border-top: 2px solid #22c55e;
+    background: #f0fdf4;
+    margin: 12px -24px -24px;
+    padding: 16px 24px;
+    
+    .totalLabel {
+        font-size: 16px;
+        font-weight: 600;
+        color: #0f172a;
+    }
+    
+    .totalValue {
+        font-size: 24px;
+        font-weight: 800;
+        color: #22c55e;
+        
+        @media (max-width: 480px) {
+            font-size: 20px;
+        }
+    }
+}
+
+.tariffNote {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 12px;
+    
+    svg {
+        flex-shrink: 0;
+        stroke: #94a3b8;
+    }
+    
+    span {
+        font-size: 12px;
+        color: #64748b;
+        line-height: 1.4;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

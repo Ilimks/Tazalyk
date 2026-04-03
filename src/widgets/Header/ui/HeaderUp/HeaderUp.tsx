@@ -1,3 +1,4 @@
+"use client";
 import styles from "./HeaderUp.module.scss";
 import mobile from "./HeaderUpMobile.module.scss";
 import Link from "next/link";
@@ -5,8 +6,14 @@ import Image from "next/image";
 import { HeaderIcons } from "../HeaderIcons/HeaderIcons";
 import { HeaderInputSearch } from "../HeaderInputSearch/HeaderInputSearch";
 import { Language } from "@/widgets/language/Language";
+import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
+import { useBurger } from "../../model/useBurger";
+import { MobileMenu } from "../MobileMenu/MobileMenu";
 
 export const HeaderUp: React.FC = () => {
+
+    const { isOpen, toggle, close } = useBurger();
+
     return (
         <div className={`${styles.header__up} ${mobile.header__up}`}>
             <div className={`${styles.header__up__left} ${mobile.header__up__left}`}>
@@ -31,11 +38,15 @@ export const HeaderUp: React.FC = () => {
                 <p className={`${styles.header__up__tex2} ${mobile.header__up__text2}`}>Добро пожаловать на наш портал</p>
             </div>
 
+
             <div className={`${styles.header__up__right} ${mobile.header__up__right}`}>
                 <HeaderInputSearch/>
                 <HeaderIcons/>
                 <Language/>
+                <BurgerMenu isOpen={isOpen} onClick={toggle} />
             </div>
+
+            <MobileMenu isOpen={isOpen} onClose={close} />
         </div>
     )
 }

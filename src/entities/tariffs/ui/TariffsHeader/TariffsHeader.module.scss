@@ -1,0 +1,64 @@
+.pageHeader {
+    text-align: left;
+    margin-bottom: 48px;
+    
+    @media (max-width: 768px) {
+        margin-bottom: 32px;
+    }
+}
+
+.pageTitleWrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.pageTitle {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+    letter-spacing: -0.02em;
+    
+    @media (max-width: 768px) {
+        font-size: 32px;
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 28px;
+    }
+}
+
+.pageDescription {
+    max-width: 700px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #64748b;
+    margin: 0 0 12px 0;
+    
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+}
+
+.documentInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #fef9e3;
+    border-radius: 12px;
+    border-left: 4px solid #f59e0b;
+    max-width: 600px;
+    
+    svg {
+        flex-shrink: 0;
+        stroke: #f59e0b;
+    }
+    
+    span {
+        font-size: 13px;
+        color: #92400e;
+        line-height: 1.4;
+    }
+}

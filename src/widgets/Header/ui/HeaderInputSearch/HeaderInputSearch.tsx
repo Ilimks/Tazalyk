@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export const HeaderInputSearch: React.FC = () => {
     return (
-        <div className={`${styles.header__search} ${styles.header__search}`}>
+        <div className={`${styles.header__search} ${mobile.header__search}`}>
             <input type="text" placeholder="Найти на сайте" />
             <Image
                 className={styles.icon}
@@ -14,8 +14,6 @@ export const HeaderInputSearch: React.FC = () => {
                 height={16}
                 priority
             />
-
-            
         </div>
 
     )

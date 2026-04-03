@@ -1,0 +1,29 @@
+@media (max-width: 1000px) {
+    .directorCard {
+        min-width: 280px;
+        
+        &__position {
+            font-size: 18px;
+        }
+        
+        &__name {
+            font-size: 18px;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .directorCard {
+        gap: 10px;
+        padding: 15px;
+        
+        &__position {
+            font-size: 16px;
+        }
+        
+        &__name {
+            font-size: 16px;
+            width: 220px;
+        }
+    }
+}

@@ -9,10 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "next": "16.1.1",
+    "ldrs": "^1.1.9",
+    "next": "15.2.4",
     "next-intl": "^4.7.0",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "sass": "^1.97.1"
   },
   "devDependencies": {
@@ -20,7 +21,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.1.1",
+    "eslint-config-next": "15.2.4",
     "typescript": "^5"
   }
 }

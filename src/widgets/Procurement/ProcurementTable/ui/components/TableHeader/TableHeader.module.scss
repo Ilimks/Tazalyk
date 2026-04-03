@@ -1,0 +1,54 @@
+// widgets/procurement/ProcurementTable/ui/components/TableHeader/TableHeader.module.scss
+.tableHeader {
+    padding: 20px 24px 0 24px;
+    background: transparent;
+    
+    @media (max-width: 480px) {
+        padding: 12px 16px 0 16px;
+    }
+}
+
+.tableTitleWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tableTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+    
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+}
+
+.tableCount {
+    font-size: 14px;
+    font-weight: 500;
+    color: #3b82f6;
+    background: #eff6ff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    
+    @media (max-width: 480px) {
+        font-size: 11px;
+        padding: 2px 8px;
+    }
+}
+
+@media print {
+    .tableHeader {
+        padding: 0;
+    }
+    
+    .tableTitleWrapper {
+        border-bottom: 1px solid #000;
+    }
+}

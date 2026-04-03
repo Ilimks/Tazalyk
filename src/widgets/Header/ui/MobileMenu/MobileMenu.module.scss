@@ -1,0 +1,42 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 99;
+}
+
+.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.menu {
+  position: fixed;
+  top: 70px;
+  right: -100%;
+  width: 280px;
+  height: 100vh;
+  background: #102382;
+  padding: 80px 24px;
+  transition: right 0.3s ease;
+  z-index: 100;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+  }
+
+  a {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+.open {
+  right: 0;
+}

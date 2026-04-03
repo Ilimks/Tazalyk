@@ -1,0 +1,16 @@
+@media (max-width: 600px) {
+    .footer__bottom {
+        flex-direction: column;
+        justify-content: none;
+        align-items: center;
+        gap: 20px;
+    
+        .footer__bottom__text {
+            text-align: center;
+        }
+    
+        .footer__bottom__icons {
+            column-gap: 12px;
+        }
+    }
+}

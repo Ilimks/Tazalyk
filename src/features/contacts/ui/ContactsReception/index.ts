@@ -1,0 +1,1 @@
+export { ContactsReception } from './ContactsReception';

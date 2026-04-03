@@ -1,0 +1,1 @@
+export { ProcurementTable } from './ui/ProcurementTable';
