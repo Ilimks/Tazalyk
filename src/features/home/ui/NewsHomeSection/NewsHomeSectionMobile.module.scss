@@ -1,0 +1,12 @@
+@media (max-width: 600px) {
+  .newsHome {
+    margin: 10px 0 10px;
+    padding: 20px 0;
+
+    &__box {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+}

@@ -14,18 +14,23 @@
     .newsHomeUp {
     
         .newsHomeUp__items {
-            gap: 14px;
+            gap: 8px;
     
             .newsHomeUp__name {
-                font-size: 22px;
+                font-size: 18px;
+            }
+
+            .newsHomeUp__line {
+                width: 66px;
+                height: 2px;
             }
         }
 
         .newsHomeUp__btn {
-            width: 120px;
-            height: 40px;
-            border-radius: 20px;
-            font-size: 14px;
+            width: 100px;
+            height: 30px;
+            border-radius: 15px;
+            font-size: 12px;
         }
     }
 }
@@ -34,22 +39,15 @@
     .newsHomeUp {
     
         .newsHomeUp__items {
-            gap: 12px;
+            gap: 6px;
     
             .newsHomeUp__name {
-                font-size: 20px;
+                font-size: 16px;
             }
     
             .newsHomeUp__line {
                 width: 66px;
             }
-        }
-
-        .newsHomeUp__btn {
-            width: 118px;
-            height: 38px;
-            border-radius: 19px;
-            font-size: 12px;
         }
     }
 }

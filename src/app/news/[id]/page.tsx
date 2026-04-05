@@ -1,15 +1,17 @@
-import { NewsDetailPage } from "@/features/news/ui/NewsDetailPage/NewsDetailPage"; 
+import { NewsDetailPage } from "@/features/news/ui/NewsDetailPage/NewsDetailPage";
 
 interface NewsDetailProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function NewsDetail({ params }: NewsDetailProps) {
+export default async function NewsDetail({ params }: NewsDetailProps) {
+  const { id } = await params;
+  
   return (
     <main>
-      <NewsDetailPage id={params.id} />
+      <NewsDetailPage id={id} />
     </main>
   );
 }

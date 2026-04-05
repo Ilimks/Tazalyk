@@ -43,19 +43,22 @@ export const headerMenu = [
 
 export const socialIcons = [
   {
-    src: "/assets/icons/inst.svg",
-    alt: "Instagram",
-    key: "inst",
-  },
-  {
+    key: "facebook",
     src: "/assets/icons/facebook.svg",
     alt: "Facebook",
-    key: "facebook",
+    link: "https://facebook.com" // Добавьте ссылку
   },
   {
+    key: "youtube", 
     src: "/assets/icons/youtube.svg",
-    alt: "Youtube",
-    key: "youtube",
+    alt: "YouTube",
+    link: "https://youtube.com" // Добавьте ссылку
+  },
+  {
+    key: "instagram",
+    src: "/assets/icons/inst.svg",
+    alt: "Instagram", 
+    link: "https://instagram.com" // Добавьте ссылку
   }
 ];
 

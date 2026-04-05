@@ -1,0 +1,1 @@
+export { HeaderInputSearch } from "./Search";

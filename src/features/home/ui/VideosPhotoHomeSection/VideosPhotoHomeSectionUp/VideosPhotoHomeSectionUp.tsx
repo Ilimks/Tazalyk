@@ -2,8 +2,12 @@
 import { Button } from "@/shared/ui/Button";
 import styles from "./VideosPhotoHomeSectionUp.module.scss";
 import mobile from "./VideosPhotoHomeSectionUpMobile.module.scss";
+import { useRouter } from "next/navigation";
 
 export const VideosPhotoHomeSectionUp: React.FC = () => {
+
+  const router = useRouter();
+
   return (
     <div className={`${styles.videoGalleryUp} ${mobile.videoGalleryUp}`}>
       <div
@@ -18,7 +22,7 @@ export const VideosPhotoHomeSectionUp: React.FC = () => {
       </div>
       <Button
         className={`${styles.videoGalleryUp__btn} ${mobile.videoGalleryUp__btn}`}
-        onClick={() => alert("Все видео")}
+        onClick={() => router.push('/media')}
       >
         Все видео и фото
       </Button>

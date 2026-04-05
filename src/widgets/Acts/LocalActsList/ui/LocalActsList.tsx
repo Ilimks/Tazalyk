@@ -9,8 +9,8 @@ import { DocumentGrid } from './components/DocumentGrid/DocumentGrid';
 import { DocumentModal } from './components/DocumentModal/DocumentModal';
 import { LoadingState } from './components/LoadingState/LoadingState';
 import { ErrorState } from './components/ErrorState/ErrorState';
-import styles from './LocalActsList.module.scss';
-import mobile from './LocalActsListMobile.module.scss';
+import styles from './LocalActsPage.module.scss';
+import mobile from './LocalActsPageMobile.module.scss';
 
 export const LocalActsList: React.FC = () => {
     const { documents, loading, error, refetch } = useLocalActs();

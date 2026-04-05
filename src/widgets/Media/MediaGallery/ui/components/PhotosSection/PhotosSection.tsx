@@ -1,6 +1,6 @@
 import React from 'react';
 import { Photo } from '../../../../../../entities/media/model/types';
-import { PhotoCard } from '../../../../../../entities/media/ui/PhotoCard/PhotoCard';
+import { PhotoCard } from '@/widgets/PhotoCard/ui/PhotoCard';
 import { EmptyState } from '@/shared/ui/EmptyState';
 import styles from './PhotosSection.module.scss';
 
@@ -29,7 +29,7 @@ export const PhotosSection: React.FC<PhotosSectionProps> = ({ photos, onPhotoCli
     return (
         <div className={styles.photosGrid}>
             {photos.map((photo) => (
-                <PhotoCard key={photo.id} photo={photo} onClick={() => onPhotoClick(photo)} />
+                <PhotoCard key={photo.id} photo={photo} />
             ))}
         </div>
     );

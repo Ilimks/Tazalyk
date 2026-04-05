@@ -62,9 +62,6 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
                     <div className={`${styles.card__playIcon} ${mobile.card__playIcon}`}>
                         <span>▶</span>
                     </div>
-                    <span className={`${styles.card__duration} ${mobile.card__duration}`}>
-                        {formatDuration(video.main_video_url)}
-                    </span>
                     {video.gallery_videos?.length > 0 && (
                         <span className={styles.card__galleryCount}>
                             🎬 {video.gallery_videos.length + 1}

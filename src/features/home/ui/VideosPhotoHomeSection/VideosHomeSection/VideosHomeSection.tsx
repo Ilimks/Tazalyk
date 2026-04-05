@@ -4,6 +4,7 @@ import { VideoCard } from '@/widgets/VideosCard/ui/VideosCard';
 import styles from './VideosHomeSection.module.scss';
 import mobile from './VideosHomeSectionMobile.module.scss';
 import { api } from '@/shared/api/api';
+import { Loading } from '@/shared/ui/Loading';
 
 interface Video {
     id: string;
@@ -57,7 +58,7 @@ export const VideosHomeSection: React.FC = () => {
         return (
             <div className={`${styles.videosHome} ${mobile.videosHome}`}>
                 <div className={styles.loaderContainer}>
-                    <div className={styles.loader}></div>
+                    <Loading/>
                     <p>Загрузка видео...</p>
                 </div>
             </div>

@@ -5,16 +5,16 @@ import styles from "./NewsCard.module.scss";
 import mobile from "./NewsCardMobile.module.scss";
 import Image from "next/image";
 import { ButtonCardNews } from "@/shared/ui/ButtonCardNews";
-import { useState } from "react";
-import { useRouter } from "next/navigation"; // Добавьте этот импорт
+import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 
 interface NewsCardProps {
   news: News;
-  variant?: "compact" | "detailed";
+  variant?: "compact"; // сделали опциональным
 }
 
 export const NewsCard = ({ news, variant = "compact" }: NewsCardProps) => {
-  const router = useRouter(); // Добавьте эту строку
+  const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
 
   if (!news) {
@@ -25,11 +25,24 @@ export const NewsCard = ({ news, variant = "compact" }: NewsCardProps) => {
   const displayDate = news.date || news.created_at;
   const imageUrl = news.image || "/assets/images/placeholder-news.jpg";
 
+  // Функция для обрезания текста
+  const truncateText = (text: string, maxLength: number = 120) => {
+    if (!text) return '';
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
+  };
+
+  // Мемоизируем обрезанное описание для оптимизации
+  const truncatedDescription = useMemo(() => {
+    return truncateText(news.description, 90);
+  }, [news.description]);
+
   return (
     <article 
       className={`${styles.card} ${mobile.card}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => router.push(`/news/${news.id}`)}
     >
       <div className={`${styles.card__imageContainer} ${mobile.card__imageContainer}`}>
         <Image 
@@ -47,12 +60,12 @@ export const NewsCard = ({ news, variant = "compact" }: NewsCardProps) => {
         <h3 className={`${styles.card__content__title} ${mobile.card__content__title} ${isHovered ? styles.card__content__titleHovered : ''}`}>
           {news.title}
         </h3>
-        {variant === "detailed" && (
-          <p className={styles.description}>{news.description}</p>
-        )}
+        <p className={`${styles.card__content__description} ${mobile.card__content__description}`}>
+          {truncatedDescription}
+        </p>
         <ButtonCardNews
           className={`${styles.card__content__btn} ${mobile.card__content__btn} ${isHovered ? styles.card__content__btnHovered : ''}`}
-          onClick={() => router.push(`/news/${news.id}`)} // Используем router.push
+          onClick={() => router.push(`/news/${news.id}`)}
         >
           Подробнее
         </ButtonCardNews>

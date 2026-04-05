@@ -15,7 +15,7 @@ export const footerNav: FooterSection[] = [
       { label: "История" },
       { label: "Руководство" },
       { label: "Вакансии" },
-      { label: "Отчетность" },
+      { label: "Итоги работы" },
     ],
   },
   {

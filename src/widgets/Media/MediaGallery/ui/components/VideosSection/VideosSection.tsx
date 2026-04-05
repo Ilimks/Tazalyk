@@ -1,6 +1,6 @@
 import React from 'react';
 import { Video } from '../../../../../../entities/media/model/types';
-import { VideoCard } from '../../../../../../entities/media/ui/VideoCard/VideoCard';
+import { VideoCard } from '@/widgets/VideosCard/ui/VideosCard';
 import { EmptyState } from '@/shared/ui/EmptyState';
 import styles from './VideosSection.module.scss';
 
@@ -28,7 +28,7 @@ export const VideosSection: React.FC<VideosSectionProps> = ({ videos, onVideoCli
     return (
         <div className={styles.videosGrid}>
             {videos.map((video) => (
-                <VideoCard key={video.id} video={video} onClick={() => onVideoClick(video)} />
+                <VideoCard key={video.id} video={video}/>
             ))}
         </div>
     );

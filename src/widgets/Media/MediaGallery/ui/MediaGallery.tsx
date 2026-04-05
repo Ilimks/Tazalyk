@@ -9,8 +9,8 @@ import { ErrorState } from './components/ErrorState/ErrorState';
 import { PhotoModal } from '@/features/media/modal/PhotoModal';
 import { VideoModal } from '@/features/media/modal/VideoModal';
 import { Photo, Video, MediaType } from '@/entities/media/model/types';
-import { PhotoCard } from '@/entities/media/ui/PhotoCard';
-import { VideoCard } from '@/entities/media/ui/VideoCard';
+import { PhotoCard } from '@/widgets/PhotoCard/ui/PhotoCard';
+import { VideoCard } from '@/widgets/VideosCard/ui/VideosCard';
 import styles from './MediaGallery.module.scss';
 import mobile from './MediaGalleryMobile.module.scss';
 
@@ -79,7 +79,6 @@ export const MediaGallery: React.FC = () => {
                             <PhotoCard 
                                 key={photo.id} 
                                 photo={photo} 
-                                onClick={() => setSelectedPhoto(photo)}
                             />
                         ))}
                     </div>
@@ -99,8 +98,7 @@ export const MediaGallery: React.FC = () => {
                         {(currentItemsOnPage as Video[]).map((video) => (
                             <VideoCard 
                                 key={video.id} 
-                                video={video} 
-                                onClick={() => setSelectedVideo(video)}
+                                video={video}
                             />
                         ))}
                     </div>

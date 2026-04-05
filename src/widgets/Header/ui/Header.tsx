@@ -1,11 +1,7 @@
-import Link from "next/link";
 import styles from "./Header.module.scss";
 import mobile from "./HeaderMobile.module.scss";
-import Image from "next/image";
-import { Language } from "@/widgets/language/Language";
-import { HeaderBottomNav } from "./HeaderBottomNav/HeaderBottomNav";
-import { HeaderIcons } from "./HeaderIcons/HeaderIcons";
-import { HeaderUp } from "./HeaderUp/HeaderUp";
+import { HeaderBottomNav } from "./HeaderBottomNav";
+import { HeaderUp } from "./HeaderUp";
 
 export const Header: React.FC = () => {
 

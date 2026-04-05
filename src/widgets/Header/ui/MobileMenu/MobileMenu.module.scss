@@ -1,7 +1,8 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -15,28 +16,299 @@
 
 .menu {
   position: fixed;
-  top: 70px;
+  top: 0;
   right: -100%;
-  width: 280px;
+  width: 320px;
+  max-width: 400px;
   height: 100vh;
-  background: #102382;
-  padding: 80px 24px;
-  transition: right 0.3s ease;
+  background: linear-gradient(135deg, #162A45 0%, #1a3a5c 100%);
+  padding: 20px 24px 40px;
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
   z-index: 100;
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
 
-  ul {
-    display: flex;
-    flex-direction: column;
-    row-gap: 24px;
+  &::-webkit-scrollbar {
+    width: 4px;
   }
 
-  a {
-    color: #fff;
-    font-size: 18px;
-    font-weight: 500;
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
   }
 }
 
 .open {
   right: 0;
+}
+
+// Верхняя панель с логотипом и кнопкой закрытия
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.logoIcon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  svg {
+    stroke: white;
+    width: 35px;
+    height: 35px;
+  }
+}
+
+// Красивый поисковик
+.searchWrapper {
+  margin-bottom: 32px;
+}
+
+.searchContainer {
+  position: relative;
+  width: 100%;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 14px 48px 14px 18px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  font-size: 15px;
+  color: white;
+  outline: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+  }
+}
+
+.searchButton {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  svg {
+    stroke: rgba(255, 255, 255, 0.8);
+    transition: stroke 0.2s ease;
+  }
+
+  &:hover svg {
+    stroke: white;
+  }
+}
+
+.menuList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menuItem {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menuLink {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 14px 0;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #22c55e, transparent);
+    transition: width 0.3s ease;
+  }
+
+  &:hover {
+    opacity: 0.9;
+    padding-left: 8px;
+    
+    &::before {
+      width: 30px;
+    }
+  }
+
+  span {
+    flex: 1;
+  }
+}
+
+.hasSubmenu {
+  margin-bottom: 0;
+}
+
+.submenuTrigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 14px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+    padding-left: 8px;
+  }
+}
+
+.triggerText {
+  flex: 1;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+  
+  &.rotated {
+    transform: rotate(180deg);
+  }
+}
+
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding-left: 16px;
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  margin-left: 8px;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.submenuOpen {
+  max-height: 400px;
+  margin-bottom: 12px;
+}
+
+.submenuItem {
+  margin: 0;
+  padding: 0;
+}
+
+.submenuLink {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  display: block;
+  padding: 10px 0 10px 8px;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+
+  &:hover {
+    opacity: 1;
+    padding-left: 16px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.socialFooter {
+  margin-top: 0;
+  padding-top: 20px;
+  margin-bottom: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  
+  // Переопределяем стили для иконок в мобильном меню
+  :global {
+    .header__up__box__icons {
+      display: flex;
+      justify-content: flex-start;
+      gap: 16px;
+    }
+    
+    .header__up__icons {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+      }
+    }
+  }
 }
