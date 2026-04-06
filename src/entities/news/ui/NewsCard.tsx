@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 interface NewsCardProps {
   news: News;
-  variant?: "compact"; // сделали опциональным
+  variant?: "compact"; 
 }
 
 export const NewsCard = ({ news, variant = "compact" }: NewsCardProps) => {
@@ -37,6 +37,11 @@ export const NewsCard = ({ news, variant = "compact" }: NewsCardProps) => {
     return truncateText(news.description, 90);
   }, [news.description]);
 
+  // Мемоизируем обрезанный заголовок
+  const truncatedTitle = useMemo(() => {
+    return truncateText(news.title, 45);
+  }, [news.title]);
+
   return (
     <article 
       className={`${styles.card} ${mobile.card}`}
@@ -58,7 +63,7 @@ export const NewsCard = ({ news, variant = "compact" }: NewsCardProps) => {
           {formatDate(displayDate)}
         </time>
         <h3 className={`${styles.card__content__title} ${mobile.card__content__title} ${isHovered ? styles.card__content__titleHovered : ''}`}>
-          {news.title}
+          {truncatedTitle}
         </h3>
         <p className={`${styles.card__content__description} ${mobile.card__content__description}`}>
           {truncatedDescription}

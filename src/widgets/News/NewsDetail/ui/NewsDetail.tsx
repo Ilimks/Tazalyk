@@ -6,6 +6,7 @@ import { formatDate } from '@/shared/lib/utils/formatDate';
 import { useNewsDetail } from '../model/useNewsDetail';
 import styles from './NewsDetail.module.scss';
 import mobile from './NewsDetailMobile.module.scss';
+import { Loading } from '@/shared/ui/Loading';
 
 interface NewsDetailProps {
     id: string;
@@ -20,7 +21,7 @@ export const NewsDetail: React.FC<NewsDetailProps> = ({ id }) => {
             <div className={`${styles.newsDetail} ${mobile.newsDetail}`}>
                 <div className="container">
                     <div className={styles.loaderContainer}>
-                        <div className={styles.loader}></div>
+                        <Loading/>
                         <p>Загрузка новости...</p>
                     </div>
                 </div>
