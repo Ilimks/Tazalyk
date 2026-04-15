@@ -1,0 +1,32 @@
+{
+    "Header": {
+        "header__logo": "Муниципалдык ишкана",
+        "header__text1": "Бүгүн жакшы күн!",
+        "header__text2": "Биздин порталга кош келиңиз",
+        "header__search": "Сайттан издөө"
+    },
+    
+    "HeaderMenu": {
+        "home": "БАШКЫ БЕТ",
+        "about": "БИЗ ЖӨНҮНДӨ",
+        "aboutHistory": "Тарыхы",
+        "aboutDirectorate": "Жетекчилик",
+        "aboutStructure": "Түзүм жана ишмердүүлүк",
+        "aboutServiceZone": "Кызмат көрсөтүү аймагы",
+        "aboutResults": "Иштин жыйынтыктары",
+        "aboutVacancies": "Бош орундар",
+        "subscribers": "АБОНЕНТТЕРГЕ",
+        "subscribersTariffs": "Тарифтер",
+        "pressCenter": "ПРЕСС-БОРБОР",
+        "pressCenterNews": "Жаңылыктар",
+        "pressCenterMedia": "Медиа",
+        "procurement": "САТЫП АЛУУЛАР",
+        "services": "КЫЗМАТТАР",
+        "servicesMaterial": "Материалдык каражаттар",
+        "servicesTransport": "Транспорттук кызматтар",
+        "regulatoryFramework": "НОРМАТИВДИК БАЗА",
+        "regulatoryFrameworkLegislation": "КР Мыйзамдары",
+        "regulatoryFrameworkActs": "Жергиликтүү актылар",
+        "contacts": "БАЙЛАНЫШТАР"
+    }
+}

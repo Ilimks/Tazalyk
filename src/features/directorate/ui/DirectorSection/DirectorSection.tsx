@@ -17,7 +17,7 @@ export const DirectorSection: React.FC<DirectorSectionProps> = ({
     bio 
 }) => {
     return (
-        <div className={`${styles.directorSection} ${mobile.directorSection}`}>
+        <section className={`${styles.directorSection} ${mobile.directorSection}`}>
             <div className={styles.directorSection__left}>
                 <DirectorCard 
                     name={name}
@@ -28,6 +28,6 @@ export const DirectorSection: React.FC<DirectorSectionProps> = ({
             <div className={styles.directorSection__right}>
                 <DirectorBio bio={bio} />
             </div>
-        </div>
+        </section>
     )
 }

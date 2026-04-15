@@ -1,6 +1,6 @@
 import styles from "./HeaderIcons.module.scss"
 import mobile from "./HeaderIconsMobile.module.scss"
-import { socialIcons } from "../../model/headerMenu";
+import { socialIcons } from "@/widgets/Header/model/headerMenu";
 import Image from "next/image";
 
 export const HeaderIcons: React.FC = () => {

@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from 'next-intl';
 import styles from "./MobileMenu.module.scss";
 import { useMobileMenu } from "../../hooks/useMobileMenu";
-import { MobileSearch } from "@/widgets/Header/ui/MobileSearch";
+import { MobileSearch } from "../MobileSearch";
 import { MobileHeaderIcons } from "../MobileHeaderIcons";
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
 
 export const MobileMenu = ({ isOpen, onClose }: Props) => {
   const { openSubmenu, toggleSubmenu } = useMobileMenu(isOpen, onClose);
+  const t = useTranslations("HeaderMenu");
 
   const handleSearch = (query: string) => {
     console.log("Searching for:", query);
@@ -26,7 +28,6 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
       />
 
       <nav className={`${styles.menu} ${isOpen ? styles.open : ""}`}>
-        {/* Верхняя панель с логотипом и кнопкой закрытия */}
         <div className={styles.topBar}>
           <div className={styles.logoIcon}>
             <Image
@@ -56,13 +57,12 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
           </button>
         </div>
 
-        {/* Поиск */}
         <MobileSearch onSearch={handleSearch} />
 
         <ul className={styles.menuList}>
           <li className={styles.menuItem}>
             <Link href="/" onClick={onClose} className={styles.menuLink}>
-              <span>Главная</span>
+              <span>{t('home')}</span>
             </Link>
           </li>
 
@@ -71,7 +71,7 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
               className={styles.submenuTrigger}
               onClick={() => toggleSubmenu("about")}
             >
-              <span className={styles.triggerText}>О нас</span>
+              <span className={styles.triggerText}>{t('about')}</span>
               <svg 
                 width="16" 
                 height="16" 
@@ -84,22 +84,22 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
             </div>
             <ul className={`${styles.submenu} ${openSubmenu === "about" ? styles.submenuOpen : ""}`}>
               <li className={styles.submenuItem}>
-                <Link href="/history" onClick={onClose} className={styles.submenuLink}>История</Link>
+                <Link href="/history" onClick={onClose} className={styles.submenuLink}>{t('aboutHistory')}</Link>
               </li>
               <li className={styles.submenuItem}>
-                <Link href="/directorate" onClick={onClose} className={styles.submenuLink}>Руководство</Link>
+                <Link href="/directorate" onClick={onClose} className={styles.submenuLink}>{t('aboutDirectorate')}</Link>
               </li>
               <li className={styles.submenuItem}>
-                <Link href="/structure" onClick={onClose} className={styles.submenuLink}>Структура и деятельность</Link>
+                <Link href="/structure" onClick={onClose} className={styles.submenuLink}>{t('aboutStructure')}</Link>
               </li>
               <li className={styles.submenuItem}>
-                <Link href="/service-zone" onClick={onClose} className={styles.submenuLink}>Зона обслуживания</Link>
+                <Link href="/service-zone" onClick={onClose} className={styles.submenuLink}>{t('aboutServiceZone')}</Link>
               </li>
               <li className={styles.submenuItem}>
-                <Link href="/results" onClick={onClose} className={styles.submenuLink}>Итоги работы</Link>
+                <Link href="/results" onClick={onClose} className={styles.submenuLink}>{t('aboutResults')}</Link>
               </li>
               <li className={styles.submenuItem}>
-                <Link href="/vacancies" onClick={onClose} className={styles.submenuLink}>Вакансии</Link>
+                <Link href="/vacancies" onClick={onClose} className={styles.submenuLink}>{t('aboutVacancies')}</Link>
               </li>
             </ul>
           </li>
@@ -109,7 +109,7 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
               className={styles.submenuTrigger}
               onClick={() => toggleSubmenu("abonents")}
             >
-              <span className={styles.triggerText}>Абонентам</span>
+              <span className={styles.triggerText}>{t('subscribers')}</span>
               <svg 
                 width="16" 
                 height="16" 
@@ -122,7 +122,7 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
             </div>
             <ul className={`${styles.submenu} ${openSubmenu === "abonents" ? styles.submenuOpen : ""}`}>
               <li className={styles.submenuItem}>
-                <Link href="/tariffs" onClick={onClose} className={styles.submenuLink}>Тарифы</Link>
+                <Link href="/tariffs" onClick={onClose} className={styles.submenuLink}>{t('subscribersTariffs')}</Link>
               </li>
             </ul>
           </li>
@@ -132,7 +132,7 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
               className={styles.submenuTrigger}
               onClick={() => toggleSubmenu("press")}
             >
-              <span className={styles.triggerText}>Пресс-центр</span>
+              <span className={styles.triggerText}>{t('pressCenter')}</span>
               <svg 
                 width="16" 
                 height="16" 
@@ -145,17 +145,17 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
             </div>
             <ul className={`${styles.submenu} ${openSubmenu === "press" ? styles.submenuOpen : ""}`}>
               <li className={styles.submenuItem}>
-                <Link href="/news" onClick={onClose} className={styles.submenuLink}>Новости</Link>
+                <Link href="/news" onClick={onClose} className={styles.submenuLink}>{t('pressCenterNews')}</Link>
               </li>
               <li className={styles.submenuItem}>
-                <Link href="/media" onClick={onClose} className={styles.submenuLink}>Медиа</Link>
+                <Link href="/media" onClick={onClose} className={styles.submenuLink}>{t('pressCenterMedia')}</Link>
               </li>
             </ul>
           </li>
 
           <li className={styles.menuItem}>
             <Link href="/procurement" onClick={onClose} className={styles.menuLink}>
-              <span>Закупки</span>
+              <span>{t('procurement')}</span>
             </Link>
           </li>
 
@@ -164,7 +164,7 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
               className={styles.submenuTrigger}
               onClick={() => toggleSubmenu("legal")}
             >
-              <span className={styles.triggerText}>Нормативная база</span>
+              <span className={styles.triggerText}>{t('regulatoryFramework')}</span>
               <svg 
                 width="16" 
                 height="16" 
@@ -177,22 +177,21 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
             </div>
             <ul className={`${styles.submenu} ${openSubmenu === "legal" ? styles.submenuOpen : ""}`}>
               <li className={styles.submenuItem}>
-                <Link href="/legislation" onClick={onClose} className={styles.submenuLink}>Законодательство КР</Link>
+                <Link href="/legislation" onClick={onClose} className={styles.submenuLink}>{t('regulatoryFrameworkLegislation')}</Link>
               </li>
               <li className={styles.submenuItem}>
-                <Link href="/local-acts" onClick={onClose} className={styles.submenuLink}>Локальные акты</Link>
+                <Link href="/acts" onClick={onClose} className={styles.submenuLink}>{t('regulatoryFrameworkActs')}</Link>
               </li>
             </ul>
           </li>
 
           <li className={styles.menuItem}>
             <Link href="/contacts" onClick={onClose} className={styles.menuLink}>
-              <span>Контакты</span>
+              <span>{t('contacts')}</span>
             </Link>
           </li>
         </ul>
 
-        {/* Социальные сети */}
         <div className={styles.socialFooter}>
           <MobileHeaderIcons />
         </div>

@@ -1,8 +1,8 @@
 .serviceZone {
-    padding: 60px 0;
+    padding: 0 0 60px;
     background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
     
     @media (max-width: 768px) {
-        padding: 40px 0;
+        padding: 0 0 30px;
     }
 }

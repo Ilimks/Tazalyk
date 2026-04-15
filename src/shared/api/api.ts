@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 export const api = {
     // Аутентификация
@@ -140,37 +140,6 @@ export const api = {
     
     deleteProcurement: async (id: string) => {
         const response = await fetch(`${API_BASE_URL}/procurements/${id}/`, {
-            method: 'DELETE'
-        });
-        return response.json();
-    },
-
-    // Вакансии
-    getVacancies: async () => {
-        const response = await fetch(`${API_BASE_URL}/vacancies/`);
-        return response.json();
-    },
-    
-    createVacancy: async (vacancy: any) => {
-        const response = await fetch(`${API_BASE_URL}/vacancies/`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(vacancy)
-        });
-        return response.json();
-    },
-    
-    updateVacancy: async (id: string, vacancy: any) => {
-        const response = await fetch(`${API_BASE_URL}/vacancies/${id}/`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(vacancy)
-        });
-        return response.json();
-    },
-    
-    deleteVacancy: async (id: string) => {
-        const response = await fetch(`${API_BASE_URL}/vacancies/${id}/`, {
             method: 'DELETE'
         });
         return response.json();

@@ -3,10 +3,10 @@ import Link from "next/link";
 import styles from "./HeaderBottomNav.module.scss";
 import mobile from "./HeaderBottomNavMobile.module.scss";
 import { useState } from "react";
-import { headerMenu } from "../../model/headerMenu";
+import { useHeaderMenu } from "@/widgets/Header/model/headerMenu";
 
 export const HeaderBottomNav: React.FC = () => {
-
+    const headerMenu = useHeaderMenu();
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     return (
@@ -49,5 +49,5 @@ export const HeaderBottomNav: React.FC = () => {
             </nav>
           </div>
         </div>
-    )
-}
+    );
+};

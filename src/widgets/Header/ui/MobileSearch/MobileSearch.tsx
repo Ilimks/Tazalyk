@@ -2,7 +2,7 @@ import styles from "./MobileSearch.module.scss";
 import mobile from "./MobileSearchMobile.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearch } from "../../hooks/useSearch";
+import { useSearch } from "@/widgets/Header/hooks/useSearch";
 
 interface MobileSearchProps {
   onSearch?: (query: string) => void;

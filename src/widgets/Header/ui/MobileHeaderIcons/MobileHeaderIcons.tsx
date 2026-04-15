@@ -2,7 +2,7 @@
 "use client";
 import styles from "./MobileHeaderIcons.module.scss";
 import Image from "next/image";
-import { socialIcons } from "../../model/headerMenu";
+import { socialIcons } from "@/widgets/Header/model/headerMenu";
 
 interface SocialIcon {
   key: string;

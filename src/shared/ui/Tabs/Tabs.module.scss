@@ -24,12 +24,12 @@
     }
 
     &:hover {
-        color: #3b82f6;
+        color: #22c55e;
     }
 }
 
 .tabActive {
-    color: #3b82f6;
+    color: #22c55e;
 
     &::after {
         content: '';
@@ -38,7 +38,7 @@
         left: 0;
         right: 0;
         height: 2px;
-        background: #3b82f6;
+        background: #22c55e;
     }
 }
 
@@ -52,7 +52,7 @@
 
     .tabActive & {
         background: #eff6ff;
-        color: #3b82f6;
+        color: #22c55e;
     }
 }
 

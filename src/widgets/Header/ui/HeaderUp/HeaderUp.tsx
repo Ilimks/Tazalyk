@@ -9,8 +9,10 @@ import { Language } from "@/shared/ui/language/Language";
 import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
 import { useBurger } from "../../model/useBurger";
 import { MobileMenu } from "../MobileMenu/MobileMenu";
+import { useTranslations } from 'next-intl';
 
 export const HeaderUp: React.FC = () => {
+  const t = useTranslations("Header");
   const { isOpen, toggle, close } = useBurger();
 
   return (
@@ -37,7 +39,7 @@ export const HeaderUp: React.FC = () => {
           <p
             className={`${styles.header__up__logoName2} ${mobile.header__up__logoName2}`}
           >
-            Муниципальное предприятие
+            {t('header__logo')}
           </p>
         </div>
       </div>
@@ -46,10 +48,10 @@ export const HeaderUp: React.FC = () => {
         className={`${styles.header__up__center} ${mobile.header__up__center}`}
       >
         <p className={`${styles.header__up__tex1} ${mobile.header__up__text1}`}>
-          Сегодня хороший день!
+          {t('header__text1')}
         </p>
         <p className={`${styles.header__up__tex2} ${mobile.header__up__text2}`}>
-          Добро пожаловать на наш портал
+          {t('header__text2')}
         </p>
       </div>
 

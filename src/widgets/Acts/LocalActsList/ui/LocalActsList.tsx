@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { ActsHeader } from '@/shared/ui/acts/ActsHeader';
+import { ActsHeader } from '@/shared/ui/Acts/ActsHeader';
 import { useLocalActs } from '../model/useLocalActs';
 import { useDocumentFilter } from '@/features/acts/filter/useDocumentFilter';
 import { useDocumentView } from '@/features/acts/view/useDocumentView';
@@ -9,8 +9,8 @@ import { DocumentGrid } from './components/DocumentGrid/DocumentGrid';
 import { DocumentModal } from './components/DocumentModal/DocumentModal';
 import { LoadingState } from './components/LoadingState/LoadingState';
 import { ErrorState } from './components/ErrorState/ErrorState';
-import styles from './LocalActsPage.module.scss';
-import mobile from './LocalActsPageMobile.module.scss';
+import styles from './LocalActsList.module.scss';
+import mobile from './LocalActsListMobile.module.scss';
 
 export const LocalActsList: React.FC = () => {
     const { documents, loading, error, refetch } = useLocalActs();

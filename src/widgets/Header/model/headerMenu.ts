@@ -1,65 +1,71 @@
-export const headerMenu = [
-  { title: "ГЛАВНАЯ", href: "/", dropdown: null },
+import { useTranslations } from 'next-intl';
 
-  {
-    title: "О НАС",
-    dropdown: [
-      { label: "История", href: "/history" },
-      { label: "Руководство", href: "/directorate" },
-      { label: "Структура и деятельность", href: "/structure" },
-      { label: "Зона обслуживания", href: "/services" },
-      { label: "Итоги работы", href: "/results" },
-      { label: "Вакансии", href: "/vacancies" }
-    ],
-  },
+export const useHeaderMenu = () => {
+  const t = useTranslations('HeaderMenu');
+  
+  return [
+    { title: t('home'), href: "/", dropdown: null },
+    {
+      title: t('about'),
+      dropdown: [
+        { label: t('aboutHistory'), href: "/history" },
+        { label: t('aboutDirectorate'), href: "/directorate" },
+        { label: t('aboutStructure'), href: "/structure" },
+        { label: t('aboutServiceZone'), href: "/services" },
+        { label: t('aboutResults'), href: "/results" },
+        { label: t('aboutVacancies'), href: "/vacancies" }
+      ],
+    },
+    {
+      title: t('subscribers'),
+      dropdown: [
+        { label: t('subscribersTariffs'), href: "/tariffs" }
+      ],
+    },
+    {
+      title: t('pressCenter'),
+      dropdown: [
+        { label: t('pressCenterNews'), href: "/news" },
+        { label: t('pressCenterMedia'), href: "/media" }
+      ],
+    },
+    { title: t('procurement'), href: "/procurement", dropdown: null },
+    { 
+      title: t('services'),
+      dropdown: [
+        { label: t('servicesMaterial'), href: "/material" },
+        { label: t('servicesTransport'), href: "/transport-services" }
+      ]
+    },
+    {
+      title: t('regulatoryFramework'),
+      dropdown: [
+        { label: t('regulatoryFrameworkLegislation'), href: "/legislation" },
+        { label: t('regulatoryFrameworkActs'), href: "/acts" }
+      ],
+    },
+    { title: t('contacts'), href: "/contacts", dropdown: null },
+  ];
+};
 
-  {
-    title: "АБОНЕНТАМ",
-    dropdown: [
-      { label: "Тарифы", href: "/tariffs" }
-    ],
-  },
-
-  {
-    title: "ПРЕСС-ЦЕНТР",
-    dropdown: [
-      { label: "Новости", href: "/news" },
-      { label: "Медиа", href: "/media" },
-    ],
-  },
-
-  { title: "ЗАКУПКИ", href: "/procurement", dropdown: null },
-
-  { title: "КОНТАКТЫ", href: "/contacts", dropdown: null },
-
-  {
-    title: "НОРМОТИВНАЯ БАЗА",
-    dropdown: [
-      { label: "Законодательство КР", href: "/legislation" },
-      { label: "Локальные акты", href: "/acts" },
-    ],
-  },
-];
-
+// Статические иконки (не требуют перевода)
 export const socialIcons = [
   {
     key: "facebook",
     src: "/assets/icons/facebook.svg",
     alt: "Facebook",
-    link: "https://facebook.com" // Добавьте ссылку
+    link: "https://facebook.com"
   },
   {
     key: "youtube", 
     src: "/assets/icons/youtube.svg",
     alt: "YouTube",
-    link: "https://youtube.com" // Добавьте ссылку
+    link: "https://youtube.com"
   },
   {
     key: "instagram",
     src: "/assets/icons/inst.svg",
     alt: "Instagram", 
-    link: "https://instagram.com" // Добавьте ссылку
+    link: "https://instagram.com"
   }
 ];
-
-

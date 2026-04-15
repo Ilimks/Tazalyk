@@ -1,6 +1,4 @@
-// widgets/header/ui/BurgerButton.tsx
 "use client";
-
 import styles from "./BurgerMenu.module.scss";
 
 interface Props {

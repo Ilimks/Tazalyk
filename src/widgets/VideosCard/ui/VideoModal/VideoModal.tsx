@@ -6,7 +6,7 @@ interface VideoModalProps {
     isOpen: boolean;
     onClose: () => void;
     videoUrl: string;
-    title: string;
+    date?: string;
     galleryVideos?: string[];
 }
 
@@ -14,11 +14,10 @@ export const VideoModal: React.FC<VideoModalProps> = ({
     isOpen, 
     onClose, 
     videoUrl,
-    title,
+    date,
     galleryVideos = []
 }) => {
     const [currentVideo, setCurrentVideo] = useState(videoUrl);
-    const [currentTitle, setCurrentTitle] = useState(title);
 
     useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
@@ -31,29 +30,39 @@ export const VideoModal: React.FC<VideoModalProps> = ({
             document.addEventListener('keydown', handleEsc);
             document.body.style.overflow = 'hidden';
             setCurrentVideo(videoUrl);
-            setCurrentTitle(title);
         }
 
         return () => {
             document.removeEventListener('keydown', handleEsc);
             document.body.style.overflow = 'unset';
         };
-    }, [isOpen, onClose, videoUrl, title]);
+    }, [isOpen, onClose, videoUrl]);
 
-    const switchVideo = (newUrl: string, newTitle: string) => {
+    const switchVideo = (newUrl: string) => {
         setCurrentVideo(newUrl);
-        setCurrentTitle(newTitle);
+    };
+
+    // Форматирование даты
+    const formatDate = (dateString?: string) => {
+        if (!dateString) return '';
+        try {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ru-RU', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        } catch {
+            return '';
+        }
     };
 
     if (!isOpen) return null;
 
     // Все видео: главное + дополнительные
     const allVideos = [
-        { url: videoUrl, title: title },
-        ...galleryVideos.map((url, index) => ({ 
-            url, 
-            title: `${title} (часть ${index + 2})` 
-        }))
+        videoUrl,
+        ...galleryVideos
     ];
 
     return (
@@ -70,20 +79,28 @@ export const VideoModal: React.FC<VideoModalProps> = ({
                         className={styles.videoPlayer}
                     />
                 </div>
-                <h3 className={styles.videoTitle}>{currentTitle}</h3>
+                
+                {date && (
+                    <div className={styles.videoDate}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 4h-2V2h-2v2H9V2H7v2H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1zM8 2v2M16 2v2M3 8h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                        </svg>
+                        <span>{formatDate(date)}</span>
+                    </div>
+                )}
                 
                 {allVideos.length > 1 && (
                     <div className={styles.gallery}>
                         <h4 className={styles.galleryTitle}>Все видео ({allVideos.length})</h4>
                         <div className={styles.galleryList}>
-                            {allVideos.map((video, index) => (
+                            {allVideos.map((url, index) => (
                                 <div 
                                     key={index}
-                                    className={`${styles.galleryItem} ${currentVideo === video.url ? styles.active : ''}`}
-                                    onClick={() => switchVideo(video.url, video.title)}
+                                    className={`${styles.galleryItem} ${currentVideo === url ? styles.active : ''}`}
+                                    onClick={() => switchVideo(url)}
                                 >
                                     <video 
-                                        src={video.url} 
+                                        src={url} 
                                         className={styles.galleryVideo}
                                         muted
                                     />

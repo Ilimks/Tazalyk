@@ -1,0 +1,1 @@
+export { ContactsInfoSection } from './ContactsInfoSection';

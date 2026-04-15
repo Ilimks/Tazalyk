@@ -1,1 +1,0 @@
-export { ProcurementFiles } from './ui/ProcurementFiles';

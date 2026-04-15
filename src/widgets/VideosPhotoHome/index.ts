@@ -1,0 +1,1 @@
+export { VideosPhotoHomeSection } from './ui/VideosPhotoHomeSection'

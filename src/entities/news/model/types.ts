@@ -5,5 +5,11 @@ export interface News {
     image: string;
     date: string;        // Основное поле для даты
     created_at: string;  // Автоматическое поле Django
-    // Убираем publishedAt, так как его нет в Django модели
+}
+
+export interface NewsState {
+    items: News[];
+    currentNews: News | null;
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    error: string | null;
 }

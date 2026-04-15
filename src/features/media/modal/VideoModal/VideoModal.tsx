@@ -6,7 +6,6 @@ interface VideoModalProps {
     isOpen: boolean;
     onClose: () => void;
     videoUrl: string;
-    title: string;
     galleryVideos?: string[];
 }
 
@@ -14,7 +13,6 @@ export const VideoModal: React.FC<VideoModalProps> = ({
     isOpen,
     onClose,
     videoUrl,
-    title,
     galleryVideos = []
 }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -83,10 +81,6 @@ export const VideoModal: React.FC<VideoModalProps> = ({
                         </svg>
                     </button>
                 )}
-
-                <div className={styles.modalInfo}>
-                    <h3>{title}</h3>
-                </div>
             </div>
         </div>
     );

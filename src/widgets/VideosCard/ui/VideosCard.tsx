@@ -1,13 +1,13 @@
 'use client'
 import styles from "./VideosCard.module.scss";
 import mobile from "./VideosCardMobile.module.scss";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { VideoModal } from "./VideoModal/VideoModal";
 
 interface Video {
     id: string;
-    title: string;
-    description: string;
+    // title - УДАЛЕН
+    // description - УДАЛЕН
     main_video_url: string;
     gallery_videos: string[];
     date: string;
@@ -21,6 +21,10 @@ interface VideoCardProps {
 export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+    const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     // Форматирование даты
     const formatDate = (dateString: string) => {
@@ -32,10 +36,35 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
         });
     };
 
-    // Форматирование размера видео
-    const formatDuration = (base64: string) => {
-        const sizeInMB = (base64.length * 0.75) / (1024 * 1024);
-        return `${Math.round(sizeInMB)} MB`;
+    // Используем Intersection Observer для загрузки видео при появлении в области видимости
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting && !shouldLoadVideo) {
+                    setShouldLoadVideo(true);
+                    observer.disconnect();
+                }
+            },
+            { threshold: 0.1 } // Когда 10% карточки видно
+        );
+
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, [shouldLoadVideo]);
+
+    // Загрузка видео при наведении (если еще не загружено)
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+        if (!shouldLoadVideo) {
+            setShouldLoadVideo(true);
+        }
+    };
+
+    const handleVideoLoad = () => {
+        setIsVideoLoaded(true);
     };
 
     const handleCardClick = () => {
@@ -47,18 +76,34 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
     return (
         <>
             <article 
+                ref={containerRef}
                 className={`${styles.card} ${mobile.card}`}
-                onMouseEnter={() => setIsHovered(true)}
+                onMouseEnter={handleMouseEnter}
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={handleCardClick}
             >
                 <div className={`${styles.card__imageContainer} ${mobile.card__imageContainer}`}>
-                    <video 
-                        src={video.main_video_url}
-                        className={`${styles.card__video} ${mobile.card__video} ${isHovered ? styles.card__videoZoomed : ''}`}
-                        muted
-                        preload="metadata"
-                    />
+                    {shouldLoadVideo ? (
+                        <video 
+                            ref={videoRef}
+                            src={video.main_video_url}
+                            className={`${styles.card__video} ${mobile.card__video} ${isHovered ? styles.card__videoZoomed : ''}`}
+                            muted
+                            preload="metadata"
+                            loop
+                            onLoadedData={handleVideoLoad}
+                        />
+                    ) : (
+                        <div className={styles.card__thumbnail}>
+                            {/* Постер/превью - можно добавить скриншот из видео */}
+                            <div className={styles.card__thumbnailPlaceholder}>
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                    <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="2"/>
+                                    <polygon points="10 8 16 12 10 16" fill="currentColor"/>
+                                </svg>
+                            </div>
+                        </div>
+                    )}
                     <div className={`${styles.card__playIcon} ${mobile.card__playIcon}`}>
                         <span>▶</span>
                     </div>
@@ -72,9 +117,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
                     <time className={`${styles.card__content__date} ${mobile.card__content__date}`}>
                         {formatDate(video.date)}
                     </time>
-                    <h3 className={`${styles.card__content__title} ${mobile.card__content__title} ${isHovered ? styles.card__content__titleHovered : ''}`}>
-                        {video.title}
-                    </h3>
+                    {/* <h3> с title - УДАЛЕН */}
                 </div>
             </article>
 
@@ -82,7 +125,6 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 videoUrl={video.main_video_url}
-                title={video.title}
                 galleryVideos={video.gallery_videos}
             />
         </>

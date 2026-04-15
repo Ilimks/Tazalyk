@@ -6,8 +6,6 @@ interface PhotoModalProps {
     isOpen: boolean;
     onClose: () => void;
     images: string[];
-    title: string;
-    description?: string;
     date?: string;
 }
 
@@ -15,8 +13,6 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
     isOpen, 
     onClose, 
     images,
-    title,
-    description,
     date
 }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -92,7 +88,7 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                     <div className={styles.imageContainer}>
                         <img 
                             src={images[currentIndex]}
-                            alt={`${title} - фото ${currentIndex + 1}`}
+                            alt={`Фото ${currentIndex + 1}`}
                             className={styles.modalImage}
                         />
                     </div>
@@ -113,8 +109,6 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                 )}
                 
                 <div className={styles.modalInfo}>
-                    <h3>{title}</h3>
-                    {description && <p>{description}</p>}
                     {date && <time>{formatDate(date)}</time>}
                     
                     {images.length > 1 && (

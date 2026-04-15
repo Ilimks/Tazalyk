@@ -1,11 +1,9 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MediaHeader } from '@/shared/ui/MediaHeader';
 import { Tabs } from '@/shared/ui/Tabs';
 import { Pagination } from '@/shared/ui/Pagination';
-import { useMediaGallery } from '../model/useMediaGallery';
-import { LoadingState } from './components/LoadingState/LoadingState';
-import { ErrorState } from './components/ErrorState/ErrorState';
+import { ErrorState } from '@/shared/ui/ErrorState';
 import { PhotoModal } from '@/features/media/modal/PhotoModal';
 import { VideoModal } from '@/features/media/modal/VideoModal';
 import { Photo, Video, MediaType } from '@/entities/media/model/types';
@@ -13,6 +11,14 @@ import { PhotoCard } from '@/widgets/PhotoCard/ui/PhotoCard';
 import { VideoCard } from '@/widgets/VideosCard/ui/VideosCard';
 import styles from './MediaGallery.module.scss';
 import mobile from './MediaGalleryMobile.module.scss';
+import { LoadingState } from '@/shared/ui/LoadingState';
+import { usePhotos } from '@/features/media/model/usePhotos';
+import { useVideos } from '@/features/media/model/useVideos';
+
+interface MediaGalleryProps {
+    itemsPerPage?: number;
+    defaultTab?: MediaType;
+}
 
 const tabs = [
     {
@@ -38,38 +44,100 @@ const tabs = [
     }
 ];
 
-export const MediaGallery: React.FC = () => {
-    const {
-        activeTab,
-        setActiveTab,
-        photos,
-        videos,
-        loading,
-        error,
-        currentItemsOnPage,
-        currentPage,
-        totalPages,
-        totalItems,
-        currentItemsCount,
-        goToPage,
-        refetch
-    } = useMediaGallery();
+export const MediaGallery: React.FC<MediaGalleryProps> = ({ 
+    itemsPerPage = 12,
+    defaultTab = 'photos'
+}) => {
+    const [activeTab, setActiveTab] = useState<MediaType>(defaultTab);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    // Используем Redux хуки
+    const { photos, isLoading: photosLoading, error: photosError, loadPhotos } = usePhotos();
+    const { videos, isLoading: videosLoading, error: videosError, loadVideos } = useVideos();
 
     const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
     const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+
+    // Загружаем данные при монтировании
+    useEffect(() => {
+        if (photos.length === 0 && !photosLoading) {
+            loadPhotos();
+        }
+        if (videos.length === 0 && !videosLoading) {
+            loadVideos();
+        }
+    }, [loadPhotos, loadVideos, photos.length, videos.length, photosLoading, videosLoading]);
+
+    // Сбрасываем страницу при смене вкладки
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [activeTab]);
+
+    // Определяем текущие данные в зависимости от активной вкладки
+    const currentData = activeTab === 'photos' ? photos : videos;
+    const isLoading = activeTab === 'photos' ? photosLoading : videosLoading;
+    const error = activeTab === 'photos' ? photosError : videosError;
+
+    // Пагинация
+    const totalPages = Math.max(1, Math.ceil(currentData.length / itemsPerPage));
+    const validPage = Math.min(currentPage, totalPages);
+    
+    // Синхронизируем currentPage если он выходит за пределы
+    useEffect(() => {
+        if (currentPage !== validPage && validPage !== currentPage) {
+            setCurrentPage(validPage);
+        }
+    }, [currentPage, validPage]);
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentItemsOnPage = currentData.slice(startIndex, endIndex);
+
+    const handleTabChange = useCallback((tabId: string) => {
+        setActiveTab(tabId as MediaType);
+    }, []);
+
+    const goToPage = useCallback((page: number) => {
+        setCurrentPage(page);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
+
+    const refetch = useCallback(() => {
+        if (activeTab === 'photos') {
+            loadPhotos();
+        } else {
+            loadVideos();
+        }
+    }, [activeTab, loadPhotos, loadVideos]);
+
+    const handlePhotoClick = useCallback((photo: Photo) => {
+        setSelectedPhoto(photo);
+    }, []);
+
+    const handleVideoClick = useCallback((video: Video) => {
+        setSelectedVideo(video);
+    }, []);
 
     const updateTabCounts = tabs.map(tab => ({
         ...tab,
         count: tab.id === 'photos' ? photos.length : videos.length
     }));
 
-    const handleTabChange = (tabId: string) => {
-        setActiveTab(tabId as MediaType);
-    };
-
     const renderContent = () => {
-        if (loading) return <LoadingState />;
-        if (error) return <ErrorState error={error} onRetry={refetch} />;
+        if (isLoading && currentData.length === 0) {
+            return <LoadingState />;
+        }
+        
+        if (error && currentData.length === 0) {
+            return (
+                <ErrorState 
+                    error={error} 
+                    onRetry={refetch}
+                    title="Ошибка загрузки медиа"
+                    variant="compact"
+                />
+            );
+        }
 
         if (activeTab === 'photos') {
             return (
@@ -78,17 +146,19 @@ export const MediaGallery: React.FC = () => {
                         {(currentItemsOnPage as Photo[]).map((photo) => (
                             <PhotoCard 
                                 key={photo.id} 
-                                photo={photo} 
+                                photo={photo}
                             />
                         ))}
                     </div>
-                    <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={goToPage}
-                        totalItems={totalItems}
-                        currentItemsCount={currentItemsCount}
-                    />
+                    {totalPages > 1 && (
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={goToPage}
+                            totalItems={currentData.length}
+                            currentItemsCount={currentItemsOnPage.length}
+                        />
+                    )}
                 </>
             );
         } else {
@@ -102,13 +172,15 @@ export const MediaGallery: React.FC = () => {
                             />
                         ))}
                     </div>
-                    <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={goToPage}
-                        totalItems={totalItems}
-                        currentItemsCount={currentItemsCount}
-                    />
+                    {totalPages > 1 && (
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={goToPage}
+                            totalItems={currentData.length}
+                            currentItemsCount={currentItemsOnPage.length}
+                        />
+                    )}
                 </>
             );
         }
@@ -136,8 +208,6 @@ export const MediaGallery: React.FC = () => {
                     isOpen={!!selectedPhoto}
                     onClose={() => setSelectedPhoto(null)}
                     images={[selectedPhoto.main_image, ...(selectedPhoto.gallery_images || [])]}
-                    title={selectedPhoto.title}
-                    description={selectedPhoto.description}
                     date={selectedPhoto.date}
                 />
             )}
@@ -147,7 +217,6 @@ export const MediaGallery: React.FC = () => {
                     isOpen={!!selectedVideo}
                     onClose={() => setSelectedVideo(null)}
                     videoUrl={selectedVideo.main_video_url}
-                    title={selectedVideo.title}
                     galleryVideos={selectedVideo.gallery_videos}
                 />
             )}

@@ -10,3 +10,9 @@
         gap: 24px;
     }
 }
+
+@media (max-width: 400px) {
+    .newsGrid {
+        gap: 18px;
+    }
+}

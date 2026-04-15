@@ -1,1 +1,1 @@
-export { HeroSection } from './HeroSection';
+export { HeroHomeSection } from './HeroHomeSection/ui/HeroHomeSection';

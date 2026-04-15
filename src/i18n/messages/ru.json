@@ -1,0 +1,32 @@
+{
+    "Header": {
+        "header__logo": "Муниципальное предприятие",
+        "header__text1": "Сегодня хороший день!",
+        "header__text2": "Добро пожаловать на наш портал",
+        "header__search": "Найти на сайте"
+    },
+    
+    "HeaderMenu": {
+        "home": "ГЛАВНАЯ",
+        "about": "О НАС",
+        "aboutHistory": "История",
+        "aboutDirectorate": "Руководство",
+        "aboutStructure": "Структура и деятельность",
+        "aboutServiceZone": "Зона обслуживания",
+        "aboutResults": "Итоги работы",
+        "aboutVacancies": "Вакансии",
+        "subscribers": "АБОНЕНТАМ",
+        "subscribersTariffs": "Тарифы",
+        "pressCenter": "ПРЕСС-ЦЕНТР",
+        "pressCenterNews": "Новости",
+        "pressCenterMedia": "Медиа",
+        "procurement": "ЗАКУПКИ",
+        "services": "УСЛУГИ",
+        "servicesMaterial": "Материальные средства",
+        "servicesTransport": "Транспортные услуги",
+        "regulatoryFramework": "НОРМАТИВНАЯ БАЗА",
+        "regulatoryFrameworkLegislation": "Законодательство КР",
+        "regulatoryFrameworkActs": "Локальные акты",
+        "contacts": "КОНТАКТЫ"
+    }
+}

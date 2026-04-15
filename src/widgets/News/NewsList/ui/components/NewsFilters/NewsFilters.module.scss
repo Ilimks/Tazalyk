@@ -17,15 +17,13 @@
     transition: all 0.3s ease;
     
     &:hover {
-        border-color: #3b82f6;
-        color: #3b82f6;
-        transform: translateY(-1px);
+        border-color: #22c55e;
     }
 }
 
 .yearBtnActive {
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-    border-color: #3b82f6;
+    background: #22c55e;
+    border-color: #22c55e;
     color: white;
     box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
 }

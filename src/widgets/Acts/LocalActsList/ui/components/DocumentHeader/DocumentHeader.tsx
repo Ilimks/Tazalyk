@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActsHeader } from '@/shared/ui/acts/ActsHeader';
+import { ActsHeader } from '@/shared/ui/Acts/ActsHeader';
 import styles from './DocumentHeader.module.scss';
 
 interface DocumentHeaderProps {

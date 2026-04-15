@@ -1,20 +1,20 @@
 @font-face {
   font-family: "Roboto";
-  src: url('/assets/fonts/Roboto-Light.ttf') format("opentype");
+  src: url('../../public/assets/fonts/Roboto-ExtraLight.ttf') format("opentype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Roboto";
-  src: url('/assets/fonts/Roboto-Medium.ttf') format("opentype");
+  src: url('../../public/assets/fonts/Roboto-Medium.ttf') format("opentype");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Roboto";
-  src: url('/assets/fonts/Roboto-Bold.ttf') format("opentype");
+  src: url('../../public/assets/fonts/Roboto-Bold.ttf') format("opentype");
   font-weight: 600;
   font-style: normal;
 }

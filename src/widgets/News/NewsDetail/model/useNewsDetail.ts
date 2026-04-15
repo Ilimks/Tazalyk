@@ -18,7 +18,7 @@ export const useNewsDetail = (id: string) => {
                 setNews(currentNews);
                 const otherNews = allNews
                     .filter((item: News) => item.id.toString() !== id)
-                    .slice(0, 3);
+                    .slice(0, 4);
                 setRelatedNews(otherNews);
             } else {
                 setError('Новость не найдена');

@@ -7,8 +7,6 @@ import { PhotoModal } from "./PhotoModal/PhotoModal";
 // Тип для фото из API
 interface Photo {
     id: string;
-    title: string;
-    description: string;
     main_image?: string;
     mainImage?: string;
     image?: string;
@@ -33,7 +31,6 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
     // Защита от undefined
     const currentPhoto = photo || {
         id: "0",
-        title: "Загрузка...",
         description: "",
         date: new Date().toISOString(),
         created_at: new Date().toISOString()
@@ -93,7 +90,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
                 <div className={`${styles.card__imageContainer} ${mobile.card__imageContainer}`}>
                     <img 
                         src={imageUrl}
-                        alt={currentPhoto.title || "Фото"}
+                        alt="Фото"
                         className={`${styles.card__image} ${mobile.card__image} ${isHovered ? styles.card__imageZoomed : ''}`}
                         onError={handleImageError}
                     />
@@ -107,9 +104,6 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
                     <time className={`${styles.card__content__date} ${mobile.card__content__date}`}>
                         {formatDate(currentPhoto.date)}
                     </time>
-                    <h3 className={`${styles.card__content__title} ${mobile.card__content__title} ${isHovered ? styles.card__content__titleHovered : ''}`}>
-                        {currentPhoto.title || "Без названия"}
-                    </h3>
                 </div>
             </article>
 
@@ -117,8 +111,6 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 images={allImages}
-                title={currentPhoto.title || "Фото"}
-                description={currentPhoto.description}
                 date={currentPhoto.date}
             />
         </>

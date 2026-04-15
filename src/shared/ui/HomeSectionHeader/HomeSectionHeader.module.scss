@@ -1,0 +1,29 @@
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__items {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    &__name {
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 131%;
+        color: #1e3a5f;
+        margin: 0;
+    }
+
+    &__line {
+        width: 96px;
+        height: 4px;
+        background: #22c55e;
+    }
+
+    &__btn {
+        flex-shrink: 0;
+    }
+}

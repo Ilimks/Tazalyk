@@ -1,1 +1,1 @@
-export { DirectorHomeWidget } from './ui/DirectorHomeWidget/DirectorHomeWidget'
+export { DirectorHomeSection } from './ui/DirectorHomeSection/DirectorHomeSection'

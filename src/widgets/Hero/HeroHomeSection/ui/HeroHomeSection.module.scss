@@ -1,0 +1,212 @@
+.hero {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    transition: background-image 0.8s ease;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    padding: 4rem;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+}
+
+// Панель с текстом
+.infoPanel {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 4rem;
+    max-width: 35%;
+}
+
+// Центрированная панель для мобильных (когда карусель скрыта)
+.infoPanelCentered {
+    max-width: 100%;
+    padding-left: 0;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.heroTitle {
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    color: #fff;
+    background: #22c55e;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.heroText {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+    max-width: 400px;
+}
+
+.infoPanelCentered .heroText {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.heroBtn {
+    border: 1px solid #cfe9fa;
+    border-radius: 5px;
+    padding: 12px 35px;
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+    transition: all 0.3s ease;
+    background: none;
+    cursor: pointer;
+    width: fit-content;
+    
+    &:hover {
+        background-color: #1b36b9;
+        border-color: #1b36b9;
+        transform: translateY(-2px);
+    }
+}
+
+.infoPanelCentered .heroBtn {
+    margin: 0 auto;
+}
+
+// Круговая карусель (скрывается на экранах меньше 1000px)
+.carouselContainer {
+    position: absolute;
+    top: 50%;
+    left: 65%;
+    transform: translate(25%, -7%);
+    z-index: 2;
+}
+
+.carousel {
+    position: relative;
+    width: 40rem;
+    height: 40rem;
+    border: 1px dashed rgba(238, 190, 151, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide {
+    position: absolute;
+    border-radius: 50%;
+    outline: 2px solid #22c55e;
+    width: 4rem;
+    height: 4rem;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s;
+    cursor: pointer;
+    
+    &:hover {
+        transform: scale(1.1);
+        outline: 3px solid #22c55e;
+    }
+    
+    &.active {
+        outline: 3px solid #22c55e;
+        box-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
+        width: 6rem;
+        height: 6rem;
+    }
+}
+
+// Скрываем карусель на экранах меньше 1000px
+@media (max-width: 1000px) {
+    .carouselContainer {
+        display: none;
+    }
+    
+    .infoPanel {
+        max-width: 100%;
+        text-align: center;
+        align-items: center;
+        padding-left: 0;
+    }
+    
+    .heroText {
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .heroBtn {
+        margin: 0 auto;
+    }
+}
+
+// Адаптивность для остальных размеров
+@media (max-width: 1200px) and (min-width: 1001px) {
+    .carousel {
+        width: 25rem;
+        height: 25rem;
+    }
+    
+    .slide {
+        width: 3.5rem;
+        height: 3.5rem;
+        
+        &.active {
+            width: 5rem;
+            height: 5rem;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 2rem;
+    }
+    
+    .heroTitle {
+        font-size: 2.5rem;
+    }
+    
+    .heroText {
+        font-size: 1.2rem;
+    }
+    
+    .heroBtn {
+        padding: 8px 25px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        height: 60vh;
+    }
+    .heroTitle {
+        font-size: 2rem;
+    }
+    
+    .heroText {
+        font-size: 1rem;
+    }
+}

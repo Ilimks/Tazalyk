@@ -1,8 +1,10 @@
+'use client';
 import styles from "./Search.module.scss";
 import mobile from "./SearchMobile.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useTranslations } from 'next-intl';
 
 interface SearchResult {
   id: string;
@@ -17,7 +19,6 @@ interface HeaderInputSearchProps {
 
 // Данные для поиска
 const searchData: SearchResult[] = [
-  // Страницы
   { id: '1', title: 'История предприятия', type: 'page', url: '/history' },
   { id: '2', title: 'Руководство', type: 'page', url: '/directorate' },
   { id: '3', title: 'Структура и деятельность', type: 'page', url: '/structure' },
@@ -29,21 +30,18 @@ const searchData: SearchResult[] = [
   { id: '9', title: 'Закупки', type: 'page', url: '/procurement' },
   { id: '10', title: 'Законодательство КР', type: 'page', url: '/legislation' },
   { id: '11', title: 'Локальные акты', type: 'page', url: '/local-acts' },
-  
-  // Новости
   { id: '12', title: 'Новые тарифы на вывоз мусора', type: 'news', url: '/news' },
   { id: '13', title: 'График уборки улиц в праздничные дни', type: 'news', url: '/news' },
   { id: '14', title: 'Модернизация автопарка Тазалык', type: 'news', url: '/news' },
   { id: '15', title: 'Экологическая акция в Бишкеке', type: 'news', url: '/news' },
   { id: '16', title: 'Новый график приема граждан', type: 'news', url: '/news' },
-  
-  // Услуги
   { id: '17', title: 'Вывоз ТБО', type: 'service', url: '/services' },
   { id: '18', title: 'Уборка улиц', type: 'service', url: '/services' },
   { id: '19', title: 'Вывоз жидких отходов', type: 'service', url: '/services' },
 ];
 
 export const HeaderInputSearch: React.FC<HeaderInputSearchProps> = ({ onSearch }) => {
+  const t = useTranslations("Header");
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -76,9 +74,9 @@ export const HeaderInputSearch: React.FC<HeaderInputSearchProps> = ({ onSearch }
 
   const getTypeLabel = (type: string) => {
     switch (type) {
-      case 'news': return 'Новости';
-      case 'page': return 'Страница';
-      case 'service': return 'Услуги';
+      case 'news': return t('typeNews');
+      case 'page': return t('typePage');
+      case 'service': return t('typeService');
       default: return '';
     }
   };
@@ -97,7 +95,7 @@ export const HeaderInputSearch: React.FC<HeaderInputSearchProps> = ({ onSearch }
       <form onSubmit={handleSubmit} className={`${styles.header__search} ${mobile.header__search}`}>
         <input 
           type="text" 
-          placeholder="Найти на сайте" 
+          placeholder={t('header__search')} 
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => results.length > 0 && setIsOpen(true)}
@@ -114,7 +112,6 @@ export const HeaderInputSearch: React.FC<HeaderInputSearchProps> = ({ onSearch }
         </button>
       </form>
 
-      {/* Подсказки для десктопа */}
       {isOpen && results.length > 0 && (
         <div className={styles.suggestions}>
           <div className={styles.suggestionsList}>

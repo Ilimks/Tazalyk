@@ -1,7 +1,7 @@
 import styles from "./Header.module.scss";
 import mobile from "./HeaderMobile.module.scss";
 import { HeaderBottomNav } from "./HeaderBottomNav";
-import { HeaderUp } from "./HeaderUp";
+import { HeaderUp } from "./HeaderUp/HeaderUp";
 
 export const Header: React.FC = () => {
 

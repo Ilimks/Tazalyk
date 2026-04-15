@@ -1,20 +1,82 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { formatDate } from '@/shared/lib/utils/formatDate';
-import { useNewsDetail } from '../model/useNewsDetail';
+import { useNews } from '@/features/news/model/useNews';
 import styles from './NewsDetail.module.scss';
 import mobile from './NewsDetailMobile.module.scss';
 import { Loading } from '@/shared/ui/Loading';
+import { NewsCard } from '@/entities/news';
 
 interface NewsDetailProps {
     id: string;
+    locale: string;
 }
 
-export const NewsDetail: React.FC<NewsDetailProps> = ({ id }) => {
+export const NewsDetail: React.FC<NewsDetailProps> = ({ id, locale }) => {
     const router = useRouter();
-    const { news, relatedNews, loading, error, handleShare } = useNewsDetail(id);
+    const { 
+        currentNews: news, 
+        isLoading: loading, 
+        error, 
+        loadNewsById, 
+        clearCurrent,
+        loadNews,
+        news: allNews 
+    } = useNews();
+
+    // Загружаем текущую новость
+    useEffect(() => {
+        if (id) {
+            loadNewsById(id);
+        }
+        
+        // Очищаем текущую новость при размонтировании
+        return () => {
+            clearCurrent();
+        };
+    }, [id, loadNewsById, clearCurrent]);
+
+    // Загружаем все новости для похожих (если нужно)
+    useEffect(() => {
+        if (allNews.length === 0) {
+            loadNews();
+        }
+    }, [loadNews, allNews.length]);
+
+    // Функция для шаринга
+    const handleShare = async () => {
+        if (navigator.share && news) {
+            try {
+                await navigator.share({
+                    title: news.title,
+                    text: news.description,
+                    url: window.location.href,
+                });
+            } catch (error) {
+                console.log('Error sharing:', error);
+            }
+        } else {
+            // Fallback - копируем ссылку в буфер обмена
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                alert('Ссылка скопирована в буфер обмена');
+            } catch (error) {
+                console.error('Failed to copy:', error);
+            }
+        }
+    };
+
+    // Функция для возврата к списку новостей
+    const handleBackToNews = () => {
+        router.push(`/${locale}/news`);
+    };
+
+    // Получаем похожие новости (исключая текущую)
+    const relatedNews = allNews
+        .filter((item) => item.id !== id)
+        .slice(0, 4);
 
     if (loading) {
         return (
@@ -45,7 +107,7 @@ export const NewsDetail: React.FC<NewsDetailProps> = ({ id }) => {
                         <p className={styles.errorText}>
                             {error || 'Запрашиваемая новость не существует или была удалена'}
                         </p>
-                        <button onClick={() => router.push('/news')} className={styles.backBtn}>
+                        <button onClick={handleBackToNews} className={styles.backBtn}>
                             Вернуться к списку новостей
                         </button>
                     </div>
@@ -60,13 +122,6 @@ export const NewsDetail: React.FC<NewsDetailProps> = ({ id }) => {
     return (
         <div className={`${styles.newsDetail} ${mobile.newsDetail}`}>
             <div className="container">
-                <button onClick={() => router.back()} className={styles.backButton}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    </svg>
-                    Назад к новостям
-                </button>
-
                 <article className={styles.article}>
                     <div className={styles.imageWrapper}>
                         <div className={styles.imageContainer}>
@@ -77,6 +132,10 @@ export const NewsDetail: React.FC<NewsDetailProps> = ({ id }) => {
                                 className={styles.mainImage}
                                 priority
                                 sizes="(max-width: 768px) 100vw, 1200px"
+                                onError={(e) => {
+                                    const target = e.target as HTMLImageElement;
+                                    target.src = "/assets/images/placeholder-news.jpg";
+                                }}
                             />
                         </div>
                         <div className={styles.imageOverlay}>
@@ -118,37 +177,12 @@ export const NewsDetail: React.FC<NewsDetailProps> = ({ id }) => {
                 {relatedNews.length > 0 && (
                     <div className={styles.relatedSection}>
                         <div className={styles.relatedHeader}>
-                            <h2 className={styles.relatedTitle}>Похожие новости</h2>
+                            <h3 className={styles.relatedTitle}>Похожие новости</h3>
                             <div className={styles.relatedUnderline}></div>
                         </div>
                         <div className={styles.relatedGrid}>
                             {relatedNews.map((item) => (
-                                <div 
-                                    key={item.id} 
-                                    className={styles.relatedCard}
-                                    onClick={() => router.push(`/news/${item.id}`)}
-                                >
-                                    <div className={styles.relatedImageContainer}>
-                                        <Image
-                                            src={item.image || "/assets/images/placeholder-news.jpg"}
-                                            alt={item.title}
-                                            fill
-                                            className={styles.relatedImage}
-                                        />
-                                    </div>
-                                    <div className={styles.relatedContent}>
-                                        <time className={styles.relatedDate}>
-                                            {formatDate(item.date || item.created_at)}
-                                        </time>
-                                        <h3 className={styles.relatedCardTitle}>{item.title}</h3>
-                                        <button className={styles.readMoreBtn}>
-                                            Читать далее
-                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                                <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
+                                <NewsCard key={item.id} news={item} variant="compact" />
                             ))}
                         </div>
                     </div>

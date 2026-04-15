@@ -1,0 +1,47 @@
+@media (max-width: 1000px) {
+    .sectionHeader {
+        &__name {
+            font-size: 26px;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .sectionHeader {
+        &__items {
+            gap: 8px;
+        }
+
+        &__name {
+            font-size: 18px;
+        }
+
+        &__line {
+            width: 66px;
+            height: 2px;
+        }
+
+        &__btn {
+            width: 100px;
+            height: 30px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+    }
+}
+
+@media (max-width: 380px) {
+    .sectionHeader {
+        &__items {
+            gap: 6px;
+        }
+
+        &__name {
+            font-size: 16px;
+        }
+
+        &__line {
+            width: 66px;
+        }
+    }
+}

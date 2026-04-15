@@ -1,6 +1,7 @@
 // types/procurement.ts
 export interface ProcurementItem {
     id: string;
+    number: string;
     contractNumber: string;
     supplier: string;
     type: 'goods' | 'services' | 'works';
@@ -9,6 +10,13 @@ export interface ProcurementItem {
     date: string;
     amount: number;
     created_at: string;
+    updated_at?: string;
+}
+
+export interface ProcurementState {
+    items: ProcurementItem[];
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    error: string | null;
 }
 
 // entities/document/model/types.ts

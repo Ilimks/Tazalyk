@@ -1,3 +1,3 @@
-export { ContactsInfo } from './ui/ContactsInfo/ContactsInfo';
-export { ContactsMap } from './ui/ContactsMap/СontactsMap';
-export { ContactsReception } from './ui/ContactsReception/ContactsReception';
+export { ContactsInfo } from './ContactsInfoSection/ContactsInfo';
+export { ContactsMap } from './ContactsMap/СontactsMap';
+export { ContactsReception } from './ContactsReception/ContactsReception';
