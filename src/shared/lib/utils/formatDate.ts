@@ -20,6 +20,22 @@ export interface FormatDateOptions {
   timeZone?: string;
 }
 
+// Кыргызские названия месяцев
+const monthsKy = [
+  'январь', 'февраль', 'март', 'апрель', 'май', 'июнь',
+  'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'
+];
+
+const monthsKyShort = [
+  'янв', 'фев', 'мар', 'апр', 'май', 'июн',
+  'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'
+];
+
+// Кыргызские названия дней недели
+const weekdaysKy = [
+  'жекшемби', 'дүйшөмбү', 'шейшемби', 'шаршемби', 'бейшемби', 'жума', 'ишемби'
+];
+
 /**
  * Форматирование даты для русского языка
  * @param date - Дата (строка, число или объект Date)
@@ -33,7 +49,7 @@ export function formatDate(
   const {
     format = 'medium',
     locale = 'ru-RU',
-    timeZone = 'Europe/Moscow'
+    timeZone = 'Asia/Bishkek'
   } = options;
 
   // Преобразуем входные данные в объект Date
@@ -44,6 +60,9 @@ export function formatDate(
     console.warn('Некорректная дата:', date);
     return 'Некорректная дата';
   }
+
+  // Определяем язык
+  const isKy = locale === 'ky-KG' || locale === 'ky';
 
   // Форматируем в зависимости от выбранного формата
   switch (format) {
@@ -57,16 +76,16 @@ export function formatDate(
       return formatShort(dateObj);
     
     case 'medium':
-      return formatMedium(dateObj, locale, timeZone);
+      return formatMedium(dateObj, locale, timeZone, isKy);
     
     case 'long':
-      return formatLong(dateObj, locale, timeZone);
+      return formatLong(dateObj, locale, timeZone, isKy);
     
     case 'full':
-      return formatFull(dateObj, locale, timeZone);
+      return formatFull(dateObj, locale, timeZone, isKy);
     
     default:
-      return formatMedium(dateObj, locale, timeZone);
+      return formatMedium(dateObj, locale, timeZone, isKy);
   }
 }
 
@@ -74,6 +93,7 @@ export function formatDate(
  * Получение относительного времени ("2 часа назад", "вчера" и т.д.)
  */
 function getRelativeTime(date: Date, locale: string): string {
+  const isKy = locale === 'ky-KG' || locale === 'ky';
   const now = new Date();
   const diffMs = now.getTime() - date.getTime();
   const diffSec = Math.floor(diffMs / 1000);
@@ -81,7 +101,26 @@ function getRelativeTime(date: Date, locale: string): string {
   const diffHour = Math.floor(diffMin / 60);
   const diffDay = Math.floor(diffHour / 24);
 
-  // Сегодня (время)
+  if (isKy) {
+    // Кыргызские относительные даты
+    if (diffDay === 0) {
+      if (diffHour === 0) {
+        if (diffMin === 0) return 'азыр';
+        if (diffMin === 1) return '1 мүнөт мурун';
+        if (diffMin < 5) return `${diffMin} мүнөт мурун`;
+        if (diffMin < 60) return `${diffMin} мүнөт мурун`;
+      }
+      if (diffHour === 1) return '1 саат мурун';
+      if (diffHour < 5) return `${diffHour} саат мурун`;
+      if (diffHour < 24) return `${diffHour} саат мурун`;
+    }
+    if (diffDay === 1) return 'кечээ';
+    if (diffDay < 5) return `${diffDay} күн мурун`;
+    if (diffDay < 7) return `${diffDay} күн мурун`;
+    return formatShort(date);
+  }
+
+  // Русские относительные даты
   if (diffDay === 0) {
     if (diffHour === 0) {
       if (diffMin === 0) return 'только что';
@@ -94,14 +133,10 @@ function getRelativeTime(date: Date, locale: string): string {
     if (diffHour < 24) return `${diffHour} часов назад`;
   }
 
-  // Вчера
   if (diffDay === 1) return 'вчера';
-
-  // Позавчера и далее
   if (diffDay < 5) return `${diffDay} дня назад`;
   if (diffDay < 7) return `${diffDay} дней назад`;
 
-  // Больше недели - показываем обычную дату
   return formatShort(date);
 }
 
@@ -129,7 +164,14 @@ function formatShort(date: Date): string {
 /**
  * Средний формат (15 янв. 2024 г.)
  */
-function formatMedium(date: Date, locale: string, timeZone: string): string {
+function formatMedium(date: Date, locale: string, timeZone: string, isKy: boolean): string {
+  if (isKy) {
+    const day = date.getDate();
+    const month = monthsKyShort[date.getMonth()];
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`;
+  }
+  
   return date.toLocaleDateString(locale, {
     day: 'numeric',
     month: 'short',
@@ -141,7 +183,14 @@ function formatMedium(date: Date, locale: string, timeZone: string): string {
 /**
  * Длинный формат (15 января 2024 г.)
  */
-function formatLong(date: Date, locale: string, timeZone: string): string {
+function formatLong(date: Date, locale: string, timeZone: string, isKy: boolean): string {
+  if (isKy) {
+    const day = date.getDate();
+    const month = monthsKy[date.getMonth()];
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`;
+  }
+  
   return date.toLocaleDateString(locale, {
     day: 'numeric',
     month: 'long',
@@ -153,7 +202,15 @@ function formatLong(date: Date, locale: string, timeZone: string): string {
 /**
  * Полный формат (15 января 2024 г., понедельник)
  */
-function formatFull(date: Date, locale: string, timeZone: string): string {
+function formatFull(date: Date, locale: string, timeZone: string, isKy: boolean): string {
+  if (isKy) {
+    const day = date.getDate();
+    const month = monthsKy[date.getMonth()];
+    const year = date.getFullYear();
+    const weekday = weekdaysKy[date.getDay()];
+    return `${day} ${month} ${year}, ${weekday}`;
+  }
+  
   return date.toLocaleDateString(locale, {
     weekday: 'long',
     day: 'numeric',
@@ -165,7 +222,6 @@ function formatFull(date: Date, locale: string, timeZone: string): string {
 
 /**
  * Вспомогательная функция для форматирования интервалов
- * (например, "15–18 января 2024 г.")
  */
 export function formatDateRange(
   startDate: string | number | Date,
@@ -175,18 +231,22 @@ export function formatDateRange(
   const start = new Date(startDate);
   const end = new Date(endDate);
   
-  const { locale = 'ru-RU', timeZone = 'Europe/Moscow' } = options;
+  const { locale = 'ru-RU', timeZone = 'Asia/Bishkek' } = options;
+  const isKy = locale === 'ky-KG' || locale === 'ky';
 
-  // Если даты одинаковые
   if (start.toDateString() === end.toDateString()) {
     return formatDate(start, { format: 'long', locale, timeZone });
   }
 
-  // Если один месяц и год
   if (
     start.getMonth() === end.getMonth() &&
     start.getFullYear() === end.getFullYear()
   ) {
+    if (isKy) {
+      const month = monthsKy[start.getMonth()];
+      const year = start.getFullYear();
+      return `${start.getDate()}–${end.getDate()} ${month} ${year}`;
+    }
     const monthYear = start.toLocaleDateString(locale, {
       month: 'long',
       year: 'numeric',
@@ -195,8 +255,12 @@ export function formatDateRange(
     return `${start.getDate()}–${end.getDate()} ${monthYear}`;
   }
 
-  // Если один год
   if (start.getFullYear() === end.getFullYear()) {
+    if (isKy) {
+      const startStr = `${start.getDate()} ${monthsKyShort[start.getMonth()]}`;
+      const endStr = `${end.getDate()} ${monthsKyShort[end.getMonth()]} ${end.getFullYear()}`;
+      return `${startStr}–${endStr}`;
+    }
     const startStr = start.toLocaleDateString(locale, {
       day: 'numeric',
       month: 'short',
@@ -211,8 +275,12 @@ export function formatDateRange(
     return `${startStr}–${endStr}`;
   }
 
-  // Разные годы
   const startStr = formatDate(start, { format: 'short' });
   const endStr = formatDate(end, { format: 'short' });
   return `${startStr}–${endStr}`;
 }
+
+// Экспортируем также упрощенную версию для совместимости
+export const formatDateSimple = (dateString: string, locale: string = 'ru-RU'): string => {
+  return formatDate(dateString, { format: 'long', locale });
+};

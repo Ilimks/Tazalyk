@@ -1,27 +1,24 @@
-// Video exports
-export { default as videoReducer } from './model/videoSlice';
+// src/entities/media/index.ts
+
+// Video
 export { 
     fetchVideos, 
-    fetchVideoById, 
-    createVideo, 
-    updateVideo, 
-    deleteVideo,
+    fetchVideoById,
     clearCurrentVideo,
-    clearError as clearVideoError  // Переименовано для видео
+    clearError,
+    videoReducer,
 } from './model/videoSlice';
 
-// Photo exports
-export { default as photoReducer } from './model/photoSlice';
+// Photo
 export { 
     fetchPhotos, 
-    fetchPhotoById, 
-    createPhoto, 
-    updatePhoto, 
-    deletePhoto,
+    fetchPhotoById,
     clearCurrentPhoto,
-    clearError as clearPhotoError  // Переименовано для фото
+    clearError as clearPhotoError,
+    photoReducer,
 } from './model/photoSlice';
 
 // Types
 export type { Video, VideoState } from './model/types';
 export type { Photo, PhotoState } from './model/types';
+export type { MediaType } from './model/types';

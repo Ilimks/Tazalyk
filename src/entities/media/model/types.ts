@@ -1,3 +1,4 @@
+// src/entities/media/model/types.ts
 export interface Photo {
     id: string;
     main_image: string;
@@ -5,13 +6,6 @@ export interface Photo {
     date: string;
     created_at: string;
     updated_at?: string;
-}
-
-export interface PhotoState {
-    items: Photo[];
-    currentPhoto: Photo | null;
-    status: 'idle' | 'loading' | 'succeeded' | 'failed';
-    error: string | null;
 }
 
 export interface Video {
@@ -24,10 +18,24 @@ export interface Video {
     updated_at?: string;
 }
 
+export interface PhotoState {
+    items: Photo[];
+    currentPhoto: Photo | null;
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    error: string | null;
+    totalPages: number;
+    currentPage: number;
+    totalCount: number;
+}
+
 export interface VideoState {
     items: Video[];
     currentVideo: Video | null;
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
+    totalPages: number;
+    currentPage: number;
+    totalCount: number;
 }
+
 export type MediaType = 'photos' | 'videos';

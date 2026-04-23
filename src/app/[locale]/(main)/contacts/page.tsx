@@ -1,16 +1,11 @@
 import { BreadcrumbsWidget } from "@/widgets/BreadcrumbsWidget";
-import { ContactsInfoSection } from "@/widgets/Contacts";
-import { ContactsMapSection } from "@/widgets/Contacts";
-import { ContactsBottomSection } from "@/widgets/Contacts";
-
+import { ContactsPage } from "@/widgets/Contacts/ui";
 
 export default function Contacts() {
   return (
       <main>
         <BreadcrumbsWidget />
-        <ContactsInfoSection/>
-        <ContactsMapSection/>
-        <ContactsBottomSection/>
+        <ContactsPage/>
       </main>
   );
 }

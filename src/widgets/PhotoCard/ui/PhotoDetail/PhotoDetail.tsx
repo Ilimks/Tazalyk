@@ -1,21 +1,10 @@
-'use client'
+'use client';
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Image from 'next/image';
 import styles from './PhotoDetail.module.scss';
 import mobile from './PhotoDetailMobile.module.scss';
-import { api } from '@/shared/api/api';
-
-interface Photo {
-    id: string;
-    title: string;
-    description: string;
-    main_image: string;
-    gallery_images: string[];
-    date: string;
-    created_at: string;
-    updated_at: string;
-}
+import { photosApi } from '@/shared/api';
+import type { Photo } from '@/shared/api';
 
 export const PhotoDetail: React.FC = () => {
     const params = useParams();
@@ -36,8 +25,8 @@ export const PhotoDetail: React.FC = () => {
     const loadPhotoDetail = async () => {
         try {
             setLoading(true);
-            const allPhotos = await api.getPhotos();
-            const currentPhoto = allPhotos.find((p: Photo) => p.id.toString() === photoId);
+            // Загружаем конкретное фото по ID
+            const currentPhoto = await photosApi.getById(photoId);
             
             if (currentPhoto) {
                 setPhoto(currentPhoto);
@@ -82,7 +71,7 @@ export const PhotoDetail: React.FC = () => {
                     <div className={styles.errorContainer}>
                         <h2>Фото не найдено</h2>
                         <p>{error || 'Запрашиваемое фото не существует'}</p>
-                        <button onClick={() => router.push('/gallery')} className={styles.backBtn}>
+                        <button onClick={() => router.push('/media')} className={styles.backBtn}>
                             Вернуться в галерею
                         </button>
                     </div>
@@ -105,16 +94,15 @@ export const PhotoDetail: React.FC = () => {
                     <div className={styles.mainImageWrapper}>
                         <img 
                             src={selectedImage} 
-                            alt={photo.title}
+                            alt="Фото"
                             className={styles.mainImage}
                         />
                     </div>
 
                     {/* Информация */}
                     <div className={styles.photoInfo}>
-                        <h1 className={styles.title}>{photo.title}</h1>
                         <time className={styles.date}>{formatDate(photo.date)}</time>
-                        <p className={styles.description}>{photo.description}</p>
+                        {/* У фото нет title и description, поэтому убираем */}
                     </div>
 
                     {/* Галерея миниатюр */}

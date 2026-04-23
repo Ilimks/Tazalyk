@@ -13,13 +13,26 @@ export interface Procurement {
     created_at: string;
 }
 
+interface PaginatedResponse<T> {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: T[];
+}
+
 export const procurementsApi = {
-    getAll: () => baseApi.get<Procurement[]>('/procurements/'),
+    getAll: async (page: number = 1, pageSize: number = 10) => {
+        const response = await baseApi.get<PaginatedResponse<Procurement>>('/procurements/', {
+            page: page,
+            page_size: pageSize
+        });
+        
+        return {
+            items: response.results || [],
+            totalCount: response.count,
+            totalPages: Math.ceil(response.count / pageSize),
+            currentPage: page
+        };
+    },
     getById: (id: string) => baseApi.get<Procurement>(`/procurements/${id}/`),
-    create: (data: Omit<Procurement, 'id' | 'created_at'>) => 
-        baseApi.post<Procurement>('/procurements/', data),
-    update: (id: string, data: Partial<Procurement>) => 
-        baseApi.put<Procurement>(`/procurements/${id}/`, data),
-    delete: (id: string) => 
-        baseApi.delete<void>(`/procurements/${id}/`),
 };

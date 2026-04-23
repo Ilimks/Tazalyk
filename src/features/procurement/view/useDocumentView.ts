@@ -1,4 +1,3 @@
-// features/document/view/useDocumentView.ts
 import { useState, useEffect } from 'react';
 import { DocumentCard } from '@/entities/procurement/model/types';
 
@@ -7,7 +6,6 @@ export const useDocumentView = () => {
     const [selectedDocument, setSelectedDocument] = useState<DocumentCard | null>(null);
     const [isClient, setIsClient] = useState(false);
 
-    // Проверяем, что мы на клиенте
     useEffect(() => {
         setIsClient(true);
     }, []);
@@ -17,13 +15,10 @@ export const useDocumentView = () => {
             setSelectedDocument(document);
             setShowModal(true);
         } else {
-            // Используем window только на клиенте
             if (typeof window !== 'undefined' && window.open) {
                 window.open(document.pdfUrl, '_blank');
             } else {
-                // Фолбэк для сервера или если window.open недоступен
                 console.log('Open URL:', document.pdfUrl);
-                // Можно также использовать router.push если это внутренняя ссылка
             }
         }
     };
@@ -38,6 +33,6 @@ export const useDocumentView = () => {
         selectedDocument,
         handleView,
         closeModal,
-        isClient // может пригодиться для условного рендеринга
+        isClient
     };
 };

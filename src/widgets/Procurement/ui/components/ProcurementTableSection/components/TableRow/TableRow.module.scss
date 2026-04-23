@@ -1,0 +1,100 @@
+.tableRow {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-bottom: 1px solid #e2e8f0;
+    
+    &:hover {
+        background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+    }
+    
+    td {
+        padding: 18px 16px;
+        font-size: 14px;
+        color: #1e293b;
+        border-bottom: 1px solid #e2e8f0;
+        
+        &:first-child {
+            padding-left: 24px;
+        }
+        
+        &:last-child {
+            padding-right: 24px;
+        }
+        
+        @media (max-width: 1200px) {
+            padding: 16px 12px;
+        }
+        
+        @media (max-width: 768px) {
+            padding: 14px 10px;
+            font-size: 13px;
+        }
+    }
+    
+    &.hovered {
+        .purchaseNumberBadge {
+            color: #1e293b;
+            transform: scale(1.05);
+        }
+    }
+}
+
+.purchaseNumberCell {
+    text-align: center;
+}
+
+.purchaseNumberBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 15px;
+    color: #64748b;
+    transition: all 0.2s ease;
+    
+    @media (max-width: 1200px) {
+        font-size: 14px;
+    }
+    
+    @media (max-width: 768px) {
+        font-size: 13px;
+    }
+}
+
+.contractNumber {
+    font-weight: 600;
+}
+
+.contractLink {
+    display: inline-block;
+    color: #3b82f6;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: default;
+    
+    &:hover {
+        color: #2563eb;
+        transform: translateX(2px);
+    }
+}
+
+.supplierInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.supplierName {
+    font-weight: 500;
+    color: #0f172a;
+}
+
+.dateText {
+    color: #64748b;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.amountValue {
+    font-weight: 700;
+    color: #0f172a;
+}

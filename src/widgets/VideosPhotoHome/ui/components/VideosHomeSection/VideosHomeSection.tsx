@@ -12,11 +12,13 @@ export const VideosHomeSection: React.FC = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [hasLoaded, setHasLoaded] = useState(false);
 
+    // Защита от undefined и не-массивов
+    const safeVideos = Array.isArray(videos) ? videos : [];
+
     useEffect(() => {
-        // Используем Intersection Observer для ленивой загрузки
         const observer = new IntersectionObserver(
             (entries) => {
-                if (entries[0].isIntersecting && !hasLoaded && videos.length === 0) {
+                if (entries[0].isIntersecting && !hasLoaded && safeVideos.length === 0) {
                     loadVideos();
                     setHasLoaded(true);
                     observer.disconnect();
@@ -30,19 +32,19 @@ export const VideosHomeSection: React.FC = () => {
         }
 
         return () => observer.disconnect();
-    }, [hasLoaded, loadVideos, videos.length]);
+    }, [hasLoaded, loadVideos, safeVideos.length]);
 
     // Получаем последние 4 видео
-    const recentVideos = [...videos]
+    const recentVideos = [...safeVideos]
         .sort((a, b) => {
-            const dateA = new Date(a.date || a.created_at || 0).getTime();
-            const dateB = new Date(b.date || b.created_at || 0).getTime();
+            const dateA = new Date(a?.date || a?.created_at || 0).getTime();
+            const dateB = new Date(b?.date || b?.created_at || 0).getTime();
             return dateB - dateA;
         })
         .slice(0, 4);
 
     // Показываем скелетон до загрузки
-    if (!hasLoaded) {
+    if (!hasLoaded && safeVideos.length === 0) {
         return (
             <div ref={sectionRef} className={`${styles.videosHome} ${mobile.videosHome}`}>
                 <div className={styles.skeletonContainer}>
@@ -57,7 +59,7 @@ export const VideosHomeSection: React.FC = () => {
         );
     }
 
-    if (isLoading) {
+    if (isLoading && safeVideos.length === 0) {
         return (
             <div className={`${styles.videosHome} ${mobile.videosHome}`}>
                 <LoadingState />
@@ -65,8 +67,7 @@ export const VideosHomeSection: React.FC = () => {
         );
     }
 
-    // Состояние ошибки с использованием ErrorState
-    if (error) {
+    if (error && safeVideos.length === 0) {
         let errorTitle = "Ошибка загрузки видео";
         let errorMessage = error;
         
@@ -93,7 +94,7 @@ export const VideosHomeSection: React.FC = () => {
         );
     }
 
-    if (recentVideos.length === 0) {
+    if (recentVideos.length === 0 && !isLoading) {
         return (
             <div className={`${styles.videosHome} ${mobile.videosHome}`}>
                 <div className={styles.emptyContainer}>

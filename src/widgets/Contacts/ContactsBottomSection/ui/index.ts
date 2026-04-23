@@ -1,1 +1,0 @@
-export { ContactsBottomSection } from './ContactsBottomSection';

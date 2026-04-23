@@ -1,100 +1,77 @@
-// shared/config/documents.ts
 import { DocumentCard } from "@/entities/procurement/model/types";
+import { useTranslations } from "next-intl";
 
-export const documentsConfig: DocumentCard[] = [
+export const getDocumentsConfig = (t: ReturnType<typeof useTranslations>): DocumentCard[] => [
     {
         id: 'rules',
-        title: 'Правила организации государственных закупок',
-        description: 'Муниципальное предприятие "Тазалык"',
-        pdfUrl: 'assets/files/Правила закупок МП Тазалык от 01-08-24.PDF',
+        title: t('ProcurementFilesCardTitle1'),
+        description: t('ProcurementFilesCardDescription1'),
+        pdfUrl: '/assets/documents/Правила закупок МП Тазалык от 01-08-24 (1).PDF',
         fileName: 'Правила закупок МП Тазалык от 01-08-24.PDF',
         icon: 'document',
         modalContent: {
-            title: 'Правила организации государственных закупок муниципального предприятия',
+            title: t('ProcurementFilesCModalTitle1'),
             sections: [
                 {
-                    title: '1. Общие положения',
-                    content: 'Настоящие Правила определяют порядок организации и проведения государственных закупок муниципальным предприятием в соответствии с действующим законодательством Кыргызской Республики.'
+                    title: t('ProcurementModal.rules.section1Title'),
+                    content: t('ProcurementModal.rules.section1Content')
                 },
                 {
-                    title: '2. Основные принципы',
-                    content: [
-                        '• Прозрачность и открытость проведения закупок',
-                        '• Равноправие и справедливость по отношению к участникам',
-                        '• Эффективное использование бюджетных средств',
-                        '• Профессиональная компетентность организаторов закупок',
-                        '• Недопущение коррупционных проявлений'
-                    ]
+                    title: t('ProcurementModal.rules.section2Title'),
+                    content: t.raw('ProcurementModal.rules.section2List')
                 },
                 {
-                    title: '3. Способы осуществления закупок',
-                    content: [
-                        '3.1. Конкурс (открытый, закрытый)',
-                        '3.2. Аукцион (электронный, открытый)',
-                        '3.3. Запрос котировок',
-                        '3.4. Закупка у единственного поставщика',
-                        '3.5. Двухэтапный конкурс'
-                    ]
+                    title: t('ProcurementModal.rules.section3Title'),
+                    content: t.raw('ProcurementModal.rules.section3List')
                 },
                 {
-                    title: '4. Требования к участникам',
-                    content: 'Участники закупок должны соответствовать требованиям, установленным законодательством, иметь необходимые лицензии и разрешения, а также не находиться в процессе ликвидации или банкротства.'
+                    title: t('ProcurementModal.rules.section4Title'),
+                    content: t('ProcurementModal.rules.section4Content')
                 },
                 {
-                    title: '5. Порядок заключения договоров',
-                    content: 'По результатам определения поставщика заключается договор в соответствии с требованиями гражданского законодательства и условиями закупочной документации.'
+                    title: t('ProcurementModal.rules.section5Title'),
+                    content: t('ProcurementModal.rules.section5Content')
                 }
             ],
-            footer: 'Полная версия правил доступна для скачивания в формате PDF.'
+            footer: t('ProcurementModal.rules.footer')
         }
     },
     {
         id: 'order',
-        title: 'Приказ ГАУГИ КР № 533-П',
-        description: 'О вопросах закупок государственных и муниципальных предприятий',
-        pdfUrl: 'assets/files/Приказ ГАУГИ КР № 533-П.pdf',
+        title: t('ProcurementFilesCardTitle2'),
+        description: t('ProcurementFilesCardDescription2'),
+        pdfUrl: '/assets/documents/Приказ ГАУГИ КР № 533-П.pdf',
         fileName: 'Приказ ГАУГИ КР № 533-П.pdf',
         icon: 'order',
         modalContent: {
-            title: 'Приказ Государственного агентства по управлению государственным имуществом при Кабинете Министров Кыргызской Республики от 5 июня 2024 года № 533-П',
+            title: t('ProcurementFilesCModalTitle2'),
             sections: [
                 {
-                    title: 'О вопросах закупок государственных и муниципальных предприятий',
-                    content: 'В целях координации закупок государственных и муниципальных предприятий, хозяйственных обществ, где 50 и более процентов доли участия в уставном капитале принадлежат государству...'
+                    title: t('ProcurementModal.order.mainTitle'),
+                    content: t('ProcurementModal.order.mainContent')
                 },
                 {
-                    title: '1. Утвердить',
-                    content: [
-                        '- Типовую стандартную конкурсную документацию для осуществления процедуры закупок согласно приложению 1;',
-                        '- форму отчета о закупках согласно приложению 2.'
-                    ]
+                    title: t('ProcurementModal.order.section1Title'),
+                    content: t.raw('ProcurementModal.order.section1List') // ✅ FIX
                 },
                 {
-                    title: '2. Рекомендовать закупающим организациям',
-                    content: [
-                        '1) процесс осуществления закупок привести в соответствие с Типовым порядком;',
-                        '2) осуществлять закупки, проводимые с 10 июня 2024 года, в соответствии с Типовым порядком и настоящим приказом;',
-                        '3) принять меры по прекращению договоров о закупках, заключенных на срок от 3 лет и более.'
-                    ]
+                    title: t('ProcurementModal.order.section2Title'),
+                    content: t.raw('ProcurementModal.order.section2List') // ✅ FIX
                 },
                 {
-                    title: '3. Установить, что в период проведения модернизации портала закупок',
-                    content: [
-                        '1) публикация отчетности по закупкам осуществляется путем направления отчета на электронную почту;',
-                        '2) публикация плана закупок осуществляется путем размещения на официальном веб-сайте;',
-                        '3) публикация объявления при проведении конкурса с ограниченным участием не применяется.'
-                    ]
+                    title: t('ProcurementModal.order.section3Title'),
+                    content: t.raw('ProcurementModal.order.section3List') // ✅ FIX
                 },
                 {
-                    title: '4. Контроль за исполнением',
-                    content: 'Контроль за исполнением настоящего приказа возложить на заместителя директора Э.Т.Сатарова.'
+                    title: t('ProcurementModal.order.section4Title'),
+                    content: t('ProcurementModal.order.section4Content')
                 },
                 {
-                    title: 'Директор',
-                    content: 'А.Примов'
+                    title: t('ProcurementModal.order.section5Title'),
+                    content: t('ProcurementModal.order.section5Content')
                 }
             ],
-            footer: 'Приказ вступает в силу с момента подписания и действует до отмены.'
+            footer: t('ProcurementModal.order.footer')
         }
     }
 ];

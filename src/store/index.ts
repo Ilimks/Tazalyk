@@ -1,3 +1,4 @@
+// src/store/index.ts
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './rootReducer';
 
@@ -15,3 +16,6 @@ export const makeStore = () => {
 export type AppStore = ReturnType<typeof makeStore>;
 export type AppDispatch = AppStore['dispatch'];
 export type RootState = ReturnType<AppStore['getState']>;
+
+// Для удобства экспортируем тип dispatch и selector
+export type { TypedUseSelectorHook } from 'react-redux';

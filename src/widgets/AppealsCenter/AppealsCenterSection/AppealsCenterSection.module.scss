@@ -1,13 +1,13 @@
 .appeals {
     width: 100%;
     padding: 40px 0;
-    margin: 20px 0 20px;
+    margin: 20px 0;
     background-color: #102382;
 
     .appeals__box {
         display: flex;
         flex-direction: column;
-        gap: 40px;
+        gap: 20px;
         align-items: center;
 
         .appeals__up {
@@ -52,9 +52,6 @@
         }
     }
 
-    // ========== АДАПТИВ ==========
-
-    // Планшеты (768px - 1023px)
     @media (max-width: 1023px) {
         padding: 35px 0;
         margin: 15px 0;
@@ -89,7 +86,6 @@
         }
     }
 
-    // Мобильные устройства (480px - 767px)
     @media (max-width: 767px) {
         padding: 30px 0;
         margin: 10px 0;
@@ -124,7 +120,6 @@
         }
     }
 
-    // Маленькие мобильные (320px - 479px)
     @media (max-width: 479px) {
         padding: 25px 0;
         margin: 8px 0;

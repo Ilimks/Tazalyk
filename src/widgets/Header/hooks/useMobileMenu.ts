@@ -1,10 +1,8 @@
-// widgets/header/hooks/useMobileMenu.ts
 import { useState, useEffect } from "react";
 
 export const useMobileMenu = (isOpen: boolean, onClose: () => void) => {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
-  // Запрещаем скролл страницы при открытом меню
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { PhotoCard } from '@/widgets/PhotoCard/ui/PhotoCard';
 import { ErrorState } from '@/shared/ui/ErrorState';
 import styles from './PhotoHomeSection.module.scss';
@@ -9,26 +9,26 @@ import { usePhotos } from '@/features/media/model/usePhotos';
 
 export const PhotoHomeSection: React.FC = () => {
     const { photos, isLoading, error, loadPhotos } = usePhotos();
-    const [hasLoaded, setHasLoaded] = useState(false);
+    const hasLoadedRef = useRef(false);
 
     useEffect(() => {
-        if (!hasLoaded && photos.length === 0) {
+        if (!hasLoadedRef.current && !isLoading) {
+            hasLoadedRef.current = true;
             loadPhotos();
-            setHasLoaded(true);
         }
-    }, [loadPhotos, photos.length, hasLoaded]);
+    }, [loadPhotos, isLoading]);
 
-    // Получаем последние 4 фото
-    const recentPhotos = [...photos]
+    const safePhotos = Array.isArray(photos) ? photos : [];
+
+    const recentPhotos = [...safePhotos]
         .sort((a, b) => {
-            const dateA = new Date(a.date || a.created_at || 0).getTime();
-            const dateB = new Date(b.date || b.created_at || 0).getTime();
+            const dateA = new Date(a?.date || a?.created_at || 0).getTime();
+            const dateB = new Date(b?.date || b?.created_at || 0).getTime();
             return dateB - dateA;
         })
         .slice(0, 4);
 
-    // Состояние загрузки
-    if (isLoading && photos.length === 0) {
+    if (isLoading && safePhotos.length === 0) {
         return (
             <div className={`${styles.photoHome} ${mobile.photoHome}`}>
                 <LoadingState />
@@ -36,8 +36,7 @@ export const PhotoHomeSection: React.FC = () => {
         );
     }
 
-    // Состояние ошибки с использованием ErrorState
-    if (error && photos.length === 0) {
+    if (error && safePhotos.length === 0) {
         let errorTitle = "Ошибка загрузки фотографий";
         let errorMessage = error;
         
@@ -64,8 +63,7 @@ export const PhotoHomeSection: React.FC = () => {
         );
     }
 
-    // Состояние пустого списка
-    if (recentPhotos.length === 0) {
+    if (recentPhotos.length === 0 && !isLoading) {
         return (
             <div className={`${styles.photoHome} ${mobile.photoHome}`}>
                 <div className={styles.emptyContainer}>
@@ -83,7 +81,6 @@ export const PhotoHomeSection: React.FC = () => {
         );
     }
 
-    // Успешная загрузка с данными
     return (
         <div className={`${styles.photoHome} ${mobile.photoHome}`}>
             {recentPhotos.map((photo) => (

@@ -1,6 +1,5 @@
-// widgets/procurement/ProcurementTable/model/useProcurement.ts
 import { useState, useEffect } from 'react';
-import { api } from '@/shared/api/api';
+import { procurementsApi } from '@/shared/api';
 import { ProcurementItem } from '@/entities/procurement/model/types';
 import { formatProcurementData, sortProcurementsByDate } from '@/entities/procurement/lib/helpers';
 
@@ -14,8 +13,8 @@ export const useProcurement = () => {
             setLoading(true);
             setError(null);
             
-            const data = await api.getProcurements();
-            const formattedData = data.map(formatProcurementData);
+            const response = await procurementsApi.getAll(1, 100);
+            const formattedData = response.items.map(formatProcurementData);
             const sortedData = sortProcurementsByDate(formattedData);
             
             setProcurementData(sortedData);

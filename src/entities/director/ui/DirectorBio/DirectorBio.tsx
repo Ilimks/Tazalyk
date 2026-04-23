@@ -7,6 +7,7 @@ interface DirectorBioProps {
 }
 
 export const DirectorBio: React.FC<DirectorBioProps> = ({ bio }) => {
+
     return (
         <div className={`${styles.directorBio} ${mobile.directorBio}`}>
             <h3 className={`${styles.directorBio__title} ${mobile.directorBio__title}`}>

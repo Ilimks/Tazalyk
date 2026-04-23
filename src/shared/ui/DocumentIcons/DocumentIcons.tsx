@@ -1,5 +1,3 @@
-// shared/ui/DocumentCard/DocumentIcons.tsx
-import React from 'react';
 
 export const DocumentIcons = {
     document: (

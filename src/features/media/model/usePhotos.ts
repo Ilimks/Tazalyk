@@ -1,66 +1,45 @@
-'use client';
-import { useCallback } from 'react';
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
-import { 
-    fetchPhotos, 
-    fetchPhotoById, 
-    createPhoto, 
-    updatePhoto, 
-    deletePhoto,
-    clearCurrentPhoto,
-    clearPhotoError,
-    Photo
-} from '../../../entities/media';
+// src/features/media/model/usePhotos.ts
+import { useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store';
+import { fetchPhotos } from '@/entities/media';
 
 export const usePhotos = () => {
-    const dispatch = useAppDispatch();
-    const { items, currentPhoto, status, error } = useAppSelector((state) => state.photos);
-
+    const dispatch = useDispatch<AppDispatch>();
+    const { 
+        items: photos, 
+        status, 
+        error, 
+        totalPages, 
+        currentPage,
+        totalCount 
+    } = useSelector((state: RootState) => state.photos);
+    
     const isLoading = status === 'loading';
-    const isSuccess = status === 'succeeded';
-    const isError = status === 'failed';
-
-    const loadPhotos = useCallback(() => {
-        dispatch(fetchPhotos());
+    
+    const loadPhotos = useCallback(async (page: number = 1, pageSize: number = 12) => {
+        console.log('📸 loadPhotos called:', { page, pageSize });
+        const result = await dispatch(fetchPhotos({ page, pageSize })).unwrap();
+        console.log('📸 loadPhotos result:', result);
+        return result;
     }, [dispatch]);
-
-    const loadPhotoById = useCallback((id: string) => {
-        dispatch(fetchPhotoById(id));
-    }, [dispatch]);
-
-    const addPhoto = useCallback((data: Omit<Photo, 'id' | 'created_at' | 'updated_at'>) => {
-        return dispatch(createPhoto(data)).unwrap();
-    }, [dispatch]);
-
-    const editPhoto = useCallback((id: string, data: Partial<Photo>) => {
-        return dispatch(updatePhoto({ id, data })).unwrap();
-    }, [dispatch]);
-
-    const removePhoto = useCallback((id: string) => {
-        return dispatch(deletePhoto(id)).unwrap();
-    }, [dispatch]);
-
-    const clearCurrent = useCallback(() => {
-        dispatch(clearCurrentPhoto());
-    }, [dispatch]);
-
-    const resetError = useCallback(() => {
-        dispatch(clearPhotoError());  // <-- Используйте правильное имя
-    }, [dispatch]);
-
+    
+    // Отладка
+    console.log('📸 usePhotos state:', { 
+        photosCount: photos.length, 
+        totalPages, 
+        currentPage, 
+        totalCount,
+        status 
+    });
+    
     return {
-        photos: items,
-        currentPhoto,
+        photos,
         isLoading,
-        isSuccess,
-        isError,
         error,
         loadPhotos,
-        loadPhotoById,
-        addPhoto,
-        editPhoto,
-        removePhoto,
-        clearCurrent,
-        resetError,
+        totalPages,
+        currentPage,
+        totalCount
     };
 };

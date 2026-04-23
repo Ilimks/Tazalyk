@@ -1,4 +1,3 @@
-// features/news/filter/YearFilter.tsx
 import React from 'react';
 import styles from './YearFilter.module.scss';
 

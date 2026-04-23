@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { NewsCard } from '@/entities/news/ui/NewsCard';
 import { useNews } from '@/features/news/model/useNews';
 import { ErrorState } from '@/shared/ui/ErrorState';
@@ -9,27 +9,29 @@ import { LoadingState } from '@/shared/ui/LoadingState';
 
 export const NewsHomeSectionBottom: React.FC = () => {
     const { news, isLoading, error, loadNews } = useNews();
+    const hasLoadedRef = useRef(false);
 
     useEffect(() => {
-        console.log('NewsHomeSectionBottom mounted, loading news...');
-        if (news.length === 0) {
+        if (!hasLoadedRef.current && !isLoading) {
+            hasLoadedRef.current = true;
             loadNews();
         }
-    }, [loadNews, news.length]);
+    }, [loadNews, isLoading]);
 
-    console.log('Rendering NewsHomeSectionBottom, loading:', isLoading, 'news count:', news.length);
+    // Защита от undefined
+    const safeNews = Array.isArray(news) ? news : [];
 
     // Получаем последние 4 новости
-    const latestNews = [...news]
+    const latestNews = [...safeNews]
         .sort((a, b) => {
-            const dateA = new Date(a.date || a.created_at || 0);
-            const dateB = new Date(b.date || b.created_at || 0);
+            const dateA = new Date(a?.date || a?.created_at || 0);
+            const dateB = new Date(b?.date || b?.created_at || 0);
             return dateB.getTime() - dateA.getTime();
         })
         .slice(0, 4);
 
     // Состояние загрузки
-    if (isLoading) {
+    if (isLoading && safeNews.length === 0) {
         return (
             <div className={`${styles.newsHomeBottom} ${mobile.newsHomeBottom}`}>
                 <LoadingState />
@@ -37,7 +39,7 @@ export const NewsHomeSectionBottom: React.FC = () => {
         );
     }
     
-    if (error) {
+    if (error && safeNews.length === 0) {
         let errorTitle = "Ошибка загрузки новостей";
         let errorMessage = error;
         
@@ -65,7 +67,7 @@ export const NewsHomeSectionBottom: React.FC = () => {
     }
 
     // Состояние пустого списка
-    if (latestNews.length === 0) {
+    if (latestNews.length === 0 && !isLoading) {
         return (
             <div className={`${styles.newsHomeBottom} ${mobile.newsHomeBottom}`}>
                 <div className={styles.empty}>

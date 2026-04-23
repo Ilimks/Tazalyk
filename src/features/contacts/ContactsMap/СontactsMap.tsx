@@ -1,14 +1,22 @@
 'use client'
 import { useState } from 'react';
 import { Loading } from '@/shared/ui/Loading';
-import { mapLocations } from '@/entities/contacts';
+import { useContactData } from '@/entities/contacts';
 import styles from './ContactsMap.module.scss';
+
+type MapLocation = {
+    id: number;
+    lat: number;
+    lon: number;
+    name: string;
+    address: string;
+};
 
 export const ContactsMap: React.FC = () => {
     const [mapLoaded, setMapLoaded] = useState(false);
+    const { mapLocations } = useContactData();
 
-    // Формируем URL с точками на карте
-    const points = mapLocations.map(loc => `${loc.lon}%2C${loc.lat}%2Cpm2rdl`).join('~');
+    const points = mapLocations.map((loc: MapLocation) => `${loc.lon}%2C${loc.lat}%2Cpm2rdl`).join('~');
     const mapUrl = `https://yandex.ru/map-widget/v1/?ll=74.5776%2C42.8729&z=14&pt=${points}`;
 
     return (

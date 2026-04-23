@@ -43,23 +43,29 @@
                     flex-direction: column;
                     gap: 12px;
 
-                    li {
-                        font-weight: 400;
-                        font-size: 14px;
-                        line-height: 168%;
-                        color: #d1d5db;
-                        cursor: pointer;
-                        display: flex;
-                        align-items: center;
-                        column-gap: 10px;
+                    .footer__up__right__li {
+                        list-style: none;
+                        
+                        .footer__up__right__link {
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 168%;
+                            color: #d1d5db;
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            column-gap: 10px;
+                            text-decoration: none;
+                            transition: color 0.2s ease;
 
-                        .footer__up__right__li__icon {
+                            .footer__up__right__li__icon {
+                                display: block;
+                            }
 
+                            &:hover {
+                                color: #2d74de;
+                            }
                         }
-                    }
-
-                    li:hover {
-                        color: #2d74de;
                     }
                 }
             }

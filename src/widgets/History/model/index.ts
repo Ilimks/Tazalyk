@@ -1,0 +1,1 @@
+export { quote, conclusion, historySections,doubleImage } from './historyData'

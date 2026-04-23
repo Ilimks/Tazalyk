@@ -1,8 +1,10 @@
 import styles from "./FooterBottom.module.scss";
 import mobile from "./FooterBottomMobile.module.scss";
 import Image from "next/image";
+import { useTranslations } from 'next-intl';
 
 export const FooterBottom: React.FC = () => {
+    const t = useTranslations("Footer");
 
     const footerIcons = [
         { icon: "/assets/icons/instFooter.svg", alt: "Instagram" },
@@ -13,7 +15,7 @@ export const FooterBottom: React.FC = () => {
     return (
         <div className={`${styles.footer__bottom} ${mobile.footer__bottom}`}>
             <p className={`${styles.footer__bottom__text} ${mobile.footer__bottom__text}`}>
-                © 2026 МП "Тазалык". Все права защищены.
+                {t('FooterProtected')}
             </p>
 
             <div className={`${styles.footer__bottom__icons} ${mobile.footer__bottom__icons}`}>

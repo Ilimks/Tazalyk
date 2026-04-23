@@ -3,8 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useHeroCarousel } from '../model/useHeroCarousel';
 import styles from './HeroHomeSection.module.scss';
 import mobile from './HeroHomeSectionMobile.module.scss';
+import { useTranslations } from 'next-intl';
 
 export const HeroHomeSection: React.FC = () => {
+    const t = useTranslations("Main");
     const heroRef = useRef<HTMLElement>(null);
     const [isMobile, setIsMobile] = useState(false);
     const {
@@ -78,10 +80,10 @@ export const HeroHomeSection: React.FC = () => {
             <div className={`${styles.infoPanel} ${isMobile ? styles.infoPanelCentered : ''}`}>
                 <h1 className={styles.heroTitle}>ТАЗАЛЫК</h1>
                 <p className={styles.heroText}>
-                    ЧИСТОТА ГОРОДА — ЕЖЕДНЕВНЫЙ ТРУД НА БЛАГО КАЖДОГО ЖИТЕЛЯ
+                    {t('MainHeruDescription')}
                 </p>
                 <button className={styles.heroBtn}>
-                    О КОМПАНИИ
+                    {t('MainHeroButton')}
                 </button>
             </div>
 

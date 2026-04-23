@@ -1,10 +1,12 @@
 export interface News {
     id: string;
-    title: string;
-    description: string;
-    image: string;
-    date: string;        // Основное поле для даты
-    created_at: string;  // Автоматическое поле Django
+    title_ru: string;
+    description_ru: string;
+    title_ky?: string;
+    description_ky?: string;
+    image?: string;
+    date: string;
+    created_at: string;
 }
 
 export interface NewsState {

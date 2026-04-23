@@ -1,4 +1,3 @@
-// shared/config/procurement.ts
 export const typeConfig = {
     goods: { label: 'Товар', color: '#8b5cf6', bg: '#8b5cf610' },
     services: { label: 'Услуга', color: '#06b6d4', bg: '#06b6d410' },

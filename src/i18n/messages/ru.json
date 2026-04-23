@@ -28,5 +28,162 @@
         "regulatoryFrameworkLegislation": "Законодательство КР",
         "regulatoryFrameworkActs": "Локальные акты",
         "contacts": "КОНТАКТЫ"
+    },
+
+    "Footer": {
+        "FooterDescriptiion": "Муниципальное предприятие, ответственное за чистоту и благоустройство нашего города. Мы работаем для вас 24/7.",
+        "FooterAbout": "О компании",
+        "FooterAboutHistory": "История",
+        "FooterAboutManagement": "Руководство",
+        "FooterAboutVacancies": "Вакансии",
+        "FooterAboutResults": "Итоги работы",
+        "FooterServices": "Услуги",
+        "FooterServicesMaterial": "Материальные средства",
+        "FooterServicesTransport": "Транспортные услуги",
+        "FooterContacts": "Контакты",
+        "FooterProtected": "© 2026 МП «Тазалык». Все права защищены."
+    },
+
+    "Breadcrumbs": {
+        "home": "Главная",
+        "news": "Новости",
+        "media": "Медиа",
+        "procurement": "Закупки",
+        "services": "Услуги",
+        "contact": "Контакты",
+        "about": "О компании",
+        "history": "История",
+        "structure": "Структура",
+        "directorate": "Руководство",
+        "results": "Результаты",
+        "acts": "Акты",
+        "legislation": "Законодательство",
+        "tariffs": "Тарифы",
+        "vacancies": "Вакансии"
+    },
+
+    "Main": {
+        "MainHeruDescription": "ЧИСТОТА ГОРОДА — ЕЖЕДНЕВНЫЙ ТРУД НА БЛАГО КАЖДОГО ЖИТЕЛЯ",
+        "MainHeroButton": "О КОМПАНИИ",
+        "MainDirectorName": "Директор МП «Тазалык»",
+        "MainDirectorBiographyTitle": "Биография",
+        "MainDirectorBiographyDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+        "MainNewsTitle": "Новости и События",
+        "MainNewsButton": "Все новости",
+        "MainReceptionTitle": "ЦЕНТР ПРИЁМА ОБРАЩЕНИЙ",
+        "MainReceptionCall": "(звонок платный с мобильных номеров)",
+        "MainVideosPhotosTitle": "Видеогалерея и Фотогалереля",
+        "MainVideosPhotosButton": "Все видео и фото"
+    },
+
+    "Procurement": {
+        "ProcurementTitle": "Закупки",
+        "ProcurementDescription": "Информация о проведенных и планируемых закупках товаров, работ и услуг в соответствии с действующим законодательством Кыргызской Республики",
+        "ProcurementInfoCardTitle": "Реестр закупок",
+        "ProcurementInfoCardDescription": "В таблице представлен перечень всех проведенных закупок. Данные обновляются автоматически после публикации информации в системе. Новые закупки отображаются в начале списка.",
+        "ProcurementErrorData": "Ошибка загрузки данных о закупках",
+        "ProcurementTableHeaderTitle": "Перечень закупок",
+        "ProcurementTableHeaderCount": "Всего:",
+        "ProcurementTableBodyNoData": "Нет данных о закупках",
+        "ProcurementTableBodyDataTime": "Данные будут добавлены в ближайшее время",
+        "ProcurementTableBodyContract": "№ контракта",
+        "ProcurementTableBodySupplier": "Поставщик",
+        "ProcurementTableBodyType": "Тип",
+        "ProcurementTableBodyMethod": "Метод",
+        "ProcurementTableBodyStatus": "Статус",
+        "ProcurementTableBodyDate": "Дата",
+        "ProcurementTableBodyContractAamount": "Сумма договора",
+        "ProcurementFilesTitle": "Нормативно-правовые документы",
+        "ProcurementFilesDescription": "Основные документы, регулирующие порядок проведения закупок",
+        "ProcurementFilesCardTitle1": "Правила организации государственных закупок",
+        "ProcurementFilesCardTitle2": "Приказ ГАУГИ КР № 533-П",
+        "ProcurementFilesCardDescription1": "Муниципальное предприятие «Тазалык»",
+        "ProcurementFilesCardDescription2": "О вопросах закупок государственных и муниципальных предприятий",
+        "ProcurementFilesCModalTitle1": "Правила организации государственных закупок муниципального предприятия",
+        "ProcurementFilesCModalTitle2": "Правила организации государственных закупок муниципального предприятия",
+        "ProcurementModal": {
+            "rules": {
+                "section1Title": "1. Общие положения",
+                "section1Content": "Настоящие Правила определяют порядок организации и проведения государственных закупок муниципальным предприятием в соответствии с действующим законодательством Кыргызской Республики.",
+                "section2Title": "2. Основные принципы",
+                "section2List": [
+                    "• Прозрачность и открытость проведения закупок",
+                    "• Равноправие и справедливость по отношению к участникам",
+                    "• Эффективное использование бюджетных средств",
+                    "• Профессиональная компетентность организаторов закупок",
+                    "• Недопущение коррупционных проявлений"
+                ],
+                "section3Title": "3. Способы осуществления закупок",
+                "section3List": [
+                    "3.1. Конкурс (открытый, закрытый)",
+                    "3.2. Аукцион (электронный, открытый)",
+                    "3.3. Запрос котировок",
+                    "3.4. Закупка у единственного поставщика",
+                    "3.5. Двухэтапный конкурс"
+                ],
+                "section4Title": "4. Требования к участникам",
+                "section4Content": "Участники закупок должны соответствовать требованиям, установленным законодательством, иметь необходимые лицензии и разрешения, а также не находиться в процессе ликвидации или банкротства.",
+                "section5Title": "5. Порядок заключения договоров",
+                "section5Content": "По результатам определения поставщика заключается договор в соответствии с требованиями гражданского законодательства и условиями закупочной документации.",
+                "footer": "Полная версия правил доступна для скачивания в формате PDF."
+            },
+            "order": {
+                "mainTitle": "О вопросах закупок государственных и муниципальных предприятий",
+                "mainContent": "В целях координации закупок государственных и муниципальных предприятий, хозяйственных обществ, где 50 и более процентов доли участия в уставном капитале принадлежат государству...",
+                "section1Title": "1. Утвердить",
+                "section1List": [
+                    "- Типовую стандартную конкурсную документацию для осуществления процедуры закупок согласно приложению 1;",
+                    "- форму отчета о закупках согласно приложению 2."
+                ],
+                "section2Title": "2. Рекомендовать закупающим организациям",
+                "section2List": [
+                    "1) процесс осуществления закупок привести в соответствие с Типовым порядком;",
+                    "2) осуществлять закупки, проводимые с 10 июня 2024 года, в соответствии с Типовым порядком и настоящим приказом;",
+                    "3) принять меры по прекращению договоров о закупках, заключенных на срок от 3 лет и более."
+                ],
+                "section3Title": "3. Установить, что в период проведения модернизации портала закупок",
+                "section3List": [
+                    "1) публикация отчетности по закупкам осуществляется путем направления отчета на электронную почту;",
+                    "2) публикация плана закупок осуществляется путем размещения на официальном веб-сайте;",
+                    "3) публикация объявления при проведении конкурса с ограниченным участием не применяется."
+                ],
+                "section4Title": "4. Контроль за исполнением",
+                "section4Content": "Контроль за исполнением настоящего приказа возложить на заместителя директора Э.Т.Сатарова.",
+                "section5Title": "Директор",
+                "section5Content": "А.Примов",
+                "footer": "Приказ вступает в силу с момента подписания и действует до отмены."
+            }
+        }
+    },
+
+    "Contacts": {
+        "ContactsTitle": "Контакты",
+        "ContactsDescription": "Свяжитесь с нами для получения дополнительной информации о деятельности муниципального предприятия «Тазалык»",
+        "ContactsDataTitle": "Контактные данные",
+        "ContactsDataDescription": "По всем вопросам и обращениям вы можете связаться с нами по телефону горячей линии: +996 (312) 12-34-56 или написать на почту info@tazalyk.kg",
+        "ContactsDataPhone": "Телефоны",
+        "ContactsDataEmail": "Электронная почта",
+        "ContactsDataAddress": "Адрес",
+        "ContactsDataNetwork": "Социальные сети"
+    },
+
+    "News": {
+        "NewsTitle": "Новости",
+        "NewsDescription": "Актуальные новости и события муниципального предприятия «Тазалык»"
+    },
+
+    "Directorate": {
+        "DirectorateTitle": "Генеральное руководство",
+        "DirectorateDescription": "Руководство муниципального предприятия «Тазалык»"
+    },
+
+    "Service": {
+        "ServiceTitle": "Зона обслуживания",
+        "ServiceDescription": "Территория обслуживания муниципального предприятия «Тазалык» - город Бишкек"
+    },
+
+    "History": {
+        "HistoryTitle": "История", 
+        "HistoryDescription": "История становления и развития муниципального предприятия «Тазалык»"
     }
 }

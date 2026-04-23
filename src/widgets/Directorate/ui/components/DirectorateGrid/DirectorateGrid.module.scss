@@ -1,0 +1,12 @@
+.directorateGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    padding: 40px 0 60px;
+
+    @media (max-width: 768px) {
+        gap: 22px;
+        padding: 10px 0 30px;
+    }
+}

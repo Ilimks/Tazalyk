@@ -1,4 +1,3 @@
-// widgets/header/model/useBurger.ts
 import { useState } from "react";
 
 export const useBurger = () => {

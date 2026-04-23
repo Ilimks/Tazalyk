@@ -18,7 +18,7 @@ const searchData: SearchResult[] = [
   { id: '5', title: 'Итоги работы', type: 'page', url: '/results' },
   { id: '6', title: 'Вакансии', type: 'page', url: '/vacancies' },
   { id: '7', title: 'Тарифы', type: 'page', url: '/tariffs' },
-  { id: '8', title: 'Контакты', type: 'page', url: '/contacts' },
+  { id: '8', title: 'Контакты', type: 'page', url: '/contact' },
   { id: '9', title: 'Закупки', type: 'page', url: '/procurement' },
   { id: '10', title: 'Законодательство КР', type: 'page', url: '/legislation' },
   { id: '11', title: 'Локальные акты', type: 'page', url: '/local-acts' },

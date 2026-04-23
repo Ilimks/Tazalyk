@@ -28,5 +28,156 @@
         "regulatoryFrameworkLegislation": "КР Мыйзамдары",
         "regulatoryFrameworkActs": "Жергиликтүү актылар",
         "contacts": "БАЙЛАНЫШТАР"
+    },
+
+    "Footer": {
+        "FooterDescriptiion": "Шаарыбыздын тазалыгы жана көрктөндүрүлүшү үчүн жооптуу муниципалдык ишкана. Биз сиздер үчүн 24/7 иштейбиз.",
+        "FooterAbout": "Компания жөнүндө",
+        "FooterAboutHistory": "Тарыхы",
+        "FooterAboutManagement": "Жетекчилик",
+        "FooterAboutVacancies": "Бош орундар",
+        "FooterAboutResults": "Иштин жыйынтыктары",
+        "FooterServices": "Кызматтар",
+        "FooterServicesMaterial": "Материалдык каражаттар",
+        "FooterServicesTransport": "Транспорт кызматтары",
+        "FooterContacts": "Байланыштар",
+        "FooterProtected": "© 2026 МП «Тазалык». Бардык укуктар корголгон."
+    },
+
+    "Breadcrumbs": {
+        "home": "Башкы бет",
+        "news": "Жаңылыктар",
+        "media": "Медиа",
+        "procurement": "Сатып алуулар",
+        "services": "Кызматтар",
+        "contact": "Байланыштар",
+        "about": "Компания жөнүндө",
+        "history": "Тарыхы",
+        "structure": "Түзүмү",
+        "directorate": "Жетекчилик",
+        "results": "Жыйынтыктар",
+        "acts": "Актылар",
+        "legislation": "Мыйзамдар",
+        "tariffs": "Тарифтер",
+        "vacancies": "Бош орундар"
+    },
+
+    "Main": {
+        "MainHeruDescription": "ШААРДЫН ТАЗАЛЫГЫ — АР БИР ТУРГУНДУН ЖАКШЫЛЫГЫ ҮЧҮН КҮН САЙЫНКЫ ЭМГЕК",
+        "MainHeroButton": "КОМПАНИЯ ЖӨНҮНДӨ",
+        "MainDirectorName": "МП Тазалык директору",
+        "MainDirectorBiographyDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+        "MainNewsTitle": "Жаңылыктар жана окуялар",
+        "MainNewsButton": "Бардык жаңылыктар",
+        "MainReceptionTitle": "КАЙРЫЛУУЛАРДЫ КАБЫЛ АЛУУ БОРБОРУ",
+        "MainReceptionCall": "(уюлдук телефондордон чалуу акы төлөнөт)",
+        "MainVideosPhotosTitle": "Видеогалерея жана фотогалерея",
+        "MainVideosPhotosButton": "Бардык видео жана сүрөттөр"
+    },
+
+    "Procurement": {
+        "ProcurementTitle": "Сатып алуулар",
+        "ProcurementDescription": "Кыргыз Республикасынын колдонуудагы мыйзамдарына ылайык товарларды, иштерди жана кызматтарды жүргүзүлгөн жана пландаштырылган сатып алуулар жөнүндө маалымат",
+        "ProcurementInfoCardTitle": "Сатып алуулар реестри",
+        "ProcurementInfoCardDescription": "Таблицада жүргүзүлгөн бардык сатып алуулар тизмеси көрсөтүлгөн. Маалыматтар системага жарыялангандан кийин автоматтык түрдө жаңыртылат. Жаңы сатып алуулар тизменин башында көрсөтүлөт.",
+        "ProcurementErrorData": "Сатып алуулар боюнча маалыматтарды жүктөөдө ката кетти",
+        "ProcurementTableHeaderTitle": "Сатып алуулар тизмеси",
+        "ProcurementTableHeaderCount": "Жалпы:",
+        "ProcurementTableBodyNoData": "Сатып алуулар боюнча маалымат жок",
+        "ProcurementTableBodyDataTime": "Маалыматтар жакын арада кошулат",
+        "ProcurementTableBodyContract": "Келишим №",
+        "ProcurementTableBodySupplier": "Жеткирүүчү",
+        "ProcurementTableBodyType": "Түрү",
+        "ProcurementTableBodyMethod": "Методу",
+        "ProcurementTableBodyStatus": "Абалы",
+        "ProcurementTableBodyDate": "Дата",
+        "ProcurementTableBodyContractAamount": "Келишимдин суммасы",
+        "ProcurementFilesTitle": "Нормативдик-укуктук документтер",
+        "ProcurementFilesDescription": "Сатып алууларды өткөрүү тартибин жөнгө салуучу негизги документтер",
+        "ProcurementFilesCardTitle1": "Мамлекеттик сатып алууларды уюштуруунун эрежелери",
+        "ProcurementFilesCardTitle2": "КР МАММБ агенттигинин № 533-П буйругу",
+        "ProcurementFilesCardDescription1": "Муниципалдык ишкана «Тазалык»",
+        "ProcurementFilesCardDescription2": "Мамлекеттик жана муниципалдык ишканалардын сатып алуулар маселелери жөнүндө",
+        "ProcurementFilesCModalTitle1": "Муниципалдык ишкананын мамлекеттик сатып алууларды уюштуруунун эрежелери",
+        "ProcurementFilesCModalTitle2": "Муниципалдык ишкананын мамлекеттик сатып алууларды уюштуруунун эрежелери",
+        "ProcurementModal": {
+            "rules": {
+                "section1Title": "1. Жалпы жоболор",
+                "section1Content": "Ушул Эрежелер Кыргыз Республикасынын колдонуудагы мыйзамдарына ылайык муниципалдык ишкана тарабынан мамлекеттик сатып алууларды уюштуруунун жана өткөрүүнүн тартибин аныктайт.",
+                "section2Title": "2. Негизги принциптер",
+                "section2List": [
+                    "• Сатып алуулардын ачыктыгы жана транспаренттүүлүгү",
+                    "• Катышуучуларга карата тең укуктуулук жана адилеттүүлүк",
+                    "• Бюджеттик каражаттарды натыйжалуу пайдалануу",
+                    "• Сатып алууларды уюштуруучулардын кесиптик компетенттүүлүгү",
+                    "• Коррупциялык көрүнүштөргө жол бербөө"
+                ],
+                "section3Title": "3. Сатып алууларды жүзөгө ашыруу ыкмалары",
+                "section3List": [
+                    "3.1. Конкурс (ачык, жабык)",
+                    "3.2. Аукцион (электрондук, ачык)",
+                    "3.3. Котировкаларды суроо",
+                    "3.4. Жалгыз жеткирүүчүдөн сатып алуу",
+                    "3.5. Эки этаптуу конкурс"
+                ],
+                "section4Title": "4. Катышуучуларга коюлган талаптар",
+                "section4Content": "Сатып алууларга катышуучулар мыйзамда белгиленген талаптарга жооп бериши, зарыл лицензияларга жана уруксаттарга ээ болушу, ошондой эле жоюу же банкроттык процессинде болбошу керек.",
+                "section5Title": "5. Келишимдерди түзүү тартиби",
+                "section5Content": "Жеткирүүчүнү аныктоонун жыйынтыгы боюнча жарандык мыйзамдардын талаптарына жана сатып алуу документтеринин шарттарына ылайык келишим түзүлөт.",
+                "footer": "Эрежелердин толук версиясы PDF форматында жүктөп алууга жеткиликтүү."
+            },
+            "order": {
+                "mainTitle": "Мамлекеттик жана муниципалдык ишканалардын сатып алуулар маселелери жөнүндө",
+                "mainContent": "Мамлекеттик жана муниципалдык ишканалардын, уставдык капиталындагы үлүшү 50 жана андан көп пайызы мамлекетке таандык болгон чарбалык коомдордун сатып алууларын координациялоо максатында...",
+                "section1Title": "1. Беккитилсин",
+                "section1List": [
+                    "- 1-тиркемеге ылайык сатып алуу процедурасын жүзөгө ашыруу үчүн Үлгүлүк стандарттык конкурстук документация;",
+                    "- 2-тиркемеге ылайык сатып алуулар боюнча отчеттун формасы."
+                ],
+                "section2Title": "2. Сатып алуучу уюмдарга сунушталсын",
+                "section2List": [
+                    "1) сатып алууларды жүзөгө ашыруу процесси Үлгүлүк тартипке ылайык келтирилсин;",
+                    "2) 2024-жылдын 10-июнунан баштап өткөрүлүүчү сатып алуулар Үлгүлүк тартипке жана ушул буйрукка ылайык жүзөгө ашырылсын;",
+                    "3) 3 жана андан көп жылдык мөөнөткө түзүлгөн сатып алуулар боюнча келишимдерди токтотуу чаралары көрүлсүн."
+                ],
+                "section3Title": "3. Сатып алуу порталын модернизациялоо мезгилинде",
+                "section3List": [
+                    "1) сатып алуулар боюнча отчеттуулукту жарыялоо электрондук почтага отчет жөнөтүү жолу менен жүзөгө ашырылат;",
+                    "2) сатып алуулар планын жарыялоо расмий веб-сайтка жайгаштыруу жолу менен жүзөгө ашырылат;",
+                    "3) чектелген катышуу менен конкурс өткөрүүдө жарыяны жарыялоо колдонулбайт."
+                ],
+                "section4Title": "4. Аткарылышын көзөмөлдөө",
+                "section4Content": "Ушул буйруктун аткарылышын көзөмөлдөө директордун орун басары Э.Т.Сатаровго жүктөлсүн.",
+                "section5Title": "Директор",
+                "section5Content": "А.Примов",
+                "footer": "Буйрук кол коюлган учурдан баштап күчүнө кирет жана күчү жоголгонго чейин иштейт."
+            }
+        }    
+    },
+
+    "Contacts": {
+        "ContactsTitle": "Байланыштар",
+        "ContactsDescription": "«Тазалык» муниципалдык ишканасынын ишмердүүлүгү тууралуу кошумча маалымат алуу үчүн биз менен байланышыңыз",
+        "ContactsDataTitle": "Байланыш маалыматтары",
+        "ContactsDataDescription": "Байланыш маалыматтары",
+        "ContactsDataPhone": "Телефондор",
+        "ContactsDataEmail": "Электрондук почта",
+        "ContactsDataAddress": "Дарек",
+        "ContactsDataNetwork": "Социалдык тармактар"
+    },
+
+    "News": {
+        "NewsTitle": "Жаңылыктар",
+        "NewsDescription": "«Тазалык» муниципалдык ишканасынын актуалдуу жаңылыктары жана окуялары"
+    },
+
+    "Directorate": {
+        "DirectorateTitle": "Жалпы жетекчилик", 
+        "DirectorateDescription": "«Тазалык» муниципалдык ишканасынын жетекчилиги"
+    },
+
+    "History": {
+        "HistoryTitle": "Тарыхы",
+        "HistoryDescription": "«Тазалык» муниципалдык ишканасынын түзүлүшү жана өнүгүү тарыхы"
     }
 }

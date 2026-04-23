@@ -1,46 +1,35 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
+console.log('API_BASE_URL:', API_BASE_URL);
 
 export const baseApi = {
-    async request<T>(
-        endpoint: string,
-        options?: RequestInit
-    ): Promise<T> {
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            ...options,
-        });
-
-        if (!response.ok) {
-            const error = await response.json().catch(() => ({}));
-            throw new Error(error.message || `API Error: ${response.status}`);
+    get: async <T>(url: string, params?: Record<string, any>): Promise<T> => {
+        let fullUrl = `${API_BASE_URL}${url}`;
+        
+        if (params) {
+            const queryParams = new URLSearchParams();
+            Object.entries(params).forEach(([key, value]) => {
+                if (value !== undefined && value !== null) {
+                    queryParams.append(key, String(value));
+                }
+            });
+            const queryString = queryParams.toString();
+            if (queryString) {
+                fullUrl += `?${queryString}`;
+            }
         }
-
-        return response.json();
+        
+        console.log(`📡 Fetching GET: ${fullUrl}`);
+        
+        const response = await fetch(fullUrl);
+        console.log(`📊 Response status: ${response.status}`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log(`✅ Response data:`, data);
+        return data;
     },
-
-    async get<T>(endpoint: string): Promise<T> {
-        return this.request<T>(endpoint);
-    },
-
-    async post<T>(endpoint: string, data?: any): Promise<T> {
-        return this.request<T>(endpoint, {
-            method: 'POST',
-            body: JSON.stringify(data)
-        });
-    },
-
-    async put<T>(endpoint: string, data?: any): Promise<T> {
-        return this.request<T>(endpoint, {
-            method: 'PUT',
-            body: JSON.stringify(data)
-        });
-    },
-
-    async delete<T>(endpoint: string): Promise<T> {
-        return this.request<T>(endpoint, {
-            method: 'DELETE'
-        });
-    }
 };

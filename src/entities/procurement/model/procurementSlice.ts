@@ -1,34 +1,53 @@
+// src/entities/procurement/model/procurementSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { procurementsApi } from '@/shared/api/endpoints/procurements';
-import { ProcurementItem, ProcurementState } from './types';
+import { procurementsApi } from '@/shared/api';
+import { ProcurementItem } from './types';
+
+interface ProcurementState {
+    items: ProcurementItem[];
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    error: string | null;
+    totalPages: number;
+    currentPage: number;
+    totalCount: number;
+}
+
+interface FetchProcurementsParams {
+    page: number;
+    pageSize: number;
+}
+
+interface FetchProcurementsResponse {
+    items: ProcurementItem[];
+    totalCount: number;
+    totalPages: number;
+    currentPage: number;
+}
 
 const initialState: ProcurementState = {
     items: [],
     status: 'idle',
     error: null,
+    totalPages: 0,
+    currentPage: 1,
+    totalCount: 0
 };
 
-// Async Thunks
-export const fetchProcurements = createAsyncThunk('procurements/fetchAll', async () => {
-    return await procurementsApi.getAll();
-});
+// Только GET запросы
+export const fetchProcurements = createAsyncThunk(
+    'procurements/fetchAll',
+    async ({ page, pageSize }: FetchProcurementsParams) => {
+        const response = await procurementsApi.getAll(page, pageSize);
+        return response;
+    }
+);
 
-export const fetchProcurementById = createAsyncThunk('procurements/fetchById', async (id: string) => {
-    return await procurementsApi.getById(id);
-});
-
-export const createProcurement = createAsyncThunk('procurements/create', async (data: Omit<ProcurementItem, 'id' | 'created_at' | 'updated_at'>) => {
-    return await procurementsApi.create(data);
-});
-
-export const updateProcurement = createAsyncThunk('procurements/update', async ({ id, data }: { id: string; data: Partial<ProcurementItem> }) => {
-    return await procurementsApi.update(id, data);
-});
-
-export const deleteProcurement = createAsyncThunk('procurements/delete', async (id: string) => {
-    await procurementsApi.delete(id);
-    return id;
-});
+export const fetchProcurementById = createAsyncThunk(
+    'procurements/fetchById',
+    async (id: string) => {
+        return await procurementsApi.getById(id);
+    }
+);
 
 const procurementSlice = createSlice({
     name: 'procurements',
@@ -40,60 +59,37 @@ const procurementSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // Fetch all
+            // Fetch all (с пагинацией)
             .addCase(fetchProcurements.pending, (state) => {
                 state.status = 'loading';
                 state.error = null;
             })
-            .addCase(fetchProcurements.fulfilled, (state, action: PayloadAction<ProcurementItem[]>) => {
+            .addCase(fetchProcurements.fulfilled, (state, action: PayloadAction<FetchProcurementsResponse>) => {
                 state.status = 'succeeded';
-                state.items = action.payload;
+                state.items = action.payload.items;
+                state.totalCount = action.payload.totalCount;
+                state.totalPages = action.payload.totalPages;
+                state.currentPage = action.payload.currentPage;
             })
             .addCase(fetchProcurements.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message || 'Failed to fetch procurements';
+                state.items = [];
             })
             // Fetch by id
             .addCase(fetchProcurementById.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(fetchProcurementById.fulfilled, (state, action: PayloadAction<ProcurementItem>) => {
+            .addCase(fetchProcurementById.fulfilled, (state) => {
                 state.status = 'succeeded';
-                const index = state.items.findIndex(item => item.id === action.payload.id);
-                if (index !== -1) {
-                    state.items[index] = action.payload;
-                }
             })
             .addCase(fetchProcurementById.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message || 'Failed to fetch procurement';
-            })
-            // Create
-            .addCase(createProcurement.fulfilled, (state, action: PayloadAction<ProcurementItem>) => {
-                state.items.unshift(action.payload);
-            })
-            .addCase(createProcurement.rejected, (state, action) => {
-                state.error = action.error.message || 'Failed to create procurement';
-            })
-            // Update
-            .addCase(updateProcurement.fulfilled, (state, action: PayloadAction<ProcurementItem>) => {
-                const index = state.items.findIndex(item => item.id === action.payload.id);
-                if (index !== -1) {
-                    state.items[index] = action.payload;
-                }
-            })
-            .addCase(updateProcurement.rejected, (state, action) => {
-                state.error = action.error.message || 'Failed to update procurement';
-            })
-            // Delete
-            .addCase(deleteProcurement.fulfilled, (state, action: PayloadAction<string>) => {
-                state.items = state.items.filter(item => item.id !== action.payload);
-            })
-            .addCase(deleteProcurement.rejected, (state, action) => {
-                state.error = action.error.message || 'Failed to delete procurement';
             });
     },
 });
 
 export const { clearError } = procurementSlice.actions;
-export default procurementSlice.reducer;
+export const procurementReducer = procurementSlice.reducer;
+export default procurementSlice.reducer; // ← ДОБАВЬТЕ ЭТУ СТРОКУ

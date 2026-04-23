@@ -51,47 +51,46 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
     const [activeTab, setActiveTab] = useState<MediaType>(defaultTab);
     const [currentPage, setCurrentPage] = useState(1);
 
-    // Используем Redux хуки
-    const { photos, isLoading: photosLoading, error: photosError, loadPhotos } = usePhotos();
-    const { videos, isLoading: videosLoading, error: videosError, loadVideos } = useVideos();
+    const { 
+        photos, 
+        isLoading: photosLoading, 
+        error: photosError, 
+        loadPhotos,
+        totalPages: photosTotalPages,
+        totalCount: photosTotalCount  // ← общее количество фото
+    } = usePhotos();
+    
+    const { 
+        videos, 
+        isLoading: videosLoading, 
+        error: videosError, 
+        loadVideos,
+        totalPages: videosTotalPages,
+        totalCount: videosTotalCount  // ← общее количество видео
+    } = useVideos();
 
     const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
     const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
-    // Загружаем данные при монтировании
+    // Загружаем данные при смене страницы или вкладки
     useEffect(() => {
-        if (photos.length === 0 && !photosLoading) {
-            loadPhotos();
+        if (activeTab === 'photos') {
+            loadPhotos(currentPage, itemsPerPage);
+        } else {
+            loadVideos(currentPage, itemsPerPage);
         }
-        if (videos.length === 0 && !videosLoading) {
-            loadVideos();
-        }
-    }, [loadPhotos, loadVideos, photos.length, videos.length, photosLoading, videosLoading]);
+    }, [activeTab, currentPage, itemsPerPage]);
 
     // Сбрасываем страницу при смене вкладки
     useEffect(() => {
         setCurrentPage(1);
     }, [activeTab]);
 
-    // Определяем текущие данные в зависимости от активной вкладки
     const currentData = activeTab === 'photos' ? photos : videos;
     const isLoading = activeTab === 'photos' ? photosLoading : videosLoading;
     const error = activeTab === 'photos' ? photosError : videosError;
-
-    // Пагинация
-    const totalPages = Math.max(1, Math.ceil(currentData.length / itemsPerPage));
-    const validPage = Math.min(currentPage, totalPages);
-    
-    // Синхронизируем currentPage если он выходит за пределы
-    useEffect(() => {
-        if (currentPage !== validPage && validPage !== currentPage) {
-            setCurrentPage(validPage);
-        }
-    }, [currentPage, validPage]);
-
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const currentItemsOnPage = currentData.slice(startIndex, endIndex);
+    const totalPages = activeTab === 'photos' ? photosTotalPages : videosTotalPages;
+    const totalCount = activeTab === 'photos' ? photosTotalCount : videosTotalCount;
 
     const handleTabChange = useCallback((tabId: string) => {
         setActiveTab(tabId as MediaType);
@@ -104,11 +103,11 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
 
     const refetch = useCallback(() => {
         if (activeTab === 'photos') {
-            loadPhotos();
+            loadPhotos(currentPage, itemsPerPage);
         } else {
-            loadVideos();
+            loadVideos(currentPage, itemsPerPage);
         }
-    }, [activeTab, loadPhotos, loadVideos]);
+    }, [activeTab, currentPage, itemsPerPage]);
 
     const handlePhotoClick = useCallback((photo: Photo) => {
         setSelectedPhoto(photo);
@@ -118,9 +117,10 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
         setSelectedVideo(video);
     }, []);
 
+    // ВАЖНО: Используем totalCount (общее количество), а не photos.length или videos.length
     const updateTabCounts = tabs.map(tab => ({
         ...tab,
-        count: tab.id === 'photos' ? photos.length : videos.length
+        count: tab.id === 'photos' ? photosTotalCount : videosTotalCount
     }));
 
     const renderContent = () => {
@@ -139,51 +139,34 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
             );
         }
 
-        if (activeTab === 'photos') {
-            return (
-                <>
-                    <div className={styles.grid}>
-                        {(currentItemsOnPage as Photo[]).map((photo) => (
+        return (
+            <>
+                <div className={styles.grid}>
+                    {currentData.map((item) => (
+                        activeTab === 'photos' ? (
                             <PhotoCard 
-                                key={photo.id} 
-                                photo={photo}
+                                key={item.id} 
+                                photo={item as Photo}
                             />
-                        ))}
-                    </div>
-                    {totalPages > 1 && (
-                        <Pagination
-                            currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={goToPage}
-                            totalItems={currentData.length}
-                            currentItemsCount={currentItemsOnPage.length}
-                        />
-                    )}
-                </>
-            );
-        } else {
-            return (
-                <>
-                    <div className={styles.grid}>
-                        {(currentItemsOnPage as Video[]).map((video) => (
+                        ) : (
                             <VideoCard 
-                                key={video.id} 
-                                video={video}
+                                key={item.id} 
+                                video={item as Video}
                             />
-                        ))}
-                    </div>
-                    {totalPages > 1 && (
-                        <Pagination
-                            currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={goToPage}
-                            totalItems={currentData.length}
-                            currentItemsCount={currentItemsOnPage.length}
-                        />
-                    )}
-                </>
-            );
-        }
+                        )
+                    ))}
+                </div>
+                {totalPages > 1 && (
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={goToPage}
+                        totalItems={totalCount}
+                        currentItemsCount={currentData.length}
+                    />
+                )}
+            </>
+        );
     };
 
     return (

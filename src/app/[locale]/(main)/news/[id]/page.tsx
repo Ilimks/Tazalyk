@@ -1,4 +1,4 @@
-import { NewsDetail } from "@/widgets/News/NewsDetail/model";
+import { NewsDetail } from "@/widgets/News/ui/components/NewsDetail";
 import { BreadcrumbsWidget } from "@/widgets/BreadcrumbsWidget";
 import { fetchNewsById } from "@/entities/news/api/newsApi";
 
@@ -10,29 +10,36 @@ interface NewsDetailProps {
 }
 
 export default async function NewsDetailPage({ params }: NewsDetailProps) {
-  const { id, locale } = await params;  // ← получаем locale
+  const { id, locale } = await params;
   
-  let newsTitle = 'Новость';
+  let newsTitle = locale === 'ky' ? 'Жаңылык' : 'Новость';
   try {
-    const news = await fetchNewsById(id);
-    if (news?.title) {
-      newsTitle = news.title.length > 25 
-        ? news.title.substring(0, 20) + '...' 
-        : news.title;
+    const news = await fetchNewsById(id, locale);
+    const title = locale === 'ky' ? news?.title_ky : news?.title_ru;
+    if (title) {
+      newsTitle = title.length > 25 
+        ? title.substring(0, 20) + '...' 
+        : title;
     }
   } catch (error) {
     console.error('Error fetching news for breadcrumbs:', error);
   }
 
   const breadcrumbItems = [
-    { label: 'Новости', href: `/${locale}/news` },  // ← добавляем locale
-    { label: newsTitle, href: `/${locale}/news/${id}` }  // ← добавляем locale
+    { 
+      label: locale === 'ky' ? 'Жаңылыктар' : 'Новости', 
+      href: `/${locale}/news` 
+    },
+    { 
+      label: newsTitle, 
+      href: `/${locale}/news/${id}` 
+    }
   ];
   
   return (
     <main>
-      <BreadcrumbsWidget customItems={breadcrumbItems} />
-      <NewsDetail id={id} locale={locale}/>
+      <BreadcrumbsWidget />
+      <NewsDetail id={id} />
     </main>
   );
 }

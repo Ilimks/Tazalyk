@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/shared/ui/Button";
+import { Button } from "@/shared/ui/Buttons/Button";
 import { useRouter } from "next/navigation";
 import styles from "./HomeSectionHeader.module.scss";
 import mobile from "./HomeSectionHeaderMobile.module.scss";

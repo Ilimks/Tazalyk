@@ -1,6 +1,8 @@
 'use client'
-import { ContactCard, contactItems } from '@/entities/contacts';
+import { ContactCard } from '@/entities/contacts';
+import { useContactData } from '@/entities/contacts/model/contactsData';
 import styles from './ContactsInfo.module.scss';
+import { useTranslations } from 'next-intl';
 
 const getIcon = (iconName: string) => {
     const icons: Record<string, React.ReactNode> = {
@@ -39,23 +41,28 @@ const getIcon = (iconName: string) => {
     return icons[iconName] || null;
 };
 
-export const ContactsInfo: React.FC = () => (
-    <div className={styles.contactInfo}>
-        <div className={styles.infoHeader}>
-            <h3 className={styles.infoTitle}>Контактные данные</h3>
-            <p className={styles.infoDescription}>Свяжитесь с нами любым удобным способом</p>
+export const ContactsInfo: React.FC = () => {
+    const { contactItems } = useContactData();
+    const t = useTranslations("Contacts");
+    
+    return (
+        <div className={styles.contactInfo}>
+            <div className={styles.infoHeader}>
+                <h3 className={styles.infoTitle}>{t('ContactsDataTitle')}</h3>
+                <p className={styles.infoDescription}>{t('ContactsDataDescription')}</p>
+            </div>
+            <div className={styles.contactGrid}>
+                {contactItems.map((item) => (
+                    <ContactCard
+                        key={item.id}
+                        icon={getIcon(item.icon)}
+                        title={item.title}
+                        details={item.details}
+                        link={item.link}
+                        linkText={item.linkText}
+                    />
+                ))}
+            </div>
         </div>
-        <div className={styles.contactGrid}>
-            {contactItems.map((item) => (
-                <ContactCard
-                    key={item.id}
-                    icon={getIcon(item.icon)}
-                    title={item.title}
-                    details={item.details}
-                    link={item.link}
-                    linkText={item.linkText}
-                />
-            ))}
-        </div>
-    </div>
-);
+    );
+};

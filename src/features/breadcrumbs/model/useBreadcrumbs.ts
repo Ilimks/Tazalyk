@@ -2,59 +2,64 @@
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 import { BreadcrumbItem } from '@/shared/ui/Breadcrumbs';
+import { useTranslations } from 'next-intl';
 
-const routeNames: Record<string, string> = {
-    'news': 'Новости',
-    'media': 'Медиа',
-    'procurement': 'Закупки',
-    'services': 'Услуги',
-    'contacts': 'Контакты',
-    'about': 'О компании',
-    'history': 'История',
-    'structure': 'Структура',
-    'directorate': 'Руководство',
-    'results': 'Результаты',
-    'acts': 'Акты',
-    'legislation': 'Законодательство',
-    'tariffs': 'Тарифы',
-    'vacancies': 'Вакансии',
-};
-
-const formatLabel = (segment: string): string => {
-    if (routeNames[segment]) return routeNames[segment];
+export const useBreadcrumbs = () => {
+    const pathname = usePathname();
+    const t = useTranslations('Breadcrumbs');
     
-    if (isNaN(Number(segment))) {
+    const routeNames: Record<string, string> = {
+        'news': t('news'),
+        'media': t('media'),
+        'procurement': t('procurement'),
+        'services': t('services'),
+        'contacts': t('contact'),
+        'about': t('about'),
+        'history': t('history'),
+        'structure': t('structure'),
+        'directorate': t('directorate'),
+        'results': t('results'),
+        'acts': t('acts'),
+        'legislation': t('legislation'),
+        'tariffs': t('tariffs'),
+        'vacancies': t('vacancies'),
+    };
+    
+    const formatLabel = (segment: string): string => {
+        if (routeNames[segment]) return routeNames[segment];
+        
+        if (/^\d+$/.test(segment)) {
+            return `${t('news')} ${segment.slice(-4)}`;
+        }
+        
         return segment
             .replace(/-/g, ' ')
             .split(' ')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(' ');
-    }
-    
-    return `Новость ${segment.slice(-4)}`; // ← показываем последние 4 цифры ID
-};
-
-export const useBreadcrumbs = () => {
-    const pathname = usePathname();
+    };
     
     const breadcrumbs = useMemo((): BreadcrumbItem[] => {
         const segments = pathname.split('/').filter(Boolean);
-        const items: BreadcrumbItem[] = [];
+        const locales = ['ru', 'en', 'ky'];
+        const filteredSegments = segments.filter(seg => !locales.includes(seg));
+        
+        const items: BreadcrumbItem[] = [
+            { label: t('home'), href: '/', isActive: false }
+        ];
+        
         let currentPath = '';
         
-        for (const segment of segments) {
+        for (const segment of filteredSegments) {
             currentPath += `/${segment}`;
             
-            const isDynamicId = /^\d+$/.test(segment);
-            
             items.push({
-                label: isDynamicId ? formatLabel(segment) : formatLabel(segment),
+                label: formatLabel(segment),
                 href: currentPath,
                 isActive: false
             });
         }
         
-        // Последний элемент делаем активным
         if (items.length > 0) {
             items[items.length - 1].isActive = true;
         }

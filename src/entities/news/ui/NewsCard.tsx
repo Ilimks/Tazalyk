@@ -1,10 +1,11 @@
 'use client'
 import { News } from "../model/types";
 import { formatDate } from "@/shared/lib/utils/formatDate";
+import { useLocale } from 'next-intl';
 import styles from "./NewsCard.module.scss";
 import mobile from "./NewsCardMobile.module.scss";
 import Image from "next/image";
-import { ButtonCardNews } from "@/shared/ui/ButtonCardNews";
+import { ButtonCardNews } from "@/shared/ui/Buttons/ButtonCardNews";
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 
@@ -15,12 +16,17 @@ interface NewsCardProps {
 
 export const NewsCard = ({ news, variant = "compact" }: NewsCardProps) => {
   const router = useRouter();
+  const locale = useLocale();
   const [isHovered, setIsHovered] = useState(false);
 
   if (!news) {
     console.error('NewsCard: news is undefined');
     return null;
   }
+
+  // Получаем заголовок и описание в зависимости от языка
+  const title = locale === 'ky' && news.title_ky ? news.title_ky : news.title_ru;
+  const description = locale === 'ky' && news.description_ky ? news.description_ky : news.description_ru;
 
   const displayDate = news.date || news.created_at;
   const imageUrl = news.image || "/assets/images/placeholder-news.jpg";
@@ -34,13 +40,19 @@ export const NewsCard = ({ news, variant = "compact" }: NewsCardProps) => {
 
   // Мемоизируем обрезанное описание для оптимизации
   const truncatedDescription = useMemo(() => {
-    return truncateText(news.description, 90);
-  }, [news.description]);
+    return truncateText(description, 90);
+  }, [description]);
 
   // Мемоизируем обрезанный заголовок
   const truncatedTitle = useMemo(() => {
-    return truncateText(news.title, 45);
-  }, [news.title]);
+    return truncateText(title, 45);
+  }, [title]);
+
+  // Текст кнопки в зависимости от языка
+  const buttonText = locale === 'ky' ? 'Толугураак' : 'Подробнее';
+
+  // Определяем локаль для formatDate
+  const dateLocale = locale === 'ky' ? 'ky-KG' : 'ru-RU';
 
   return (
     <article 
@@ -52,15 +64,16 @@ export const NewsCard = ({ news, variant = "compact" }: NewsCardProps) => {
       <div className={`${styles.card__imageContainer} ${mobile.card__imageContainer}`}>
         <Image 
           src={imageUrl} 
-          alt={news.title} 
+          alt={title} 
           className={`${styles.card__image} ${mobile.card__image} ${isHovered ? styles.card__imageZoomed : ''}`}
           width={297}
           height={224}
+          priority={false}
         />
       </div>
       <div className={`${styles.card__content} ${mobile.card__content}`}>
         <time className={`${styles.card__content__date} ${mobile.card__content__date}`}>
-          {formatDate(displayDate)}
+          {formatDate(displayDate, { format: 'long', locale: dateLocale })}
         </time>
         <h3 className={`${styles.card__content__title} ${mobile.card__content__title} ${isHovered ? styles.card__content__titleHovered : ''}`}>
           {truncatedTitle}
@@ -70,9 +83,12 @@ export const NewsCard = ({ news, variant = "compact" }: NewsCardProps) => {
         </p>
         <ButtonCardNews
           className={`${styles.card__content__btn} ${mobile.card__content__btn} ${isHovered ? styles.card__content__btnHovered : ''}`}
-          onClick={() => router.push(`/news/${news.id}`)}
+          onClick={(e) => {
+            e.stopPropagation();
+            router.push(`/news/${news.id}`);
+          }}
         >
-          Подробнее
+          {buttonText}
         </ButtonCardNews>
       </div>
     </article>

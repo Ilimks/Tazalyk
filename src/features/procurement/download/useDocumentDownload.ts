@@ -1,4 +1,3 @@
-// features/document/download/useDocumentDownload.ts
 import { downloadFile } from '@/shared/lib/utils/file';
 
 export const useDocumentDownload = () => {

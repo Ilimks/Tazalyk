@@ -3,15 +3,17 @@ import { VideosHomeSection } from './components/VideosHomeSection'
 import mobile from './VideosPhotoHomeSectionMobile.module.scss'
 import { PhotoHomeSection } from './components/PhotoHomeSection'
 import { HomeSectionHeader } from '@/shared/ui/HomeSectionHeader'
+import { useTranslations } from 'next-intl';
 
 export const VideosPhotoHomeSection: React.FC = () => {
+    const t = useTranslations("Main");
     return (
         <section className={`${styles.vidPhotoHome} ${mobile.vidPhotoHome}`}>
             <div className="container">
                 <div className={`${styles.vidPhotoHome__box} ${mobile.vidPhotoHome__box}`}>
                     <HomeSectionHeader
-                        title="Видеогалерея и Фотогалереля"
-                        buttonText="Все видео и фото"
+                        title={t('MainVideosPhotosTitle')}
+                        buttonText={t('MainVideosPhotosButton')}
                         buttonLink="/media"
                     />
                     <VideosHomeSection/>

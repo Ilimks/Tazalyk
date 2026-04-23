@@ -1,4 +1,3 @@
-// types/procurement.ts
 export interface ProcurementItem {
     id: string;
     number: string;
@@ -19,7 +18,6 @@ export interface ProcurementState {
     error: string | null;
 }
 
-// entities/document/model/types.ts
 export interface DocumentCard {
     id: string;
     title: string;

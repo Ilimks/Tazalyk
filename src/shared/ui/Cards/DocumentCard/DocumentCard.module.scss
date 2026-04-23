@@ -1,0 +1,62 @@
+.documentCard {
+    flex: 0 1 360px;
+    min-width: 280px;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    
+    @media (max-width: 768px) {
+        padding: 24px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 18px;
+    }
+}
+
+.cardIcon {
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    svg {
+        stroke: #3b82f6;
+        stroke-width: 1.5;
+        transition: all 0.3s ease;
+    }
+}
+
+.cardTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    text-align: center;
+    
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+}
+
+.cardDescription {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 24px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.cardActions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}

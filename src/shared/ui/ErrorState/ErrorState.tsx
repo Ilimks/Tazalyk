@@ -1,4 +1,4 @@
-import { ButtonError } from '@/shared/ui/ButtonError';
+import { ButtonError } from '@/shared/ui/Buttons/ButtonError';
 import styles from './ErrorState.module.scss';
 
 export interface ErrorStateProps {

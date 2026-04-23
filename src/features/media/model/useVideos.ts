@@ -1,66 +1,33 @@
-'use client';
+// src/features/media/model/useVideos.ts
 import { useCallback } from 'react';
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
-import { 
-    fetchVideos, 
-    fetchVideoById, 
-    createVideo, 
-    updateVideo, 
-    deleteVideo,
-    clearCurrentVideo,
-    clearError
-} from '../../../entities/media/model/videoSlice';
-import { Video } from '../../../entities/media/model/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store';
+import { fetchVideos } from '@/entities/media';
 
 export const useVideos = () => {
-    const dispatch = useAppDispatch();
-    const { items, currentVideo, status, error } = useAppSelector((state) => state.videos);
-
+    const dispatch = useDispatch<AppDispatch>();
+    const { 
+        items: videos, 
+        status, 
+        error, 
+        totalPages, 
+        currentPage,
+        totalCount 
+    } = useSelector((state: RootState) => state.videos);
+    
     const isLoading = status === 'loading';
-    const isSuccess = status === 'succeeded';
-    const isError = status === 'failed';
-
-    const loadVideos = useCallback(() => {
-        dispatch(fetchVideos());
+    
+    const loadVideos = useCallback(async (page: number = 1, pageSize: number = 12) => {
+        await dispatch(fetchVideos({ page, pageSize })).unwrap();
     }, [dispatch]);
-
-    const loadVideoById = useCallback((id: string) => {
-        dispatch(fetchVideoById(id));
-    }, [dispatch]);
-
-    const addVideo = useCallback((data: Omit<Video, 'id' | 'created_at' | 'updated_at'>) => {
-        return dispatch(createVideo(data)).unwrap();
-    }, [dispatch]);
-
-    const editVideo = useCallback((id: string, data: Partial<Video>) => {
-        return dispatch(updateVideo({ id, data })).unwrap();
-    }, [dispatch]);
-
-    const removeVideo = useCallback((id: string) => {
-        return dispatch(deleteVideo(id)).unwrap();
-    }, [dispatch]);
-
-    const clearCurrent = useCallback(() => {
-        dispatch(clearCurrentVideo());
-    }, [dispatch]);
-
-    const resetError = useCallback(() => {
-        dispatch(clearError());
-    }, [dispatch]);
-
+    
     return {
-        videos: items,
-        currentVideo,
+        videos,
         isLoading,
-        isSuccess,
-        isError,
         error,
         loadVideos,
-        loadVideoById,
-        addVideo,
-        editVideo,
-        removeVideo,
-        clearCurrent,
-        resetError,
+        totalPages,
+        currentPage,
+        totalCount
     };
 };

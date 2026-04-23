@@ -1,1 +1,1 @@
-export { DirectoratePage } from './ui/DirectoratePage/DirectoratePage';
+export { DirectoratePage } from './ui/DirectoratePage';

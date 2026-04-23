@@ -48,7 +48,6 @@ export const useHeaderMenu = () => {
   ];
 };
 
-// Статические иконки (не требуют перевода)
 export const socialIcons = [
   {
     key: "facebook",

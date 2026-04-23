@@ -1,3 +1,4 @@
+// src/shared/api/endpoints/videos.ts
 import { baseApi } from '../baseApi';
 
 export interface Video {
@@ -9,13 +10,33 @@ export interface Video {
     created_at: string;
 }
 
+interface PaginatedResponse<T> {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: T[];
+}
+
 export const videosApi = {
-    getAll: () => baseApi.get<Video[]>('/videos/'),
+    getAll: async (page: number = 1, pageSize: number = 12) => {
+        const response = await baseApi.get<PaginatedResponse<Video>>('/videos/', {
+            page: page,
+            page_size: pageSize
+        });
+        
+        console.log('🎬 Videos API response:', {
+            resultsCount: response.results?.length,
+            totalCount: response.count,
+            totalPages: Math.ceil(response.count / pageSize),
+            currentPage: page
+        });
+        
+        return {
+            items: response.results || [],
+            totalCount: response.count,
+            totalPages: Math.ceil(response.count / pageSize),
+            currentPage: page
+        };
+    },
     getById: (id: string) => baseApi.get<Video>(`/videos/${id}/`),
-    create: (data: Omit<Video, 'id' | 'created_at'>) => 
-        baseApi.post<Video>('/videos/', data),
-    update: (id: string, data: Partial<Video>) => 
-        baseApi.put<Video>(`/videos/${id}/`, data),
-    delete: (id: string) => 
-        baseApi.delete<void>(`/videos/${id}/`),
 };
