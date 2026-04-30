@@ -1,0 +1,120 @@
+.formGroup {
+    margin-bottom: 20px;
+}
+
+.label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+    margin-bottom: 8px;
+}
+
+.fileUpload {
+    .fileLabel {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background: #f1f5f9;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        
+        &:hover {
+            background: #e2e8f0;
+        }
+        
+        .fileInput {
+            display: none;
+        }
+        
+        span {
+            font-size: 14px;
+            color: #475569;
+        }
+    }
+    
+    .hint {
+        font-size: 12px;
+        color: #94a3b8;
+        margin-top: 8px;
+    }
+}
+
+.attachments {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.attachment {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    
+    &:hover {
+        background: #f1f5f9;
+    }
+}
+
+.previewImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #e2e8f0;
+    flex-shrink: 0;
+    
+    .thumbnail {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.attachmentInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    
+    .fileName {
+        font-size: 13px;
+        font-weight: 500;
+        color: #0f172a;
+    }
+    
+    .fileSize {
+        font-size: 11px;
+        color: #64748b;
+    }
+}
+
+.removeBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ef4444;
+    font-size: 16px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    
+    &:hover {
+        background: #fee2e2;
+        color: #dc2626;
+    }
+}
+
+.error {
+    display: block;
+    font-size: 12px;
+    color: #ef4444;
+    margin-top: 4px;
+}

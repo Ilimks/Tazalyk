@@ -27,24 +27,6 @@ export const MobileSearch: React.FC<MobileSearchProps> = ({
     if (onResultClick) onResultClick();
   };
 
-  const getTypeLabel = (type: string) => {
-    switch (type) {
-      case 'news': return 'Новости';
-      case 'page': return 'Страница';
-      case 'service': return 'Услуги';
-      default: return '';
-    }
-  };
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'news': return '#22c55e';
-      case 'page': return '#3b82f6';
-      case 'service': return '#f59e0b';
-      default: return '#64748b';
-    }
-  };
-
   return (
     <div className={styles.searchWrapper}>
       <form onSubmit={handleSubmit} className={`${styles.header__search} ${mobile.header__search}`}>
@@ -85,12 +67,6 @@ export const MobileSearch: React.FC<MobileSearchProps> = ({
                   className={styles.suggestionLink}
                 >
                   <div className={styles.suggestionContent}>
-                    <span 
-                      className={styles.suggestionType}
-                      style={{ backgroundColor: getTypeColor(result.type) }}
-                    >
-                      {getTypeLabel(result.type)}
-                    </span>
                     <span className={styles.suggestionTitle}>{result.title}</span>
                   </div>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">

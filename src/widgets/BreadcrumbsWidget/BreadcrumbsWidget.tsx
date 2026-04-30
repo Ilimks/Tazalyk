@@ -1,4 +1,3 @@
-// BreadcrumbsWidget.tsx
 'use client'
 import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
 import { usePathname } from 'next/navigation';

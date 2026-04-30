@@ -1,0 +1,1 @@
+export { VacanciesNote } from './VacanciesNote'

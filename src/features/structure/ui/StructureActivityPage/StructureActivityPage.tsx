@@ -25,7 +25,7 @@ const departments: Department[] = [
         id: 1,
         name: "Дирекция",
         description: "Общее руководство предприятием, стратегическое планирование и контроль",
-        head: "Раимбеков Уран Камилжанович",
+        head: "Арынов Максатбек Дуйшенкулович",
         subDepartments: [
             "Отдел планирования и развития",
             "Юридический отдел",
@@ -237,7 +237,7 @@ export const StructureActivityPage: React.FC = () => {
                             <div className={styles.cardFooter}>
                                 <div className={styles.directorInfo}>
                                     <span className={styles.label}>Директор:</span>
-                                    <span className={styles.value}>Раимбеков У.К.</span>
+                                    <span className={styles.value}>Арынов Максатбек Дуйшенкулович</span>
                                 </div>
                             </div>
                         </div>

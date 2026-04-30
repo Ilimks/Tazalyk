@@ -1,0 +1,1 @@
+export { StructureActivity } from './StructureActivity'

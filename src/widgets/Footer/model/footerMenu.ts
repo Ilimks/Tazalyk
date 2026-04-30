@@ -20,8 +20,7 @@ export const useFooterNav = () => {
       items: [
         { label: t("FooterAboutHistory"), href: "/history" },
         { label: t("FooterAboutManagement"), href: "/directorate" },
-        { label: t("FooterAboutVacancies"), href: "/vacancies" },
-        { label: t("FooterAboutResults"), href: "/results" },
+        { label: t("FooterAboutVacancies"), href: "/vacancies" }
       ],
     },
     {
@@ -37,17 +36,17 @@ export const useFooterNav = () => {
         {
           label: "г. Бишкек, ул. Ростовская 19б",
           icon: "/assets/icons/locationFooter.svg",
-          href: "https://maps.google.com/?q=Бишкек,+ул.+Ростовская+19б", // Google Maps link
+          href: "https://maps.google.com/?q=Бишкек,+ул.+Ростовская+19б",
         },
         {
           label: "+996 (312) 123-456",
           icon: "/assets/icons/phoneFooter.svg",
-          href: "tel:+996312123456", // Tel link
+          href: "tel:+996312123456",
         },
         {
           label: "info@tazalyk.kg",
           icon: "/assets/icons/emailFooter.svg",
-          href: "mailto:info@tazalyk.kg", // Email link
+          href: "mailto:info@tazalyk.kg",
         },
       ],
     },

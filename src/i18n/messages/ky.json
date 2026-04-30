@@ -17,11 +17,12 @@
         "aboutVacancies": "Бош орундар",
         "subscribers": "АБОНЕНТТЕРГЕ",
         "subscribersTariffs": "Тарифтер",
+        "subscribersComplaints": "Арыздануу",
         "pressCenter": "ПРЕСС-БОРБОР",
         "pressCenterNews": "Жаңылыктар",
         "pressCenterMedia": "Медиа",
         "procurement": "САТЫП АЛУУЛАР",
-        "services": "КЫЗМАТТАР",
+        "attendance": "КЫЗМАТТАР",
         "servicesMaterial": "Материалдык каражаттар",
         "servicesTransport": "Транспорттук кызматтар",
         "regulatoryFramework": "НОРМАТИВДИК БАЗА",
@@ -49,7 +50,7 @@
         "news": "Жаңылыктар",
         "media": "Медиа",
         "procurement": "Сатып алуулар",
-        "services": "Кызматтар",
+        "services": "Тейлөө аймагы",
         "contact": "Байланыштар",
         "about": "Компания жөнүндө",
         "history": "Тарыхы",
@@ -59,7 +60,9 @@
         "acts": "Актылар",
         "legislation": "Мыйзамдар",
         "tariffs": "Тарифтер",
-        "vacancies": "Бош орундар"
+        "vacancies": "Бош орундар",
+        "complaints": "Арыздануу",
+        "attendance": "Кызматтар"
     },
 
     "Main": {
@@ -176,8 +179,181 @@
         "DirectorateDescription": "«Тазалык» муниципалдык ишканасынын жетекчилиги"
     },
 
+    "Service": {
+        "ServiceTitle": "Тейлөө аймагы",
+        "ServiceDescription": "«Тазалык» муниципалдык ишканасынын тейлөө аймагы — Бишкек шаары"
+    },
+
     "History": {
         "HistoryTitle": "Тарыхы",
         "HistoryDescription": "«Тазалык» муниципалдык ишканасынын түзүлүшү жана өнүгүү тарыхы"
+    },
+
+    "Tariffs": {
+        "TariffsTitle": "Тарифтер",
+        "TariffsDescription": "Бишкек шаарында катуу тиричилик калдыктарын чыгаруу жана көмүү боюнча кызматтарга тарифтер. Бишкек шаардык кеңешинин 2023-жылдын 1-февралындагы токтому менен бекитилген.",
+        
+        "TariffsIndividualTitle": "Жеке жактар үчүн (калк)",
+        "TariffsIndividualCardPopulation": "Калк",
+        "TariffsIndividualCardPensioners": "Пенсионерлер",
+        "TariffsAllCardBase": "Негизги тариф:",
+        "TariffsIndividualCardTotal": "1 адамга жалпы:",
+        "TariffsIndividualCardPeople": "Тариф 1 адамга айына көрсөтүлгөн",
+        "TariffsIndividualCardPreferential": "Пенсионерлер үчүн жеңилдетилген тариф",
+        
+        "TariffsIndLegalTitle": "Юридикалык жактар үчүн (менчик формасына карабастан чарба жүргүзүүчү субъекттер)",
+        "TariffsIndLegalCardTitle": "Юридикалык жактар",
+        "TariffsIndLegalCardTotal": "1 м³ үчүн жалпы:",
+        "TariffsIndLegalCardWaste": "Тариф катуу тиричилик калдыктарынын 1 куб метрине көрсөтүлгөн",
+        
+        "TariffsTableTitle": "Тарифтердин жыйынтык таблицасы",
+        "TariffsTableCardCategory": "Категория",
+        "TariffsTableCardUnit": "Өлчөө бирдиги",
+        "TariffsTableCardBase": "Негизги тариф",
+        "TariffsTableCardFees": "Салыктар жана жыйымдар",
+        "TariffsTableCardTotal": "Жалпы",
+        
+        "TariffsTableCardPopulation": "Калк",
+        "TariffsTableCardPensioners": "Пенсионерлер",
+        "TariffsTableCardLegal": "Юридикалык жактар",
+        "TariffsTableCardPeople": "1 адам/ай",
+        
+        "TariffsNoteTitle": "Эскертүү",
+        "TariffsNoteCardText1": "Тарифтер Бишкек шаардык кеңешинин токтому менен бекитилген жана 2023-жылдын 1-февралынан тартып күчүнө кирген.",
+        "TariffsNoteCardText2": "НСП - сатуу салыгы (жеке жактар үчүн - 3%, юридикалык жактар үчүн - 2%)",
+        "TariffsNoteCardText3": "КНС - кошумча нарк салыгы (12%)",
+        "TariffsNoteCardText4": "Пенсионерлерге пенсиялык күбөлүк болгон учурда жеңилдетилген тариф каралат",
+        "TariffsNoteCardText5": "Юридикалык жактар үчүн катуу тиричилик калдыктарынын жылдык көлөмү топтолуу нормалары жана чыгарылган калдыктардын чыныгы көлөмү боюнча эсептелет"
+    },
+
+    "Vacancies": {
+        "VacanciesTitle": "Бош орундар",
+        "VacanciesDescription": "«Тазалык» МИнин командасына кошулуңуз! Биз туруктуу иш, расмий ишке орношуу жана кесиптик өнүгүү мүмкүнчүлүктөрүн сунуштайбыз.",
+        "VacanciesAll": "Бардык талапкерлер үчүн",
+        "VacanciesAllId": "Паспорт",
+        "VacanciesAllIdText": "Түп нускасы жана ЦОНдон көчүрмө",
+        "VacanciesAllBook": "Эмгек китепчеси",
+        "VacanciesAllBookText": "Бар болсо",
+        "VacanciesAllPhoto": "Сүрөт",
+        "VacanciesAllPhotoText": "Түстүү 3x4 — 1 даана",
+        "VacanciesAllMed": "Медициналык маалымкат",
+        "VacanciesAllMedText": "№086 форма",
+        "VacanciesAllWar": "Аскердик билет",
+        "VacanciesAllWarText": "55 жашка чейинки эркектер үчүн",
+        "VacanciesDriver": "Айдоочулар үчүн кошумча",
+        "VacanciesDriverCertificate": "Айдоочулук күбөлүк",
+        "VacanciesDriverCertificateText": "Тийиштүү категориясы менен",
+        "VacanciesDriverCriminal": "Соттолбогондугу тууралуу маалымкат",
+        "VacanciesDriverCriminalText": "Түп нускасы",
+        "VacanciesDriverMed": "Медициналык маалымкат",
+        "VacanciesDriverMedText": "№083 форма",
+        "VacanciesImportantTitle": "Маанилүү:",
+        "VacanciesImportantText": "Бардык документтер түп нускасы менен салыштыруу үчүн көрсөтүлүп, көчүрмө түрүндө кабыл алынат. Толук документтер топтому жок талапкерлер ишке кабыл алынбайт.",
+        "VacanciesContactsTitle": "Байланыш маалыматы",
+        "VacanciesContactsDescription": "Ишке орношуу боюнча суроолор менен «Тазалык» МИнин кадрлар бөлүмүнө кайрылыңыз"
+    },
+
+    "Structure": {
+        "title": "Түзүм жана ишмердүүлүк",
+        "description": "\"Тазалык\" муниципалдык ишканасынын уюштуруу түзүмү жана негизги ишмердүүлүк багыттары",
+        "organization": {
+            "title": "Уюштуруу түзүмү",
+            "director": "Директор",
+            "deputyPlanning": "Ишкананы пландаштыруу жана өнүктүрүү боюнча директордун орун басары",
+            "deputyAbonent": "Абоненттик кызмат боюнча директордун орун басары",
+            "deputyProduction": "Өндүрүш боюнча директордун орун басары",
+            "hr": "Адам ресурстарын башкаруу бөлүмү",
+            "security": "Көзөмөл жана коопсуздук бөлүмү",
+            "mainEngineer": "Башкы инженер",
+            "transport": "Транспорт бөлүмү"
+        },
+        "activity": {
+            "title": "Ишкананын ишмердүүлүгү",
+            "description": "\"Тазалык\" муниципалдык ишканасынын ишмердүүлүгүнүн негизги багыттары",
+            "sanitaryCleaning": "Санитардык тазалоо",
+            "sanitaryCleaningDesc": "Шаар аймактарын тазалоо жана тейлөө",
+            "wasteRemoval": "Таштандыларды чыгаруу",
+            "wasteRemovalDesc": "Таштандыларды полигонго жеткирүү",
+            "landscaping": "Көрктөндүрүү",
+            "landscapingDesc": "Жолдорду жана коомдук жайларды тейлөө",
+            "strayAnimals": "Качкын жаныбарлар",
+            "strayAnimalsDesc": "Кароосуз калган жаныбарларды кармоо жана тейлөө",
+            "demolition": "Объекттерди бузуу",
+            "demolitionDesc": "Мыйзамсыз курулуштарды демонтаждоо",
+            "fountains": "Фонтан комплекстери",
+            "fountainsDesc": "Фонтандарды пайдалануу жана тейлөө"
+        }
+    },
+
+    "Complaints": {
+        "title": "Арыздануу",
+        "description": "Эгер сиз көйгөйгө туш келсеңиз, төмөнкү форманы толтуруңуз. Биз сиздин кайрылууңузду 14 жумушчу күндүн ичинде карап чыгабыз.",
+        "fileUpload": "Сүрөт кошуу",
+        "form": {
+            "applicantInfo": "Арыз ээси жөнүндө маалымат",
+            "fullName": "Аты-жөнү",
+            "fullNamePlaceholder": "Иванов Иван Иванович",
+            "email": "Электрондук почта",
+            "emailPlaceholder": "ivan@example.com",
+            "phone": "Телефон",
+            "phonePlaceholder": "+996 (XXX) XX-XX-XX",
+            "complaintContent": "Арыздын мазмуну",
+            "complaintType": "Кайрылуунун түрү",
+            "subject": "Темасы",
+            "subjectPlaceholder": "Көйгөйдүн кыскача сыпаттамасы",
+            "description": "Арыздын маңызы",
+            "descriptionPlaceholder": "Кырдаалдын толук сыпаттамасы...",
+            "incidentDate": "Окуя болгон күн",
+            "incidentLocation": "Окуя болгон жер",
+            "incidentLocationPlaceholder": "Бишкек ш., Примерная көч., 123",
+            "documents": "Документтик далилдер",
+            "attachFiles": "Файлдарды тиркөө",
+            "fileHint": "Файлдын максималдуу көлөмү: 5MB. Колдоого алынган форматтар: JPG, PNG, PDF, DOC",
+            "consent": "Мен жеке маалыматтарымды иштетүүгө макулдугамды берем",
+            "submit": "Арызды жөнөтүү",
+            "submitting": "Жөнөтүлүүдө...",
+            "fileTooBig": "Файл өтө чоң. Максимум 5MB",
+            "consentRequired": "Жеке маалыматтарды иштетүүгө макулдук керек",
+            "error": "Жөнөтүүдө ката кетти. Кийинчерээк кайталаңыз.",
+            "success": "Арыз ийгиликтүү жөнөтүлдү!",
+            "successMessage": "Биз сиздин кайрылууңузду 14 жумушчу күндүн ичинде карап чыгып, сизге кайрылабыз.",
+            "newComplaint": "Жаңы арыз жөнөтүү"
+        },
+        "complaintTypes": {
+            "rights_violation": "Укук бузуу",
+            "technical_error": "Техникалык ката",
+            "employee_complaint": "Кызматкерге арыз",
+            "service_quality": "Кызмат көрсөтүү сапаты",
+            "waste_issue": "Таштанды чыгаруу көйгөйү",
+            "other": "Башка"
+        }
+    },
+
+    "Attendance": {
+        "title": "Кызматтар",
+        "description": "\"Тазалык\" муниципалдык ишканасынын 2025-жылга келишимдик негизде көрсөтүлүүчү кызматтардын тизмеси",
+        "materialServices": "Материалдык каражаттар",
+        "transportServices": "Транспорттук кызматтар",
+        "serviceName": "Кызматтын түрү",
+        "unit": "Өлчөө бирдиги",
+        "price": "Кызматтын баасы (сом менен)",
+        "note": "Бардык кызматтар келишимдик негизде көрсөтүлөт. Баалар бардык салыктар менен көрсөтүлгөн."
+    },
+
+    "Documents": {
+        "localActsTitle": "Жергиликтүү актылар",
+        "localActsDescription": "«Тазалык» муниципалдык ишканасынын ишмердүүлүгүн жөнгө салган ички ченемдик документтер",
+        "legislationTitle": "Кыргыз Республикасынын мыйзамдары",
+        "legislationDescription": "«Тазалык» муниципалдык ишканасынын ишмердүүлүгүн жөнгө салуучу ченемдик-укуктук актылар",
+        "title": "Документтин аталышы",
+        "date": "Дата",
+        "size": "Көлөмү",
+        "actions": "Аракеттер",
+        "view": "Көрүү",
+        "download": "Жүктөө",
+        "loading": "Документтер жүктөлүүдө...",
+        "noDocuments": "Азырынча документтер жок",
+        "errorTitle": "Жүктөө катасы",
+        "retry": "Кайталоо"
     }
 }

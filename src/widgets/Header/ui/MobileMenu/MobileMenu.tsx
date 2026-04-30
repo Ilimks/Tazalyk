@@ -96,9 +96,6 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
                 <Link href="/service-zone" onClick={onClose} className={styles.submenuLink}>{t('aboutServiceZone')}</Link>
               </li>
               <li className={styles.submenuItem}>
-                <Link href="/results" onClick={onClose} className={styles.submenuLink}>{t('aboutResults')}</Link>
-              </li>
-              <li className={styles.submenuItem}>
                 <Link href="/vacancies" onClick={onClose} className={styles.submenuLink}>{t('aboutVacancies')}</Link>
               </li>
             </ul>
@@ -123,6 +120,7 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
             <ul className={`${styles.submenu} ${openSubmenu === "abonents" ? styles.submenuOpen : ""}`}>
               <li className={styles.submenuItem}>
                 <Link href="/tariffs" onClick={onClose} className={styles.submenuLink}>{t('subscribersTariffs')}</Link>
+                <Link href="/complaints" onClick={onClose} className={styles.submenuLink}>{t('subscribersComplaints')}</Link>
               </li>
             </ul>
           </li>
@@ -156,6 +154,12 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
           <li className={styles.menuItem}>
             <Link href="/procurement" onClick={onClose} className={styles.menuLink}>
               <span>{t('procurement')}</span>
+            </Link>
+          </li>
+
+          <li className={styles.menuItem}>
+            <Link href="/attendance" onClick={onClose} className={styles.menuLink}>
+              <span>{t('attendance')}</span>
             </Link>
           </li>
 

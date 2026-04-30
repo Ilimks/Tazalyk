@@ -1,1 +1,0 @@
-export { TariffsPage } from './ui/TariffsPage/TariffsPage';

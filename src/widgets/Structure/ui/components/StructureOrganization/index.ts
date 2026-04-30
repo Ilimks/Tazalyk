@@ -1,0 +1,1 @@
+export { StructureOrganization } from './StructureOrganization'

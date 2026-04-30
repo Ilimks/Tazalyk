@@ -1,16 +1,13 @@
-// shared/hooks/useSearch.ts
 import { useState, useEffect } from 'react';
 
 interface SearchResult {
   id: string;
   title: string;
   type: 'news' | 'page' | 'service';
-  url: string; // Полный URL для перехода
+  url: string;
 }
 
-// Пример данных для поиска
 const searchData: SearchResult[] = [
-  // Страницы
   { id: '1', title: 'История предприятия', type: 'page', url: '/history' },
   { id: '2', title: 'Руководство', type: 'page', url: '/directorate' },
   { id: '3', title: 'Структура и деятельность', type: 'page', url: '/structure' },
@@ -23,14 +20,12 @@ const searchData: SearchResult[] = [
   { id: '10', title: 'Законодательство КР', type: 'page', url: '/legislation' },
   { id: '11', title: 'Локальные акты', type: 'page', url: '/local-acts' },
   
-  // Новости (все новости ведут на страницу /news)
   { id: '12', title: 'Новые тарифы на вывоз мусора', type: 'news', url: '/news' },
   { id: '13', title: 'График уборки улиц в праздничные дни', type: 'news', url: '/news' },
   { id: '14', title: 'Модернизация автопарка Тазалык', type: 'news', url: '/news' },
   { id: '15', title: 'Экологическая акция в Бишкеке', type: 'news', url: '/news' },
   { id: '16', title: 'Новый график приема граждан', type: 'news', url: '/news' },
   
-  // Услуги
   { id: '17', title: 'Вывоз ТБО', type: 'service', url: '/services' },
   { id: '18', title: 'Уборка улиц', type: 'service', url: '/services' },
   { id: '19', title: 'Вывоз жидких отходов', type: 'service', url: '/services' },

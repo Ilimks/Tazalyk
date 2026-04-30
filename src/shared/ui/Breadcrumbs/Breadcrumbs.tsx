@@ -12,7 +12,6 @@ export const Breadcrumbs = () => {
     const t = useTranslations('Breadcrumbs');
     const [newsTitle, setNewsTitle] = useState<string | null>(null);
     
-    // Убираем локаль из пути
     let cleanPath = pathname;
     if (pathname.startsWith(`/${locale}`)) {
         cleanPath = pathname.substring(locale.length + 1) || '/';
@@ -20,21 +19,18 @@ export const Breadcrumbs = () => {
     
     const segments = cleanPath.split('/').filter(Boolean);
     
-    // Проверяем, страница ли это новости
     const isNewsPage = segments[0] === 'news' && segments[1] && /^\d+$/.test(segments[1]);
     const newsId = isNewsPage ? segments[1] : null;
     
-    // Загружаем название новости
     useEffect(() => {
         if (newsId) {
             fetchNewsById(newsId).then(news => {
                 if (news) {
-                    // Выбираем заголовок в зависимости от текущей локали
                     let title = '';
                     if (locale === 'ky' && news.title_ky) {
                         title = news.title_ky;
                     } else {
-                        title = news.title_ru; // По умолчанию используем русский
+                        title = news.title_ru;
                     }
                     
                     const shortTitle = title.length > 25 
@@ -68,7 +64,9 @@ export const Breadcrumbs = () => {
             'results': t('results'),
             'structure': t('structure'),
             'vacancies': t('vacancies'),
+            'complaints': t('complaints'),
             'about': t('about'),
+            'attendance': t('attendance'),
         };
 
         return names[segment] || segment

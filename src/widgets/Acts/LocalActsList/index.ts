@@ -1,1 +1,0 @@
-export { LocalActsList } from './ui/LocalActsList';

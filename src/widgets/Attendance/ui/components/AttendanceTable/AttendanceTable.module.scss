@@ -1,0 +1,154 @@
+.attendance {
+    padding: 0 0 60px;
+
+    @media (max-width: 768px) {
+        padding: 0 0 30px;
+    }
+}
+
+.attendanceTable {
+    background: white;
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.tabs {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 16px;
+}
+
+.tab {
+    padding: 10px 24px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 30px;
+    
+    &:hover {
+        color: #3b82f6;
+        background: #eff6ff;
+    }
+    
+    &.active {
+        color: white;
+        background: #102382;
+    }
+}
+
+.tableWrapper {
+    overflow-x: auto;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    
+    thead {
+        background: #f1f5f9;
+        
+        th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            color: #0f172a;
+            border-bottom: 1px solid #e2e8f0;
+        }
+    }
+    
+    tbody {
+        tr {
+            transition: background 0.2s;
+            
+            &:hover {
+                background: #f8fafc;
+            }
+            
+            td {
+                padding: 12px 16px;
+                font-size: 14px;
+                color: #334155;
+                border-bottom: 1px solid #e2e8f0;
+            }
+        }
+    }
+}
+
+.numberCol {
+    width: 80px;
+    text-align: center;
+}
+
+.nameCol {
+    text-align: left;
+}
+
+.unitCol {
+    width: 120px;
+    text-align: center;
+}
+
+.priceCol {
+    width: 150px;
+    text-align: right;
+}
+
+.note {
+    margin-top: 24px;
+    padding: 16px;
+    background: #fefce8;
+    border: 1px solid #fde047;
+    border-radius: 12px;
+    
+    p {
+        margin: 0;
+        font-size: 13px;
+        color: #854d0e;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 768px) {
+    .attendanceTable {
+        padding: 16px;
+    }
+    
+    .tabs {
+        gap: 12px;
+    }
+    
+    .tab {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+    
+    .table {
+        th, td {
+            padding: 10px 12px;
+            font-size: 12px;
+        }
+    }
+    
+    .numberCol {
+        width: 60px;
+    }
+    
+    .unitCol {
+        width: 80px;
+    }
+    
+    .priceCol {
+        width: 110px;
+    }
+}

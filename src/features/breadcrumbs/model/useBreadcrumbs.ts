@@ -23,6 +23,7 @@ export const useBreadcrumbs = () => {
         'legislation': t('legislation'),
         'tariffs': t('tariffs'),
         'vacancies': t('vacancies'),
+        'complaints': t('complaints'),
     };
     
     const formatLabel = (segment: string): string => {

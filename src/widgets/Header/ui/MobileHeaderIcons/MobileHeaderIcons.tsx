@@ -1,4 +1,3 @@
-// widgets/header/ui/MobileSocialIcons/MobileSocialIcons.tsx
 "use client";
 import styles from "./MobileHeaderIcons.module.scss";
 import Image from "next/image";

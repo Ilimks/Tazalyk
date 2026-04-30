@@ -1,1 +1,0 @@
-export { TariffsHeader } from './TariffsHeader';

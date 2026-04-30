@@ -1,5 +1,5 @@
 .button {
-    width: 145px;
+    padding: 10px;
     height: 46px;
     background-color: white;
     color: #1e3a5f;
@@ -18,5 +18,9 @@
     &:disabled {
         background-color: #9ca3af;
         cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+        padding: 0 5px;
     }
 }

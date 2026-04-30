@@ -1,0 +1,168 @@
+.organization {
+    padding: 60px 0;
+    background: #f8fafc;
+}
+
+.sectionTitle {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.orgChart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.director {
+    margin-bottom: 20px;
+}
+
+.directorCard {
+    background: #102382;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 12px 32px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.lineDown {
+    width: 2px;
+    height: 30px;
+    background: #cbd5e1;
+    margin: 0 auto;
+}
+
+.lineHorizontal {
+    width: 100%;
+    height: 2px;
+    background: #cbd5e1;
+    margin: 0 auto;
+    position: relative;
+    top: -1px;
+}
+
+.topRow {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.position {
+    text-align: center;
+}
+
+.positionCard {
+    background: #e2e8f0;
+    padding: 12px 8px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #0f172a;
+    line-height: 1.3;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lineVertical {
+    width: 2px;
+    height: 20px;
+    background: #cbd5e1;
+    margin: 8px auto 0;
+}
+
+.lineHorizontalBottom {
+    width: 100%;
+    height: 2px;
+    background: #cbd5e1;
+    margin: 0 auto;
+}
+
+.bottomRow, .thirdRow, .fourthRow, .fifthRow, .sixthRow {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.subPosition {
+    text-align: center;
+}
+
+.subPositionCard {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    padding: 12px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #334155;
+    line-height: 1.3;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sixthRow {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+    width: 100%;
+    margin-top: 20px;
+    
+    .subPosition {
+        &:nth-child(1) {
+            grid-column: 6 / 7;
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    .topRow, .bottomRow, .thirdRow, .fourthRow, .fifthRow {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+    
+    .sixthRow {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .organization {
+        padding: 40px 0;
+    }
+    
+    .sectionTitle {
+        font-size: 22px;
+        margin-bottom: 32px;
+    }
+    
+    .directorCard {
+        font-size: 16px;
+        padding: 10px 24px;
+    }
+    
+    .topRow, .bottomRow, .thirdRow, .fourthRow, .fifthRow {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .positionCard, .subPositionCard {
+        font-size: 12px;
+        padding: 10px;
+    }
+}

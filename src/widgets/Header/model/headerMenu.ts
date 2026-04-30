@@ -12,14 +12,14 @@ export const useHeaderMenu = () => {
         { label: t('aboutDirectorate'), href: "/directorate" },
         { label: t('aboutStructure'), href: "/structure" },
         { label: t('aboutServiceZone'), href: "/services" },
-        { label: t('aboutResults'), href: "/results" },
         { label: t('aboutVacancies'), href: "/vacancies" }
       ],
     },
     {
       title: t('subscribers'),
       dropdown: [
-        { label: t('subscribersTariffs'), href: "/tariffs" }
+        { label: t('subscribersTariffs'), href: "/tariffs" },
+        { label: t('subscribersComplaints'), href: "/complaints" },
       ],
     },
     {
@@ -29,14 +29,11 @@ export const useHeaderMenu = () => {
         { label: t('pressCenterMedia'), href: "/media" }
       ],
     },
-    { title: t('procurement'), href: "/procurement", dropdown: null },
     { 
-      title: t('services'),
-      dropdown: [
-        { label: t('servicesMaterial'), href: "/material" },
-        { label: t('servicesTransport'), href: "/transport-services" }
-      ]
+      title: t('procurement'), href: "/procurement", dropdown: null 
     },
+    { 
+      title: t('attendance'), href: "/attendance", dropdown: null},
     {
       title: t('regulatoryFramework'),
       dropdown: [

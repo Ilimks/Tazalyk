@@ -1,6 +1,5 @@
-import { VacanciesPage } from "@/features/vacancies/ui/VacanciesPage/VacanciesPage";
+import { VacanciesPage } from "@/widgets/Vacancies/ui";
 import { BreadcrumbsWidget } from "@/widgets/BreadcrumbsWidget";
-
 
 export default function Vacancies() {
   return (

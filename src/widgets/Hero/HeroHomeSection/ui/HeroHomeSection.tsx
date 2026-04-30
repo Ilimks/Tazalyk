@@ -4,6 +4,7 @@ import { useHeroCarousel } from '../model/useHeroCarousel';
 import styles from './HeroHomeSection.module.scss';
 import mobile from './HeroHomeSectionMobile.module.scss';
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 
 export const HeroHomeSection: React.FC = () => {
     const t = useTranslations("Main");
@@ -15,7 +16,6 @@ export const HeroHomeSection: React.FC = () => {
         slideImages
     } = useHeroCarousel();
 
-    // Проверка ширины экрана
     useEffect(() => {
         const checkWidth = () => {
             setIsMobile(window.innerWidth < 1000);
@@ -27,9 +27,8 @@ export const HeroHomeSection: React.FC = () => {
         return () => window.removeEventListener('resize', checkWidth);
     }, []);
 
-    // Автопрокрутка каждые 5 секунд
     useEffect(() => {
-        if (isMobile) return; // На мобильных не крутим
+        if (isMobile) return;
         
         const interval = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % slideImages.length);
@@ -44,7 +43,6 @@ export const HeroHomeSection: React.FC = () => {
         }
     }, [currentSlide, slideImages]);
 
-    // Функция для расчета трансформации слайда
     const getSlideTransform = (position: number): string => {
         const radius = 20;
         const angle = position * 47 + 141;
@@ -59,14 +57,11 @@ export const HeroHomeSection: React.FC = () => {
         return `rotate(${angle}deg) translateY(${radius}rem) rotate(${-angle}deg) scale(${scale})`;
     };
 
-    // Функция для получения позиции слайда относительно текущего
     const getSlidePosition = (index: number): number => {
         let offset = (index - currentSlide + slideImages.length) % slideImages.length;
         if (offset > slideImages.length / 2) offset -= slideImages.length;
         return offset;
     };
-
-    // Обработчик клика по кружку
     const handleSlideClick = (index: number) => {
         setCurrentSlide(index);
     };
@@ -76,18 +71,16 @@ export const HeroHomeSection: React.FC = () => {
             ref={heroRef}
             className={`${styles.hero} ${mobile.hero}`}
         >
-            {/* Фиксированная панель с текстом */}
             <div className={`${styles.infoPanel} ${isMobile ? styles.infoPanelCentered : ''}`}>
                 <h1 className={styles.heroTitle}>ТАЗАЛЫК</h1>
                 <p className={styles.heroText}>
                     {t('MainHeruDescription')}
                 </p>
-                <button className={styles.heroBtn}>
+                <Link href="/history" className={styles.heroBtn}>
                     {t('MainHeroButton')}
-                </button>
+                </Link>
             </div>
 
-            {/* Круговая карусель - скрывается на ширине меньше 1000px */}
             {!isMobile && (
                 <div className={styles.carouselContainer}>
                     <div className={styles.carousel}>

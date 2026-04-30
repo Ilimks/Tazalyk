@@ -1,11 +1,11 @@
 import { BreadcrumbsWidget } from "@/widgets/BreadcrumbsWidget";
-import { LegislationList } from "@/widgets/Legislation/LegislationList/ui/LegislationList";
+import { LegislationPage } from "@/widgets/Documents";
 
-export default function LocalActsPage() {
+export default function Legislation() {
     return (
         <main>
             <BreadcrumbsWidget />
-            <LegislationList />
+            <LegislationPage />
         </main>
     );
 }

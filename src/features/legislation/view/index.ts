@@ -1,1 +1,0 @@
-export { useLegislationView } from './useLegislationView';
