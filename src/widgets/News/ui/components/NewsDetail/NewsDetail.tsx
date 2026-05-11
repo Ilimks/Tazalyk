@@ -5,11 +5,11 @@ import Image from 'next/image';
 import { formatDate } from '@/shared/lib/utils/formatDate';
 import { useNews } from '@/features/news/model/useNews';
 import { useLocale } from 'next-intl';
-import { usePathname } from '@/i18n/navigation';
 import styles from './NewsDetail.module.scss';
 import mobile from './NewsDetailMobile.module.scss';
 import { Loading } from '@/shared/ui/Loading';
 import { NewsCard } from '@/entities/news';
+import { useTranslations } from 'next-intl';
 
 interface NewsDetailProps {
     id: string;
@@ -18,7 +18,6 @@ interface NewsDetailProps {
 export const NewsDetail: React.FC<NewsDetailProps> = ({ id }) => {
     const router = useRouter();
     const locale = useLocale();
-    const pathname = usePathname();
     const { 
         currentNews: news, 
         isLoading: loading, 
@@ -28,6 +27,7 @@ export const NewsDetail: React.FC<NewsDetailProps> = ({ id }) => {
         loadNews,
         news: allNews 
     } = useNews();
+    const t = useTranslations("NewsID");
 
     useEffect(() => {
         if (id) {
@@ -168,7 +168,7 @@ export const NewsDetail: React.FC<NewsDetailProps> = ({ id }) => {
                                     <polyline points="16 6 12 2 8 6" stroke="currentColor" strokeWidth="2"/>
                                     <line x1="12" y1="2" x2="12" y2="15" stroke="currentColor" strokeWidth="2"/>
                                 </svg>
-                                Поделиться
+                                {t('NewsShare')}
                             </button>
                         </div>
                     </div>
@@ -177,7 +177,7 @@ export const NewsDetail: React.FC<NewsDetailProps> = ({ id }) => {
                 {relatedNews.length > 0 && (
                     <div className={styles.relatedSection}>
                         <div className={styles.relatedHeader}>
-                            <h3 className={styles.relatedTitle}>Похожие новости</h3>
+                            <h3 className={styles.relatedTitle}>{t('NewsSimilar')}</h3>
                             <div className={styles.relatedUnderline}></div>
                         </div>
                         <div className={styles.relatedGrid}>

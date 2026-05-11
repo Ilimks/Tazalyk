@@ -5,14 +5,10 @@ import styles from './Language.module.scss';
 export const Language = () => {
   const router = useRouter();
   const pathname = usePathname();
-  
-  // Получаем текущую локаль из URL
   const currentLocale = pathname.split('/')[1] || 'ru';
-
   const switchLanguage = (newLocale: string) => {
     if (currentLocale === newLocale) return;
     
-    // Заменяем локаль в пути
     const newPathname = pathname.replace(`/${currentLocale}`, `/${newLocale}`);
     router.push(newPathname);
   };

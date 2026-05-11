@@ -15,7 +15,7 @@ export const FooterUp: React.FC = () => {
         <Link href="/">
           <Image
             className={`${styles.footer__up__left__logo} ${mobile.footer__up__left__logo}`}
-            src="/assets/icons/Logo.png"
+            src="/assets/icons/logo.png"
             alt="Header Logo"
             width={60}
             height={60}   

@@ -1,1 +1,1 @@
-export { quote, conclusion, historySections,doubleImage } from './historyData'
+export { useHistoryData } from './historyData'

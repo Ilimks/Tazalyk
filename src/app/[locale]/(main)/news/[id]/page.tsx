@@ -24,17 +24,6 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
   } catch (error) {
     console.error('Error fetching news for breadcrumbs:', error);
   }
-
-  const breadcrumbItems = [
-    { 
-      label: locale === 'ky' ? 'Жаңылыктар' : 'Новости', 
-      href: `/${locale}/news` 
-    },
-    { 
-      label: newsTitle, 
-      href: `/${locale}/news/${id}` 
-    }
-  ];
   
   return (
     <main>

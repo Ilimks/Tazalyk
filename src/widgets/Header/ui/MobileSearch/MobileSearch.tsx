@@ -2,6 +2,7 @@ import styles from "./MobileSearch.module.scss";
 import mobile from "./MobileSearchMobile.module.scss";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from 'next-intl';
 import { useSearch } from "@/widgets/Header/hooks/useSearch";
 
 interface MobileSearchProps {
@@ -14,6 +15,7 @@ export const MobileSearch: React.FC<MobileSearchProps> = ({
   onResultClick 
 }) => {
   const { query, setQuery, results, isOpen, setIsOpen, clearSearch } = useSearch();
+  const t = useTranslations("HeaderMenu");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +34,7 @@ export const MobileSearch: React.FC<MobileSearchProps> = ({
       <form onSubmit={handleSubmit} className={`${styles.header__search} ${mobile.header__search}`}>
         <input 
           type="text" 
-          placeholder="Найти на сайте..." 
+          placeholder={t('header__search')} 
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => results.length > 0 && setIsOpen(true)}
@@ -69,9 +71,6 @@ export const MobileSearch: React.FC<MobileSearchProps> = ({
                   <div className={styles.suggestionContent}>
                     <span className={styles.suggestionTitle}>{result.title}</span>
                   </div>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
                 </Link>
               </li>
             ))}

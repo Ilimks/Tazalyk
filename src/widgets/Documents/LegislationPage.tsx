@@ -16,9 +16,9 @@ export const LegislationPage: React.FC = () => {
     }, [fetchLegislation]);
 
     const handleView = (doc: any) => {
-        legislationApi.view(doc.file_url);
+        legislationApi.view(doc.file_url, doc.file_name);
     };
-
+    
     const handleDownload = (doc: any) => {
         legislationApi.download(doc.file_url, doc.file_name);
     };

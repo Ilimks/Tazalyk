@@ -1,4 +1,3 @@
-// src/entities/media/model/videoSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { videosApi } from '@/shared/api/endpoints/videos';
 import { Video, VideoState } from './types';

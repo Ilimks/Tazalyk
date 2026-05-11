@@ -1,4 +1,3 @@
-// src/entities/media/model/photoSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { photosApi } from '@/shared/api/endpoints/photos';
 import { Photo, PhotoState } from './types';

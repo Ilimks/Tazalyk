@@ -1,4 +1,3 @@
-// hooks/useProcurement.ts
 import { useState, useEffect } from 'react';
 import { procurementsApi } from '@/shared/api';
 import { ProcurementItem } from '@/entities/procurement/model/types';
@@ -16,12 +15,11 @@ export const useProcurement = () => {
             setLoading(true);
             setError(null);
             
-            // Используем procurementsApi.getAll с пагинацией
             const response = await procurementsApi.getAll(page, pageSize);
             
             const formattedData: ProcurementItem[] = response.items.map((item: any) => ({
                 id: item.id,
-                number: item.number || '', // Добавлено поле number
+                number: item.number || '',
                 contractNumber: item.contractNumber,
                 supplier: item.supplier,
                 type: item.type || 'goods',

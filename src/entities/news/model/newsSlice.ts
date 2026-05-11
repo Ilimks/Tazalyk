@@ -51,7 +51,6 @@ const newsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // Fetch all
             .addCase(fetchNews.pending, (state) => {
                 state.status = 'loading';
                 state.error = null;
@@ -64,7 +63,6 @@ const newsSlice = createSlice({
                 state.status = 'failed';
                 state.error = action.error.message || 'Failed to fetch news';
             })
-            // Fetch latest
             .addCase(fetchLatestNewsThunk.pending, (state) => {
                 state.status = 'loading';
                 state.error = null;
@@ -77,7 +75,6 @@ const newsSlice = createSlice({
                 state.status = 'failed';
                 state.error = action.error.message || 'Failed to fetch latest news';
             })
-            // Fetch by id
             .addCase(fetchNewsByIdThunk.pending, (state) => {
                 state.status = 'loading';
                 state.error = null;

@@ -1,4 +1,3 @@
-// src/shared/api/endpoints/photos.ts
 import { baseApi } from '../baseApi';
 
 export interface Photo {

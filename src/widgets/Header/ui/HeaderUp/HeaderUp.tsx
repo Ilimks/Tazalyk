@@ -21,7 +21,7 @@ export const HeaderUp: React.FC = () => {
         <Link href="/">
           <Image
             className={`${styles.header__up__logo} ${mobile.header__up__logo}`}
-            src="/assets/icons/Logo.png"
+            src="/assets/icons/logo.png"
             alt="Header Logo"
             width={70}
             height={70}

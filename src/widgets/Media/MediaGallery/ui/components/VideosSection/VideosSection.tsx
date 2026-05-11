@@ -1,6 +1,5 @@
-import React from 'react';
 import { Video } from '../../../../../../entities/media/model/types';
-import { VideoCard } from '@/widgets/VideosCard/ui/VideosCard';
+import { VideoCard } from '@/shared/ui/Cards/VideoCard/VideoCard';
 import { EmptyState } from '@/shared/ui/EmptyState';
 import styles from './VideosSection.module.scss';
 

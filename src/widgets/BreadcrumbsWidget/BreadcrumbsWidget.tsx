@@ -15,10 +15,10 @@ export const BreadcrumbsWidget: React.FC<BreadcrumbsWidgetProps> = ({
     if (hideOnPaths.includes(pathname)) return null;
     
     return (
-        <div className={styles.widget}>
+        <section className={styles.widget}>
             <div className="container">
                 <Breadcrumbs />
             </div>
-        </div>
+        </section>
     );
 };

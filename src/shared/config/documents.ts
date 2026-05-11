@@ -52,15 +52,15 @@ export const getDocumentsConfig = (t: ReturnType<typeof useTranslations>): Docum
                 },
                 {
                     title: t('ProcurementModal.order.section1Title'),
-                    content: t.raw('ProcurementModal.order.section1List') // ✅ FIX
+                    content: t.raw('ProcurementModal.order.section1List')
                 },
                 {
                     title: t('ProcurementModal.order.section2Title'),
-                    content: t.raw('ProcurementModal.order.section2List') // ✅ FIX
+                    content: t.raw('ProcurementModal.order.section2List')
                 },
                 {
                     title: t('ProcurementModal.order.section3Title'),
-                    content: t.raw('ProcurementModal.order.section3List') // ✅ FIX
+                    content: t.raw('ProcurementModal.order.section3List')
                 },
                 {
                     title: t('ProcurementModal.order.section4Title'),

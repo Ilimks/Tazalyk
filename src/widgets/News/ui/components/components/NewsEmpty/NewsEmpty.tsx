@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './NewsEmpty.module.scss';
 
 interface NewsEmptyProps {

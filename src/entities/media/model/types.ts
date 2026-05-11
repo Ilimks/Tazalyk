@@ -1,4 +1,3 @@
-// src/entities/media/model/types.ts
 export interface Photo {
     id: string;
     main_image: string;

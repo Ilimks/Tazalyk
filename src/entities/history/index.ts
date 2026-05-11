@@ -1,1 +1,0 @@
-export { quote, conclusion, historySections, doubleImage } from '../../widgets/History/model/historyData';

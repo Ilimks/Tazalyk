@@ -2,14 +2,7 @@
     background: #f8fafc;
     border-radius: 20px;
     padding: 20px;
-    transition: all 0.3s ease;
     border: 1px solid #e2e8f0;
-    
-    &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        border-color: #cbd5e1;
-    }
 }
 
 .contactIcon {
@@ -58,46 +51,6 @@
     font-size: 14px;
     color: #334155;
     line-height: 1.4;
-}
-
-.copyBtn {
-    flex-shrink: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    color: #94a3b8;
-    
-    svg {
-        stroke: currentColor;
-    }
-    
-    &:hover {
-        color: #3b82f6;
-        background: #eff6ff;
-    }
-}
-
-.copyTooltip {
-    position: absolute;
-    right: 0;
-    top: -24px;
-    background: #0f172a;
-    color: white;
-    font-size: 11px;
-    padding: 4px 8px;
-    border-radius: 6px;
-    white-space: nowrap;
-    animation: fadeInOut 1.5s ease;
-    
-    @keyframes fadeInOut {
-        0% { opacity: 0; transform: translateY(5px); }
-        20% { opacity: 1; transform: translateY(0); }
-        80% { opacity: 1; transform: translateY(0); }
-        100% { opacity: 0; transform: translateY(-5px); }
-    }
 }
 
 .contactLink {

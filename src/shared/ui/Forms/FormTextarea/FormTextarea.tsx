@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './FormTextarea.module.scss';
 
 interface FormTextareaProps {

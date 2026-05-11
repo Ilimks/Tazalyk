@@ -127,11 +127,11 @@ export const NewsList: React.FC<NewsListProps> = ({ itemsPerPage = 12 }) => {
 
     return (
         <section className={styles.newsList}>
+            <PageHeader
+                title={t('NewsTitle')}
+                description={t('NewsDescription')}
+            />
             <div className="container">
-                <PageHeader
-                    title={t('NewsTitle')}
-                    description={t('NewsDescription')}
-                />
                 {renderContent()}
             </div>
         </section>

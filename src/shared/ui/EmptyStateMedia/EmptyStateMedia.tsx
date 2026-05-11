@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './EmptyStateMedia.module.scss';
 
 interface EmptyStateMediaProps {

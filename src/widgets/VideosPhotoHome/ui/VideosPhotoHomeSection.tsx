@@ -17,7 +17,7 @@ export const VideosPhotoHomeSection: React.FC = () => {
                         buttonLink="/media"
                     />
                     <VideosHomeSection/>
-                    <div className={`${styles.vidPhotoHome__box__line} ${mobile.vidPhotoHome__box__line}`}></div>
+                        <div className={`${styles.vidPhotoHome__box__line} ${mobile.vidPhotoHome__box__line}`}></div>
                     <PhotoHomeSection/>
                 </div>
             </div>

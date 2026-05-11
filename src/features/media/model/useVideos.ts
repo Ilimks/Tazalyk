@@ -1,4 +1,3 @@
-// src/features/media/model/useVideos.ts
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store';

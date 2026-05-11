@@ -1,5 +1,3 @@
-// shared/ui/SearchBar/SearchBar.tsx
-import React from 'react';
 import styles from './SearchBar.module.scss';
 
 interface SearchBarProps {

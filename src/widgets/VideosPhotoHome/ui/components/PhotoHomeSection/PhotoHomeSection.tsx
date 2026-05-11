@@ -1,6 +1,6 @@
 'use client'
-import { useState, useEffect, useRef } from 'react';
-import { PhotoCard } from '@/widgets/PhotoCard/ui/PhotoCard';
+import { useEffect, useRef, useMemo } from 'react';
+import { PhotoCard } from '@/shared/ui/Cards/PhotoCard/PhotoCard';
 import { ErrorState } from '@/shared/ui/ErrorState';
 import styles from './PhotoHomeSection.module.scss';
 import mobile from './PhotoHomeSectionMobile.module.scss';
@@ -12,21 +12,21 @@ export const PhotoHomeSection: React.FC = () => {
     const hasLoadedRef = useRef(false);
 
     useEffect(() => {
-        if (!hasLoadedRef.current && !isLoading) {
+        if (!hasLoadedRef.current) {
             hasLoadedRef.current = true;
             loadPhotos();
         }
-    }, [loadPhotos, isLoading]);
+    }, [loadPhotos]);
 
-    const safePhotos = Array.isArray(photos) ? photos : [];
+    const safePhotos = useMemo(() => 
+        Array.isArray(photos) ? photos : [], 
+        [photos]
+    );
 
-    const recentPhotos = [...safePhotos]
-        .sort((a, b) => {
-            const dateA = new Date(a?.date || a?.created_at || 0).getTime();
-            const dateB = new Date(b?.date || b?.created_at || 0).getTime();
-            return dateB - dateA;
-        })
-        .slice(0, 4);
+    const recentPhotos = useMemo(() => 
+        safePhotos.slice(0, 4),
+        [safePhotos]
+    );
 
     if (isLoading && safePhotos.length === 0) {
         return (
@@ -55,7 +55,10 @@ export const PhotoHomeSection: React.FC = () => {
             <div className={`${styles.photoHome} ${mobile.photoHome}`}>
                 <ErrorState 
                     error={errorMessage}
-                    onRetry={loadPhotos}
+                    onRetry={() => {
+                        hasLoadedRef.current = false;
+                        loadPhotos();
+                    }}
                     title={errorTitle}
                     variant="compact"
                 />
@@ -63,7 +66,7 @@ export const PhotoHomeSection: React.FC = () => {
         );
     }
 
-    if (recentPhotos.length === 0 && !isLoading) {
+    if (recentPhotos.length === 0 && !isLoading && hasLoadedRef.current) {
         return (
             <div className={`${styles.photoHome} ${mobile.photoHome}`}>
                 <div className={styles.emptyContainer}>
@@ -73,9 +76,6 @@ export const PhotoHomeSection: React.FC = () => {
                         <path d="M21 15l-5-4-3 3-4-4-5 5" stroke="currentColor" strokeWidth="2"/>
                     </svg>
                     <p>Фотографий пока нет</p>
-                    <button onClick={loadPhotos} className={styles.refreshBtn}>
-                        Обновить
-                    </button>
                 </div>
             </div>
         );

@@ -6,6 +6,12 @@ import { useEffect, useState } from 'react';
 import { fetchNewsById } from '@/entities/news/api/newsApi';
 import styles from './Breadcrumbs.module.scss';
 
+export type BreadcrumbItem = {
+    label: string;
+    href: string;
+    isActive: boolean;
+};
+
 export const Breadcrumbs = () => {
     const locale = useLocale();
     const pathname = usePathname();
@@ -18,36 +24,39 @@ export const Breadcrumbs = () => {
     }
     
     const segments = cleanPath.split('/').filter(Boolean);
-    
-    const isNewsPage = segments[0] === 'news' && segments[1] && /^\d+$/.test(segments[1]);
+    const isNewsPage = segments[0] === 'news' && segments[1] && segments[1].length > 0;
     const newsId = isNewsPage ? segments[1] : null;
     
     useEffect(() => {
         if (newsId) {
-            fetchNewsById(newsId).then(news => {
+            fetchNewsById(newsId, locale).then(news => {
                 if (news) {
                     let title = '';
                     if (locale === 'ky' && news.title_ky) {
                         title = news.title_ky;
-                    } else {
+                    } else if (news.title_ru) {
                         title = news.title_ru;
+                    } else {
+                        title = t('news');
                     }
-                    
                     const shortTitle = title.length > 25 
                         ? title.substring(0, 22) + '...' 
                         : title;
                     setNewsTitle(shortTitle);
+                } else {
+                    setNewsTitle(t('news'));
                 }
-            }).catch(() => setNewsTitle(null));
+            }).catch(() => {
+                setNewsTitle(t('news'));
+            });
         }
-    }, [newsId, locale]);
+    }, [newsId, locale, t]);
     
     if (segments.length === 0) return null;
     
     const getLabel = (segment: string, index: number) => {
-
         if (isNewsPage && index === segments.length - 1 && newsId) {
-            return newsTitle || t('loading');
+            return newsTitle || '...';
         }
 
         const names: Record<string, string> = {

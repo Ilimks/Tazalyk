@@ -1,4 +1,3 @@
-// src/entities/procurement/model/procurementSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { procurementsApi } from '@/shared/api';
 import { ProcurementItem } from './types';
@@ -33,7 +32,6 @@ const initialState: ProcurementState = {
     totalCount: 0
 };
 
-// Только GET запросы
 export const fetchProcurements = createAsyncThunk(
     'procurements/fetchAll',
     async ({ page, pageSize }: FetchProcurementsParams) => {
@@ -59,7 +57,6 @@ const procurementSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // Fetch all (с пагинацией)
             .addCase(fetchProcurements.pending, (state) => {
                 state.status = 'loading';
                 state.error = null;
@@ -76,7 +73,6 @@ const procurementSlice = createSlice({
                 state.error = action.error.message || 'Failed to fetch procurements';
                 state.items = [];
             })
-            // Fetch by id
             .addCase(fetchProcurementById.pending, (state) => {
                 state.status = 'loading';
             })
@@ -92,4 +88,4 @@ const procurementSlice = createSlice({
 
 export const { clearError } = procurementSlice.actions;
 export const procurementReducer = procurementSlice.reducer;
-export default procurementSlice.reducer; // ← ДОБАВЬТЕ ЭТУ СТРОКУ
+export default procurementSlice.reducer;

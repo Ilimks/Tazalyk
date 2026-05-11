@@ -1,4 +1,3 @@
-import React from 'react';
 import { Loading } from '@/shared/ui/Loading';
 import styles from './LoadingState.module.scss';
 

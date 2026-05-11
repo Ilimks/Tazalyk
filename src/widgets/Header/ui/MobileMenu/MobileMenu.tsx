@@ -93,7 +93,7 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
                 <Link href="/structure" onClick={onClose} className={styles.submenuLink}>{t('aboutStructure')}</Link>
               </li>
               <li className={styles.submenuItem}>
-                <Link href="/service-zone" onClick={onClose} className={styles.submenuLink}>{t('aboutServiceZone')}</Link>
+                <Link href="/services" onClick={onClose} className={styles.submenuLink}>{t('aboutServiceZone')}</Link>
               </li>
               <li className={styles.submenuItem}>
                 <Link href="/vacancies" onClick={onClose} className={styles.submenuLink}>{t('aboutVacancies')}</Link>

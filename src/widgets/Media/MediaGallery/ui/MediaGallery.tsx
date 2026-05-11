@@ -4,11 +4,11 @@ import { MediaHeader } from '@/shared/ui/MediaHeader';
 import { Tabs } from '@/shared/ui/Tabs';
 import { Pagination } from '@/shared/ui/Pagination';
 import { ErrorState } from '@/shared/ui/ErrorState';
-import { PhotoModal } from '@/features/media/modal/PhotoModal';
-import { VideoModal } from '@/features/media/modal/VideoModal';
+import { PhotoModal } from '@/shared/ui/Modals/PhotoModal';
+import { VideoModal } from '@/shared/ui/Modals/VideoModal';
 import { Photo, Video, MediaType } from '@/entities/media/model/types';
-import { PhotoCard } from '@/widgets/PhotoCard/ui/PhotoCard';
-import { VideoCard } from '@/widgets/VideosCard/ui/VideosCard';
+import { PhotoCard } from '@/shared/ui/Cards/PhotoCard';
+import { VideoCard } from '@/shared/ui/Cards/VideoCard';
 import styles from './MediaGallery.module.scss';
 import mobile from './MediaGalleryMobile.module.scss';
 import { LoadingState } from '@/shared/ui/LoadingState';
@@ -57,7 +57,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
         error: photosError, 
         loadPhotos,
         totalPages: photosTotalPages,
-        totalCount: photosTotalCount  // ← общее количество фото
+        totalCount: photosTotalCount
     } = usePhotos();
     
     const { 
@@ -66,13 +66,12 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
         error: videosError, 
         loadVideos,
         totalPages: videosTotalPages,
-        totalCount: videosTotalCount  // ← общее количество видео
+        totalCount: videosTotalCount
     } = useVideos();
 
     const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
     const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
-    // Загружаем данные при смене страницы или вкладки
     useEffect(() => {
         if (activeTab === 'photos') {
             loadPhotos(currentPage, itemsPerPage);
@@ -81,7 +80,6 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
         }
     }, [activeTab, currentPage, itemsPerPage]);
 
-    // Сбрасываем страницу при смене вкладки
     useEffect(() => {
         setCurrentPage(1);
     }, [activeTab]);
@@ -109,15 +107,6 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
         }
     }, [activeTab, currentPage, itemsPerPage]);
 
-    const handlePhotoClick = useCallback((photo: Photo) => {
-        setSelectedPhoto(photo);
-    }, []);
-
-    const handleVideoClick = useCallback((video: Video) => {
-        setSelectedVideo(video);
-    }, []);
-
-    // ВАЖНО: Используем totalCount (общее количество), а не photos.length или videos.length
     const updateTabCounts = tabs.map(tab => ({
         ...tab,
         count: tab.id === 'photos' ? photosTotalCount : videosTotalCount

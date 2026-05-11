@@ -1,4 +1,3 @@
-// shared/lib/utils/format.ts
 export const formatAmount = (amount: number): string => {
     return new Intl.NumberFormat('ru-RU', {
         style: 'currency',

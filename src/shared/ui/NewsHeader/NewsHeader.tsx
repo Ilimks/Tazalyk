@@ -1,5 +1,3 @@
-// shared/ui/PageHeader/PageHeader.tsx
-import React from 'react';
 import styles from './NewsHeader.module.scss';
 
 interface NewsHeaderProps {

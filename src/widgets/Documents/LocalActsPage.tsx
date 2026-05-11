@@ -16,7 +16,7 @@ export const LocalActsPage: React.FC = () => {
     }, [fetchLocalActs]);
 
     const handleView = (doc: any) => {
-        localActsApi.view(doc.file_url);
+        localActsApi.view(doc.file_url, doc.file_name);
     };
 
     const handleDownload = (doc: any) => {

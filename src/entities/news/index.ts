@@ -1,4 +1,3 @@
-// entities/news/index.ts
 export { NewsCard } from './ui/NewsCard';
 export { 
     fetchNews, 

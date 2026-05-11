@@ -1,5 +1,5 @@
-'use client'
-import { quote, conclusion, historySections, doubleImage } from '../model/historyData';
+'use client';
+import { useHistoryData } from '../model/historyData';
 import { QuoteCard } from '@/shared/ui/Cards';
 import { PageHeader } from '@/shared/ui/PageHeader';
 import { useTranslations } from 'next-intl';
@@ -9,6 +9,8 @@ import { ConclusionSection } from './components/ConclusionSection';
 
 export const HistoryPage: React.FC = () => {
     const t = useTranslations("History");
+    const { quote, conclusion, historySections, doubleImage } = useHistoryData();
+    
     return (
         <>
             <PageHeader
@@ -24,5 +26,5 @@ export const HistoryPage: React.FC = () => {
             <DoubleImageSection {...doubleImage} />
             <ConclusionSection title={conclusion.title} paragraphs={conclusion.paragraphs} />
         </>
-    )
-}
+    );
+};

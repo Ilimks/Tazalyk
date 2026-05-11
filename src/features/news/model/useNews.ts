@@ -18,7 +18,6 @@ export const useNews = () => {
     const isSuccess = status === 'succeeded';
     const isError = status === 'failed';
 
-    // Загрузка всех новостей с пагинацией
     const loadNews = useCallback((page: number = 1, pageSize: number = 12) => {
         if (isLoadingRef.current) return;
         isLoadingRef.current = true;
@@ -27,7 +26,6 @@ export const useNews = () => {
         });
     }, [dispatch]);
 
-    // Загрузка последних новостей для главной страницы
     const loadLatestNews = useCallback((limit: number = 4) => {
         console.log('loadLatestNews called with limit:', limit);
         if (isLoadingRef.current) return;

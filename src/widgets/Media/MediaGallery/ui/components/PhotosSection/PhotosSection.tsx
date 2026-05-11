@@ -1,6 +1,5 @@
-import React from 'react';
 import { Photo } from '../../../../../../entities/media/model/types';
-import { PhotoCard } from '@/widgets/PhotoCard/ui/PhotoCard';
+import { PhotoCard } from '@/shared/ui/Cards/PhotoCard/PhotoCard';
 import { EmptyState } from '@/shared/ui/EmptyState';
 import styles from './PhotosSection.module.scss';
 

@@ -1,25 +1,19 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 
 const slideImages = [
-    "/assets/images/Slide1.jpg",
-    "/assets/images/Slide2.jpg",
-    "/assets/images/Slide3.jpg",
-    "/assets/images/Slide4.jpg",
-    "/assets/images/Slide5.jpg",
-    "/assets/images/Slide6.jpg",
-    "/assets/images/Slide7.jpg",
-    "/assets/images/Slide8.png",
-    "/assets/images/Slide9.png",
-    "/assets/images/Slide10.png",
-    "/assets/images/Slide11.jpg",
-    "/assets/images/Slide12.png"
+    "/assets/images/Slide1.webp",
+    "/assets/images/Slide2.webp",
+    "/assets/images/Slide3.webp",
+    "/assets/images/Slide4.webp",
+    "/assets/images/Slide5.webp",
+    "/assets/images/Slide6.webp",
+    "/assets/images/Slide7.webp",
 ];
 
 export const useHeroCarousel = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
-    // Функция для остановки автопрокрутки при взаимодействии
     const stopAutoPlay = useCallback(() => {
         if (autoPlayRef.current) {
             clearInterval(autoPlayRef.current);
@@ -27,7 +21,6 @@ export const useHeroCarousel = () => {
         }
     }, []);
 
-    // Функция для запуска автопрокрутки
     const startAutoPlay = useCallback((intervalTime: number = 5000) => {
         stopAutoPlay();
         autoPlayRef.current = setInterval(() => {
@@ -35,7 +28,6 @@ export const useHeroCarousel = () => {
         }, intervalTime);
     }, [stopAutoPlay]);
 
-    // При клике на слайд останавливаем автопрокрутку на 10 секунд
     const handleSlideClick = useCallback((index: number) => {
         setCurrentSlide(index);
         stopAutoPlay();

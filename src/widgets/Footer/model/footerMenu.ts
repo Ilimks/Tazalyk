@@ -24,10 +24,10 @@ export const useFooterNav = () => {
       ],
     },
     {
-      title: t("FooterServices"),
+      title: t("FooterSubscribers"),
       items: [
-        { label: t("FooterServicesMaterial"), href: "/material" },
-        { label: t("FooterServicesTransport"), href: "/transport" }
+        { label: t("FooterSubscribersTariffs"), href: "/tariffs" },
+        { label: t("FooterSubscribersComplaints"), href: "/complaints" }
       ],
     },
     {

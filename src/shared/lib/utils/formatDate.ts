@@ -1,26 +1,9 @@
-/**
- * Опции форматирования даты
- */
 export interface FormatDateOptions {
-  /** 
-   * Формат вывода даты
-   * - 'full' - "15 января 2024 г., понедельник"
-   * - 'long' - "15 января 2024 г."
-   * - 'medium' - "15 янв. 2024 г."
-   * - 'short' - "15.01.2024"
-   * - 'time' - "14:30"
-   * - 'relative' - "2 часа назад", "вчера", "5 дней назад"
-   */
   format?: 'full' | 'long' | 'medium' | 'short' | 'time' | 'relative';
-  
-  /** Локализация (по умолчанию русская) */
   locale?: string;
-  
-  /** Часовой пояс (например, 'Europe/Moscow') */
   timeZone?: string;
 }
 
-// Кыргызские названия месяцев
 const monthsKy = [
   'январь', 'февраль', 'март', 'апрель', 'май', 'июнь',
   'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'
@@ -31,17 +14,16 @@ const monthsKyShort = [
   'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'
 ];
 
-// Кыргызские названия дней недели
 const weekdaysKy = [
   'жекшемби', 'дүйшөмбү', 'шейшемби', 'шаршемби', 'бейшемби', 'жума', 'ишемби'
 ];
 
 /**
- * Форматирование даты для русского языка
- * @param date - Дата (строка, число или объект Date)
- * @param options - Опции форматирования
- * @returns Отформатированная строка с датой
+ * @param date
+ * @param options
+ * @returns
  */
+
 export function formatDate(
   date: string | number | Date,
   options: FormatDateOptions = {}
@@ -52,19 +34,15 @@ export function formatDate(
     timeZone = 'Asia/Bishkek'
   } = options;
 
-  // Преобразуем входные данные в объект Date
   const dateObj = new Date(date);
   
-  // Проверяем валидность даты
   if (isNaN(dateObj.getTime())) {
     console.warn('Некорректная дата:', date);
     return 'Некорректная дата';
   }
 
-  // Определяем язык
   const isKy = locale === 'ky-KG' || locale === 'ky';
 
-  // Форматируем в зависимости от выбранного формата
   switch (format) {
     case 'relative':
       return getRelativeTime(dateObj, locale);
@@ -89,9 +67,6 @@ export function formatDate(
   }
 }
 
-/**
- * Получение относительного времени ("2 часа назад", "вчера" и т.д.)
- */
 function getRelativeTime(date: Date, locale: string): string {
   const isKy = locale === 'ky-KG' || locale === 'ky';
   const now = new Date();
@@ -102,7 +77,6 @@ function getRelativeTime(date: Date, locale: string): string {
   const diffDay = Math.floor(diffHour / 24);
 
   if (isKy) {
-    // Кыргызские относительные даты
     if (diffDay === 0) {
       if (diffHour === 0) {
         if (diffMin === 0) return 'азыр';
@@ -120,7 +94,6 @@ function getRelativeTime(date: Date, locale: string): string {
     return formatShort(date);
   }
 
-  // Русские относительные даты
   if (diffDay === 0) {
     if (diffHour === 0) {
       if (diffMin === 0) return 'только что';
@@ -140,9 +113,6 @@ function getRelativeTime(date: Date, locale: string): string {
   return formatShort(date);
 }
 
-/**
- * Форматирование времени (14:30)
- */
 function formatTime(date: Date, locale: string, timeZone: string): string {
   return date.toLocaleTimeString(locale, {
     hour: '2-digit',
@@ -151,9 +121,6 @@ function formatTime(date: Date, locale: string, timeZone: string): string {
   });
 }
 
-/**
- * Краткий формат (15.01.2024)
- */
 function formatShort(date: Date): string {
   const day = date.getDate().toString().padStart(2, '0');
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -161,9 +128,6 @@ function formatShort(date: Date): string {
   return `${day}.${month}.${year}`;
 }
 
-/**
- * Средний формат (15 янв. 2024 г.)
- */
 function formatMedium(date: Date, locale: string, timeZone: string, isKy: boolean): string {
   if (isKy) {
     const day = date.getDate();
@@ -180,9 +144,6 @@ function formatMedium(date: Date, locale: string, timeZone: string, isKy: boolea
   });
 }
 
-/**
- * Длинный формат (15 января 2024 г.)
- */
 function formatLong(date: Date, locale: string, timeZone: string, isKy: boolean): string {
   if (isKy) {
     const day = date.getDate();
@@ -199,9 +160,6 @@ function formatLong(date: Date, locale: string, timeZone: string, isKy: boolean)
   });
 }
 
-/**
- * Полный формат (15 января 2024 г., понедельник)
- */
 function formatFull(date: Date, locale: string, timeZone: string, isKy: boolean): string {
   if (isKy) {
     const day = date.getDate();
@@ -220,9 +178,6 @@ function formatFull(date: Date, locale: string, timeZone: string, isKy: boolean)
   });
 }
 
-/**
- * Вспомогательная функция для форматирования интервалов
- */
 export function formatDateRange(
   startDate: string | number | Date,
   endDate: string | number | Date,
@@ -280,7 +235,6 @@ export function formatDateRange(
   return `${startStr}–${endStr}`;
 }
 
-// Экспортируем также упрощенную версию для совместимости
 export const formatDateSimple = (dateString: string, locale: string = 'ru-RU'): string => {
   return formatDate(dateString, { format: 'long', locale });
 };

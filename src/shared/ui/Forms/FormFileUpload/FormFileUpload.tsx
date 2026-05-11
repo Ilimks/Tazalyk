@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
 import styles from './FormFileUpload.module.scss';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 
 interface Attachment {
     name: string;
@@ -26,13 +24,12 @@ export const FormFileUpload: React.FC<FormFileUploadProps> = ({
     onChange,
     onRemove,
     attachments,
-    accept = "image/*", // Только изображения
-    hint = "Максимальный размер файла: 5MB. Поддерживаемые форматы: JPG, PNG, GIF, WEBP",
+    accept = "image/*",
+    hint = "Максимальный размер фото: 5MB. Поддерживаемые форматы: JPG, PNG, GIF, WEBP",
     error,
     multiple = true,
 }) => {
     const t = useTranslations("Complaints");
-    const [previewImages, setPreviewImages] = useState<string[]>([]);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = Array.from(e.target.files || []);

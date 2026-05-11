@@ -28,7 +28,6 @@ export async function POST(request: NextRequest) {
             },
         });
 
-        // Создаем HTML с встроенными фото
         let photosHtml = '';
         const emailAttachments = [];
 
@@ -37,15 +36,13 @@ export async function POST(request: NextRequest) {
                 const att = attachments[i];
                 const cid = `photo_${i}_${Date.now()}`;
                 
-                // Добавляем фото как вложение с CID
                 emailAttachments.push({
                     filename: att.name,
                     content: att.data.split(';base64,').pop(),
                     encoding: 'base64',
                     cid: cid,
                 });
-                
-                // Добавляем фото в HTML с отображением
+
                 photosHtml += `
                     <div class="photo-item">
                         <div class="photo-label">📷 Фото ${i + 1}: ${att.name}</div>
@@ -207,7 +204,6 @@ export async function POST(request: NextRequest) {
             </html>
         `;
 
-        // Отправляем письмо администратору с вложениями
         await transporter.sendMail({
             from: process.env.SMTP_USER,
             to: process.env.ADMIN_EMAIL,
@@ -216,7 +212,6 @@ export async function POST(request: NextRequest) {
             attachments: emailAttachments,
         });
 
-        // Отправляем подтверждение пользователю
         await transporter.sendMail({
             from: process.env.SMTP_USER,
             to: email,

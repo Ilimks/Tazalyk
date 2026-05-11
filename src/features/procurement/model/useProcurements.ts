@@ -22,7 +22,6 @@ export const useProcurements = () => {
     const isSuccess = status === 'succeeded';
     const isError = status === 'failed';
 
-    // Только загрузка данных
     const loadProcurements = useCallback((page: number = 1, pageSize: number = 10) => {
         dispatch(fetchProcurements({ page, pageSize }));
     }, [dispatch]);

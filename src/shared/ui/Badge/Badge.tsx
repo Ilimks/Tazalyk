@@ -1,5 +1,3 @@
-// shared/ui/Badge/Badge.tsx
-import React from 'react';
 import styles from './Badge.module.scss';
 
 interface BadgeProps {

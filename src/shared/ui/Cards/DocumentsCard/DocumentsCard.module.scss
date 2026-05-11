@@ -4,14 +4,7 @@
     background: white;
     border-radius: 16px;
     padding: 20px;
-    transition: all 0.3s ease;
     border: 1px solid #e2e8f0;
-    
-    &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
-        border-color: #cbd5e1;
-    }
 }
 
 .cardIcon {

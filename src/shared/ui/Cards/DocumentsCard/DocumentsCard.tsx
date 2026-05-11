@@ -1,8 +1,8 @@
 'use client';
-import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Document } from '@/entities/document/model/types';
 import styles from './DocumentsCard.module.scss';
+import Image from 'next/image';
 
 interface DocumentsCardProps {
     document: Document;
@@ -48,7 +48,13 @@ export const DocumentsCard: React.FC<DocumentsCardProps> = ({
                 
                 <div className={styles.cardMeta}>
                     <span className={styles.cardDate}>
-                        📅 {formatDate(document.date)}
+                        <Image
+                            src="/assets/icons/time.svg"
+                            alt="Описание изображения"
+                            width={14}
+                            height={14}
+                        />
+                        {formatDate(document.date)}
                     </span>
                     <span className={styles.cardSize}>
                         💾 {formatFileSize(document.file_size)}

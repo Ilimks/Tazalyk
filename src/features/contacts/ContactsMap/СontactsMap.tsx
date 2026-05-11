@@ -17,7 +17,7 @@ export const ContactsMap: React.FC = () => {
     const { mapLocations } = useContactData();
 
     const points = mapLocations.map((loc: MapLocation) => `${loc.lon}%2C${loc.lat}%2Cpm2rdl`).join('~');
-    const mapUrl = `https://yandex.ru/map-widget/v1/?ll=74.5776%2C42.8729&z=14&pt=${points}`;
+    const mapUrl = `https://yandex.ru/map-widget/v1/?ll=74.56976932681516%2C42.88606147619031&z=16&pt=${points}`;
 
     return (
         <div className={styles.mapContainer}>

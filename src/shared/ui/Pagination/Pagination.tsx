@@ -1,5 +1,3 @@
-// src/shared/ui/Pagination/Pagination.tsx
-import React from 'react';
 import styles from './Pagination.module.scss';
 
 interface PaginationProps {

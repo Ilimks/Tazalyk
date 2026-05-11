@@ -1,5 +1,4 @@
-// src/features/media/model/usePhotos.ts
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store';
 import { fetchPhotos } from '@/entities/media';
@@ -24,7 +23,6 @@ export const usePhotos = () => {
         return result;
     }, [dispatch]);
     
-    // Отладка
     console.log('📸 usePhotos state:', { 
         photosCount: photos.length, 
         totalPages, 

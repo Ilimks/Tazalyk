@@ -1,4 +1,3 @@
-// src/shared/api/endpoints/videos.ts
 import { baseApi } from '../baseApi';
 
 export interface Video {

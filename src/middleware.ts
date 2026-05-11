@@ -1,4 +1,3 @@
-// src/middleware.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { routing } from './i18n/routing';
 
@@ -13,7 +12,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
   
-  // Проверяем, есть ли локаль в пути
   const pathnameHasLocale = routing.locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );

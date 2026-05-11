@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { NewsCard } from '@/entities/news/ui/NewsCard';
 import { useNews } from '@/features/news/model/useNews';
 import { ErrorState } from '@/shared/ui/ErrorState';
@@ -12,26 +12,25 @@ export const NewsHomeSectionBottom: React.FC = () => {
     const hasLoadedRef = useRef(false);
 
     useEffect(() => {
-        if (!hasLoadedRef.current && !isLoading) {
+        if (!hasLoadedRef.current) {
             hasLoadedRef.current = true;
             loadNews();
         }
-    }, [loadNews, isLoading]);
+    }, [loadNews]);
 
-    // Защита от undefined
-    const safeNews = Array.isArray(news) ? news : [];
+    const latestNews = useMemo(() => {
+        const safeNews = Array.isArray(news) ? news : [];
+        
+        return [...safeNews]
+            .sort((a, b) => {
+                const dateA = new Date(a?.date || a?.created_at || 0);
+                const dateB = new Date(b?.date || b?.created_at || 0);
+                return dateB.getTime() - dateA.getTime();
+            })
+            .slice(0, 4);
+    }, [news]);
 
-    // Получаем последние 4 новости
-    const latestNews = [...safeNews]
-        .sort((a, b) => {
-            const dateA = new Date(a?.date || a?.created_at || 0);
-            const dateB = new Date(b?.date || b?.created_at || 0);
-            return dateB.getTime() - dateA.getTime();
-        })
-        .slice(0, 4);
-
-    // Состояние загрузки
-    if (isLoading && safeNews.length === 0) {
+    if (isLoading && latestNews.length === 0) {
         return (
             <div className={`${styles.newsHomeBottom} ${mobile.newsHomeBottom}`}>
                 <LoadingState />
@@ -39,7 +38,7 @@ export const NewsHomeSectionBottom: React.FC = () => {
         );
     }
     
-    if (error && safeNews.length === 0) {
+    if (error && latestNews.length === 0) {
         let errorTitle = "Ошибка загрузки новостей";
         let errorMessage = error;
         
@@ -66,7 +65,6 @@ export const NewsHomeSectionBottom: React.FC = () => {
         );
     }
 
-    // Состояние пустого списка
     if (latestNews.length === 0 && !isLoading) {
         return (
             <div className={`${styles.newsHomeBottom} ${mobile.newsHomeBottom}`}>
@@ -77,7 +75,6 @@ export const NewsHomeSectionBottom: React.FC = () => {
         );
     }
 
-    // Успешная загрузка с данными
     return (
         <div className={`${styles.newsHomeBottom} ${mobile.newsHomeBottom}`}>
             {latestNews.map((item) => (

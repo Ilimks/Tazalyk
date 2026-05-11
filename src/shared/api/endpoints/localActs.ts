@@ -53,7 +53,6 @@ export const localActsApi = {
             
             console.log('📄 Открытие файла:', { fileUrl, fileName, fileExt });
             
-            // Для PDF
             if (fileExt === 'pdf') {
                 const newWindow = window.open();
                 if (newWindow) {
@@ -73,7 +72,7 @@ export const localActsApi = {
                     `);
                 }
             } 
-            // Для изображений
+
             else if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExt)) {
                 const newWindow = window.open();
                 if (newWindow) {
@@ -93,7 +92,7 @@ export const localActsApi = {
                     `);
                 }
             }
-            // Для остальных типов
+
             else {
                 window.open(fileUrl, '_blank');
             }

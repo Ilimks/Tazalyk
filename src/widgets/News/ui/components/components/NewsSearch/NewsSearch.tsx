@@ -1,4 +1,3 @@
-// NewsSearch.tsx
 import styles from './NewsSearch.module.scss';
 import { InputNews } from '@/shared/ui/Inputs/InputNews';
 

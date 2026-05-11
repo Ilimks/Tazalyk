@@ -1,5 +1,3 @@
-// shared/ui/Button/Button.tsx
-import React from 'react';
 import styles from './ButtonError.module.scss';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

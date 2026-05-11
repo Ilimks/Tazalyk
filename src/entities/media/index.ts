@@ -1,6 +1,3 @@
-// src/entities/media/index.ts
-
-// Video
 export { 
     fetchVideos, 
     fetchVideoById,
@@ -9,7 +6,6 @@ export {
     videoReducer,
 } from './model/videoSlice';
 
-// Photo
 export { 
     fetchPhotos, 
     fetchPhotoById,

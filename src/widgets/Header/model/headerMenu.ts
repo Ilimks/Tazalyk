@@ -50,7 +50,7 @@ export const socialIcons = [
     key: "facebook",
     src: "/assets/icons/facebook.svg",
     alt: "Facebook",
-    link: "https://facebook.com"
+    link: "https://www.facebook.com/share/18aptKGFMg/"
   },
   {
     key: "youtube", 
@@ -62,6 +62,6 @@ export const socialIcons = [
     key: "instagram",
     src: "/assets/icons/inst.svg",
     alt: "Instagram", 
-    link: "https://instagram.com"
+    link: "https://www.instagram.com/mp_tazalyk_bishkek?igsh=MW51dDdvY2tyaHJxYg=="
   }
 ];

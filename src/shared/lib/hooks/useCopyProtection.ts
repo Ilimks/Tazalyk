@@ -1,4 +1,3 @@
-// hooks/useCopyProtection.ts
 import { ClipboardEvent, MouseEvent, KeyboardEvent } from 'react';
 
 export const useCopyProtection = () => {

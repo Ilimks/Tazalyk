@@ -9,6 +9,7 @@ import {
     FormFileUpload,
 } from '@/shared/ui/Forms';
 import styles from './ComplaintForm.module.scss';
+import { ButtonComplaint } from '@/shared/ui/Buttons/ButtonComplaint';
 
 interface Attachment {
     name: string;
@@ -281,9 +282,13 @@ export const ComplaintForm: React.FC = () => {
         
                     {error && <div className={styles.error}>{error}</div>}
         
-                    <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
+                    <ButtonComplaint
+                        type="submit" 
+                        isLoading={isSubmitting}
+                        disabled={isSubmitting}
+                    >
                         {isSubmitting ? t('form.submitting') : t('form.submit')}
-                    </button>
+                    </ButtonComplaint>
                 </form>
             </div>
         </section>

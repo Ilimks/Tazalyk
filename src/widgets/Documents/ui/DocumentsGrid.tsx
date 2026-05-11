@@ -24,7 +24,6 @@ export const DocumentsGrid: React.FC<DocumentsGridProps> = ({
     const t = useTranslations("Documents");
     const [currentPage, setCurrentPage] = useState(1);
 
-    // Пагинация
     const totalPages = Math.ceil(documents.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;

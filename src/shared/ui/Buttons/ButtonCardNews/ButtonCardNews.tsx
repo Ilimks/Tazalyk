@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './ButtonCardNews.module.scss';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

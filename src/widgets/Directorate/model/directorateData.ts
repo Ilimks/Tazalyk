@@ -11,7 +11,7 @@ export const directorateData: DirectorateMember[] = [
         id: 1,
         name: 'Арынов Максатбек Дуйшенкулович',
         position: 'Директор',
-        photo: '/assets/images/DirectorPhoto2.jpeg',
+        photo: '/assets/images/DirectorPhoto2.webp',
         order: 1
     },
     {
@@ -25,7 +25,7 @@ export const directorateData: DirectorateMember[] = [
         id: 3,
         name: 'Иманакунова Бааркан Мелисовна',
         position: 'Заместитель директора',
-        photo: '/assets/images/Deputydirector1.jpeg',
+        photo: '/assets/images/Deputydirector1.webp',
         order: 3
     },
     {

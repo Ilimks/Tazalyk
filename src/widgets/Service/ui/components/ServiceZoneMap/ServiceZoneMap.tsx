@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react';
 import { Loading } from '@/shared/ui/Loading';
-import { bishkekBoundary, districts, markers } from '../../../model/bishkekBoundary';
+import { bishkekBoundary, districts } from '../../../model/bishkekBoundary';
 import styles from './ServiceZoneMap.module.scss';
 
 declare global {
@@ -18,7 +18,6 @@ export const ServiceZoneMap: React.FC = () => {
         const loadYandexMap = () => {
             if (typeof window !== 'undefined' && !window.ymaps) {
                 const script = document.createElement('script');
-                // Без API ключа
                 script.src = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
                 script.async = true;
                 script.onload = initMap;
@@ -36,77 +35,57 @@ export const ServiceZoneMap: React.FC = () => {
                 const map = new window.ymaps.Map(mapRef.current, {
                     center: [42.8746, 74.5697],
                     zoom: 12,
-                    controls: ['zoomControl', 'fullscreenControl']
+                    controls: ['zoomControl']
                 });
 
-                // Рисуем границу города
+                // ✅ ПРАВИЛЬНЫЙ формат Polygon: массив контуров [[координаты]]
+                const polygonContour = [bishkekBoundary];
+                
                 const cityBoundary = new window.ymaps.Polygon(
-                    [[bishkekBoundary]],
+                    polygonContour,  // 🔥 теперь правильно: массив из одного контура
                     {
                         hintContent: 'Граница города Бишкек',
                         balloonContent: '<strong>Граница города Бишкек</strong><br/>Зона обслуживания МП "Тазалык"'
                     },
                     {
-                        fillColor: '#22c55e33',
-                        strokeColor: '#22c55e',
+                        fillColor: 'rgba(255, 0, 0, 0.15)',
+                        strokeColor: '#ff0000',
                         strokeWidth: 3,
-                        strokeOpacity: 0.9,
+                        strokeOpacity: 1,
+                        strokeStyle: 'dash',
                         fillOpacity: 0.2
                     }
                 );
+                
                 map.geoObjects.add(cityBoundary);
+                
+                // Автоматически устанавливаем границы карты по полигону
+                map.setBounds(cityBoundary.geometry.getBounds(), {
+                    checkZoomRange: true,
+                    zoomMargin: 30
+                });
 
-                // Добавляем метки районов
+                // Добавляем метки районов (текстовые, не маркеры предприятий)
                 districts.forEach(district => {
                     const districtLabel = new window.ymaps.Placemark(
                         district.center,
                         {
                             hintContent: district.name,
-                            balloonContent: `<strong>${district.name}</strong><br/>Входит в зону обслуживания`
+                            balloonContent: `<strong>${district.name}</strong><br/>${district.description}`
                         },
                         {
                             preset: 'islands#circleIcon',
                             iconColor: district.color,
                             iconLayout: 'default#imageWithContent',
                             iconContent: district.name.charAt(0),
-                            iconContentSize: [24, 24],
-                            iconContentOffset: [-12, -12]
+                            iconContentSize: [28, 28],
+                            iconContentOffset: [-14, -14],
+                            iconContentFontSize: 14,
+                            iconContentFontWeight: 'bold',
+                            iconContentColor: '#ffffff'
                         }
                     );
                     map.geoObjects.add(districtLabel);
-                });
-
-                // Добавляем маркеры
-                markers.forEach(marker => {
-                    let preset = 'islands#redCircleIcon';
-                    
-                    switch (marker.type) {
-                        case 'office':
-                            preset = 'islands#blueCircleIcon';
-                            break;
-                        case 'base':
-                            preset = 'islands#greenCircleIcon';
-                            break;
-                        case 'sorting':
-                            preset = 'islands#orangeCircleIcon';
-                            break;
-                        case 'landfill':
-                            preset = 'islands#purpleCircleIcon';
-                            break;
-                    }
-
-                    const placemark = new window.ymaps.Placemark(
-                        marker.coords,
-                        {
-                            hintContent: marker.name,
-                            balloonContent: `<strong>${marker.name}</strong><br/>${marker.address}<br/>✓ В зоне обслуживания`
-                        },
-                        {
-                            preset: preset,
-                            balloonCloseButton: true
-                        }
-                    );
-                    map.geoObjects.add(placemark);
                 });
 
                 setMapLoaded(true);

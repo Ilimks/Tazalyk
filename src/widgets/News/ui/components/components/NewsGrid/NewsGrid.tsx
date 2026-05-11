@@ -1,4 +1,3 @@
-import React from 'react';
 import { News } from '@/entities/news/model/types';
 import { NewsCard } from '@/entities/news/ui/NewsCard';
 import styles from './NewsGrid.module.scss';
