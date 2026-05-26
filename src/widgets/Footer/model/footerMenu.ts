@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 type FooterItem = {
   label: string;
   icon?: string;
-  href?: string; // Added href property
+  href?: string;
 };
 
 type FooterSection = {
@@ -27,7 +27,8 @@ export const useFooterNav = () => {
       title: t("FooterSubscribers"),
       items: [
         { label: t("FooterSubscribersTariffs"), href: "/tariffs" },
-        { label: t("FooterSubscribersComplaints"), href: "/complaints" }
+        { label: t("FooterSubscribersComplaints"), href: "/complaints" },
+        { label: t("FooterSubscribersEmployee"), href: "/employee" },
       ],
     },
     {
@@ -39,14 +40,14 @@ export const useFooterNav = () => {
           href: "https://maps.google.com/?q=Бишкек,+ул.+Ростовская+19б",
         },
         {
-          label: "+996 (312) 123-456",
+          label: "+996 (312) 34-51-02",
           icon: "/assets/icons/phoneFooter.svg",
-          href: "tel:+996312123456",
+          href: "tel:+996312345102",
         },
         {
-          label: "info@tazalyk.kg",
+          label: "tazalyk@meria.kg",
           icon: "/assets/icons/emailFooter.svg",
-          href: "mailto:info@tazalyk.kg",
+          href: "mailto:tazalyk@meria.kg",
         },
       ],
     },

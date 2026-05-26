@@ -1,85 +1,46 @@
-import { News } from "../model/types";
+import { baseApi } from "@/shared/api";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+export interface News {
+    id: string;
+    title_ru: string;
+    description_ru: string;
+    title_ky?: string;
+    description_ky?: string;
+    image?: string;
+    date: string;
+    created_at: string;
+}
 
-export async function fetchAllNews(page: number = 1, pageSize: number = 12, locale: string = 'ru'): Promise<News[]> {
-    try {
-        const response = await fetch(`${API_BASE_URL}/news/?page=${page}&page_size=${pageSize}`);
-        if (!response.ok) return [];
-        const data = await response.json();
+export interface NewsFilters {
+    page?: number;
+    page_size?: number;
+    search?: string;
+    year?: string;
+}
+
+export interface PaginatedNewsResponse {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: News[];
+}
+
+export const newsApi = {
+    getAll: async (filters: NewsFilters = {}): Promise<PaginatedNewsResponse> => {
+        const params: Record<string, any> = {};
+        if (filters.page) params.page = filters.page;
+        if (filters.page_size) params.page_size = filters.page_size;
+        if (filters.search) params.search = filters.search;
+        if (filters.year && filters.year !== 'all') params.year = filters.year;
         
-        let newsArray: News[] = [];
-        if (data && data.results && Array.isArray(data.results)) {
-            newsArray = data.results;
-        } else if (Array.isArray(data)) {
-            newsArray = data;
-        } else {
-            return [];
-        }
+        const response = await baseApi.get<PaginatedNewsResponse>('/news/', params);
+        return response;
+    },
+    getById: async (id: string): Promise<News> => {
+        return await baseApi.get<News>(`/news/${id}/`);
+    },
+};
 
-        return newsArray.map(item => transformNewsByLocale(item, locale));
-    } catch (error) {
-        console.error('Error fetching all news:', error);
-        return [];
-    }
-}
-
-export async function fetchLatestNews(limit: number = 4, locale: string = 'ru'): Promise<News[]> {
-    try {
-        const response = await fetch(`${API_BASE_URL}/news/?page_size=${limit}&ordering=-date`);
-        if (!response.ok) return [];
-        const data = await response.json();
-        
-        let newsArray: News[] = [];
-        if (data && data.results && Array.isArray(data.results)) {
-            newsArray = data.results;
-        } else if (Array.isArray(data)) {
-            newsArray = data;
-        } else {
-            return [];
-        }
-        
-        return newsArray.map(item => transformNewsByLocale(item, locale));
-    } catch (error) {
-        console.error('Error fetching latest news:', error);
-        return [];
-    }
-}
-
-export async function fetchNewsById(id: string, locale: string = 'ru'): Promise<News | null> {
-    try {
-        const response = await fetch(`${API_BASE_URL}/news/${id}/`);
-        if (!response.ok) return null;
-        const data = await response.json();
-        return transformNewsByLocale(data, locale);
-    } catch (error) {
-        console.error('Error fetching news by id:', error);
-        return null;
-    }
-}
-
-function transformNewsByLocale(news: any, locale: string): News {
-    if (!news) return news;
-    
-    if (locale === 'ky' && news.title_ky) {
-        return {
-            ...news,
-            title: news.title_ky,
-            description: news.description_ky,
-            title_ru: news.title_ru,
-            title_ky: news.title_ky,
-            description_ru: news.description_ru,
-            description_ky: news.description_ky,
-        };
-    }
-    
-    return {
-        ...news,
-        title: news.title_ru || news.title,
-        description: news.description_ru || news.description,
-        title_ru: news.title_ru,
-        title_ky: news.title_ky,
-        description_ru: news.description_ru,
-        description_ky: news.description_ky,
-    };
-}
+export const fetchNewsById = async (id: string): Promise<News> => {
+    return await newsApi.getById(id);
+};

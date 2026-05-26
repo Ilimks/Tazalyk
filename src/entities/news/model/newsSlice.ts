@@ -1,9 +1,21 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { fetchAllNews, fetchNewsById, fetchLatestNews } from '../api/newsApi';
-import { News, NewsState } from './types';
+import { newsApi, News, NewsFilters, PaginatedNewsResponse } from '../api/newsApi';
+
+export interface NewsState {
+    items: News[];
+    totalCount: number;
+    currentPage: number;
+    pageSize: number;
+    currentNews: News | null;
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    error: string | null;
+}
 
 const initialState: NewsState = {
     items: [],
+    totalCount: 0,
+    currentPage: 1,
+    pageSize: 12,
     currentNews: null,
     status: 'idle',
     error: null,
@@ -11,30 +23,16 @@ const initialState: NewsState = {
 
 export const fetchNews = createAsyncThunk(
     'news/fetchAll',
-    async ({ page, pageSize }: { page?: number; pageSize?: number } = {}) => {
-        console.log('fetchNews called with:', { page, pageSize }); // Отладка
-        const response = await fetchAllNews(page, pageSize);
-        console.log('fetchNews response:', response); // Отладка
+    async (filters: NewsFilters) => {
+        const response = await newsApi.getAll(filters);
         return response;
     }
 );
 
-export const fetchLatestNewsThunk = createAsyncThunk(
-    'news/fetchLatest',
-    async (limit: number = 4) => {
-        console.log('fetchLatestNewsThunk called with limit:', limit); // Отладка
-        const response = await fetchLatestNews(limit);
-        console.log('fetchLatestNewsThunk response:', response); // Отладка
-        return response;
-    }
-);
-
-export const fetchNewsByIdThunk = createAsyncThunk(
+export const fetchNewsById = createAsyncThunk(
     'news/fetchById',
     async (id: string) => {
-        const response = await fetchNewsById(id);
-        if (!response) throw new Error('News not found');
-        return response;
+        return await newsApi.getById(id);
     }
 );
 
@@ -48,6 +46,13 @@ const newsSlice = createSlice({
         clearError: (state) => {
             state.error = null;
         },
+        setPage: (state, action: PayloadAction<number>) => {
+            state.currentPage = action.payload;
+        },
+        setPageSize: (state, action: PayloadAction<number>) => {
+            state.pageSize = action.payload;
+            state.currentPage = 1;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -55,40 +60,29 @@ const newsSlice = createSlice({
                 state.status = 'loading';
                 state.error = null;
             })
-            .addCase(fetchNews.fulfilled, (state, action: PayloadAction<News[]>) => {
+            .addCase(fetchNews.fulfilled, (state, action: PayloadAction<PaginatedNewsResponse>) => {
                 state.status = 'succeeded';
-                state.items = action.payload;
+                state.items = action.payload.results;
+                state.totalCount = action.payload.count;
             })
             .addCase(fetchNews.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message || 'Failed to fetch news';
+                state.error = action.error.message || 'Ошибка загрузки новостей';
             })
-            .addCase(fetchLatestNewsThunk.pending, (state) => {
+            .addCase(fetchNewsById.pending, (state) => {
                 state.status = 'loading';
                 state.error = null;
             })
-            .addCase(fetchLatestNewsThunk.fulfilled, (state, action: PayloadAction<News[]>) => {
-                state.status = 'succeeded';
-                state.items = action.payload;
-            })
-            .addCase(fetchLatestNewsThunk.rejected, (state, action) => {
-                state.status = 'failed';
-                state.error = action.error.message || 'Failed to fetch latest news';
-            })
-            .addCase(fetchNewsByIdThunk.pending, (state) => {
-                state.status = 'loading';
-                state.error = null;
-            })
-            .addCase(fetchNewsByIdThunk.fulfilled, (state, action: PayloadAction<News>) => {
+            .addCase(fetchNewsById.fulfilled, (state, action: PayloadAction<News>) => {
                 state.status = 'succeeded';
                 state.currentNews = action.payload;
             })
-            .addCase(fetchNewsByIdThunk.rejected, (state, action) => {
+            .addCase(fetchNewsById.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message || 'Failed to fetch news';
+                state.error = action.error.message || 'Новость не найдена';
             });
     },
 });
 
-export const { clearCurrentNews, clearError } = newsSlice.actions;
+export const { clearCurrentNews, clearError, setPage, setPageSize } = newsSlice.actions;
 export default newsSlice.reducer;

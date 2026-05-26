@@ -12,7 +12,7 @@ export const AppealsCenterSection: React.FC = () => {
                         <p className={styles.appeals__title}>Тазалык</p>
                     </div>
                     <div className={styles.appeals__bottom}>
-                        <h2 className={styles.appeals__number}>1980, (0312) 61-11-69</h2>
+                        <h2 className={styles.appeals__number}>+996 (312) 34-51-02</h2>
                         <p className={styles.appeals__text}>{t('MainReceptionCall')}</p>
                     </div>
                 </div>

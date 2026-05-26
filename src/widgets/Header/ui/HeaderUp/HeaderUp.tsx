@@ -21,27 +21,29 @@ export const HeaderUp: React.FC = () => {
         <Link href="/">
           <Image
             className={`${styles.header__up__logo} ${mobile.header__up__logo}`}
-            src="/assets/icons/logo.png"
+            src="/assets/icons/logo.svg"
             alt="Header Logo"
             width={70}
             height={70}
             priority
           />
         </Link>
-        <div
-          className={`${styles.header__up__logoName} ${mobile.header__up__logoName}`}
-        >
-          <h4
-            className={`${styles.header__up__logoName1} ${mobile.header__up__logoName1}`}
+        <Link href="/">
+          <div
+            className={`${styles.header__up__logoName} ${mobile.header__up__logoName}`}
           >
-            ТАЗА<span>ЛЫК</span>
-          </h4>
-          <p
-            className={`${styles.header__up__logoName2} ${mobile.header__up__logoName2}`}
-          >
-            {t('header__logo')}
-          </p>
-        </div>
+            <h4
+              className={`${styles.header__up__logoName1} ${mobile.header__up__logoName1}`}
+            >
+              ТАЗА<span>ЛЫК</span>
+            </h4>
+            <p
+              className={`${styles.header__up__logoName2} ${mobile.header__up__logoName2}`}
+            >
+              {t('header__logo')}
+            </p>
+          </div>
+        </Link>
       </div>
 
       <div

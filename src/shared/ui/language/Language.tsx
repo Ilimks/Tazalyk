@@ -16,17 +16,17 @@ export const Language = () => {
   return (
     <div className={styles.lang}>
       <button 
-        className={`${styles.langItem} ${currentLocale === 'ky' ? styles.active : ''}`}
-        onClick={() => switchLanguage('ky')}
-      >
-        Кыр
-      </button>
-      <span className={styles.divider} />
-      <button 
         className={`${styles.langItem} ${currentLocale === 'ru' ? styles.active : ''}`}
         onClick={() => switchLanguage('ru')}
       >
         Рус
+      </button>
+      <span className={styles.divider} />
+      <button 
+        className={`${styles.langItem} ${currentLocale === 'ky' ? styles.active : ''}`}
+        onClick={() => switchLanguage('ky')}
+      >
+        Кыр
       </button>
     </div>
   );

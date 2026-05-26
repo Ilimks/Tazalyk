@@ -5,6 +5,7 @@ import { Document } from '@/entities/document/model/types';
 import { DocumentsCard } from '@/shared/ui/Cards/DocumentsCard';
 import { Pagination } from '@/shared/ui/Pagination';
 import styles from './DocumentsGrid.module.scss';
+import { Loading } from '@/shared/ui/Loading';
 
 interface DocumentsGridProps {
     documents: Document[];
@@ -37,7 +38,7 @@ export const DocumentsGrid: React.FC<DocumentsGridProps> = ({
     if (loading) {
         return (
             <div className={styles.loader}>
-                <div className={styles.spinner}></div>
+                <Loading/>
                 <p>{t('loading')}</p>
             </div>
         );

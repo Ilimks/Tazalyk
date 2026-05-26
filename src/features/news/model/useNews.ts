@@ -1,62 +1,51 @@
 'use client';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
-import { 
-    fetchNews, 
-    fetchLatestNewsThunk,
-    fetchNewsByIdThunk,
-    clearCurrentNews,
-    clearError
-} from '@/entities/news';
+import { fetchNews, fetchNewsById, clearCurrentNews, clearError, setPage } from '@/entities/news';
+import { NewsFilters } from '@/entities/news/api/newsApi';
 
 export const useNews = () => {
     const dispatch = useAppDispatch();
-    const { items, currentNews, status, error } = useAppSelector((state) => state.news);
-    const isLoadingRef = useRef(false);
-
+    const { items, totalCount, currentPage, pageSize, currentNews, status, error } = useAppSelector((state) => state.news);
+    
     const isLoading = status === 'loading';
     const isSuccess = status === 'succeeded';
     const isError = status === 'failed';
-
-    const loadNews = useCallback((page: number = 1, pageSize: number = 12) => {
-        if (isLoadingRef.current) return;
-        isLoadingRef.current = true;
-        dispatch(fetchNews({ page, pageSize })).finally(() => {
-            isLoadingRef.current = false;
-        });
-    }, [dispatch]);
-
-    const loadLatestNews = useCallback((limit: number = 4) => {
-        console.log('loadLatestNews called with limit:', limit);
-        if (isLoadingRef.current) return;
-        isLoadingRef.current = true;
-        dispatch(fetchLatestNewsThunk(limit)).finally(() => {
-            isLoadingRef.current = false;
-        });
-    }, [dispatch]);
-
+    
+    const loadNews = useCallback((filters: NewsFilters = {}) => {
+        dispatch(fetchNews({ page: currentPage, page_size: pageSize, ...filters }));
+    }, [dispatch, currentPage, pageSize]);
+    
     const loadNewsById = useCallback((id: string) => {
-        dispatch(fetchNewsByIdThunk(id));
+        dispatch(fetchNewsById(id));
     }, [dispatch]);
-
+    
+    const changePage = useCallback((page: number) => {
+        dispatch(setPage(page));
+    }, [dispatch]);
+    
     const clearCurrent = useCallback(() => {
         dispatch(clearCurrentNews());
     }, [dispatch]);
-
+    
     const resetError = useCallback(() => {
         dispatch(clearError());
     }, [dispatch]);
-
+    
     return {
-        news: items || [],
+        news: items,
+        totalCount,
+        currentPage,
+        pageSize,
+        totalPages: Math.ceil(totalCount / pageSize),
         currentNews,
         isLoading,
         isSuccess,
         isError,
         error,
         loadNews,
-        loadLatestNews,
         loadNewsById,
+        changePage,
         clearCurrent,
         resetError,
     };

@@ -1,6 +1,7 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
+import ReCAPTCHA from 'react-google-recaptcha';
 import {
     FormInput,
     FormTextarea,
@@ -23,6 +24,11 @@ export const ComplaintForm: React.FC = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+    const captchaRef = useRef<ReCAPTCHA>(null);
+    
+    // ВРЕМЕННЫЙ ФЛАГ ДЛЯ ТЕСТИРОВАНИЯ
+    const SKIP_CAPTCHA = true;
     
     const [formData, setFormData] = useState({
         full_name: '',
@@ -99,6 +105,13 @@ export const ComplaintForm: React.FC = () => {
         return type ? type.label : value;
     };
 
+    const onCaptchaChange = (token: string | null) => {
+        setCaptchaToken(token);
+        if (token) {
+            setError(null);
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -108,6 +121,40 @@ export const ComplaintForm: React.FC = () => {
             setError(t('form.consentRequired'));
             setIsSubmitting(false);
             return;
+        }
+        
+        // Проверка капчи только если не в тестовом режиме
+        if (!SKIP_CAPTCHA) {
+            if (!captchaToken) {
+                setError(t('form.captchaRequired'));
+                setIsSubmitting(false);
+                return;
+            }
+            
+            try {
+                const verifyResponse = await fetch('/api/verify-captcha', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token: captchaToken }),
+                });
+                
+                const verifyResult = await verifyResponse.json();
+                
+                if (!verifyResult.success) {
+                    setError(t('form.captchaInvalid'));
+                    captchaRef.current?.reset();
+                    setCaptchaToken(null);
+                    setIsSubmitting(false);
+                    return;
+                }
+            } catch (captchaErr) {
+                console.error('Captcha error:', captchaErr);
+                setError(t('form.captchaError'));
+                setIsSubmitting(false);
+                return;
+            }
+        } else {
+            console.log('🔓 Капча временно отключена (тестовый режим)');
         }
         
         try {
@@ -143,12 +190,18 @@ export const ComplaintForm: React.FC = () => {
                     attachments: [],
                     consent: false,
                 });
+                captchaRef.current?.reset();
+                setCaptchaToken(null);
             } else {
                 setError(result.message || t('form.error'));
+                captchaRef.current?.reset();
+                setCaptchaToken(null);
             }
         } catch (err) {
             console.error('Error:', err);
             setError(t('form.error'));
+            captchaRef.current?.reset();
+            setCaptchaToken(null);
         } finally {
             setIsSubmitting(false);
         }
@@ -160,7 +213,14 @@ export const ComplaintForm: React.FC = () => {
                 <div className={styles.successIcon}>✓</div>
                 <h3>{t('form.success')}</h3>
                 <p>{t('form.successMessage')}</p>
-                <button className={styles.newComplaintBtn} onClick={() => setIsSuccess(false)}>
+                <button 
+                    className={styles.newComplaintBtn} 
+                    onClick={() => {
+                        setIsSuccess(false);
+                        captchaRef.current?.reset();
+                        setCaptchaToken(null);
+                    }}
+                >
                     {t('form.newComplaint')}
                 </button>
             </div>
@@ -171,6 +231,7 @@ export const ComplaintForm: React.FC = () => {
         <section className={styles.complaintfForm}>
             <div className="container">
                 <form className={styles.form} onSubmit={handleSubmit}>
+                    
                     <div className={styles.section}>
                         <h3>{t('form.applicantInfo')}</h3>
                         
@@ -279,6 +340,32 @@ export const ComplaintForm: React.FC = () => {
                             required
                         />
                     </div>
+
+                    {/* Капча - будет скрыта или показана в зависимости от флага */}
+                    {!SKIP_CAPTCHA && (
+                        <div className={styles.section}>
+                            <ReCAPTCHA
+                                ref={captchaRef}
+                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                                onChange={onCaptchaChange}
+                                onExpired={() => {
+                                    setCaptchaToken(null);
+                                    setError(t('form.captchaExpired'));
+                                }}
+                                onErrored={() => {
+                                    setCaptchaToken(null);
+                                    setError(t('form.captchaError'));
+                                }}
+                            />
+                        </div>
+                    )}
+                    
+                    {/* Опционально: показываем предупреждение, что капча отключена */}
+                    {SKIP_CAPTCHA && (
+                        <div className={styles.testWarning}>
+                            ⚠️ [ТЕСТОВЫЙ РЕЖИМ] Капча временно отключена
+                        </div>
+                    )}
         
                     {error && <div className={styles.error}>{error}</div>}
         

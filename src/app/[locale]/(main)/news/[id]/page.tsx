@@ -14,7 +14,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
   
   let newsTitle = locale === 'ky' ? 'Жаңылык' : 'Новость';
   try {
-    const news = await fetchNewsById(id, locale);
+    const news = await fetchNewsById(id);
     const title = locale === 'ky' ? news?.title_ky : news?.title_ru;
     if (title) {
       newsTitle = title.length > 25 

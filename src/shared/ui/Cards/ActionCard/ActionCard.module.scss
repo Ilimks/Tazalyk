@@ -1,0 +1,99 @@
+.card {
+    display: block;
+    background: #ffffff;
+    padding: 24px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border-bottom: 4px solid #22c55e;
+    cursor: pointer;
+    
+    &:hover {
+        
+        .iconWrapper {
+            background: #22c55e;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .arrow {
+            transform: translateX(4px);
+            color: #22c55e;
+        }
+        
+        .title {
+            color: #22c55e;
+        }
+    }
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.iconWrapper {
+    width: 64px;
+    height: 64px;
+    background: #f1f5f9;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: #102382;
+    
+    svg {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+.description {
+    font-size: 16px;
+    color: #64748b;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.arrow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    transition: all 0.3s ease;
+    color: #94a3b8;
+    
+    svg {
+        transition: transform 0.3s ease;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 24px;
+    }
+    
+    .title {
+        font-size: 20px;
+    }
+    
+    .iconWrapper {
+        width: 48px;
+        height: 48px;
+        
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+    }
+}

@@ -28,29 +28,29 @@ export const Breadcrumbs = () => {
     const newsId = isNewsPage ? segments[1] : null;
     
     useEffect(() => {
-        if (newsId) {
-            fetchNewsById(newsId, locale).then(news => {
-                if (news) {
-                    let title = '';
-                    if (locale === 'ky' && news.title_ky) {
-                        title = news.title_ky;
-                    } else if (news.title_ru) {
-                        title = news.title_ru;
-                    } else {
-                        title = t('news');
-                    }
-                    const shortTitle = title.length > 25 
-                        ? title.substring(0, 22) + '...' 
-                        : title;
-                    setNewsTitle(shortTitle);
+    if (newsId) {
+        fetchNewsById(newsId).then(news => {
+            if (news) {
+                let title = '';
+                if (locale === 'ky' && news.title_ky) {
+                    title = news.title_ky;
+                } else if (news.title_ru) {
+                    title = news.title_ru;
                 } else {
-                    setNewsTitle(t('news'));
+                    title = t('news');
                 }
-            }).catch(() => {
+                const shortTitle = title.length > 25 
+                    ? title.substring(0, 22) + '...' 
+                    : title;
+                setNewsTitle(shortTitle);
+            } else {
                 setNewsTitle(t('news'));
-            });
-        }
-    }, [newsId, locale, t]);
+            }
+        }).catch(() => {
+            setNewsTitle(t('news'));
+        });
+    }
+}, [newsId, locale, t]);
     
     if (segments.length === 0) return null;
     
@@ -76,6 +76,7 @@ export const Breadcrumbs = () => {
             'complaints': t('complaints'),
             'about': t('about'),
             'attendance': t('attendance'),
+            'employee': t('employee')
         };
 
         return names[segment] || segment

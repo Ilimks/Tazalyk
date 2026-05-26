@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Document } from '@/entities/document/model/types';
 import styles from './DocumentsList.module.scss';
+import { Loading } from '@/shared/ui/Loading';
 
 interface DocumentsListProps {
     documents: Document[];
@@ -39,7 +40,7 @@ export const DocumentsList: React.FC<DocumentsListProps> = ({
     if (loading) {
         return (
             <div className={styles.loader}>
-                <div className={styles.spinner}></div>
+                <Loading/>
                 <p>{t('loading')}</p>
             </div>
         );

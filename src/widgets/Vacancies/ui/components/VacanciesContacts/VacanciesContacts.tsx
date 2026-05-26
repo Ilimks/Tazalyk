@@ -12,8 +12,7 @@ export const VacanciesContacts: React.FC = () => {
 
     const contacts: ContactItem[] = [
         { icon: '📍', text: 'г. Бишкек, ул. Ростовская 19б' },
-        { icon: '📞', text: '+996 (312) 12-34-56' },
-        { icon: '✉️', text: 'hr@tazalyk.kg' },
+        { icon: '✉️', text: 'mptazalykok@gmail.com' },
     ];
 
     return (

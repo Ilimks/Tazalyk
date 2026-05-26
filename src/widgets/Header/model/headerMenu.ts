@@ -20,6 +20,7 @@ export const useHeaderMenu = () => {
       dropdown: [
         { label: t('subscribersTariffs'), href: "/tariffs" },
         { label: t('subscribersComplaints'), href: "/complaints" },
+        { label: t('subscribersEmployee'), href: "/employee" },
       ],
     },
     {

@@ -1,98 +1,19 @@
-'use client'
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import { Loading } from '@/shared/ui/Loading';
-import { bishkekBoundary, districts } from '../../../model/bishkekBoundary';
 import styles from './ServiceZoneMap.module.scss';
 
-declare global {
-    interface Window {
-        ymaps: any;
-    }
-}
-
 export const ServiceZoneMap: React.FC = () => {
-    const mapRef = useRef<HTMLDivElement>(null);
+    const iframeRef = useRef<HTMLIFrameElement>(null);
     const [mapLoaded, setMapLoaded] = useState(false);
 
     useEffect(() => {
-        const loadYandexMap = () => {
-            if (typeof window !== 'undefined' && !window.ymaps) {
-                const script = document.createElement('script');
-                script.src = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
-                script.async = true;
-                script.onload = initMap;
-                document.body.appendChild(script);
-            } else if (window.ymaps) {
-                initMap();
-            }
-        };
+        const timer = setTimeout(() => {
+            setMapLoaded(true);
+        }, 1000);
 
-        const initMap = () => {
-            if (!mapRef.current) return;
-
-            window.ymaps.ready(() => {
-                // Создаем карту
-                const map = new window.ymaps.Map(mapRef.current, {
-                    center: [42.8746, 74.5697],
-                    zoom: 12,
-                    controls: ['zoomControl']
-                });
-
-                // ✅ ПРАВИЛЬНЫЙ формат Polygon: массив контуров [[координаты]]
-                const polygonContour = [bishkekBoundary];
-                
-                const cityBoundary = new window.ymaps.Polygon(
-                    polygonContour,  // 🔥 теперь правильно: массив из одного контура
-                    {
-                        hintContent: 'Граница города Бишкек',
-                        balloonContent: '<strong>Граница города Бишкек</strong><br/>Зона обслуживания МП "Тазалык"'
-                    },
-                    {
-                        fillColor: 'rgba(255, 0, 0, 0.15)',
-                        strokeColor: '#ff0000',
-                        strokeWidth: 3,
-                        strokeOpacity: 1,
-                        strokeStyle: 'dash',
-                        fillOpacity: 0.2
-                    }
-                );
-                
-                map.geoObjects.add(cityBoundary);
-                
-                // Автоматически устанавливаем границы карты по полигону
-                map.setBounds(cityBoundary.geometry.getBounds(), {
-                    checkZoomRange: true,
-                    zoomMargin: 30
-                });
-
-                // Добавляем метки районов (текстовые, не маркеры предприятий)
-                districts.forEach(district => {
-                    const districtLabel = new window.ymaps.Placemark(
-                        district.center,
-                        {
-                            hintContent: district.name,
-                            balloonContent: `<strong>${district.name}</strong><br/>${district.description}`
-                        },
-                        {
-                            preset: 'islands#circleIcon',
-                            iconColor: district.color,
-                            iconLayout: 'default#imageWithContent',
-                            iconContent: district.name.charAt(0),
-                            iconContentSize: [28, 28],
-                            iconContentOffset: [-14, -14],
-                            iconContentFontSize: 14,
-                            iconContentFontWeight: 'bold',
-                            iconContentColor: '#ffffff'
-                        }
-                    );
-                    map.geoObjects.add(districtLabel);
-                });
-
-                setMapLoaded(true);
-            });
-        };
-
-        loadYandexMap();
+        return () => clearTimeout(timer);
     }, []);
 
     return (
@@ -106,10 +27,20 @@ export const ServiceZoneMap: React.FC = () => {
                         </div>
                     )}
                     <div 
-                        ref={mapRef} 
                         className={styles.mapWrapper}
                         style={{ display: mapLoaded ? 'block' : 'none' }}
-                    />
+                    >
+                        <iframe 
+                            ref={iframeRef}
+                            src="https://yandex.ru/map-widget/v1/?um=constructor%3A7289a85b05a45144e85f18eaca131b57ed80d332c9bc8e8f692d899c36bb4271&amp;source=constructor" 
+                            width="100%" 
+                            height="667" 
+                            frameBorder="0"
+                            title="Карта зоны обслуживания МП Тазалык"
+                            className={styles.iframe}
+                            onLoad={() => setMapLoaded(true)}
+                        ></iframe>
+                    </div>
                 </div>
             </div>
         </section>

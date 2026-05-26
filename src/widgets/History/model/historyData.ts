@@ -23,7 +23,7 @@ export const useHistoryData = () => {
             id: 1,
             variant: 'left' as const,
             title: t('HistoryWayTitle'),
-            imageSrc: '/assets/images/Slide12.png',
+            imageSrc: '/assets/images/History1.webp',
             imageAlt: 'Первая техника Тазалык',
             imageCaption: 'Первая техника МП "Тазалык"',
             paragraphs: [t('HistoryWay1'), t('HistoryWay2')]
@@ -32,7 +32,7 @@ export const useHistoryData = () => {
             id: 2,
             variant: 'right' as const,
             title: t('HistoryPeriodTitle'),
-            imageSrc: '/assets/images/Slide7.JPG',
+            imageSrc: '/assets/images/History2.webp',
             imageAlt: 'Сотрудники Тазалык',
             imageCaption: 'Коллектив МП "Тазалык" в 2012 году',
             paragraphs: [t('HistoryPeriod1'), t('HistoryPeriod2')]
@@ -41,7 +41,7 @@ export const useHistoryData = () => {
             id: 3,
             variant: 'left' as const,
             title: t('HistoryAwardsTitle'),
-            imageSrc: '/assets/images/Slide12.png',
+            imageSrc: '/assets/images/History3.webp',
             imageAlt: 'Награды и достижения',
             imageCaption: 'Награды и благодарственные письма МП "Тазалык"',
             paragraphs: [t('HistoryAwards1'), t('HistoryAwards2')]
@@ -50,7 +50,7 @@ export const useHistoryData = () => {
             id: 4,
             variant: 'right' as const,
             title: t('HistoryStageTitle'),
-            imageSrc: '/assets/images/Slide8.png',
+            imageSrc: '/assets/images/History4.webp',
             imageAlt: 'МП Тазалык сегодня',
             imageCaption: 'Современный автопарк МП "Тазалык"',
             showStats: true,
@@ -60,9 +60,9 @@ export const useHistoryData = () => {
 
     const doubleImage = {
         title: t('HistoryDevelopmentTitle'),
-        image1Src: '/assets/images/NewCars.JPG',
+        image1Src: '/assets/images/History5.webp',
         image1Alt: 'Новая техника Тазалык',
-        image2Src: '/assets/images/Slide5.JPG',
+        image2Src: '/assets/images/History6.webp',
         image2Alt: 'Современный автопарк',
         paragraphs: [
             t('HistoryDevelopment1'),

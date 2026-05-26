@@ -4,3 +4,4 @@ export { DirectorateCard } from './DirectorateCard/DirectorateCard'
 export { QuoteCard } from './QuoteCard/QuoteCard'
 export { StatsCard } from './StatsCard/StatsCard'
 export { TariffCard } from './TariffCard/TariffCard'
+export { ActionCard } from './ActionCard/ActionCard';

@@ -31,7 +31,7 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
         <div className={styles.topBar}>
           <div className={styles.logoIcon}>
             <Image
-              src="/assets/icons/logo.png"
+              src="/assets/icons/logo.svg"
               alt="Тазалык"
               width={40}
               height={40}
@@ -121,6 +121,7 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
               <li className={styles.submenuItem}>
                 <Link href="/tariffs" onClick={onClose} className={styles.submenuLink}>{t('subscribersTariffs')}</Link>
                 <Link href="/complaints" onClick={onClose} className={styles.submenuLink}>{t('subscribersComplaints')}</Link>
+                <Link href="/employee" onClick={onClose} className={styles.submenuLink}>{t('subscribersEmployee')}</Link>
               </li>
             </ul>
           </li>

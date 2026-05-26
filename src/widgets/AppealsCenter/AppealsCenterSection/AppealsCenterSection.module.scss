@@ -19,13 +19,13 @@
             text-align: center;
 
             .appeals__subtitle {
-                font-size: 18px;
+                font-size: 22px;
                 font-weight: 700;
                 color: #fff;
             }
 
             .appeals__title {
-                font-size: 18px;
+                font-size: 22px;
                 font-weight: 700;
                 color: #22c55e;
             }
@@ -39,14 +39,14 @@
             text-align: center;
 
             .appeals__number {
-                font-size: 48px;
+                font-size: 58px;
                 font-weight: 700;
                 color: #95c1fa;
                 word-break: break-word;
             }
 
             .appeals__text {
-                font-size: 12px;
+                font-size: 18px;
                 font-weight: 700;
                 color: #fff;
             }
@@ -150,40 +150,6 @@
 
                 .appeals__text {
                     font-size: 9px;
-                }
-            }
-        }
-    }
-
-    // Для очень больших экранов (1440px+)
-    @media (min-width: 1440px) {
-        padding: 60px 0;
-        margin: 30px 0;
-
-        .appeals__box {
-            gap: 50px;
-
-            .appeals__up {
-                gap: 8px;
-
-                .appeals__subtitle {
-                    font-size: 22px;
-                }
-
-                .appeals__title {
-                    font-size: 22px;
-                }
-            }
-
-            .appeals__bottom {
-                gap: 15px;
-
-                .appeals__number {
-                    font-size: 64px;
-                }
-
-                .appeals__text {
-                    font-size: 14px;
                 }
             }
         }
