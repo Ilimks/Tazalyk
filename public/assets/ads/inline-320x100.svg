@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="100" viewBox="0 0 320 100">
+  <rect width="320" height="100" fill="#f1f5f9"/>
+  <rect x="4" y="4" width="312" height="92" rx="6" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="8 6"/>
+  <g font-family="Roboto, Arial, sans-serif" text-anchor="middle">
+    <text x="160" y="40" font-size="15" font-weight="700" fill="#102382">Жарнама үчүн орун</text>
+    <text x="160" y="60" font-size="15" font-weight="700" fill="#102382">Место для рекламы</text>
+    <text x="160" y="82" font-size="12" fill="#64748b">320 × 100</text>
+  </g>
+</svg>

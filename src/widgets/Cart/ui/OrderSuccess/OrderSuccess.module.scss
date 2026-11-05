@@ -1,0 +1,200 @@
+.success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 32px;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    background: #22c55e;
+    color: #ffffff;
+
+    svg {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.title {
+    margin: 0 0 12px;
+    color: #0f172a;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.25;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.total {
+    margin: 0 0 28px;
+    color: #475569;
+    font-size: 17px;
+
+    strong {
+        color: #102382;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+}
+
+.step {
+    margin: 0 0 14px;
+    color: #0f172a;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.contacts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.payButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 420px;
+    min-height: 60px;
+    padding: 14px 24px;
+    border-radius: 16px;
+    color: #ffffff;
+    font-size: 19px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+
+    svg {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+    }
+
+    &:hover {
+        transform: translateY(-1px);
+    }
+
+    &:focus-visible {
+        outline: 3px solid #102382;
+        outline-offset: 3px;
+    }
+}
+
+// Цвета — фирменные цвета мессенджеров, чтобы кнопки сразу узнавали
+.whatsapp {
+    background: #128c7e;
+    box-shadow: 0 8px 20px rgba(18, 140, 126, 0.3);
+
+    &:hover {
+        background: #0f7468;
+    }
+}
+
+.telegram {
+    background: #1b84b8;
+    box-shadow: 0 8px 20px rgba(27, 132, 184, 0.3);
+
+    &:hover {
+        background: #17719e;
+    }
+}
+
+.hint {
+    max-width: 440px;
+    margin: 14px 0 0;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.callNote {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    padding: 14px 20px;
+    border: 1px solid #dcfce7;
+    border-radius: 14px;
+    background: #f0fdf4;
+    color: #166534;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+
+    svg {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.back {
+    margin-top: 28px;
+    color: #102382;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    &:hover {
+        color: #22c55e;
+    }
+}
+
+.srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+    .success {
+        padding: 32px 18px;
+        border-radius: 18px;
+    }
+
+    .icon {
+        width: 64px;
+        height: 64px;
+
+        svg {
+            width: 34px;
+            height: 34px;
+        }
+    }
+
+    .title {
+        font-size: 22px;
+    }
+
+    .total {
+        font-size: 15px;
+    }
+
+    .payButton {
+        min-height: 54px;
+        font-size: 17px;
+    }
+}

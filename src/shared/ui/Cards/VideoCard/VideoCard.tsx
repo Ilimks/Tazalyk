@@ -1,12 +1,15 @@
 'use client'
 import styles from "./VideoCard.module.scss";
-import { useState, useRef, useEffect } from "react";
+import { Calendar, Film, Play, Video as VideoIcon } from "lucide-react";
+import { useState } from "react";
 import { VideoModal } from "@/shared/ui/Modals/VideoModal";
 
 interface Video {
     id: string;
     main_video_url: string;
     gallery_videos: string[];
+    // картинка-превью с API; если её нет — показываем заглушку
+    thumbnail?: string;
     date: string;
     created_at: string;
 }
@@ -15,12 +18,12 @@ interface VideoCardProps {
     video: Video;
 }
 
+// В карточке грузится только превью. Само видео начинает загружаться,
+// когда пользователь нажал на карточку и открылось окно с плеером
 export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
-    const [isHovered, setIsHovered] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
+    const [thumbnailFailed, setThumbnailFailed] = useState(false);
+    const showThumbnail = Boolean(video.thumbnail) && !thumbnailFailed;
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -31,75 +34,52 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
         });
     };
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && !shouldLoadVideo) {
-                    setShouldLoadVideo(true);
-                    observer.disconnect();
-                }
-            },
-            { threshold: 0.1 }
-        );
-
-        if (containerRef.current) {
-            observer.observe(containerRef.current);
-        }
-
-        return () => observer.disconnect();
-    }, [shouldLoadVideo]);
-
-    const handleMouseEnter = () => {
-        setIsHovered(true);
-        if (!shouldLoadVideo) {
-            setShouldLoadVideo(true);
-        }
-    };
-
-    const handleCardClick = () => {
-        setIsModalOpen(true);
-    };
+    const openModal = () => setIsModalOpen(true);
 
     return (
         <>
-            <article 
-                ref={containerRef}
+            <article
                 className={styles.card}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={() => setIsHovered(false)}
-                onClick={handleCardClick}
+                onClick={openModal}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openModal();
+                    }
+                }}
+                role="button"
+                tabIndex={0}
             >
                 <div className={styles.card__imageContainer}>
-                    {shouldLoadVideo ? (
-                        <video 
-                            ref={videoRef}
-                            src={video.main_video_url}
-                            className={`${styles.card__video} ${isHovered ? styles.card__videoZoomed : ''}`}
-                            muted
-                            preload="metadata"
-                            loop
+                    {showThumbnail ? (
+                        // адрес превью приходит с API, домен может быть любым — поэтому обычный img
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                            src={video.thumbnail}
+                            alt=""
+                            className={styles.card__video}
+                            loading="lazy"
+                            decoding="async"
+                            onError={() => setThumbnailFailed(true)}
                         />
                     ) : (
-                        <div className={styles.card__thumbnail}>
-                            <div className={styles.card__thumbnailPlaceholder}>
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
-                                    <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="2"/>
-                                    <polygon points="10 8 16 12 10 16" fill="currentColor"/>
-                                </svg>
-                            </div>
+                        <div className={styles.card__placeholder}>
+                            <VideoIcon size={48} strokeWidth={1.5} aria-hidden />
                         </div>
                     )}
                     <div className={styles.card__playIcon}>
-                        <span>▶</span>
+                        <Play className={styles.card__playGlyph} size={20} fill="currentColor" aria-hidden />
                     </div>
                     {video.gallery_videos?.length > 0 && (
                         <span className={styles.card__galleryCount}>
-                            🎬 {video.gallery_videos.length + 1}
+                            <Film size={12} aria-hidden />
+                            {video.gallery_videos.length + 1}
                         </span>
                     )}
                 </div>
                 <div className={styles.card__content}>
                     <time className={styles.card__content__date}>
+                        <Calendar size={14} aria-hidden />
                         {formatDate(video.date)}
                     </time>
                 </div>
@@ -109,6 +89,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 videoUrl={video.main_video_url}
+                poster={showThumbnail ? video.thumbnail : undefined}
                 galleryVideos={video.gallery_videos}
             />
         </>

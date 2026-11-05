@@ -1,6 +1,7 @@
 "use client";
 import { Link } from '@/i18n/navigation';
 import Image from "next/image";
+import { ChevronDown, X } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import styles from "./MobileMenu.module.scss";
 import { useMobileMenu } from "../../hooks/useMobileMenu";
@@ -15,10 +16,7 @@ interface Props {
 export const MobileMenu = ({ isOpen, onClose }: Props) => {
   const { openSubmenu, toggleSubmenu } = useMobileMenu(isOpen, onClose);
   const t = useTranslations("HeaderMenu");
-
-  const handleSearch = (query: string) => {
-    console.log("Searching for:", query);
-  };
+  const tCommon = useTranslations("Common");
 
   return (
     <>
@@ -39,25 +37,12 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
             />
           </div>
 
-          <button className={styles.closeButton} onClick={onClose}>
-            <svg 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path 
-                d="M18 6L6 18M6 6L18 18" 
-                stroke="white" 
-                strokeWidth="1.5" 
-                strokeLinecap="round"
-              />
-            </svg>
+          <button className={styles.closeButton} onClick={onClose} aria-label={tCommon('closeMenu')}>
+            <X size={24} strokeWidth={1.5} aria-hidden />
           </button>
         </div>
 
-        <MobileSearch onSearch={handleSearch} />
+        <MobileSearch onResultClick={onClose} />
 
         <ul className={styles.menuList}>
           <li className={styles.menuItem}>
@@ -72,15 +57,7 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
               onClick={() => toggleSubmenu("about")}
             >
               <span className={styles.triggerText}>{t('about')}</span>
-              <svg 
-                width="16" 
-                height="16" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                className={`${styles.arrow} ${openSubmenu === "about" ? styles.rotated : ""}`}
-              >
-                <path d="M6 9l6 6 6-6" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
+              <ChevronDown size={16} className={`${styles.arrow} ${openSubmenu === "about" ? styles.rotated : ""}`} aria-hidden />
             </div>
             <ul className={`${styles.submenu} ${openSubmenu === "about" ? styles.submenuOpen : ""}`}>
               <li className={styles.submenuItem}>
@@ -107,15 +84,7 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
               onClick={() => toggleSubmenu("abonents")}
             >
               <span className={styles.triggerText}>{t('subscribers')}</span>
-              <svg 
-                width="16" 
-                height="16" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                className={`${styles.arrow} ${openSubmenu === "abonents" ? styles.rotated : ""}`}
-              >
-                <path d="M6 9l6 6 6-6" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
+              <ChevronDown size={16} className={`${styles.arrow} ${openSubmenu === "abonents" ? styles.rotated : ""}`} aria-hidden />
             </div>
             <ul className={`${styles.submenu} ${openSubmenu === "abonents" ? styles.submenuOpen : ""}`}>
               <li className={styles.submenuItem}>
@@ -132,15 +101,7 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
               onClick={() => toggleSubmenu("press")}
             >
               <span className={styles.triggerText}>{t('pressCenter')}</span>
-              <svg 
-                width="16" 
-                height="16" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                className={`${styles.arrow} ${openSubmenu === "press" ? styles.rotated : ""}`}
-              >
-                <path d="M6 9l6 6 6-6" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
+              <ChevronDown size={16} className={`${styles.arrow} ${openSubmenu === "press" ? styles.rotated : ""}`} aria-hidden />
             </div>
             <ul className={`${styles.submenu} ${openSubmenu === "press" ? styles.submenuOpen : ""}`}>
               <li className={styles.submenuItem}>
@@ -164,21 +125,19 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
             </Link>
           </li>
 
+          <li className={styles.menuItem}>
+            <Link href="/shop" onClick={onClose} className={styles.menuLink}>
+              <span>{t('shop')}</span>
+            </Link>
+          </li>
+
           <li className={`${styles.menuItem} ${styles.hasSubmenu}`}>
             <div 
               className={styles.submenuTrigger}
               onClick={() => toggleSubmenu("legal")}
             >
               <span className={styles.triggerText}>{t('regulatoryFramework')}</span>
-              <svg 
-                width="16" 
-                height="16" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                className={`${styles.arrow} ${openSubmenu === "legal" ? styles.rotated : ""}`}
-              >
-                <path d="M6 9l6 6 6-6" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
+              <ChevronDown size={16} className={`${styles.arrow} ${openSubmenu === "legal" ? styles.rotated : ""}`} aria-hidden />
             </div>
             <ul className={`${styles.submenu} ${openSubmenu === "legal" ? styles.submenuOpen : ""}`}>
               <li className={styles.submenuItem}>

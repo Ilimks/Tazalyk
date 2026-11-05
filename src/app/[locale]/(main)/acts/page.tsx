@@ -1,11 +1,11 @@
 import { BreadcrumbsWidget } from "@/widgets/BreadcrumbsWidget";
-import { LocalActsPage } from "@/widgets/Documents";
+import { DocumentsPage } from "@/widgets/Documents";
 
 export default function Acts() {
     return (
         <main>
             <BreadcrumbsWidget />
-            <LocalActsPage />
+            <DocumentsPage kind="localActs" />
         </main>
     );
 }

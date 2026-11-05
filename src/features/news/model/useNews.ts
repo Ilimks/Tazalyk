@@ -1,8 +1,8 @@
 'use client';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
 import { fetchNews, fetchNewsById, clearCurrentNews, clearError, setPage } from '@/entities/news';
-import { NewsFilters } from '@/entities/news/api/newsApi';
+import type { NewsFilters } from '@/entities/news';
 
 export const useNews = () => {
     const dispatch = useAppDispatch();

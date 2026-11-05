@@ -1,4 +1,5 @@
 'use client'
+import { BriefcaseBusiness } from 'lucide-react';
 import React, { useState } from 'react';
 import { ProcurementItem } from '@/entities/procurement/model/types';
 import { TableRow } from '../TableRow';
@@ -23,11 +24,7 @@ export const TableBody: React.FC<TableBodyProps> = ({ data }) => {
     if (data.length === 0) {
         return (
             <div className={styles.emptyState}>
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7h-4.18A3 3 0 0 0 16 5.18V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v1.18A3 3 0 0 0 8.18 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" stroke="currentColor" strokeWidth="2"/>
-                    <line x1="12" y1="11" x2="12" y2="17" stroke="currentColor" strokeWidth="2"/>
-                    <line x1="9" y1="14" x2="15" y2="14" stroke="currentColor" strokeWidth="2"/>
-                </svg>
+                <BriefcaseBusiness size={64} strokeWidth={1.5} aria-hidden />
                 <p>{t('ProcurementTableBodyNoData')}</p>
                 <span>{t('ProcurementTableBodyDataTime')}</span>
             </div>

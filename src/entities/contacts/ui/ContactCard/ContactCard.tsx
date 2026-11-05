@@ -1,3 +1,4 @@
+import { ArrowUpRight } from 'lucide-react';
 import styles from './ContactCard.module.scss';
 
 interface ContactCardProps {
@@ -24,9 +25,7 @@ export const ContactCard: React.FC<ContactCardProps> = ({ icon, title, details, 
             {link && linkText && (
                 <a href={link} className={styles.contactLink} target="_blank" rel="noopener noreferrer">
                     {linkText}
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    <ArrowUpRight size={16} aria-hidden />
                 </a>
             )}
         </div>

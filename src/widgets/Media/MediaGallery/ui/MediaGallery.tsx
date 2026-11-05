@@ -1,11 +1,15 @@
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
+import { useTranslations } from 'next-intl';
+import { Images, Video as VideoIcon } from 'lucide-react';
 import { MediaHeader } from '@/shared/ui/MediaHeader';
 import { Tabs } from '@/shared/ui/Tabs';
 import { Pagination } from '@/shared/ui/Pagination';
 import { ErrorState } from '@/shared/ui/ErrorState';
+import { EmptyState } from '@/shared/ui/EmptyState';
 import { PhotoModal } from '@/shared/ui/Modals/PhotoModal';
 import { VideoModal } from '@/shared/ui/Modals/VideoModal';
+import type { PageResult } from '@/shared/api';
 import { Photo, Video, MediaType } from '@/entities/media/model/types';
 import { PhotoCard } from '@/shared/ui/Cards/PhotoCard';
 import { VideoCard } from '@/shared/ui/Cards/VideoCard';
@@ -18,81 +22,98 @@ import { useVideos } from '@/features/media/model/useVideos';
 interface MediaGalleryProps {
     itemsPerPage?: number;
     defaultTab?: MediaType;
+    // первые страницы фото и видео, загруженные на сервере; null — загружаем в браузере
+    initialPhotos?: PageResult<Photo> | null;
+    initialVideos?: PageResult<Video> | null;
 }
 
 const tabs = [
-    {
-        id: 'photos' as const,
-        label: 'Фотографии',
-        icon: (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <rect x="2" y="2" width="20" height="20" rx="2" stroke="currentColor" strokeWidth="2"/>
-                <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/>
-                <path d="M21 15l-5-4-3 3-4-4-5 5" stroke="currentColor" strokeWidth="2"/>
-            </svg>
-        )
-    },
-    {
-        id: 'videos' as const,
-        label: 'Видео',
-        icon: (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" strokeWidth="2"/>
-                <polygon points="10 8 16 12 10 16" fill="currentColor"/>
-            </svg>
-        )
-    }
+    { id: 'photos' as const, icon: <Images size={20} aria-hidden /> },
+    { id: 'videos' as const, icon: <VideoIcon size={20} aria-hidden /> },
 ];
 
-export const MediaGallery: React.FC<MediaGalleryProps> = ({ 
+export const MediaGallery: React.FC<MediaGalleryProps> = ({
     itemsPerPage = 12,
-    defaultTab = 'photos'
+    defaultTab = 'photos',
+    initialPhotos = null,
+    initialVideos = null,
 }) => {
+    const t = useTranslations('MediaGallery');
     const [activeTab, setActiveTab] = useState<MediaType>(defaultTab);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const { 
-        photos, 
-        isLoading: photosLoading, 
-        error: photosError, 
+    const {
+        photos: loadedPhotos,
+        isLoading: photosLoading,
+        isSuccess: photosLoaded,
+        error: photosError,
         loadPhotos,
         totalPages: photosTotalPages,
         totalCount: photosTotalCount
     } = usePhotos();
-    
-    const { 
-        videos, 
-        isLoading: videosLoading, 
-        error: videosError, 
+
+    const {
+        videos: loadedVideos,
+        isLoading: videosLoading,
+        isSuccess: videosLoaded,
+        error: videosError,
         loadVideos,
         totalPages: videosTotalPages,
         totalCount: videosTotalCount
     } = useVideos();
+
+    // Пока пользователь не уходил с первой страницы вкладки, показываем данные с сервера без повторного запроса
+    const [usingInitialPhotos, setUsingInitialPhotos] = useState(initialPhotos !== null);
+    const [usingInitialVideos, setUsingInitialVideos] = useState(initialVideos !== null);
+    const serverPhotos = usingInitialPhotos ? initialPhotos : null;
+    const serverVideos = usingInitialVideos ? initialVideos : null;
 
     const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
     const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
     useEffect(() => {
         if (activeTab === 'photos') {
+            if (usingInitialPhotos) {
+                if (currentPage === 1) return;
+                setUsingInitialPhotos(false);
+            }
             loadPhotos(currentPage, itemsPerPage);
         } else {
+            if (usingInitialVideos) {
+                if (currentPage === 1) return;
+                setUsingInitialVideos(false);
+            }
             loadVideos(currentPage, itemsPerPage);
         }
-    }, [activeTab, currentPage, itemsPerPage]);
+        // usingInitialPhotos и usingInitialVideos меняются только внутри этого эффекта
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeTab, currentPage, itemsPerPage, loadPhotos, loadVideos]);
 
-    useEffect(() => {
-        setCurrentPage(1);
-    }, [activeTab]);
+    const photos = serverPhotos ? serverPhotos.items : loadedPhotos;
+    const videos = serverVideos ? serverVideos.items : loadedVideos;
+    const photosCount = serverPhotos ? serverPhotos.totalCount : photosTotalCount;
+    const videosCount = serverVideos ? serverVideos.totalCount : videosTotalCount;
+
+    // до первого ответа в браузере показываем загрузку, а не «материалов нет»
+    const photosPending = !serverPhotos && (photosLoading || (!photosLoaded && !photosError));
+    const videosPending = !serverVideos && (videosLoading || (!videosLoaded && !videosError));
 
     const currentData = activeTab === 'photos' ? photos : videos;
-    const isLoading = activeTab === 'photos' ? photosLoading : videosLoading;
-    const error = activeTab === 'photos' ? photosError : videosError;
-    const totalPages = activeTab === 'photos' ? photosTotalPages : videosTotalPages;
-    const totalCount = activeTab === 'photos' ? photosTotalCount : videosTotalCount;
+    const isLoading = activeTab === 'photos' ? photosPending : videosPending;
+    const error = activeTab === 'photos'
+        ? (serverPhotos ? null : photosError)
+        : (serverVideos ? null : videosError);
+    const totalPages = activeTab === 'photos'
+        ? (serverPhotos ? serverPhotos.totalPages : photosTotalPages)
+        : (serverVideos ? serverVideos.totalPages : videosTotalPages);
+    const totalCount = activeTab === 'photos' ? photosCount : videosCount;
 
+    // страница сбрасывается вместе со сменой вкладки, чтобы не запрашивать чужую страницу новой вкладки
     const handleTabChange = useCallback((tabId: string) => {
+        if (tabId === activeTab) return;
         setActiveTab(tabId as MediaType);
-    }, []);
+        setCurrentPage(1);
+    }, [activeTab]);
 
     const goToPage = useCallback((page: number) => {
         setCurrentPage(page);
@@ -105,27 +126,33 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
         } else {
             loadVideos(currentPage, itemsPerPage);
         }
-    }, [activeTab, currentPage, itemsPerPage]);
+    }, [activeTab, currentPage, itemsPerPage, loadPhotos, loadVideos]);
 
     const updateTabCounts = tabs.map(tab => ({
         ...tab,
-        count: tab.id === 'photos' ? photosTotalCount : videosTotalCount
+        label: t(tab.id),
+        count: tab.id === 'photos' ? photosCount : videosCount
     }));
 
     const renderContent = () => {
         if (isLoading && currentData.length === 0) {
             return <LoadingState />;
         }
-        
+
         if (error && currentData.length === 0) {
             return (
-                <ErrorState 
-                    error={error} 
+                <ErrorState
+                    error={error}
                     onRetry={refetch}
-                    title="Ошибка загрузки медиа"
+                    title={t('loadError')}
                     variant="compact"
                 />
             );
+        }
+
+        if (currentData.length === 0 && !isLoading) {
+            const variant = activeTab === 'photos' ? 'photo' : 'video';
+            return <EmptyState variant={variant} />;
         }
 
         return (
@@ -133,13 +160,13 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                 <div className={styles.grid}>
                     {currentData.map((item) => (
                         activeTab === 'photos' ? (
-                            <PhotoCard 
-                                key={item.id} 
+                            <PhotoCard
+                                key={item.id}
                                 photo={item as Photo}
                             />
                         ) : (
-                            <VideoCard 
-                                key={item.id} 
+                            <VideoCard
+                                key={item.id}
                                 video={item as Video}
                             />
                         )
@@ -162,8 +189,8 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
         <div className={`${styles.gallery} ${mobile.gallery}`}>
             <div className="container">
                 <MediaHeader
-                    title="Медиа галерея"
-                    description="Фотографии и видео с мероприятий, экологических акций и трудовых будней предприятия"
+                    title={t('title')}
+                    description={t('description')}
                 />
 
                 <Tabs
@@ -189,6 +216,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                     isOpen={!!selectedVideo}
                     onClose={() => setSelectedVideo(null)}
                     videoUrl={selectedVideo.main_video_url}
+                    poster={selectedVideo.thumbnail}
                     galleryVideos={selectedVideo.gallery_videos}
                 />
             )}

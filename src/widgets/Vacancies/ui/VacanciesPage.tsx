@@ -4,8 +4,15 @@ import { useTranslations } from 'next-intl';
 import { VacanciesNote } from './components/VacanciesNote';
 import { VacanciesContacts } from './components/VacanciesContacts';
 import { VacanciesDocuments } from './components/VacanciesDocuments';
+import { VacanciesOpenings } from './components/VacanciesOpenings';
+import type { Vacancy } from '@/entities/vacancy';
 
-export const VacanciesPage: React.FC = () => {
+interface VacanciesPageProps {
+    // открытые вакансии с сервера; null — догрузятся в браузере
+    initialVacancies: Vacancy[] | null;
+}
+
+export const VacanciesPage: React.FC<VacanciesPageProps> = ({ initialVacancies }) => {
     const t = useTranslations("Vacancies");
 
     return (
@@ -14,6 +21,8 @@ export const VacanciesPage: React.FC = () => {
                 title={t('VacanciesTitle')}
                 description={t('VacanciesDescription')}
             />
+
+            <VacanciesOpenings initialVacancies={initialVacancies} />
             
             <VacanciesDocuments />
             

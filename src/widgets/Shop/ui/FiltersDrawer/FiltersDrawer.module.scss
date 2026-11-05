@@ -1,0 +1,142 @@
+.root {
+    position: fixed;
+    inset: 0;
+    // выше липкой навигации и шапки
+    z-index: 120;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(3px);
+    animation: fade 0.25s ease;
+}
+
+.panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    width: min(380px, 88vw);
+    background: #ffffff;
+    box-shadow: -8px 0 30px rgba(15, 23, 42, 0.2);
+    animation: slide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 16px 16px 20px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.title {
+    margin: 0;
+    color: #0f172a;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background: #f1f5f9;
+    color: #1e3a5f;
+    cursor: pointer;
+
+    svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    &:hover {
+        background: #e2e8f0;
+    }
+}
+
+.body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 10px;
+    padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+    border-top: 1px solid #e2e8f0;
+    background: #ffffff;
+}
+
+.reset,
+.apply {
+    height: 46px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.reset {
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #1e3a5f;
+
+    &:hover:not(:disabled) {
+        border-color: #1e3a5f;
+    }
+
+    &:disabled {
+        color: #94a3b8;
+        cursor: not-allowed;
+    }
+}
+
+.apply {
+    border: none;
+    background: #102382;
+    color: #ffffff;
+
+    &:hover {
+        background: #1d35ad;
+    }
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .overlay,
+    .panel {
+        animation: none;
+    }
+}

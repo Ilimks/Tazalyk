@@ -1,7 +1,7 @@
 'use client'
 import { DirectorateMember } from '@/widgets/Directorate/model';
 import styles from './DirectorateGrid.module.scss';
-import { DirectorateCard } from '@/shared/ui/Cards';
+import { DirectorateCard } from '../DirectorateCard';
 
 interface DirectorateGridProps {
     members: DirectorateMember[];

@@ -3,13 +3,6 @@ import styles from "./MobileHeaderIcons.module.scss";
 import Image from "next/image";
 import { socialIcons } from "@/widgets/Header/model/headerMenu";
 
-interface SocialIcon {
-  key: string;
-  src: string;
-  alt: string;
-  link: string;
-}
-
 export const MobileHeaderIcons: React.FC = () => {
   return (
     <div className={styles.socialLinks}>

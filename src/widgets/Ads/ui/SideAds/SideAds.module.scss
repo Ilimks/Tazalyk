@@ -1,0 +1,69 @@
+// Ширина контента сайта — .container в globals.css
+$content-width: 1280px;
+$banner-width: 160px;
+
+.wrapper {
+    position: relative;
+}
+
+.rail {
+    display: none;
+    position: absolute;
+    top: 24px;
+    bottom: 24px;
+    width: $banner-width;
+    z-index: 5;
+    // колонка не перекрывает клики по контенту под ней, кликабелен только баннер
+    pointer-events: none;
+}
+
+// центр свободного поля: ((ширина − контент) / 2) / 2 − половина баннера
+.left {
+    left: calc((100% - #{$content-width}) / 4 - #{$banner-width * 0.5});
+}
+
+.right {
+    right: calc((100% - #{$content-width}) / 4 - #{$banner-width * 0.5});
+}
+
+// На главной полноэкранный hero (высота 82vh в HeroHomeSection.module.scss) шире контента:
+// баннеры начинаются под ним, чтобы не закрывать заголовок и карусель
+.wrapper:has([data-fullscreen-hero]) .rail {
+    top: calc(82vh + 24px);
+}
+
+.sticky {
+    position: sticky;
+    top: 24px;
+    pointer-events: auto;
+}
+
+.label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 11px;
+    color: #94a3b8;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.banner {
+    display: block;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+}
+
+// 1280 + 2 × (160 + отступы) — только тогда по бокам есть место
+@media (min-width: 1680px) {
+    .rail {
+        display: block;
+    }
+}

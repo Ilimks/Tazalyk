@@ -85,6 +85,9 @@
     gap: 4px;
     
     .fileName {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         font-size: 13px;
         font-weight: 500;
         color: #0f172a;
@@ -101,7 +104,8 @@
     border: none;
     cursor: pointer;
     color: #ef4444;
-    font-size: 16px;
+    display: flex;
+    align-items: center;
     padding: 4px 8px;
     border-radius: 6px;
     transition: all 0.2s;

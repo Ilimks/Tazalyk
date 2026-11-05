@@ -1,7 +1,7 @@
 'use client';
 import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
-import { fetchLocalActs, fetchLegislation } from '@/entities/document/model/documentSlice';
+import { fetchLocalActs, fetchLegislation } from '@/entities/document';
 
 export const useDocuments = () => {
     const dispatch = useAppDispatch();

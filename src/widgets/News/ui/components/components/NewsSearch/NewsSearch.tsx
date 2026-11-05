@@ -1,4 +1,5 @@
 import styles from './NewsSearch.module.scss';
+import { useTranslations } from 'next-intl';
 import { InputNews } from '@/shared/ui/Inputs/InputNews';
 
 interface NewsSearchProps {
@@ -8,13 +9,15 @@ interface NewsSearchProps {
 }
 
 export const NewsSearch: React.FC<NewsSearchProps> = ({ value, onChange, onClear }) => {
+    const t = useTranslations('News');
+
     return (
         <div className={styles.searchBar}>
-            <InputNews 
+            <InputNews
                 value={value}
                 onChange={onChange}
                 onClear={onClear}
-                placeholder="Поиск новостей..."
+                placeholder={t('NewsSearchPlaceholder')}
             />
         </div>
     );

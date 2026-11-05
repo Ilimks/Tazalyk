@@ -5,15 +5,17 @@ import { ProcurementDocumentsGrid } from './components/ProcurementDocumentsGrid'
 import styles from './ProcurementFilesSection.module.scss';
 import mobileStyles from './ProcurementFilesSectionMobile.module.scss';
 import { useTranslations } from 'next-intl';
-import { getDocumentsConfig } from '@/shared/config/documents';
+import { getDocumentsConfig } from '../../../model/documentsConfig';
+import { openInNewTab } from '@/shared/lib/utils/file';
+import type { DocumentCard } from '@/entities/procurement/model/types';
 
 export const ProcurementFilesSection: React.FC = () => {
     const t = useTranslations("Procurement");
     const documents = getDocumentsConfig(t);
     const { handleDownload } = useDocumentDownload();
 
-    const handleView = (document: any) => {
-        window.open(document.pdfUrl, '_blank');
+    const handleView = (document: DocumentCard) => {
+        openInNewTab(document.pdfUrl);
     };
 
     return (

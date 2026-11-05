@@ -1,4 +1,5 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useRef } from 'react';
+import { getImageProps } from 'next/image';
 
 const slideImages = [
     "/assets/images/Slide1.webp",
@@ -9,6 +10,12 @@ const slideImages = [
     "/assets/images/Slide6.webp",
     "/assets/images/Slide7.webp",
 ];
+
+// Миниатюры для круговой карусели: самый большой кружок ~288px (6rem * scale 3),
+// поэтому берём оптимизированную версию шириной 640px (2x), а не полный слайд 1920px.
+const slideThumbs = slideImages.map(
+    (src) => getImageProps({ src, alt: '', width: 320, height: 320 }).props.src
+);
 
 export const useHeroCarousel = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -40,6 +47,7 @@ export const useHeroCarousel = () => {
         currentSlide,
         setCurrentSlide,
         slideImages,
+        slideThumbs,
         handleSlideClick,
         startAutoPlay,
         stopAutoPlay

@@ -35,13 +35,12 @@ export function formatDate(
   } = options;
 
   const dateObj = new Date(date);
-  
+  const isKy = locale === 'ky-KG' || locale === 'ky';
+
   if (isNaN(dateObj.getTime())) {
     console.warn('Некорректная дата:', date);
-    return 'Некорректная дата';
+    return isKy ? 'Туура эмес дата' : 'Некорректная дата';
   }
-
-  const isKy = locale === 'ky-KG' || locale === 'ky';
 
   switch (format) {
     case 'relative':

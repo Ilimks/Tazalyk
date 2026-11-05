@@ -8,7 +8,8 @@ export {
     setPageSize,
     default as newsReducer,
 } from './model/newsSlice';
+export { newsApi, NEWS_REVALIDATE_SECONDS, getServerFetchOptions } from './api/newsApi';
+export { getNewsTitle, getNewsDescription, getNewsDate } from './lib/localize';
 
-// Типы (добавьте NewsFilters и PaginatedNewsResponse, если нужны в других модулях)
-export type { News, NewsState } from './model/types';
-export type { NewsFilters, PaginatedNewsResponse } from './api/newsApi';
+export type { NewsState } from './model/newsSlice';
+export type { News, NewsFilters, PaginatedNewsResponse } from './model/types';

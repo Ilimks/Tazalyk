@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from './Pagination.module.scss';
 
 interface PaginationProps {
@@ -16,16 +18,15 @@ export const Pagination: React.FC<PaginationProps> = ({
     totalItems,
     currentItemsCount,
 }) => {
-    console.log('🔘 Pagination component render:', { currentPage, totalPages, totalItems, currentItemsCount });
-    
+    const t = useTranslations('Pagination');
+
     if (totalPages <= 1) {
-        console.log('🔘 Pagination скрыта, так как totalPages <= 1');
         return null;
     }
 
     const maxVisiblePages = 5;
     let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
     if (endPage - startPage + 1 < maxVisiblePages) {
         startPage = Math.max(1, endPage - maxVisiblePages + 1);
@@ -42,11 +43,9 @@ export const Pagination: React.FC<PaginationProps> = ({
                 className={styles.paginationArrow}
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                aria-label="Предыдущая страница"
+                aria-label={t('previous')}
             >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
+                <ChevronLeft size={20} aria-hidden />
             </button>
 
             {startPage > 1 && (
@@ -54,7 +53,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                     <button 
                         className={styles.paginationItem} 
                         onClick={() => onPageChange(1)}
-                        aria-label="Первая страница"
+                        aria-label={t('first')}
                     >
                         1
                     </button>
@@ -67,7 +66,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                     key={page}
                     className={`${styles.paginationItem} ${currentPage === page ? styles.active : ''}`}
                     onClick={() => onPageChange(page)}
-                    aria-label={`Страница ${page}`}
+                    aria-label={t('page', { page })}
                     aria-current={currentPage === page ? 'page' : undefined}
                 >
                     {page}
@@ -80,7 +79,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                     <button 
                         className={styles.paginationItem} 
                         onClick={() => onPageChange(totalPages)}
-                        aria-label="Последняя страница"
+                        aria-label={t('last')}
                     >
                         {totalPages}
                     </button>
@@ -91,16 +90,14 @@ export const Pagination: React.FC<PaginationProps> = ({
                 className={styles.paginationArrow}
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                aria-label="Следующая страница"
+                aria-label={t('next')}
             >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
+                <ChevronRight size={20} aria-hidden />
             </button>
 
             {totalItems !== undefined && currentItemsCount !== undefined && (
                 <div className={styles.paginationInfo}>
-                    Показано {currentItemsCount} из {totalItems}
+                    {t('shown', { count: currentItemsCount, total: totalItems })}
                 </div>
             )}
         </div>

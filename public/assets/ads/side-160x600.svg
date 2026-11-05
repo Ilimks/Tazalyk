@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="600" viewBox="0 0 160 600">
+  <rect width="160" height="600" fill="#f1f5f9"/>
+  <rect x="6" y="6" width="148" height="588" rx="6" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="8 6"/>
+  <g font-family="Roboto, Arial, sans-serif" text-anchor="middle" fill="#102382">
+    <text x="80" y="260" font-size="16" font-weight="700">Жарнама</text>
+    <text x="80" y="282" font-size="16" font-weight="700">үчүн орун</text>
+    <rect x="55" y="298" width="50" height="3" rx="1.5" fill="#22c55e"/>
+    <text x="80" y="330" font-size="16" font-weight="700">Место</text>
+    <text x="80" y="352" font-size="16" font-weight="700">для рекламы</text>
+    <text x="80" y="400" font-size="13" fill="#64748b">160 × 600</text>
+  </g>
+</svg>

@@ -1,0 +1,82 @@
+.link {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: #1e3a5f;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    &:hover {
+        background: #f1f5f9;
+        color: #102382;
+    }
+
+    &:focus-visible {
+        outline: 2px solid #22c55e;
+        outline-offset: 2px;
+    }
+}
+
+.badge {
+    position: absolute;
+    top: 0;
+    right: -2px;
+    min-width: 19px;
+    height: 19px;
+    padding: 0 5px;
+    border: 2px solid #ffffff;
+    border-radius: 999px;
+    background: #22c55e;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 15px;
+    text-align: center;
+    animation: pop 0.25s ease;
+}
+
+@keyframes pop {
+    from {
+        transform: scale(0.4);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .badge {
+        animation: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .link {
+        width: 36px;
+        height: 36px;
+
+        svg {
+            width: 22px;
+            height: 22px;
+        }
+    }
+
+    .badge {
+        top: -3px;
+        right: -4px;
+        min-width: 17px;
+        height: 17px;
+        padding: 0 4px;
+        font-size: 10px;
+        line-height: 13px;
+    }
+}

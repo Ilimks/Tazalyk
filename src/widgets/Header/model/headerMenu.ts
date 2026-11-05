@@ -33,8 +33,9 @@ export const useHeaderMenu = () => {
     { 
       title: t('procurement'), href: "/procurement", dropdown: null 
     },
-    { 
+    {
       title: t('attendance'), href: "/attendance", dropdown: null},
+    { title: t('shop'), href: "/shop", dropdown: null },
     {
       title: t('regulatoryFramework'),
       dropdown: [

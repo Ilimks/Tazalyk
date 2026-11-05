@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { procurementsApi } from '@/shared/api';
+import { procurementsApi } from '../api/procurementsApi';
 import { ProcurementItem } from './types';
 
 interface ProcurementState {

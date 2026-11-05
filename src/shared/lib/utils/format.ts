@@ -6,9 +6,3 @@ export const formatAmount = (amount: number): string => {
         maximumFractionDigits: 0
     }).format(amount).replace('KGS', 'сом');
 };
-
-export const getPluralForm = (count: number): string => {
-    if (count === 1) return 'закупка';
-    if (count < 5) return 'закупки';
-    return 'закупок';
-};

@@ -1,7 +1,8 @@
 import { Badge } from '@/shared/ui/Badge';
 import { ProcurementItem } from '@/entities/procurement/model/types';
-import { typeConfig, methodConfig, statusConfig } from '@/shared/config/procurement';
+import { typeConfig, methodConfig, statusConfig } from '@/entities/procurement/model/types';
 import { formatAmount } from '@/shared/lib/utils/format';
+import { useTranslations } from 'next-intl';
 import styles from './TableRow.module.scss';
 
 interface TableRowProps {
@@ -19,6 +20,8 @@ export const TableRow: React.FC<TableRowProps> = ({
     onMouseEnter,
     onMouseLeave
 }) => {
+    const t = useTranslations("Procurement");
+
     return (
         <tr 
             className={`${styles.tableRow} ${isHovered ? styles.hovered : ''}`}
@@ -40,21 +43,21 @@ export const TableRow: React.FC<TableRowProps> = ({
             </td>
             <td>
                 <Badge
-                    label={typeConfig[item.type].label}
+                    label={t(`ProcurementTypes.${item.type}`)}
                     color={typeConfig[item.type].color}
                     backgroundColor={typeConfig[item.type].bg}
                 />
             </td>
             <td>
                 <Badge
-                    label={methodConfig[item.method].label}
+                    label={t(`ProcurementMethods.${item.method}`)}
                     color={methodConfig[item.method].color}
                     backgroundColor={methodConfig[item.method].bg}
                 />
             </td>
             <td>
                 <Badge
-                    label={statusConfig[item.status].label}
+                    label={t(`ProcurementStatuses.${item.status}`)}
                     color={statusConfig[item.status].color}
                     backgroundColor={statusConfig[item.status].bg}
                     showDot={item.status === 'active'}

@@ -1,6 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import { ErrorState } from '@/shared/ui/ErrorState';
+import { EmptyState } from '@/shared/ui/EmptyState';
 import { useCopyProtection } from '@/shared/lib/hooks/useCopyProtection';
 import { useProcurements } from '@/features/procurement/model/useProcurements';
 import { TableHeader } from './components/TableHeader';
@@ -9,29 +10,43 @@ import styles from './ProcurementTableSection.module.scss';
 import mobileStyles from './ProcurementTableSectionMobile.module.scss';
 import { LoadingState } from '@/shared/ui/LoadingState';
 import { useTranslations } from 'next-intl';
+import type { PageResult } from '@/shared/api';
+import type { ProcurementItem } from '@/entities/procurement';
 
 interface ProcurementTableSectionProps {
     itemsPerPage?: number;
+    // первая страница, загруженная на сервере; null — сервер не смог её загрузить, грузим в браузере
+    initialData?: PageResult<ProcurementItem> | null;
 }
 
-export const ProcurementTableSection: React.FC<ProcurementTableSectionProps> = ({ 
-    itemsPerPage = 100
+export const ProcurementTableSection: React.FC<ProcurementTableSectionProps> = ({
+    itemsPerPage = 100,
+    initialData = null
 }) => {
 
     const t = useTranslations("Procurement");
 
-    const { 
-        procurements, 
-        isLoading, 
-        error, 
+    const {
+        procurements: loadedProcurements,
+        isLoading: isLoadingProcurements,
+        isSuccess,
+        error: loadError,
         loadProcurements,
-        totalCount
+        totalCount: loadedCount
     } = useProcurements();
     const { handleCopy, handleContextMenu, handleKeyDown } = useCopyProtection();
+    const loadOnClient = initialData === null;
 
     useEffect(() => {
-        loadProcurements(1, itemsPerPage);
-    }, [loadProcurements, itemsPerPage]);
+        if (loadOnClient) loadProcurements(1, itemsPerPage);
+    }, [loadOnClient, loadProcurements, itemsPerPage]);
+
+    // таблица показывает только первую страницу, поэтому данные с сервера заменяют загрузку целиком
+    const procurements = initialData ? initialData.items : loadedProcurements;
+    const totalCount = initialData ? initialData.totalCount : loadedCount;
+    const error = loadOnClient ? loadError : null;
+    // до первого ответа в браузере показываем загрузку, а не «закупок нет»
+    const isLoading = loadOnClient && (isLoadingProcurements || (!isSuccess && !loadError));
 
     const renderContent = () => {
         if (isLoading && procurements.length === 0) {
@@ -49,6 +64,10 @@ export const ProcurementTableSection: React.FC<ProcurementTableSectionProps> = (
                     />
                 </div>
             );
+        }
+
+        if (procurements.length === 0 && !isLoading) {
+            return <EmptyState variant="procurement" />;
         }
         
         return (

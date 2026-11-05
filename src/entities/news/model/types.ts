@@ -1,3 +1,5 @@
+import type { PaginatedResponse } from '@/shared/api';
+
 export interface News {
     id: string;
     title_ru: string;
@@ -9,9 +11,11 @@ export interface News {
     created_at: string;
 }
 
-export interface NewsState {
-    items: News[];
-    currentNews: News | null;
-    status: 'idle' | 'loading' | 'succeeded' | 'failed';
-    error: string | null;
+export interface NewsFilters {
+    page?: number;
+    page_size?: number;
+    search?: string;
+    year?: string;
 }
+
+export type PaginatedNewsResponse = PaginatedResponse<News>;

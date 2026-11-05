@@ -1,0 +1,44 @@
+.shopHome {
+    margin: 20px 0;
+    padding: 40px 0;
+
+    &__box {
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+    }
+
+    &__grid {
+        display: grid;
+        // ширина как у карточек новостей на главной: 297, 257 и 217 px
+        grid-template-columns: repeat(4, minmax(0, 297px));
+        justify-content: space-between;
+        gap: 24px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .shopHome {
+        &__grid {
+            grid-template-columns: repeat(2, minmax(0, 257px));
+            justify-content: center;
+            gap: 20px;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .shopHome {
+        margin: 10px 0;
+        padding: 20px 0;
+
+        &__box {
+            gap: 20px;
+        }
+
+        &__grid {
+            grid-template-columns: repeat(2, minmax(0, 217px));
+            gap: 12px;
+        }
+    }
+}

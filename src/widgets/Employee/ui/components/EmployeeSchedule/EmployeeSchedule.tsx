@@ -1,5 +1,6 @@
 'use client';
 import { useTranslations } from 'next-intl';
+import { CalendarDays, Clock, Info, MapPin, User } from 'lucide-react';
 import styles from './EmployeeSchedule.module.scss';
 
 export const EmployeeSchedule: React.FC = () => {
@@ -41,9 +42,7 @@ export const EmployeeSchedule: React.FC = () => {
                         <div key={employee.id} className={styles.card}>
                             <div className={styles.cardHeader}>
                                 <div className={styles.iconWrapper}>
-                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                                    </svg>
+                                    <User aria-hidden />
                                 </div>
                                 <div>
                                     <h3 className={styles.name}>{employee.name}</h3>
@@ -53,21 +52,32 @@ export const EmployeeSchedule: React.FC = () => {
 
                             <div className={styles.cardContent}>
                                 <div className={styles.infoRow}>
-                                    <span className={styles.label}>📅 {t('receptionDay')}:</span>
+                                    <span className={styles.label}>
+                                        <CalendarDays size={16} aria-hidden />
+                                        {t('receptionDay')}:
+                                    </span>
                                     <span className={styles.value}>{employee.receptionDay}</span>
                                 </div>
                                 <div className={styles.infoRow}>
-                                    <span className={styles.label}>⏰ {t('receptionTime')}:</span>
+                                    <span className={styles.label}>
+                                        <Clock size={16} aria-hidden />
+                                        {t('receptionTime')}:
+                                    </span>
                                     <span className={styles.value}>{employee.receptionTime}</span>
                                 </div>
                                 <div className={styles.infoRow}>
-                                    <span className={styles.label}>📍 {t('address')}:</span>
+                                    <span className={styles.label}>
+                                        <MapPin size={16} aria-hidden />
+                                        {t('address')}:
+                                    </span>
                                     <span className={styles.value}>{employee.address}</span>
                                 </div>
                             </div>
 
                             <div className={styles.cardFooter}>
-                                <div className={styles.noteIcon}>ℹ️</div>
+                                <div className={styles.noteIcon}>
+                                    <Info size={16} aria-hidden />
+                                </div>
                                 <div className={styles.note}>{t('note')}</div>
                             </div>
                         </div>

@@ -7,29 +7,37 @@
     &__left {
         width: 20%;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        align-items: flex-end;
+        gap: 12px;
 
-        .header__up__logoName1 {
-            padding-top: 14px;
-            font-family: "Roboto";
-            font-weight: 500;
-            font-size: 28px;
-            line-height: 118%;
-            color: #1e3a5f;
-
-            span {
-                color: #22c55e;
-            }
+        .header__up__logo {
+            display: block;
         }
 
-        .header__up__logoName2 {
+        .header__up__logoName {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 165px;
+            // с этим отступом хвосты букв «р» и «у» стоят вровень с низом подписи на эмблеме
+            margin-bottom: 4px;
+        }
 
-            font-family: "Roboto";
+        .header__up__logoName1 img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        // цвет — как у надписи в логотипе
+        .header__up__logoName2 {
+            display: block;
+            width: 100%;
+            height: auto;
+            font-family: var(--font-roboto);
             font-weight: 700;
             font-size: 12px;
-            line-height: 176%;
-            color: #1e3a5f;
+            fill: #3e4095;
         }
     }
 
@@ -57,5 +65,36 @@
         display: flex;
         align-items: center;
         column-gap: 24px;
+    }
+
+    // Корзина, «Кыр | Рус» и меню: видимые промежутки одинаковые — как между «Кыр» и «Рус» (27px).
+    // Справа от рисунка корзины ~11px пустого места, у кнопок языка отступ 10px,
+    // у значка меню ~5px собственного поля, поэтому промежутки задаются с поправкой на них.
+    &__actions {
+        display: flex;
+        align-items: center;
+        column-gap: 6px; // 11 + 6 + 10 = 27
+
+        > :last-child {
+            margin-left: 16px; // 6 + 16 + 5 = 27
+        }
+    }
+}
+
+// на телефонах кнопки языка меньше (отступ 8px, между ними 4px) — промежутки 17px
+@media (max-width: 600px) {
+    .header__up__actions {
+        column-gap: 0; // 9 + 0 + 8 = 17
+
+        > :last-child {
+            margin-left: 12px; // 0 + 12 + 5 = 17
+        }
+    }
+}
+
+// На узких ноутбуках правый блок (поиск, соцсети, корзина, язык) плотнее, чтобы приветствие по центру не переносилось
+@media (min-width: 1001px) and (max-width: 1200px) {
+    .header__up__right {
+        column-gap: 14px;
     }
 }

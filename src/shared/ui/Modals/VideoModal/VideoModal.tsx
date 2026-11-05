@@ -1,11 +1,15 @@
 'use client'
 import { useEffect, useState, useMemo } from 'react';
+import { useTranslations } from 'next-intl';
+import { Calendar, Play, X } from 'lucide-react';
 import styles from './VideoModal.module.scss';
 
 interface VideoModalProps {
     isOpen: boolean;
     onClose: () => void;
     videoUrl: string;
+    // превью основного видео: показывается, пока видео загружается
+    poster?: string;
     date?: string;
     galleryVideos?: string[];
 }
@@ -14,9 +18,12 @@ export const VideoModal: React.FC<VideoModalProps> = ({
     isOpen, 
     onClose, 
     videoUrl,
+    poster,
     date,
     galleryVideos = []
 }) => {
+    const t = useTranslations('MediaGallery');
+    const tCommon = useTranslations('Common');
     const [currentVideo, setCurrentVideo] = useState(videoUrl);
 
     const allVideos = useMemo(() => {
@@ -77,9 +84,9 @@ export const VideoModal: React.FC<VideoModalProps> = ({
                 <button 
                     className={styles.closeBtn} 
                     onClick={onClose}
-                    aria-label="Закрыть"
+                    aria-label={tCommon('close')}
                 >
-                    ✕
+                    <X size={22} aria-hidden />
                 </button>
                 
                 <div className={styles.videoContainer}>
@@ -88,6 +95,8 @@ export const VideoModal: React.FC<VideoModalProps> = ({
                         src={currentVideo}
                         controls
                         autoPlay
+                        playsInline
+                        poster={currentVideo === videoUrl ? poster : undefined}
                         className={styles.videoPlayer}
                         controlsList="nodownload"
                     />
@@ -95,16 +104,14 @@ export const VideoModal: React.FC<VideoModalProps> = ({
                 
                 {date && (
                     <div className={styles.videoDate}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 4h-2V2h-2v2H9V2H7v2H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1zM8 2v2M16 2v2M3 8h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                        </svg>
+                        <Calendar size={16} aria-hidden />
                         <span>{formatDate(date)}</span>
                     </div>
                 )}
                 
                 {allVideos.length > 1 && (
                     <div className={styles.gallery}>
-                        <h4 className={styles.galleryTitle}>Все видео ({allVideos.length})</h4>
+                        <h4 className={styles.galleryTitle}>{t('allVideos', { count: allVideos.length })}</h4>
                         <div className={styles.galleryList}>
                             {allVideos.map((url, index) => (
                                 <div 
@@ -115,13 +122,16 @@ export const VideoModal: React.FC<VideoModalProps> = ({
                                     tabIndex={0}
                                     onKeyDown={(e) => e.key === 'Enter' && switchVideo(url)}
                                 >
-                                    <video 
-                                        src={url} 
-                                        className={styles.galleryVideo}
-                                        muted
-                                        preload="metadata"
-                                    />
-                                    <span>{index === 0 ? 'Главное' : `Часть ${index + 1}`}</span>
+                                    {/* видео частей не загружаются, пока их не выбрали */}
+                                    {index === 0 && poster ? (
+                                        // eslint-disable-next-line @next/next/no-img-element
+                                        <img src={poster} alt="" className={styles.galleryVideo} loading="lazy" />
+                                    ) : (
+                                        <div className={styles.galleryThumb}>
+                                            <Play size={20} fill="currentColor" aria-hidden />
+                                        </div>
+                                    )}
+                                    <span>{index === 0 ? t('main') : t('videoPart', { number: index + 1 })}</span>
                                 </div>
                             ))}
                         </div>

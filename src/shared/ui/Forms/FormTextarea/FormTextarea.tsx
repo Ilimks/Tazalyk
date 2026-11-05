@@ -9,6 +9,10 @@ interface FormTextareaProps {
     placeholder?: string;
     rows?: number;
     error?: string;
+    // необязательные: id связывает подпись и ошибку с полем
+    id?: string;
+    maxLength?: number;
+    onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
 }
 
 export const FormTextarea: React.FC<FormTextareaProps> = ({
@@ -20,22 +24,32 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({
     placeholder,
     rows = 4,
     error,
+    id,
+    maxLength,
+    onBlur,
 }) => {
+    const errorId = id && error ? `${id}-error` : undefined;
+
     return (
         <div className={styles.formGroup}>
-            <label className={styles.label}>
+            <label className={styles.label} htmlFor={id}>
                 {label} {required && <span className={styles.required}>*</span>}
             </label>
             <textarea
+                id={id}
                 name={name}
                 value={value}
                 onChange={onChange}
+                onBlur={onBlur}
                 required={required}
                 placeholder={placeholder}
                 rows={rows}
+                maxLength={maxLength}
+                aria-invalid={error ? true : undefined}
+                aria-describedby={errorId}
                 className={`${styles.textarea} ${error ? styles.textareaError : ''}`}
             />
-            {error && <span className={styles.error}>{error}</span>}
+            {error && <span id={errorId} className={styles.error}>{error}</span>}
         </div>
     );
 };

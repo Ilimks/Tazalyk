@@ -14,6 +14,8 @@ export {
     photoReducer,
 } from './model/photoSlice';
 
+export { photosApi, videosApi } from './api/mediaApi';
+
 // Types
 export type { Video, VideoState } from './model/types';
 export type { Photo, PhotoState } from './model/types';

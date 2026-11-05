@@ -1,4 +1,6 @@
 "use client";
+import { Menu } from "lucide-react";
+import { useTranslations } from "next-intl";
 import styles from "./BurgerMenu.module.scss";
 
 interface Props {
@@ -7,15 +9,16 @@ interface Props {
 }
 
 export const BurgerMenu = ({ isOpen, onClick }: Props) => {
+  const t = useTranslations("Common");
+
   return (
     <button
-      aria-label="Open menu"
+      aria-label={t('openMenu')}
+      aria-expanded={isOpen}
       className={styles.burger}
       onClick={onClick}
     >
-      <span />
-      <span />
-      <span />
+      <Menu size={28} aria-hidden />
     </button>
   );
 };

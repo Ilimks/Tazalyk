@@ -4,13 +4,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    transition: background-image 0.8s ease;
     position: relative;
     overflow: hidden;
-    background-size: cover;
-    background-position: center;
     padding: 4rem;
-    
+
     &::before {
         content: '';
         position: absolute;
@@ -20,6 +17,54 @@
         height: 100%;
         background: rgba(0, 0, 0, 0.6);
         z-index: 1;
+    }
+}
+
+// Фоновый слой со слайдами (под затемнением ::before)
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.bgImage {
+    object-fit: cover;
+    object-position: center;
+}
+
+// текущий слайд — сверху
+.bgCurrent {
+    z-index: 2;
+    opacity: 1;
+}
+
+// при смене слайда текущий проявляется поверх предыдущего (как прежний transition background-image 0.8s ease)
+.bgFadeIn {
+    animation: heroBgFadeIn 0.8s ease;
+}
+
+.bgPrev {
+    z-index: 1;
+    opacity: 1;
+}
+
+// следующий слайд: подгружен заранее, но невидим
+.bgNext {
+    z-index: 0;
+    opacity: 0;
+}
+
+@keyframes heroBgFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
 

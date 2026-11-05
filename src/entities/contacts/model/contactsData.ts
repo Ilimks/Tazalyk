@@ -15,7 +15,7 @@ export const useContactData = () => {
       title: t('ContactsDataPhone'),
       details: ['+996 (312) 34-51-02'],
       link: 'tel:+996312345102',
-      linkText: 'Позвонить'
+      linkText: t('ContactsCall')
     },
     {
       id: 2,
@@ -23,21 +23,21 @@ export const useContactData = () => {
       title: t('ContactsDataEmail'),
       details: ['tazalyk@meria.kg'],
       link: 'mailto:tazalyk@meria.kg',
-      linkText: 'Написать'
+      linkText: t('ContactsWrite')
     },
     {
       id: 3,
       icon: 'location',
       title: t('ContactsDataAddress'),
-      details: ['г. Бишкек, ул. Ростовская, 19б', 'г. Бишкек, ​Ала-Арчинская улица, 74а'],
+      details: [t('ContactsAddress1'), t('ContactsAddress2')],
       link: 'https://www.google.com/maps/place/%D0%9C%D0%9F+%D0%A2%D0%B0%D0%B7%D0%B0%D0%BB%D1%8B%D0%BA/@42.887574,74.5652683,18.25z/data=!4m14!1m7!3m6!1s0x389ec874124a7213:0x7337bd4801a1dc2f!2zMTkg0KDQvtGB0YLQvtCy0YHQutCw0Y8sINCR0LjRiNC60LXQug!3b1!8m2!3d42.888163!4d74.565109!3m5!1s0x389ec873f46c2ab3:0x4809c2ca8ba82a95!8m2!3d42.886859!4d74.5653055!16s%2Fg%2F11c1mzv1br?entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D',
-      linkText: 'Построить маршрут'
+      linkText: t('ContactsRoute')
     },
     {
       id: 4,
       icon: 'schedule',
       title: t('ContactsDataWork'),
-      details: ['Понедельник - Пятница: 08:30 - 17:30', 'Суббота - Воскресенье: Выходной']
+      details: [t('ContactsWorkDays'), t('ContactsWeekend')]
     },
     // {
     //   id: 5,
@@ -54,15 +54,15 @@ export const useContactData = () => {
       id: 1,
       lat: 42.88696827273928,
       lon: 74.56530374444422,
-      name: 'МП "Тазалык" - Центральный офис',
-      address: 'г. Бишкек, ул. Ростовская 19б'
+      name: t('ContactsMapOffice'),
+      address: t('ContactsAddress1')
     },
     {
       id: 2,
       lat: 42.885665545849534,
       lon: 74.57351177508033,
-      name: 'МП "Тазалык" - База №2',
-      address: 'г. Бишкек, ул. Ала-Арчинская улица, 74а'
+      name: t('ContactsMapBase'),
+      address: t('ContactsAddress2')
     }
 ];
 

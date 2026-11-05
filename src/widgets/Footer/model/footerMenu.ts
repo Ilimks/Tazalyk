@@ -1,8 +1,9 @@
 import { useTranslations } from 'next-intl';
+import { MapPin, Phone, Mail, type LucideIcon } from 'lucide-react';
 
 type FooterItem = {
   label: string;
-  icon?: string;
+  icon?: LucideIcon;
   href?: string;
 };
 
@@ -35,18 +36,18 @@ export const useFooterNav = () => {
       title: t("FooterContacts"),
       items: [
         {
-          label: "г. Бишкек, ул. Ростовская 19б",
-          icon: "/assets/icons/locationFooter.svg",
+          label: t("FooterAddress"),
+          icon: MapPin,
           href: "https://maps.google.com/?q=Бишкек,+ул.+Ростовская+19б",
         },
         {
           label: "+996 (312) 34-51-02",
-          icon: "/assets/icons/phoneFooter.svg",
+          icon: Phone,
           href: "tel:+996312345102",
         },
         {
           label: "tazalyk@meria.kg",
-          icon: "/assets/icons/emailFooter.svg",
+          icon: Mail,
           href: "mailto:tazalyk@meria.kg",
         },
       ],

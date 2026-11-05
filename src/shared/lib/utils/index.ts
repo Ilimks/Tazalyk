@@ -1,1 +1,2 @@
-export { formatAmount, getPluralForm } from './format';
+export { formatAmount } from './format';
+export { getSafeHttpUrl, getSafeFileUrl } from './url';

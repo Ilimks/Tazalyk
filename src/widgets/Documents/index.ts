@@ -1,2 +1,2 @@
-export { LocalActsPage } from './LocalActsPage';
-export { LegislationPage } from './LegislationPage';
+export { DocumentsPage } from './DocumentsPage';
+export type { DocumentsKind } from './model/types';

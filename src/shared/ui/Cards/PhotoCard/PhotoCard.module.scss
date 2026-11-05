@@ -120,21 +120,6 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      padding-left: 20px;
-      position: relative;
-
-      &::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        background-image: url(/assets/icons/time.svg);
-        background-size: contain;
-        background-repeat: no-repeat;
-        width: 14px;
-        height: 14px;
-      }
     }
 
     &__title {

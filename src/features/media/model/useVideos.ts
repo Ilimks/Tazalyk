@@ -1,28 +1,30 @@
 import { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/store';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
 import { fetchVideos } from '@/entities/media';
 
 export const useVideos = () => {
-    const dispatch = useDispatch<AppDispatch>();
-    const { 
-        items: videos, 
-        status, 
-        error, 
-        totalPages, 
+    const dispatch = useAppDispatch();
+    const {
+        items: videos,
+        status,
+        error,
+        totalPages,
         currentPage,
-        totalCount 
-    } = useSelector((state: RootState) => state.videos);
-    
+        totalCount
+    } = useAppSelector((state) => state.videos);
+
     const isLoading = status === 'loading';
-    
-    const loadVideos = useCallback(async (page: number = 1, pageSize: number = 12) => {
-        await dispatch(fetchVideos({ page, pageSize })).unwrap();
+    const isSuccess = status === 'succeeded';
+
+    // ошибка попадает в state.videos.error и показывается через ErrorState
+    const loadVideos = useCallback((page: number = 1, pageSize: number = 12) => {
+        dispatch(fetchVideos({ page, pageSize }));
     }, [dispatch]);
-    
+
     return {
         videos,
         isLoading,
+        isSuccess,
         error,
         loadVideos,
         totalPages,

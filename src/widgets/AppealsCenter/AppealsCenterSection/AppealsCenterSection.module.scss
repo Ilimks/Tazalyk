@@ -1,157 +1,258 @@
 .appeals {
+    position: relative;
     width: 100%;
-    padding: 40px 0;
     margin: 20px 0;
-    margin: 20px 0;
-    background: linear-gradient(135deg, #102382 0%, #1a4a8a 50%, #0d6db7 100%);
+    padding: 56px 0 64px;
+    overflow: hidden;
+    // цвета логотипа: от синего к зелёному, с мягким светом по углам
+    background:
+        radial-gradient(circle at 12% 18%, rgba(125, 211, 252, 0.28), transparent 42%),
+        radial-gradient(circle at 88% 85%, rgba(74, 222, 128, 0.32), transparent 45%),
+        linear-gradient(115deg, #1f2a78 0%, #2b3f97 38%, #17708f 72%, #0e8f6e 100%);
 
-    .appeals__box {
+    &__waves {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 58%;
+        pointer-events: none;
+
+        path:first-child {
+            fill: rgba(255, 255, 255, 0.05);
+        }
+
+        path:last-child {
+            fill: rgba(255, 255, 255, 0.07);
+        }
+    }
+
+    &__leaf {
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        fill: rgba(255, 255, 255, 0.07);
+        pointer-events: none;
+    }
+
+    &__leafVein {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.12);
+        stroke-width: 1.5;
+    }
+
+    &__leafLeft {
+        top: -46px;
+        left: 11%;
+        transform: rotate(-18deg);
+    }
+
+    &__leafRight {
+        right: 10%;
+        bottom: -60px;
+        transform: rotate(160deg);
+    }
+
+    &__box {
+        position: relative;
         display: flex;
         flex-direction: column;
-        gap: 20px;
         align-items: center;
+        gap: 28px;
+    }
 
-        .appeals__up {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            align-items: center;
-            text-align: center;
+    &__up {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        text-align: center;
+    }
 
-            .appeals__subtitle {
-                font-size: 22px;
-                font-weight: 700;
-                color: #fff;
-            }
+    &__brand {
+        color: #86efac;
+        font-size: 18px;
+        font-weight: 700;
+    }
 
-            .appeals__title {
-                font-size: 22px;
-                font-weight: 700;
-                color: #22c55e;
-            }
+    &__title {
+        color: #ffffff;
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        line-height: 1.2;
+    }
+
+    &__numbers {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 370px));
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+    }
+
+    &__card {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto 1fr;
+        align-items: center;
+        column-gap: 14px;
+        row-gap: 6px;
+        padding: 20px 24px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.12);
+        color: #ffffff;
+        text-decoration: none;
+        backdrop-filter: blur(6px);
+        transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+
+        &:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 12px 28px rgba(12, 22, 74, 0.28);
         }
 
-        .appeals__bottom {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-            text-align: center;
-
-            .appeals__number {
-                font-size: 58px;
-                font-weight: 700;
-                color: #95c1fa;
-                word-break: break-word;
-            }
-
-            .appeals__text {
-                font-size: 18px;
-                font-weight: 700;
-                color: #fff;
-            }
+        &:focus-visible {
+            outline: 3px solid #86efac;
+            outline-offset: 3px;
         }
+    }
+
+    &__cardMain {
+        border-color: transparent;
+        background: #ffffff;
+        color: #1f2a78;
+        box-shadow: 0 12px 28px rgba(12, 22, 74, 0.22);
+
+        &:hover {
+            background: #ffffff;
+        }
+
+        .appeals__icon {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .appeals__label {
+            color: #15803d;
+        }
+
+        .appeals__number {
+            font-size: 52px;
+            letter-spacing: 0.04em;
+        }
+    }
+
+    &__icon {
+        display: inline-flex;
+        grid-row: 1 / span 2;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.18);
+        color: #ffffff;
+
+        svg {
+            width: 26px;
+            height: 26px;
+        }
+    }
+
+    &__label {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.2;
+        opacity: 0.92;
+    }
+
+    &__number {
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 1.1;
+        white-space: nowrap;
+    }
+
+    &__text {
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
     }
 
     @media (max-width: 1023px) {
-        padding: 35px 0;
         margin: 15px 0;
+        padding: 44px 0 52px;
 
-        .appeals__box {
-            gap: 30px;
-            padding: 0 20px;
-
-            .appeals__up {
-                gap: 4px;
-
-                .appeals__subtitle {
-                    font-size: 16px;
-                }
-
-                .appeals__title {
-                    font-size: 16px;
-                }
-            }
-
-            .appeals__bottom {
-                gap: 8px;
-
-                .appeals__number {
-                    font-size: 36px;
-                }
-
-                .appeals__text {
-                    font-size: 11px;
-                }
-            }
+        &__title {
+            font-size: 22px;
         }
-    }
 
-    @media (max-width: 767px) {
-        padding: 30px 0;
-        margin: 10px 0;
+        &__brand {
+            font-size: 16px;
+        }
 
-        .appeals__box {
-            gap: 25px;
-            padding: 0 15px;
+        &__numbers {
+            grid-template-columns: minmax(0, 380px);
+        }
 
-            .appeals__up {
-                gap: 3px;
+        &__leaf {
+            width: 150px;
+            height: 150px;
+        }
 
-                .appeals__subtitle {
-                    font-size: 14px;
-                }
+        &__leafLeft {
+            left: -30px;
+        }
 
-                .appeals__title {
-                    font-size: 14px;
-                }
-            }
-
-            .appeals__bottom {
-                gap: 6px;
-
-                .appeals__number {
-                    font-size: 28px;
-                }
-
-                .appeals__text {
-                    font-size: 10px;
-                }
-            }
+        &__leafRight {
+            right: -30px;
         }
     }
 
     @media (max-width: 479px) {
-        padding: 25px 0;
         margin: 8px 0;
+        padding: 36px 0 44px;
 
-        .appeals__box {
-            gap: 20px;
-            padding: 0 12px;
+        &__box {
+            gap: 22px;
+        }
 
-            .appeals__up {
-                gap: 2px;
+        &__title {
+            font-size: 18px;
+        }
 
-                .appeals__subtitle {
-                    font-size: 12px;
-                }
+        &__brand {
+            font-size: 14px;
+        }
 
-                .appeals__title {
-                    font-size: 12px;
-                }
+        &__card {
+            padding: 16px 18px;
+        }
+
+        &__icon {
+            width: 44px;
+            height: 44px;
+
+            svg {
+                width: 22px;
+                height: 22px;
             }
+        }
 
-            .appeals__bottom {
-                gap: 5px;
+        &__cardMain .appeals__number {
+            font-size: 42px;
+        }
 
-                .appeals__number {
-                    font-size: 22px;
-                }
+        &__number {
+            font-size: 21px;
+        }
 
-                .appeals__text {
-                    font-size: 9px;
-                }
-            }
+        &__text {
+            font-size: 12px;
         }
     }
 }

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { videosApi } from '@/shared/api/endpoints/videos';
+import { videosApi } from '../api/mediaApi';
 import { Video, VideoState } from './types';
 
 interface FetchVideosParams {

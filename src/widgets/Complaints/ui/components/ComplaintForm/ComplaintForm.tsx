@@ -2,6 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { Check } from 'lucide-react';
 import {
     FormInput,
     FormTextarea,
@@ -19,6 +20,9 @@ interface Attachment {
     type: string;
 }
 
+// столько же принимает /api/send-complaint
+const MAX_ATTACHMENTS = 5;
+
 export const ComplaintForm: React.FC = () => {
     const t = useTranslations("Complaints");
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,15 +30,12 @@ export const ComplaintForm: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
     const captchaRef = useRef<ReCAPTCHA>(null);
-    
-    // ВРЕМЕННЫЙ ФЛАГ ДЛЯ ТЕСТИРОВАНИЯ
-    const SKIP_CAPTCHA = true;
-    
+
     const [formData, setFormData] = useState({
         full_name: '',
         email: '',
         phone: '',
-        complaint_type: 'rights_violation',
+        complaint_type: 'waste_issue',
         subject: '',
         description: '',
         incident_date: '',
@@ -44,11 +45,10 @@ export const ComplaintForm: React.FC = () => {
     });
 
     const complaintTypes = [
-        { value: 'rights_violation', label: t('complaintTypes.rights_violation') },
-        { value: 'technical_error', label: t('complaintTypes.technical_error') },
-        { value: 'employee_complaint', label: t('complaintTypes.employee_complaint') },
-        { value: 'service_quality', label: t('complaintTypes.service_quality') },
         { value: 'waste_issue', label: t('complaintTypes.waste_issue') },
+        { value: 'billing_error', label: t('complaintTypes.billing_error') },
+        { value: 'service_quality', label: t('complaintTypes.service_quality') },
+        { value: 'employee_complaint', label: t('complaintTypes.employee_complaint') },
         { value: 'other', label: t('complaintTypes.other') },
     ];
 
@@ -63,9 +63,13 @@ export const ComplaintForm: React.FC = () => {
     };
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const files = Array.from(e.target.files || []);
+        // сервер принимает не больше MAX_ATTACHMENTS фото — лишние не добавляем
+        const freeSlots = MAX_ATTACHMENTS - formData.attachments.length;
+        const selected = Array.from(e.target.files || []);
+        const files = selected.slice(0, Math.max(freeSlots, 0));
         const newAttachments: Attachment[] = [];
-        
+        const tooMany = selected.length > files.length;
+
         for (const file of files) {
             if (file.size > 5 * 1024 * 1024) {
                 setError(t('form.fileTooBig'));
@@ -90,7 +94,9 @@ export const ComplaintForm: React.FC = () => {
             ...prev,
             attachments: [...prev.attachments, ...newAttachments]
         }));
-        setError(null);
+        setError(tooMany ? t('form.tooManyFiles', { max: MAX_ATTACHMENTS }) : null);
+        // то же фото можно выбрать снова после удаления
+        e.target.value = '';
     };
 
     const removeAttachment = (index: number) => {
@@ -123,40 +129,13 @@ export const ComplaintForm: React.FC = () => {
             return;
         }
         
-        // Проверка капчи только если не в тестовом режиме
-        if (!SKIP_CAPTCHA) {
-            if (!captchaToken) {
-                setError(t('form.captchaRequired'));
-                setIsSubmitting(false);
-                return;
-            }
-            
-            try {
-                const verifyResponse = await fetch('/api/verify-captcha', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ token: captchaToken }),
-                });
-                
-                const verifyResult = await verifyResponse.json();
-                
-                if (!verifyResult.success) {
-                    setError(t('form.captchaInvalid'));
-                    captchaRef.current?.reset();
-                    setCaptchaToken(null);
-                    setIsSubmitting(false);
-                    return;
-                }
-            } catch (captchaErr) {
-                console.error('Captcha error:', captchaErr);
-                setError(t('form.captchaError'));
-                setIsSubmitting(false);
-                return;
-            }
-        } else {
-            console.log('🔓 Капча временно отключена (тестовый режим)');
+        if (!captchaToken) {
+            setError(t('form.captchaRequired'));
+            setIsSubmitting(false);
+            return;
         }
-        
+
+        // Капча проверяется на сервере в /api/send-complaint
         try {
             const response = await fetch('/api/send-complaint', {
                 method: 'POST',
@@ -171,6 +150,7 @@ export const ComplaintForm: React.FC = () => {
                     incident_date: formData.incident_date,
                     incident_location: formData.incident_location,
                     attachments: formData.attachments,
+                    captchaToken,
                 }),
             });
             
@@ -182,7 +162,7 @@ export const ComplaintForm: React.FC = () => {
                     full_name: '',
                     email: '',
                     phone: '',
-                    complaint_type: 'rights_violation',
+                    complaint_type: 'waste_issue',
                     subject: '',
                     description: '',
                     incident_date: '',
@@ -193,7 +173,12 @@ export const ComplaintForm: React.FC = () => {
                 captchaRef.current?.reset();
                 setCaptchaToken(null);
             } else {
-                setError(result.message || t('form.error'));
+                const messages: Record<string, string> = {
+                    captcha_invalid: t('form.captchaInvalid'),
+                    rate_limited: t('form.rateLimited'),
+                    too_large: t('form.tooLarge'),
+                };
+                setError(messages[result.code] ?? t('form.error'));
                 captchaRef.current?.reset();
                 setCaptchaToken(null);
             }
@@ -210,7 +195,9 @@ export const ComplaintForm: React.FC = () => {
     if (isSuccess) {
         return (
             <div className={styles.successContainer}>
-                <div className={styles.successIcon}>✓</div>
+                <div className={styles.successIcon}>
+                    <Check size={36} strokeWidth={3} aria-hidden />
+                </div>
                 <h3>{t('form.success')}</h3>
                 <p>{t('form.successMessage')}</p>
                 <button 
@@ -341,32 +328,22 @@ export const ComplaintForm: React.FC = () => {
                         />
                     </div>
 
-                    {/* Капча - будет скрыта или показана в зависимости от флага */}
-                    {!SKIP_CAPTCHA && (
-                        <div className={styles.section}>
-                            <ReCAPTCHA
-                                ref={captchaRef}
-                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-                                onChange={onCaptchaChange}
-                                onExpired={() => {
-                                    setCaptchaToken(null);
-                                    setError(t('form.captchaExpired'));
-                                }}
-                                onErrored={() => {
-                                    setCaptchaToken(null);
-                                    setError(t('form.captchaError'));
-                                }}
-                            />
-                        </div>
-                    )}
-                    
-                    {/* Опционально: показываем предупреждение, что капча отключена */}
-                    {SKIP_CAPTCHA && (
-                        <div className={styles.testWarning}>
-                            ⚠️ [ТЕСТОВЫЙ РЕЖИМ] Капча временно отключена
-                        </div>
-                    )}
-        
+                    <div className={styles.section}>
+                        <ReCAPTCHA
+                            ref={captchaRef}
+                            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                            onChange={onCaptchaChange}
+                            onExpired={() => {
+                                setCaptchaToken(null);
+                                setError(t('form.captchaExpired'));
+                            }}
+                            onErrored={() => {
+                                setCaptchaToken(null);
+                                setError(t('form.captchaError'));
+                            }}
+                        />
+                    </div>
+
                     {error && <div className={styles.error}>{error}</div>}
         
                     <ButtonComplaint

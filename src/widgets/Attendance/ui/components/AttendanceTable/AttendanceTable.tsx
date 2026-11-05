@@ -45,8 +45,8 @@ export const AttendanceTable: React.FC = () => {
                                 {currentServices.map((service, index) => (
                                     <tr key={`${activeCategory}-${service.id}`}>
                                         <td className={styles.numberCol}>{index + 1}</td>
-                                        <td className={styles.nameCol}>{service.name}</td>
-                                        <td className={styles.unitCol}>{service.unit}</td>
+                                        <td className={styles.nameCol}>{t(`items.${service.category}.${service.id}`)}</td>
+                                        <td className={styles.unitCol}>{t(`units.${service.unit}`)}</td>
                                         <td className={styles.priceCol}>{formatPrice(service.price)}</td>
                                     </tr>
                                 ))}

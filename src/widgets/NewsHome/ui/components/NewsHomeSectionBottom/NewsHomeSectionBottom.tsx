@@ -1,22 +1,35 @@
 'use client'
 import { useEffect, useMemo, useRef } from 'react';
-import { NewsCard } from '@/entities/news/ui/NewsCard';
+import { useTranslations } from 'next-intl';
+import { NewsCard, type News } from '@/entities/news';
 import { useNews } from '@/features/news/model/useNews';
 import { ErrorState } from '@/shared/ui/ErrorState';
+import { LoadingState } from '@/shared/ui/LoadingState';
+import { EmptyState } from '@/shared/ui/EmptyState';
 import styles from './NewsHomeSectionBottom.module.scss';
 import mobile from './NewsHomeSectionBottomMobile.module.scss';
-import { LoadingState } from '@/shared/ui/LoadingState';
 
-export const NewsHomeSectionBottom: React.FC = () => {
-    const { news, isLoading, error, loadNews } = useNews();
+interface NewsHomeSectionBottomProps {
+    // новости с сервера; null — сервер не смог их загрузить, грузим в браузере
+    initialNews: News[] | null;
+}
+
+export const NewsHomeSectionBottom: React.FC<NewsHomeSectionBottomProps> = ({ initialNews }) => {
+    const t = useTranslations('LoadErrors');
+    const { news: loadedNews, isLoading: isLoadingNews, isSuccess, error, loadNews } = useNews();
     const hasLoadedRef = useRef(false);
+    const loadOnClient = initialNews === null;
 
     useEffect(() => {
-        if (!hasLoadedRef.current) {
+        if (loadOnClient && !hasLoadedRef.current) {
             hasLoadedRef.current = true;
             loadNews();
         }
-    }, [loadNews]);
+    }, [loadOnClient, loadNews]);
+
+    const news = loadOnClient ? loadedNews : initialNews;
+    // до первого ответа в браузере показываем загрузку, а не «новостей нет»
+    const isLoading = loadOnClient && (isLoadingNews || (!isSuccess && !error));
 
     const latestNews = useMemo(() => {
         const safeNews = Array.isArray(news) ? news : [];
@@ -38,19 +51,19 @@ export const NewsHomeSectionBottom: React.FC = () => {
         );
     }
     
-    if (error && latestNews.length === 0) {
-        let errorTitle = "Ошибка загрузки новостей";
+    if (loadOnClient && error && latestNews.length === 0) {
+        let errorTitle = t('news.title');
         let errorMessage = error;
-        
+
         if (error.includes("404")) {
-            errorTitle = "Новости не найдены";
-            errorMessage = "Раздел новостей временно недоступен. Пожалуйста, попробуйте позже.";
+            errorTitle = t('news.notFoundTitle');
+            errorMessage = t('news.notFoundMessage');
         } else if (error.includes("network") || error.includes("fetch")) {
-            errorTitle = "Проблема с соединением";
-            errorMessage = "Не удается загрузить последние новости. Проверьте подключение к интернету.";
+            errorTitle = t('connectionTitle');
+            errorMessage = t('news.connectionMessage');
         } else if (error.includes("timeout")) {
-            errorTitle = "Превышено время ожидания";
-            errorMessage = "Сервер долго не отвечает. Пожалуйста, попробуйте позже.";
+            errorTitle = t('timeoutTitle');
+            errorMessage = t('timeoutMessage');
         }
         
         return (
@@ -68,9 +81,7 @@ export const NewsHomeSectionBottom: React.FC = () => {
     if (latestNews.length === 0 && !isLoading) {
         return (
             <div className={`${styles.newsHomeBottom} ${mobile.newsHomeBottom}`}>
-                <div className={styles.empty}>
-                    <p>Новостей пока нет</p>
-                </div>
+                <EmptyState variant="news" />
             </div>
         );
     }

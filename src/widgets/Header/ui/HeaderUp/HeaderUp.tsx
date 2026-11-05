@@ -1,7 +1,7 @@
 "use client";
 import styles from "./HeaderUp.module.scss";
 import mobile from "./HeaderUpMobile.module.scss";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { HeaderIcons } from "../HeaderIcons/HeaderIcons";
 import { HeaderInputSearch } from "../Search/Search";
@@ -10,6 +10,7 @@ import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
 import { useBurger } from "../../model/useBurger";
 import { MobileMenu } from "../MobileMenu/MobileMenu";
 import { useTranslations } from 'next-intl';
+import { CartLink } from "@/features/cart";
 
 export const HeaderUp: React.FC = () => {
   const t = useTranslations("Header");
@@ -35,13 +36,25 @@ export const HeaderUp: React.FC = () => {
             <h4
               className={`${styles.header__up__logoName1} ${mobile.header__up__logoName1}`}
             >
-              ТАЗА<span>ЛЫК</span>
+              <Image
+                src="/assets/icons/logo-name.svg"
+                alt="ТАЗАЛЫК"
+                width={165}
+                height={27}
+                priority
+              />
             </h4>
-            <p
+            {/* textLength растягивает подпись точно по ширине надписи на любом языке */}
+            <svg
               className={`${styles.header__up__logoName2} ${mobile.header__up__logoName2}`}
+              viewBox="0 0 165 15"
+              role="img"
+              aria-label={t('header__logo')}
             >
-              {t('header__logo')}
-            </p>
+              <text x="0" y="12" textLength="165" lengthAdjust="spacing">
+                {t('header__logo')}
+              </text>
+            </svg>
           </div>
         </Link>
       </div>
@@ -62,8 +75,11 @@ export const HeaderUp: React.FC = () => {
       >
         <HeaderInputSearch />
         <HeaderIcons />
-        <Language />
-        <BurgerMenu isOpen={isOpen} onClick={toggle} />
+        <div className={styles.header__up__actions}>
+          <CartLink />
+          <Language />
+          <BurgerMenu isOpen={isOpen} onClick={toggle} />
+        </div>
       </div>
 
       <MobileMenu isOpen={isOpen} onClose={close} />

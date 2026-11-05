@@ -1,11 +1,11 @@
 import { BreadcrumbsWidget } from "@/widgets/BreadcrumbsWidget";
-import { LegislationPage } from "@/widgets/Documents";
+import { DocumentsPage } from "@/widgets/Documents";
 
 export default function Legislation() {
     return (
         <main>
             <BreadcrumbsWidget />
-            <LegislationPage />
+            <DocumentsPage kind="legislation" />
         </main>
     );
 }

@@ -13,7 +13,7 @@ export const StructureOrganization: React.FC = () => {
                     {/* Директор */}
                     <div className={styles.director}>
                         <div className={styles.directorCard}>
-                            Директор
+                            {t('organization.director')}
                         </div>
                     </div>
 
@@ -27,37 +27,37 @@ export const StructureOrganization: React.FC = () => {
                     <div className={styles.topRow}>
                         <div className={styles.position}>
                             <div className={styles.positionCard}>
-                                Заместитель директора по планированию и развитию предприятия
+                                {t('organization.deputyPlanning')}
                             </div>
                             <div className={styles.lineVertical}></div>
                         </div>
                         <div className={styles.position}>
                             <div className={styles.positionCard}>
-                                Заместитель директора по работе абонентской службы
+                                {t('organization.deputyAbonent')}
                             </div>
                             <div className={styles.lineVertical}></div>
                         </div>
                         <div className={styles.position}>
                             <div className={styles.positionCard}>
-                                Заместитель директора по производству
+                                {t('organization.deputyProduction')}
                             </div>
                             <div className={styles.lineVertical}></div>
                         </div>
                         <div className={styles.position}>
                             <div className={styles.positionCard}>
-                                Отдел по управлению человеческими ресурсами
+                                {t('organization.hr')}
                             </div>
                             <div className={styles.lineVertical}></div>
                         </div>
                         <div className={styles.position}>
                             <div className={styles.positionCard}>
-                                Отдел контроля и безопасности
+                                {t('organization.security')}
                             </div>
                             <div className={styles.lineVertical}></div>
                         </div>
                         <div className={styles.position}>
                             <div className={styles.positionCard}>
-                                Главный инженер
+                                {t('organization.mainEngineer')}
                             </div>
                             <div className={styles.lineVertical}></div>
                         </div>
@@ -70,22 +70,17 @@ export const StructureOrganization: React.FC = () => {
                     <div className={styles.bottomRow}>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Планово-экономический отдел
+                                {t('organization.planningEconomic')}
                             </div>
                         </div>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Управление абонентской службы
+                                {t('organization.abonentService')}
                             </div>
                         </div>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Участок по санитарной очистке
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                &nbsp;
+                                {t('organization.sanitaryCleaningSite')}
                             </div>
                         </div>
                         <div className={styles.subPosition}>
@@ -95,7 +90,12 @@ export const StructureOrganization: React.FC = () => {
                         </div>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Транспортный отдел
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div className={styles.subPosition}>
+                            <div className={styles.subPositionCard}>
+                                {t('organization.transport')}
                             </div>
                         </div>
                     </div>
@@ -104,22 +104,17 @@ export const StructureOrganization: React.FC = () => {
                     <div className={styles.thirdRow}>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Отдел развития и анализа
+                                {t('organization.developmentAnalysis')}
                             </div>
                         </div>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Отдел по государственным закупкам
+                                {t('organization.procurementDept')}
                             </div>
                         </div>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Участок по вывозу твердых бытовых отходов (ТБО)
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                &nbsp;
+                                {t('organization.solidWasteSite')}
                             </div>
                         </div>
                         <div className={styles.subPosition}>
@@ -129,7 +124,12 @@ export const StructureOrganization: React.FC = () => {
                         </div>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Отдел по эксплуатации и содержанию объектов внешнего благоустройства и дорог
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div className={styles.subPosition}>
+                            <div className={styles.subPositionCard}>
+                                {t('organization.landscapingRoads')}
                             </div>
                         </div>
                     </div>
@@ -138,22 +138,17 @@ export const StructureOrganization: React.FC = () => {
                     <div className={styles.fourthRow}>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Отдел документооборота и системного администрирования
+                                {t('organization.documentFlow')}
                             </div>
                         </div>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Административно-хозяйственный отдел
+                                {t('organization.administrative')}
                             </div>
                         </div>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Участок площади "Ала-Тоо"
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                &nbsp;
+                                {t('organization.alaTooSquare')}
                             </div>
                         </div>
                         <div className={styles.subPosition}>
@@ -163,7 +158,12 @@ export const StructureOrganization: React.FC = () => {
                         </div>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Отдел сноса (Демонтажа) незаконных объектов
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div className={styles.subPosition}>
+                            <div className={styles.subPositionCard}>
+                                {t('organization.demolitionDept')}
                             </div>
                         </div>
                     </div>
@@ -172,22 +172,17 @@ export const StructureOrganization: React.FC = () => {
                     <div className={styles.fifthRow}>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Отдел бухгалтерского учета
+                                {t('organization.accounting')}
                             </div>
                         </div>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Юридический отдел
+                                {t('organization.legal')}
                             </div>
                         </div>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Участок "Васильевский тракт"
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                &nbsp;
+                                {t('organization.vasilievskySite')}
                             </div>
                         </div>
                         <div className={styles.subPosition}>
@@ -197,7 +192,12 @@ export const StructureOrganization: React.FC = () => {
                         </div>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Участок "Фонтанные комплексы"
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div className={styles.subPosition}>
+                            <div className={styles.subPositionCard}>
+                                {t('organization.fountainsSite')}
                             </div>
                         </div>
                     </div>
@@ -206,7 +206,7 @@ export const StructureOrganization: React.FC = () => {
                     <div className={styles.sixthRow}>
                         <div className={styles.subPosition}>
                             <div className={styles.subPositionCard}>
-                                Отдел по борьбе с бродячими животными
+                                {t('organization.strayAnimalsDept')}
                             </div>
                         </div>
                     </div>

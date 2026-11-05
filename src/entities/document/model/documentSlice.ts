@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { localActsApi } from '@/shared/api/endpoints/localActs';
-import { legislationApi } from '@/shared/api/endpoints/legislation';
+import { localActsApi, legislationApi } from '../api/documentsApi';
 import { Document, DocumentsState } from './types';
 
 const initialState: DocumentsState = {
     items: [],
-    loading: false,
+    // true до первой загрузки, иначе страница на мгновение показывает «Документов нет»
+    loading: true,
     error: null,
     totalCount: 0,
     currentPage: 1,
@@ -39,6 +39,8 @@ const documentSlice = createSlice({
             .addCase(fetchLocalActs.pending, (state) => {
                 state.loading = true;
                 state.error = null;
+                // законодательство и локальные акты делят один список — старые документы не показываем
+                state.items = [];
             })
             .addCase(fetchLocalActs.fulfilled, (state, action: PayloadAction<Document[]>) => {
                 state.loading = false;
@@ -52,6 +54,8 @@ const documentSlice = createSlice({
             .addCase(fetchLegislation.pending, (state) => {
                 state.loading = true;
                 state.error = null;
+                // законодательство и локальные акты делят один список — старые документы не показываем
+                state.items = [];
             })
             .addCase(fetchLegislation.fulfilled, (state, action: PayloadAction<Document[]>) => {
                 state.loading = false;

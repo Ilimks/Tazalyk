@@ -82,9 +82,16 @@
 }
 
 .label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-weight: 600;
     color: #475569;
     min-width: 110px;
+
+    svg {
+        flex-shrink: 0;
+    }
 }
 
 .value {
@@ -102,8 +109,9 @@
 }
 
 .noteIcon {
-    font-size: 16px;
+    display: inline-flex;
     flex-shrink: 0;
+    color: #64748b;
 }
 
 .note {

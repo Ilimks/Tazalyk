@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+import { Download, Eye } from 'lucide-react';
 import { ButtonTable } from '../../Buttons';
 import { DocumentIcons } from '../../DocumentIcons';
 import styles from './DocumentCard.module.scss';
@@ -17,12 +19,13 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
     onView,
     onDownload
 }) => {
-    const IconComponent = DocumentIcons[iconType as keyof typeof DocumentIcons] || DocumentIcons.document;
+    const t = useTranslations("Documents");
+    const Icon = DocumentIcons[iconType] ?? DocumentIcons.document;
 
     return (
         <div className={styles.documentCard}>
             <div className={styles.cardIcon}>
-                {IconComponent}
+                <Icon size={40} aria-hidden />
             </div>
             <h3 className={styles.cardTitle}>{title}</h3>
             <p className={styles.cardDescription}>{description}</p>
@@ -30,18 +33,18 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
                 <ButtonTable
                     variant="secondary"
                     size="sm"
-                    icon={DocumentIcons.viewIcon}
+                    icon={<Eye size={18} aria-hidden />}
                     onClick={onView}
                 >
-                    Просмотр
+                    {t("view")}
                 </ButtonTable>
                 <ButtonTable
                     variant="success"
                     size="sm"
-                    icon={DocumentIcons.downloadIcon}
+                    icon={<Download size={18} aria-hidden />}
                     onClick={onDownload}
                 >
-                    Скачать
+                    {t("download")}
                 </ButtonTable>
             </div>
         </div>

@@ -1,0 +1,172 @@
+.filters {
+    display: flex;
+    flex-direction: column;
+}
+
+.group {
+    min-width: 0;
+    margin: 0;
+    padding: 18px 0;
+    border: none;
+    border-bottom: 1px solid #e2e8f0;
+
+    &:first-child {
+        padding-top: 0;
+    }
+
+    &:last-child {
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+}
+
+// float выводит legend в обычный поток: иначе отступ fieldset оказывается под заголовком, а не над ним
+.legend {
+    float: left;
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 0;
+    color: #0f172a;
+    font-size: 15px;
+    font-weight: 600;
+
+    & + * {
+        clear: both;
+    }
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+
+    input {
+        flex-shrink: 0;
+        width: 18px;
+        height: 18px;
+        margin: 0;
+        accent-color: #22c55e;
+        cursor: pointer;
+    }
+
+    &:hover span {
+        color: #102382;
+    }
+}
+
+// Цена «от — до»
+.priceRange {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.priceField {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.priceLabel {
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.priceInput {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #0f172a;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &::placeholder {
+        color: #94a3b8;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: #22c55e;
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+    }
+}
+
+.priceDash {
+    padding-bottom: 10px;
+    color: #94a3b8;
+}
+
+// Переключатель «Только в наличии»
+.switch {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+
+    input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+    }
+
+    input:checked + .switchTrack {
+        background: #22c55e;
+
+        &::after {
+            transform: translateX(18px);
+        }
+    }
+
+    input:focus-visible + .switchTrack {
+        outline: 2px solid #102382;
+        outline-offset: 2px;
+    }
+}
+
+.switchTrack {
+    position: relative;
+    flex-shrink: 0;
+    width: 40px;
+    height: 22px;
+    border-radius: 999px;
+    background: #cbd5e1;
+    transition: background-color 0.2s ease;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #ffffff;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.25);
+        transition: transform 0.2s ease;
+    }
+}
+
+.switchLabel {
+    color: #334155;
+    font-size: 14px;
+    font-weight: 500;
+}

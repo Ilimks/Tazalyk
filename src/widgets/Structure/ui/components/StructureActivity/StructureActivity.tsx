@@ -1,5 +1,6 @@
 'use client';
 import { useTranslations } from 'next-intl';
+import { Dog, Droplets, Hammer, Trash, Trees, Truck } from 'lucide-react';
 import styles from './StructureActivity.module.scss';
 
 export const StructureActivity: React.FC = () => {
@@ -7,32 +8,32 @@ export const StructureActivity: React.FC = () => {
 
     const activities = [
         {
-            icon: "🗑️",
+            icon: Trash,
             title: t('activity.sanitaryCleaning'),
             description: t('activity.sanitaryCleaningDesc')
         },
         {
-            icon: "🚛",
+            icon: Truck,
             title: t('activity.wasteRemoval'),
             description: t('activity.wasteRemovalDesc')
         },
         {
-            icon: "🏞️",
+            icon: Trees,
             title: t('activity.landscaping'),
             description: t('activity.landscapingDesc')
         },
         {
-            icon: "🐕",
+            icon: Dog,
             title: t('activity.strayAnimals'),
             description: t('activity.strayAnimalsDesc')
         },
         {
-            icon: "🏗️",
+            icon: Hammer,
             title: t('activity.demolition'),
             description: t('activity.demolitionDesc')
         },
         {
-            icon: "💧",
+            icon: Droplets,
             title: t('activity.fountains'),
             description: t('activity.fountainsDesc')
         }
@@ -43,11 +44,13 @@ export const StructureActivity: React.FC = () => {
             <div className="container">
                 <h2 className={styles.sectionTitle}>{t('activity.title')}</h2>
                 <div className={styles.grid}>
-                    {activities.map((item, index) => (
+                    {activities.map(({ icon: Icon, title, description }, index) => (
                         <div key={index} className={styles.card}>
-                            <div className={styles.icon}>{item.icon}</div>
-                            <h3 className={styles.cardTitle}>{item.title}</h3>
-                            <p className={styles.cardDesc}>{item.description}</p>
+                            <div className={styles.icon}>
+                                <Icon size={36} aria-hidden />
+                            </div>
+                            <h3 className={styles.cardTitle}>{title}</h3>
+                            <p className={styles.cardDesc}>{description}</p>
                         </div>
                     ))}
                 </div>

@@ -27,3 +27,10 @@
         flex-shrink: 0;
     }
 }
+// ссылка, оформленная как Button
+.sectionHeader__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}

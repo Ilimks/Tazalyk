@@ -1,4 +1,5 @@
 import styles from './NewsFilters.module.scss';
+import { useTranslations } from 'next-intl';
 
 interface NewsFiltersProps {
     years: number[];
@@ -7,6 +8,8 @@ interface NewsFiltersProps {
 }
 
 export const NewsFilters: React.FC<NewsFiltersProps> = ({ years, selectedYear, onYearChange }) => {
+    const t = useTranslations('News');
+
     if (years.length === 0) return null;
 
     return (
@@ -15,7 +18,7 @@ export const NewsFilters: React.FC<NewsFiltersProps> = ({ years, selectedYear, o
                 className={`${styles.yearBtn} ${selectedYear === 'all' ? styles.yearBtnActive : ''}`}
                 onClick={() => onYearChange('all')}
             >
-                Все года
+                {t('NewsAllYears')}
             </button>
             {years.map(year => (
                 <button

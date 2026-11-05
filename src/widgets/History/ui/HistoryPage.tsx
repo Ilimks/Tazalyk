@@ -18,8 +18,9 @@ export const HistoryPage: React.FC = () => {
                 description={t('HistoryDescription')}
             />
             
-            {historySections.map((section) => (
-                <HistorySection key={section.id} {...section} />
+            {historySections.map((section, index) => (
+                // первое фото видно сразу под заголовком — грузим его без lazy (LCP)
+                <HistorySection key={section.id} {...section} imagePriority={index === 0} />
             ))}
             
             <QuoteCard text={quote.text} author={quote.author} />

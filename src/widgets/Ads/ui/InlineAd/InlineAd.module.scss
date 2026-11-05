@@ -1,0 +1,48 @@
+.inlineAd {
+    padding: 32px 0;
+
+    :global(.container) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    @media (max-width: 767px) {
+        padding: 20px 0;
+    }
+}
+
+// на широких экранах реклама уже стоит по бокам
+@media (min-width: 1680px) {
+    .hideOnWide {
+        display: none;
+    }
+}
+
+.label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 11px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.banner {
+    display: block;
+    width: 100%;
+    max-width: 728px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    @media (max-width: 767px) {
+        max-width: 480px;
+    }
+}

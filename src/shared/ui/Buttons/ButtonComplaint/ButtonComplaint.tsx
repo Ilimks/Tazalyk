@@ -1,4 +1,5 @@
 'use client';
+import { LoaderCircle } from 'lucide-react';
 import styles from './ButtonComplaint.module.scss';
 
 interface ButtonComplaintProps {
@@ -27,7 +28,7 @@ export const ButtonComplaint: React.FC<ButtonComplaintProps> = ({
         >
             {isLoading ? (
                 <>
-                    <span className={styles.spinner}></span>
+                    <LoaderCircle className={styles.spinner} size={18} aria-hidden />
                     {children}
                 </>
             ) : (

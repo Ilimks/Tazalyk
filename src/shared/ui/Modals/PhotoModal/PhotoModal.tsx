@@ -1,5 +1,7 @@
 'use client';
-import { useEffect, useState, useRef, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
+import { useTranslations } from 'next-intl';
+import { Calendar, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Image from 'next/image';
 import styles from './PhotoModal.module.scss';
 
@@ -16,6 +18,8 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
     images: initialImages,
     date
 }) => {
+    const t = useTranslations('MediaGallery');
+    const tCommon = useTranslations('Common');
     const [currentImage, setCurrentImage] = useState('');
     const [touchStart, setTouchStart] = useState<number | null>(null);
     const [touchEnd, setTouchEnd] = useState<number | null>(null);
@@ -136,9 +140,9 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                 <button 
                     className={styles.closeBtn} 
                     onClick={onClose}
-                    aria-label="Закрыть"
+                    aria-label={tCommon('close')}
                 >
-                    ✕
+                    <X size={22} aria-hidden />
                 </button>
                 
                 <div 
@@ -151,11 +155,9 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                         <button 
                             className={styles.navArrow} 
                             onClick={prevImage}
-                            aria-label="Предыдущее фото"
+                            aria-label={t('previousPhoto')}
                         >
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
+                            <ChevronLeft size={24} aria-hidden />
                         </button>
                     )}
                     
@@ -164,7 +166,7 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                             <Image 
                                 key={currentImage}
                                 src={currentImageUrl}
-                                alt={`Фото`}
+                                alt={t('photo')}
                                 className={styles.modalImage}
                                 width={1200}
                                 height={800}
@@ -178,11 +180,9 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                         <button 
                             className={`${styles.navArrow} ${styles.navArrowRight}`} 
                             onClick={nextImage}
-                            aria-label="Следующее фото"
+                            aria-label={t('nextPhoto')}
                         >
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
+                            <ChevronRight size={24} aria-hidden />
                         </button>
                     )}
                 </div>
@@ -195,16 +195,14 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                 
                 {date && (
                     <div className={styles.imageDate}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 4h-2V2h-2v2H9V2H7v2H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1zM8 2v2M16 2v2M3 8h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                        </svg>
+                        <Calendar size={16} aria-hidden />
                         <span>{formatDate(date)}</span>
                     </div>
                 )}
                 
                 {hasMultipleImages && (
                     <div className={styles.gallery}>
-                        <h4 className={styles.galleryTitle}>Все фото ({allImages.length})</h4>
+                        <h4 className={styles.galleryTitle}>{t('allPhotos', { count: allImages.length })}</h4>
                         <div className={styles.galleryList}>
                             {allImages.map((url, index) => (
                                 <div 
@@ -218,7 +216,7 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                                     <div className={styles.galleryImageWrapper}>
                                         <Image 
                                             src={url} 
-                                            alt={`Фото ${index + 1}`}
+                                            alt={t('photoNumber', { number: index + 1 })}
                                             className={styles.galleryImage}
                                             width={140}
                                             height={80}
@@ -226,7 +224,7 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                                             onError={() => handleImageError(url)}
                                         />
                                     </div>
-                                    <span>{index === 0 ? 'Главное' : `Фото ${index + 1}`}</span>
+                                    <span>{index === 0 ? t('main') : t('photoNumber', { number: index + 1 })}</span>
                                 </div>
                             ))}
                         </div>

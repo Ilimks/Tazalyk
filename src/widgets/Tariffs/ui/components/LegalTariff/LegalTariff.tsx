@@ -1,4 +1,5 @@
 'use client'
+import { Clock } from 'lucide-react';
 import styles from './LegalTariff.module.scss';
 import { useTranslations } from 'next-intl';
 
@@ -35,11 +36,11 @@ export const LegalTariff: React.FC<LegalTariffProps> = ({ title, icon, baseTarif
                                     <span className={styles.priceValue}>{baseTariff.toFixed(2)} сом</span>
                                 </div>
                                 <div className={styles.priceRow}>
-                                    <span className={styles.priceLabel}>НДС ({vat.rate}%):</span>
+                                    <span className={styles.priceLabel}>{t('TariffsVat')} ({vat.rate}%):</span>
                                     <span className={styles.priceValue}>{vat.amount.toFixed(2)} сом</span>
                                 </div>
                                 <div className={styles.priceRow}>
-                                    <span className={styles.priceLabel}>НСП ({nsp.rate}%):</span>
+                                    <span className={styles.priceLabel}>{t('TariffsNsp')} ({nsp.rate}%):</span>
                                     <span className={styles.priceValue}>{nsp.amount.toFixed(2)} сом</span>
                                 </div>
                                 <div className={styles.priceTotal}>
@@ -47,9 +48,7 @@ export const LegalTariff: React.FC<LegalTariffProps> = ({ title, icon, baseTarif
                                     <span className={styles.totalValue}>{total.toFixed(2)} сом</span>
                                 </div>
                                 <div className={styles.tariffNote}>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                        <path d="M12 8v4l3 3M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" strokeWidth="2"/>
-                                    </svg>
+                                    <Clock size={16} aria-hidden />
                                     <span>{note}</span>
                                 </div>
                             </div>

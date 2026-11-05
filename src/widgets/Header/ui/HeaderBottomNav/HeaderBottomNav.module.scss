@@ -86,7 +86,15 @@
                 .dropdown li:hover {
                     background: rgba(255, 255, 255, 0.1);
                 }
-            }    
+            }
         }
+    }
+}
+
+// На узких ноутбуках пункты чуть компактнее, чтобы меню (вместе с «Магазином») помещалось в одну строку
+@media (min-width: 1001px) and (max-width: 1200px) {
+    .header__bottom .header__bottom__nav .header__bottom__ul .header__bottom__li {
+        padding: 6px 8px;
+        font-size: 14px;
     }
 }

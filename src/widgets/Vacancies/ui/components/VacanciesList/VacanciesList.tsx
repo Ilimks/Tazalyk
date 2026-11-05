@@ -1,7 +1,8 @@
+import type { LucideIcon } from 'lucide-react';
 import styles from './VacanciesList.module.scss';
 
-interface DocumentItem {
-    icon: string;
+export interface DocumentItem {
+    icon: LucideIcon;
     title: string;
     description: string;
 }
@@ -13,12 +14,14 @@ interface VacanciesListProps {
 export const VacanciesList: React.FC<VacanciesListProps> = ({ documents }) => {
     return (
         <ul className={styles.list}>
-            {documents.map((doc, index) => (
+            {documents.map(({ icon: Icon, title, description }, index) => (
                 <li key={index}>
-                    <span className={styles.listIcon}>{doc.icon}</span>
+                    <span className={styles.listIcon}>
+                        <Icon size={22} aria-hidden />
+                    </span>
                     <div>
-                        <strong>{doc.title}</strong>
-                        <span>{doc.description}</span>
+                        <strong>{title}</strong>
+                        <span>{description}</span>
                     </div>
                 </li>
             ))}

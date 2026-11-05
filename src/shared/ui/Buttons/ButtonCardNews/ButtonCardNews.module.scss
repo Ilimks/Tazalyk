@@ -1,50 +1,31 @@
 .buttonCardNews {
-    width: 0;
-    height: 0;
-    background-color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
     color: #1e3a5f;
-    border: none;
-    border-radius: 23px;
     font-weight: 700;
     font-size: 14px;
     line-height: 168%;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    position: relative;
-
-    &::after {
-        content: '';
-        position: absolute;
-        width: 16px;
-        height: 16px;
-        right: 16px;
-        top: 11px;
-        left: 100px;
-        transform: translateY(-50%);
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%231e3a5f' d='M8 0L6.59 1.41 12.17 7H0v2h12.17l-5.58 5.59L8 16l8-8z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-size: contain;
-        transition: background-image 0.3s ease-in-out;
-    }
 
     &:hover {
         color: #22c55e;
-        
-        &::after {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%2322c55e' d='M8 0L6.59 1.41 12.17 7H0v2h12.17l-5.58 5.59L8 16l8-8z'/%3E%3C/svg%3E");
-        }
     }
 }
 
+.icon {
+    flex-shrink: 0;
+}
 
 @media (max-width: 600px) {
     .buttonCardNews {
         font-size: 12px;
 
-        &::after {
+        .icon {
             width: 14px;
             height: 14px;
-            left: 80px;
         }
     }
 }

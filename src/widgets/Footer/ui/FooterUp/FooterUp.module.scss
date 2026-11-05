@@ -60,6 +60,8 @@
 
                             .footer__up__right__li__icon {
                                 display: block;
+                                flex-shrink: 0;
+                                color: #22c55e;
                             }
 
                             &:hover {

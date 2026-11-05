@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Loading } from '@/shared/ui/Loading';
 import { useContactData } from '@/entities/contacts';
 import styles from './ContactsMap.module.scss';
@@ -13,6 +14,7 @@ type MapLocation = {
 };
 
 export const ContactsMap: React.FC = () => {
+    const t = useTranslations('Contacts');
     const [mapLoaded, setMapLoaded] = useState(false);
     const { mapLocations } = useContactData();
 
@@ -35,7 +37,7 @@ export const ContactsMap: React.FC = () => {
                     allowFullScreen
                     onLoad={() => setMapLoaded(true)}
                     style={{ opacity: mapLoaded ? 1 : 0, transition: 'opacity 0.3s ease' }}
-                    title="Карта местоположения МП Тазалык"
+                    title={t('ContactsMapTitle')}
                 />
             </div>
         </div>

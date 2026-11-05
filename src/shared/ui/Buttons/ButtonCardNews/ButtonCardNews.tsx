@@ -1,14 +1,19 @@
+import { ArrowRight } from 'lucide-react';
 import styles from './ButtonCardNews.module.scss';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonCardNewsProps {
   children: React.ReactNode;
   className?: string;
+  tabIndex?: number;
 }
 
-export const ButtonCardNews: React.FC<ButtonProps> = ({ children, className = '', ...props }) => {
+// Подпись «Подробнее →» внутри карточки-ссылки. Это span, а не button:
+// кнопка внутри <a> — невалидный HTML, а кликабельна и так вся карточка
+export const ButtonCardNews: React.FC<ButtonCardNewsProps> = ({ children, className = '' }) => {
   return (
-    <button className={`${styles.buttonCardNews} ${className}`} {...props}>
+    <span className={`${styles.buttonCardNews} ${className}`}>
       {children}
-    </button>
+      <ArrowRight className={styles.icon} size={16} aria-hidden />
+    </span>
   );
 };

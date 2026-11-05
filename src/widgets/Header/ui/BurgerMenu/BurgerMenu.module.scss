@@ -1,37 +1,16 @@
 .burger {
   display: none;
-  width: 28px;
-  height: 20px;
-  position: relative;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   background: none;
   border: none;
+  color: #1e3a5f;
   cursor: pointer;
-
-  span {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: #1e3a5f;
-    transition: none;
-    border-radius: 1px;
-  }
-
-  span:nth-child(1) {
-    top: 0;
-  }
-
-  span:nth-child(2) {
-    top: 9px;
-  }
-
-  span:nth-child(3) {
-    bottom: 0;
-  }
 }
 
 @media (max-width: 1000px) {
   .burger {
-    display: block;
+    display: flex;
   }
 }

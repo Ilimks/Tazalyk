@@ -1,6 +1,8 @@
 'use client'
 import styles from "./PhotoCard.module.scss";
+import { Calendar, Images } from "lucide-react";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { PhotoModal } from "@/shared/ui/Modals/PhotoModal";
 
 interface Photo {
@@ -18,9 +20,11 @@ interface PhotoCardProps {
     photo?: Photo;
 }
 
-const PLACEHOLDER_IMAGE = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='200' viewBox='0 0 320 200'%3E%3Crect width='320' height='200' fill='%23f1f5f9'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%2394a3b8' font-size='14'%3EНет фото%3C/text%3E%3C/svg%3E";
+const getPlaceholderImage = (text: string) => `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='200' viewBox='0 0 320 200'%3E%3Crect width='320' height='200' fill='%23f1f5f9'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%2394a3b8' font-size='14'%3E${encodeURIComponent(text)}%3C/text%3E%3C/svg%3E`;
 
 export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
+    const t = useTranslations("MediaGallery");
+    const placeholderImage = getPlaceholderImage(t('noPhoto'));
     const [isHovered, setIsHovered] = useState(false);
     const [imgError, setImgError] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,7 +37,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
     } as Photo;
 
     const getImageUrl = (): string => {
-        if (imgError) return PLACEHOLDER_IMAGE;
+        if (imgError) return placeholderImage;
         
         const url = currentPhoto.main_image || 
                    currentPhoto.mainImage || 
@@ -43,11 +47,11 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
             return url;
         }
         
-        return url || PLACEHOLDER_IMAGE;
+        return url || placeholderImage;
     };
 
     const formatDate = (dateString?: string) => {
-        if (!dateString) return 'Дата неизвестна';
+        if (!dateString) return t('dateUnknown');
         try {
             const date = new Date(dateString);
             return date.toLocaleDateString('ru-RU', {
@@ -56,7 +60,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
                 year: 'numeric'
             });
         } catch {
-            return 'Дата неизвестна';
+            return t('dateUnknown');
         }
     };
 
@@ -87,19 +91,21 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
                 <div className={styles.card__imageContainer}>
                     <img 
                         src={imageUrl}
-                        alt="Фото"
+                        alt={t('photo')}
                         loading="lazy"
                         className={`${styles.card__image} ${isHovered ? styles.card__imageZoomed : ''}`}
                         onError={handleImageError}
                     />
                     {totalPhotos > 1 && (
                         <div className={styles.card__photoCount}>
-                            <span>📷 {totalPhotos}</span>
+                            <Images size={12} aria-hidden />
+                            <span>{totalPhotos}</span>
                         </div>
                     )}
                 </div>
                 <div className={styles.card__content}>
                     <time className={styles.card__content__date}>
+                        <Calendar size={14} aria-hidden />
                         {formatDate(currentPhoto.date)}
                     </time>
                 </div>

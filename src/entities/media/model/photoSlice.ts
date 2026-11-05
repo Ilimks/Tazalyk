@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { photosApi } from '@/shared/api/endpoints/photos';
+import { photosApi } from '../api/mediaApi';
 import { Photo, PhotoState } from './types';
 
 interface FetchPhotosParams {

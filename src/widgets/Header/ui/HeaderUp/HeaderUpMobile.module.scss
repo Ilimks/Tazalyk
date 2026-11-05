@@ -1,18 +1,32 @@
+// левая колонка занимает 20% ширины: эмблема и надпись должны в неё помещаться
+@media (max-width: 1280px) {
+    .header__up {
+        &__left {
+            gap: 6px;
+
+            .header__up__logo {
+                width: 56px;
+                height: 56px;
+            }
+
+            .header__up__logoName {
+                width: 130px;
+                margin-bottom: 3px;
+            }
+        }
+    }
+}
+
 @media (max-width: 1000px) {
     .header__up {
         padding: 10px 0;
-    
+
         &__left {
             width: 200px;
 
             .header__up__logo {
                 width: 60px;
                 height: 60px
-            }
-    
-            .header__up__logoName1 {
-                padding-top: 0;
-                font-size: 22px;
             }
         }
     }
@@ -29,14 +43,9 @@
                 width: 50px;
                 height: 50px
             }
-    
-            .header__up__logoName1 {
-                padding-top: 0;
-                font-size: 20px;
-            }
-    
-            .header__up__logoName2 {
-                font-size: 10px;
+
+            .header__up__logoName {
+                width: 140px;
             }
         }
     

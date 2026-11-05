@@ -1,13 +1,16 @@
 'use client'
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { useTranslations } from 'next-intl';
 import { VideoCard } from '@/shared/ui/Cards/VideoCard';
 import { ErrorState } from '@/shared/ui/ErrorState';
+import { EmptyState } from '@/shared/ui/EmptyState';
 import styles from './VideosHomeSection.module.scss';
 import mobile from './VideosHomeSectionMobile.module.scss';
 import { LoadingState } from '@/shared/ui/LoadingState';
 import { useVideos } from '@/features/media/model/useVideos';
 
 export const VideosHomeSection: React.FC = () => {
+    const t = useTranslations('LoadErrors');
     const { videos, isLoading, error, loadVideos } = useVideos();
     const sectionRef = useRef<HTMLDivElement>(null);
     const [hasTriggeredLoad, setHasTriggeredLoad] = useState(false);
@@ -71,18 +74,18 @@ export const VideosHomeSection: React.FC = () => {
     }
 
     if (error && safeVideos.length === 0) {
-        let errorTitle = "Ошибка загрузки видео";
+        let errorTitle = t('videos.title');
         let errorMessage = error;
-        
+
         if (error.includes("404")) {
-            errorTitle = "Видео не найдены";
-            errorMessage = "Раздел видео временно недоступен. Пожалуйста, попробуйте позже.";
+            errorTitle = t('videos.notFoundTitle');
+            errorMessage = t('videos.notFoundMessage');
         } else if (error.includes("network") || error.includes("fetch")) {
-            errorTitle = "Проблема с соединением";
-            errorMessage = "Не удается загрузить видео. Проверьте подключение к интернету.";
+            errorTitle = t('connectionTitle');
+            errorMessage = t('videos.connectionMessage');
         } else if (error.includes("timeout")) {
-            errorTitle = "Превышено время ожидания";
-            errorMessage = "Сервер долго не отвечает. Пожалуйста, попробуйте позже.";
+            errorTitle = t('timeoutTitle');
+            errorMessage = t('timeoutMessage');
         }
         
         return (
@@ -103,13 +106,7 @@ export const VideosHomeSection: React.FC = () => {
     if (recentVideos.length === 0 && !isLoading && hasTriggeredLoad) {
         return (
             <div className={`${styles.videosHome} ${mobile.videosHome}`}>
-                <div className={styles.emptyContainer}>
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
-                        <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" strokeWidth="2"/>
-                        <polygon points="10 8 16 12 10 16" fill="currentColor"/>
-                    </svg>
-                    <p>Видео пока нет</p>
-                </div>
+                <EmptyState variant="video" />
             </div>
         );
     }

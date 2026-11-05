@@ -1,0 +1,21 @@
+// Тонкая полоса загрузки при переходе между страницами
+.bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    // выше липкого меню шапки и мобильного меню
+    z-index: 2000;
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+    transform-origin: left center;
+    transition: transform 0.2s ease, opacity 0.3s ease 0.1s;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bar {
+        transition: opacity 0.3s ease;
+    }
+}

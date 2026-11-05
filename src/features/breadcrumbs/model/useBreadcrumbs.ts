@@ -1,72 +1,70 @@
 'use client'
-import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
-import { BreadcrumbItem } from '@/shared/ui/Breadcrumbs';
 import { useTranslations } from 'next-intl';
+import { usePathname } from '@/i18n/navigation';
+import type { BreadcrumbItem } from '@/shared/ui/Breadcrumbs';
 
-export const useBreadcrumbs = () => {
+// сегмент адреса → ключ в messages/*.json → Breadcrumbs
+const ROUTE_KEYS: Record<string, string> = {
+    news: 'news',
+    media: 'media',
+    procurement: 'procurement',
+    services: 'services',
+    contacts: 'contact',
+    about: 'about',
+    history: 'history',
+    structure: 'structure',
+    directorate: 'directorate',
+    results: 'results',
+    acts: 'acts',
+    legislation: 'legislation',
+    tariffs: 'tariffs',
+    vacancies: 'vacancies',
+    complaints: 'complaints',
+    attendance: 'attendance',
+    employee: 'employee',
+    shop: 'shop',
+    cart: 'cart',
+    search: 'search',
+};
+
+const MAX_LABEL_LENGTH = 25;
+
+const shorten = (label: string) =>
+    label.length > MAX_LABEL_LENGTH ? `${label.slice(0, MAX_LABEL_LENGTH - 3)}...` : label;
+
+const humanize = (segment: string) =>
+    segment
+        .split('-')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+
+// currentLabel — подпись последнего пункта, например заголовок новости
+export const useBreadcrumbs = (currentLabel?: string): BreadcrumbItem[] => {
+    // путь без префикса языка: "/news/12"
     const pathname = usePathname();
     const t = useTranslations('Breadcrumbs');
-    
-    const routeNames: Record<string, string> = {
-        'news': t('news'),
-        'media': t('media'),
-        'procurement': t('procurement'),
-        'services': t('services'),
-        'contacts': t('contact'),
-        'about': t('about'),
-        'history': t('history'),
-        'structure': t('structure'),
-        'directorate': t('directorate'),
-        'results': t('results'),
-        'acts': t('acts'),
-        'legislation': t('legislation'),
-        'tariffs': t('tariffs'),
-        'vacancies': t('vacancies'),
-        'complaints': t('complaints'),
-    };
-    
-    const formatLabel = (segment: string): string => {
-        if (routeNames[segment]) return routeNames[segment];
-        
-        if (/^\d+$/.test(segment)) {
-            return `${t('news')} ${segment.slice(-4)}`;
-        }
-        
-        return segment
-            .replace(/-/g, ' ')
-            .split(' ')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(' ');
-    };
-    
-    const breadcrumbs = useMemo((): BreadcrumbItem[] => {
+
+    return useMemo(() => {
         const segments = pathname.split('/').filter(Boolean);
-        const locales = ['ru', 'en', 'ky'];
-        const filteredSegments = segments.filter(seg => !locales.includes(seg));
-        
         const items: BreadcrumbItem[] = [
-            { label: t('home'), href: '/', isActive: false }
+            { label: t('home'), href: '/', isActive: segments.length === 0 },
         ];
-        
-        let currentPath = '';
-        
-        for (const segment of filteredSegments) {
-            currentPath += `/${segment}`;
-            
+
+        segments.forEach((segment, index) => {
+            const isLast = index === segments.length - 1;
+            const key = ROUTE_KEYS[segment];
+            const label = isLast && currentLabel
+                ? shorten(currentLabel)
+                : key ? t(key) : humanize(segment);
+
             items.push({
-                label: formatLabel(segment),
-                href: currentPath,
-                isActive: false
+                label,
+                href: `/${segments.slice(0, index + 1).join('/')}`,
+                isActive: isLast,
             });
-        }
-        
-        if (items.length > 0) {
-            items[items.length - 1].isActive = true;
-        }
-        
+        });
+
         return items;
-    }, [pathname]);
-    
-    return { breadcrumbs, pathname };
+    }, [pathname, t, currentLabel]);
 };

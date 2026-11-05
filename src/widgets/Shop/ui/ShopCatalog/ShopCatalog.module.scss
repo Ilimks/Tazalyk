@@ -1,0 +1,198 @@
+.catalog {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+}
+
+// Фильтры колонкой слева (на широких экранах)
+.sidebar {
+    position: sticky;
+    top: 84px;
+    max-height: calc(100vh - 104px);
+    padding: 20px;
+    overflow-y: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.sidebarHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #22c55e;
+}
+
+.sidebarTitle {
+    margin: 0;
+    color: #1e3a5f;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.resetLink {
+    padding: 4px 0;
+    border: none;
+    background: none;
+    color: #102382;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+
+    &:hover {
+        color: #22c55e;
+    }
+}
+
+.main {
+    min-width: 0;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.count {
+    margin: 0;
+    color: #0f172a;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.sort {
+    margin-left: auto;
+}
+
+// Кнопка «Фильтры» — только когда колонки фильтров нет
+.filtersButton {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    height: 42px;
+    padding: 0 16px;
+    border: 1px solid #102382;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #102382;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    &:hover {
+        background: #102382;
+        color: #ffffff;
+    }
+}
+
+.filtersCount {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: #22c55e;
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.results {
+    min-width: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.gridItem {
+    min-width: 0;
+}
+
+.empty {
+    padding: 48px 24px;
+    background: #ffffff;
+}
+
+// 3 колонки товаров рядом с фильтрами
+@media (max-width: 1199px) {
+    .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+// Фильтры уходят в выдвижную панель
+@media (max-width: 1000px) {
+    .catalog {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .filtersButton {
+        display: inline-flex;
+    }
+
+    .count {
+        order: 3;
+        width: 100%;
+        font-size: 15px;
+    }
+}
+
+// Телефоны: 2 колонки
+@media (max-width: 640px) {
+    .toolbar {
+        gap: 10px;
+        margin-bottom: 14px;
+        padding-bottom: 12px;
+    }
+
+    .filtersButton {
+        height: 40px;
+        padding: 0 12px;
+        font-size: 13px;
+    }
+
+    .count {
+        font-size: 14px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .empty {
+        padding: 32px 16px;
+    }
+}

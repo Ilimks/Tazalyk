@@ -1,11 +1,11 @@
 import { BreadcrumbsWidget } from "@/widgets/BreadcrumbsWidget";
-import { MediaGallery } from "@/widgets/Media/MediaGallery";
+import { MediaPage } from "@/widgets/Media/MediaGallery";
 
 export default function Media() {
     return (
         <main>
             <BreadcrumbsWidget />
-            <MediaGallery />
+            <MediaPage />
         </main>
     );
 }

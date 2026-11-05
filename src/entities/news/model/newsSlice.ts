@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { newsApi, News, NewsFilters, PaginatedNewsResponse } from '../api/newsApi';
+import { newsApi } from '../api/newsApi';
+import { News, NewsFilters, PaginatedNewsResponse } from './types';
 
 export interface NewsState {
     items: News[];

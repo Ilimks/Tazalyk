@@ -1,10 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Loading } from '@/shared/ui/Loading';
 import styles from './ServiceZoneMap.module.scss';
 
 export const ServiceZoneMap: React.FC = () => {
+    const t = useTranslations('Service');
     const iframeRef = useRef<HTMLIFrameElement>(null);
     const [mapLoaded, setMapLoaded] = useState(false);
 
@@ -23,7 +25,7 @@ export const ServiceZoneMap: React.FC = () => {
                     {!mapLoaded && (
                         <div className={styles.mapLoader}>
                             <Loading />
-                            <p>Загрузка карты...</p>
+                            <p>{t('ServiceMapLoading')}</p>
                         </div>
                     )}
                     <div 
@@ -36,7 +38,7 @@ export const ServiceZoneMap: React.FC = () => {
                             width="100%" 
                             height="667" 
                             frameBorder="0"
-                            title="Карта зоны обслуживания МП Тазалык"
+                            title={t('ServiceMapTitle')}
                             className={styles.iframe}
                             onLoad={() => setMapLoaded(true)}
                         ></iframe>

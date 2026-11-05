@@ -1,4 +1,5 @@
 import styles from './NewsStats.module.scss';
+import { useTranslations } from 'next-intl';
 
 interface NewsStatsProps {
     count: number;
@@ -7,29 +8,25 @@ interface NewsStatsProps {
     selectedYear?: string;
 }
 
-export const NewsStats: React.FC<NewsStatsProps> = ({ 
-    count, 
-    hasFilters, 
-    searchQuery, 
-    selectedYear 
+export const NewsStats: React.FC<NewsStatsProps> = ({
+    count,
+    hasFilters,
+    searchQuery,
+    selectedYear
 }) => {
-    const getTitle = () => {
-        if (searchQuery) return `Результаты поиска: "${searchQuery}"`;
-        if (selectedYear && selectedYear !== 'all') return `Новости ${selectedYear} года`;
-        return 'Все новости';
-    };
+    const t = useTranslations('News');
 
-    const getCountText = () => {
-        if (count === 1) return 'новость';
-        if (count < 5) return 'новости';
-        return 'новостей';
+    const getTitle = () => {
+        if (searchQuery) return t('NewsSearchResults', { query: searchQuery });
+        if (selectedYear && selectedYear !== 'all') return t('NewsOfYear', { year: selectedYear });
+        return t('NewsAll');
     };
 
     return (
         <div className={styles.newsStats}>
             <h2 className={styles.newsStatsTitle}>{getTitle()}</h2>
             <span className={styles.newsStatsCount}>
-                {count} {getCountText()}
+                {t('NewsCount', { count })}
             </span>
         </div>
     );

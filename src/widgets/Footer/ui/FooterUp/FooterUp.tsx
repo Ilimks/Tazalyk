@@ -38,12 +38,10 @@ export const FooterUp: React.FC = () => {
                   <li key={i} className={`${styles.footer__up__right__li} ${mobile.footer__up__right__li}`}>
                     <Link href={item.href || "#"} className={styles.footer__up__right__link}>
                       {item.icon && (
-                        <Image
+                        <item.icon
                           className={`${styles.footer__up__right__li__icon} ${mobile.footer__up__right__li__icon}`}
-                          src={item.icon}
-                          alt=""
-                          width={18}
-                          height={18}
+                          size={18}
+                          aria-hidden
                         />
                       )}
                       <span>{item.label}</span>

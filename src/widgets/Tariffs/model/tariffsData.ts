@@ -6,7 +6,7 @@ export const getIndividualTariffs = (t: (key: string) => string) => [
         baseTariff: 41.00,
         nsp: { rate: 3, amount: 1.23 },
         total: 42.23,
-        unit: '1 человек в месяц',
+        unit: t('TariffsUnitPerson'),
         note: t('TariffsIndividualCardPeople')
     },
     {
@@ -16,7 +16,7 @@ export const getIndividualTariffs = (t: (key: string) => string) => [
         baseTariff: 22.50,
         nsp: { rate: 3, amount: 0.68 },
         total: 23.18,
-        unit: '1 человек в месяц',
+        unit: t('TariffsUnitPerson'),
         note: t('TariffsIndividualCardPreferential')
     }
 ];
@@ -28,7 +28,7 @@ export const getLegalTariff = (t: (key: string) => string) => ({
     vat: { rate: 12, amount: 43.32 },
     nsp: { rate: 2, amount: 7.22 },
     total: 411.54,
-    unit: '1 м³ ТБО',
+    unit: t('TariffsUnitWaste'),
     note: t('TariffsIndLegalCardWaste')
 });
 
@@ -40,21 +40,21 @@ export const getSummaryTable = (t: (key: string) => string) => ({
             category: t('TariffsTableCardPopulation'),
             unit: t('TariffsTableCardPeople'),
             baseTariff: '41.00 сом',
-            taxes: 'НСП 3%: 1.23 сом',
+            taxes: `${t('TariffsNsp')} 3%: 1.23 сом`,
             total: '42.23 сом'
         },
         {
             category: t('TariffsTableCardPensioners'),
             unit: t('TariffsTableCardPeople'),
             baseTariff: '22.50 сом',
-            taxes: 'НСП 3%: 0.68 сом',
+            taxes: `${t('TariffsNsp')} 3%: 0.68 сом`,
             total: '23.18 сом'
         },
         {
             category: t('TariffsTableCardLegal'),
-            unit: '1 м³ ТБО',
+            unit: t('TariffsUnitWaste'),
             baseTariff: '361.00 сом',
-            taxes: 'НДС 12%: 43.32 сом<br/>НСП 2%: 7.22 сом',
+            taxes: `${t('TariffsVat')} 12%: 43.32 сом<br/>${t('TariffsNsp')} 2%: 7.22 сом`,
             total: '411.54 сом'
         }
     ]
