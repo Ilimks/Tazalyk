@@ -13,16 +13,19 @@ export const useContactData = () => {
       id: 1,
       icon: 'phone',
       title: t('ContactsDataPhone'),
-      details: ['+996 (312) 34-51-02'],
-      link: 'tel:+996312345102',
+      details: [
+        { text: t('ContactsCallCenter'), href: 'tel:1400' },
+        { text: '+996 (312) 34-51-02', href: 'tel:+996312345102' },
+      ],
+      link: 'tel:1400',
       linkText: t('ContactsCall')
     },
     {
       id: 2,
       icon: 'email',
       title: t('ContactsDataEmail'),
-      details: ['tazalyk@meria.kg'],
-      link: 'mailto:tazalyk@meria.kg',
+      details: ['tazalyk@bishkek.gov.kg'],
+      link: 'mailto:tazalyk@bishkek.gov.kg',
       linkText: t('ContactsWrite')
     },
     {

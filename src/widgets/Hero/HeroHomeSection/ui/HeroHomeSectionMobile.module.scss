@@ -3,10 +3,6 @@
         padding: 2rem;
     }
     
-    .heroTitle {
-        font-size: 2rem;
-    }
-    
     .heroText {
         font-size: 1rem;
     }
@@ -15,10 +11,6 @@
 @media (max-width: 480px) {
     .hero {
         padding: 1.5rem;
-    }
-    
-    .heroTitle {
-        font-size: 1.5rem;
     }
     
     .heroText {

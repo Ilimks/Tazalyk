@@ -104,8 +104,7 @@ export const STATIC_ENTRIES: SearchEntry[] = [
 
     { id: '86', type: 'page', url: '/', title: 'Колл-центр 1400', titleKy: 'Колл-борбор 1400' },
 
-    { id: '87', type: 'page', url: '/directorate', title: 'Арынов Максатбек Дуйшенкулович', titleKy: 'Арынов Максатбек Дуйшенкулович' },
-    { id: '88', type: 'page', url: '/directorate', title: 'Апиев Базарбай Бейшембиевич', titleKy: 'Апиев Базарбай Бейшембиевич' },
+    { id: '87', type: 'page', url: '/directorate', title: 'Осмоналиев Женишбек Анарбекович', titleKy: 'Осмоналиев Женишбек Анарбекович' },
     { id: '89', type: 'page', url: '/directorate', title: 'Иманакунова Бааркан Мелисовна', titleKy: 'Иманакунова Бааркан Мелисовна' },
     { id: '90', type: 'page', url: '/directorate', title: 'Ибраев Кубанычбек Жумалиевич', titleKy: 'Ибраев Кубанычбек Жумалиевич' },
     { id: '91', type: 'page', url: '/directorate', title: 'Иманакунов Улан Маратович', titleKy: 'Иманакунов Улан Маратович' },

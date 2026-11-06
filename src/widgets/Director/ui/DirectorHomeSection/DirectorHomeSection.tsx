@@ -8,9 +8,8 @@ export const DirectorHomeSection: React.FC = () => {
     const t = useTranslations("Main");
     
     const directorData = {
-        name: 'Арынов Максатбек Дуйшенкулович',
+        name: 'Осмоналиев Женишбек Анарбекович',
         position: t('MainDirectorName'),
-        photoUrl: '/assets/images/DirectorPhoto1.webp',
         bio: t('MainDirectorBiographyDescription')
     }
 
@@ -20,7 +19,6 @@ export const DirectorHomeSection: React.FC = () => {
                 <DirectorSection 
                     name={directorData.name}
                     position={directorData.position}
-                    photoUrl={directorData.photoUrl}
                     bio={directorData.bio}
                 />
             </div>

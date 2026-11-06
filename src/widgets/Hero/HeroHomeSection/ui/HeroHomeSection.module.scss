@@ -89,10 +89,16 @@
 }
 
 .heroTitle {
-    font-size: 6rem;
-    font-weight: 900;
-    margin-bottom: 1rem;
-    color: #22c55e;
+    align-self: flex-start;
+    // от ширины экрана, а не колонки: колонка на ноутбуках уже нужного размера
+    width: min(36vw, 520px);
+    margin-bottom: 1.5rem;
+
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
 }
 
 .heroText {
@@ -186,6 +192,11 @@
         align-items: center;
         padding-left: 0;
     }
+
+    .heroTitle {
+        align-self: center;
+        width: min(46vw, 460px);
+    }
     
     .heroText {
         max-width: 80%;
@@ -204,9 +215,10 @@
     }
     
     .heroTitle {
-        font-size: 3rem;
+        width: min(100%, 340px);
+        margin-bottom: 1rem;
     }
-    
+
     .heroText {
         font-size: 1.5rem;
     }
@@ -222,9 +234,9 @@
         height: 60vh;
     }
     .heroTitle {
-        font-size: 2rem;
+        width: min(100%, 270px);
     }
-    
+
     .heroText {
         font-size: 1rem;
     }

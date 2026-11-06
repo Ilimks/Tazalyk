@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { BriefcaseBusiness } from 'lucide-react';
 import { VacancyCard, vacanciesApi, type Vacancy } from '@/entities/vacancy';
-import { HR_EMAIL } from '../../../model/contacts';
 import styles from './VacanciesOpenings.module.scss';
 
 interface VacanciesOpeningsProps {
@@ -50,7 +49,7 @@ export const VacanciesOpenings: React.FC<VacanciesOpeningsProps> = ({ initialVac
                 {vacancies.length > 0 ? (
                     <div className={styles.grid}>
                         {vacancies.map((vacancy) => (
-                            <VacancyCard key={vacancy.id} vacancy={vacancy} applyEmail={HR_EMAIL} />
+                            <VacancyCard key={vacancy.id} vacancy={vacancy} />
                         ))}
                     </div>
                 ) : (

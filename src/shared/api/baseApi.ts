@@ -44,6 +44,22 @@ export const baseApi = {
         return response.json();
     },
 
+    // запрос с файлом: тип и границы частей браузер проставит сам
+    postForm: async <T>(url: string, body: FormData): Promise<T> => {
+        const response = await fetch(`${API_BASE_URL}${url}`, {
+            method: 'POST',
+            headers: { Accept: 'application/json' },
+            body,
+            signal: AbortSignal.timeout(API_TIMEOUT),
+        });
+
+        if (!response.ok) {
+            throw new ApiError(response.status, await readErrorBody(response));
+        }
+
+        return response.json();
+    },
+
     // JSON-запрос из браузера (например, оформление заказа); ошибка содержит тело ответа в ApiError.data
     post: async <T>(url: string, body: unknown, init?: RequestInit): Promise<T> => {
         const response = await fetch(`${API_BASE_URL}${url}`, {

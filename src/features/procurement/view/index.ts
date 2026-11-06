@@ -1,1 +1,0 @@
-export { useDocumentView } from './useDocumentView'

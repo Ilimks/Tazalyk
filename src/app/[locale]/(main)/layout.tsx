@@ -26,7 +26,6 @@ const baseMetadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   category: "government",
   classification: "Municipal Enterprise",
-  referrer: "origin-when-cross-origin",
   formatDetection: {
     email: true,
     address: true,

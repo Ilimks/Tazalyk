@@ -126,10 +126,6 @@ const verifyCaptcha = async (token: unknown): Promise<boolean> => {
 
 export async function POST(request: NextRequest) {
     try {
-        if (isRateLimited(clientKey(request))) {
-            return NextResponse.json({ success: false, code: 'rate_limited' }, { status: 429 });
-        }
-
         // слишком большой запрос отклоняем до чтения тела
         const contentLength = Number(request.headers.get('content-length') || 0);
         if (!contentLength || contentLength > MAX_BODY_BYTES) {
@@ -149,6 +145,12 @@ export async function POST(request: NextRequest) {
                 { success: false, code: 'captcha_invalid' },
                 { status: 400 }
             );
+        }
+
+        // считаем только запросы с пройденной капчей: иначе пять пустых запросов
+        // закрыли бы форму для всех, кто выходит в интернет через тот же адрес
+        if (isRateLimited(clientKey(request))) {
+            return NextResponse.json({ success: false, code: 'rate_limited' }, { status: 429 });
         }
 
         const full_name = readString(data.full_name, 200);

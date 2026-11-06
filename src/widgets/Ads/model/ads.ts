@@ -12,19 +12,15 @@ export interface AdBanner {
     mobileImage?: string;
 }
 
+// Реклама выключена. Заготовки баннеров лежат в public/assets/ads/, чтобы вернуть её,
+// вместо null укажите, например, { image: '/assets/ads/side-160x600.svg' }
+
 // Боковые баннеры 160×600 — видны на экранах шире 1680px
 export const sideAds: { left: AdBanner | null; right: AdBanner | null } = {
-    left: {
-        image: '/assets/ads/side-160x600.svg',
-    },
-    right: {
-        image: '/assets/ads/side-160x600.svg',
-    },
+    left: null,
+    right: null,
 };
 
 // Горизонтальный баннер над футером: 728×90 на планшетах и ноутбуках, 320×100 на телефонах.
 // На широких экранах, где есть боковые баннеры, он скрывается.
-export const inlineAd: AdBanner | null = {
-    image: '/assets/ads/inline-728x90.svg',
-    mobileImage: '/assets/ads/inline-320x100.svg',
-};
+export const inlineAd: AdBanner | null = null;

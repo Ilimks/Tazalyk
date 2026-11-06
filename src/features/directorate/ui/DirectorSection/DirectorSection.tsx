@@ -6,7 +6,7 @@ import mobile from './DirectorSectionMobile.module.scss'
 interface DirectorSectionProps {
     name: string;
     position: string;
-    photoUrl: string;
+    photoUrl?: string;
     bio: string;
 }
 

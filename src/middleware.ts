@@ -23,11 +23,10 @@ const buildCsp = (nonce: string) =>
     "style-src 'self' 'unsafe-inline'",
     `img-src 'self' data: blob: ${API_ORIGIN} https://mptazalyk.kg https://www.gstatic.com`,
     `media-src 'self' data: blob: ${API_ORIGIN}`,
-    "font-src 'self' data:",
+    "font-src 'self'",
     `connect-src 'self' ${API_ORIGIN} https://www.google.com/recaptcha/${isDev ? ' ws: wss:' : ''}`,
     'frame-src https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/ https://yandex.ru https://*.yandex.ru',
-    // встроенный просмотр PDF-документов (data:/blob:)
-    "object-src 'self' data: blob:",
+    "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
     "frame-ancestors 'none'",
@@ -71,7 +70,7 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // пропускаем api, служебные пути Next.js и любые файлы с расширением
-  // (sitemap.xml, robots.txt, ads.txt, google*.html, картинки из public)
-  matcher: ['/((?!api|_next|.*\\..*).*)'],
+  // пропускаем api, служебные пути Next.js, файлы из public и файлы в корне
+  // (sitemap.xml, robots.txt, ads.txt, google*.html)
+  matcher: ['/((?!api/|_next/|assets/|[^/]+\\.[^/]+$).*)'],
 };

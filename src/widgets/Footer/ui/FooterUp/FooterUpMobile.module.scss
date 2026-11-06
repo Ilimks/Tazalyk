@@ -1,6 +1,20 @@
-@media (max-width: 1000px) {
+@media (max-width: 1400px) {
     .footer__up {
         column-gap: 80px;
+    }
+}
+
+// четыре колонки здесь уже не помещаются в ряд
+@media (max-width: 1200px) {
+    .footer__up {
+        .footer__up__right {
+            flex-wrap: wrap;
+            row-gap: 32px;
+
+            &__column {
+                flex: 0 0 calc(50% - 16px);
+            }
+        }
     }
 }
 
@@ -24,10 +38,12 @@
     
         .footer__up__right {
             flex-direction: column;
+            flex-wrap: nowrap;
             align-items: center;
             gap: 24px;
     
             &__column {
+                flex: none;
                 align-items: center;
                 gap: 10px;
     

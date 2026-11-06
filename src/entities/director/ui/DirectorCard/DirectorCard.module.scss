@@ -37,6 +37,19 @@
         }
     }
 
+    .imageWrapper .directorCard__placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 280px;
+        max-width: 100%;
+        aspect-ratio: 320 / 410;
+        background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        color: #fff;
+        font-size: 64px;
+        font-weight: 600;
+    }
+
     &__name {
         width: 260px;
         color: #102382;

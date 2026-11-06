@@ -1,10 +1,13 @@
 import { ArrowUpRight } from 'lucide-react';
 import styles from './ContactCard.module.scss';
 
+// строка карточки: обычный текст или ссылка, например номер телефона
+type ContactDetail = string | { text: string; href: string };
+
 interface ContactCardProps {
     icon: React.ReactNode;
     title: string;
-    details: string[];
+    details: ContactDetail[];
     link?: string;
     linkText?: string;
 }
@@ -18,7 +21,11 @@ export const ContactCard: React.FC<ContactCardProps> = ({ icon, title, details, 
             <div className={styles.contactDetails}>
                 {details.map((detail, idx) => (
                     <div key={idx} className={styles.detailItem}>
-                        <span className={styles.detailText}>{detail}</span>
+                        {typeof detail === 'string' ? (
+                            <span className={styles.detailText}>{detail}</span>
+                        ) : (
+                            <a href={detail.href} className={styles.detailLink}>{detail.text}</a>
+                        )}
                     </div>
                 ))}
             </div>

@@ -3,6 +3,9 @@ import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
+// файлы новостей и галереи: локально это http://localhost:8000, на сервере https://api.mptazalyk.kg
+const apiUrl = new URL(process.env.NEXT_PUBLIC_API_URL || 'https://api.mptazalyk.kg/api');
+
 // Заголовки безопасности для всех ответов (CSP с nonce выставляет middleware)
 const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
@@ -21,11 +24,18 @@ const nextConfig: NextConfig = {
   // не сообщаем, на чём сделан сайт
   poweredByHeader: false,
   images: {
-    // картинки новостей и галереи приходят с API
+    // оптимизатор забирает картинки только из папки файлов API
     remotePatterns: [
-      { protocol: 'https', hostname: 'api.mptazalyk.kg' },
+      {
+        protocol: apiUrl.protocol === 'http:' ? 'http' : 'https',
+        hostname: apiUrl.hostname,
+        port: apiUrl.port,
+        pathname: '/media/**',
+      },
       { protocol: 'https', hostname: 'mptazalyk.kg' },
     ],
+    // одно качество: иначе перебором значений можно заставить сервер пересжимать картинку снова и снова
+    qualities: [75],
   },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];

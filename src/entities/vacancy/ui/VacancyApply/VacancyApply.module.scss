@@ -1,0 +1,245 @@
+// кнопка прижата к низу — в ряду карточек разной высоты они стоят на одной линии
+.apply {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 11px 20px;
+    border: 1px solid #102382;
+    background: none;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: #102382;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    &:hover {
+        background: #102382;
+        color: #ffffff;
+    }
+
+    &:focus-visible {
+        outline: 3px solid rgba(16, 35, 130, 0.3);
+        outline-offset: 2px;
+    }
+
+    @media (max-width: 480px) {
+        align-self: stretch;
+    }
+}
+
+.dialog {
+    width: min(500px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    // общий сброс стилей убирает у dialog центрирование браузера
+    margin: auto;
+    padding: 0;
+    border: none;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.3);
+
+    &::backdrop {
+        background: rgba(15, 23, 42, 0.55);
+    }
+}
+
+// отступы здесь, а не у dialog: иначе нажатие на отступ считалось бы нажатием на фон
+.content {
+    position: relative;
+    padding: 28px;
+
+    @media (max-width: 480px) {
+        padding: 22px;
+    }
+}
+
+.close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: flex;
+    padding: 6px;
+    border: none;
+    background: none;
+    color: #64748b;
+    cursor: pointer;
+
+    &:hover {
+        color: #0f172a;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.title {
+    margin: 0;
+    padding-right: 32px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.vacancy {
+    margin: 0 0 6px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #15803d;
+    overflow-wrap: anywhere;
+}
+
+.file {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.fileLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+}
+
+.fileChoose {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px;
+    border: 1px dashed #94a3b8;
+    background: #f8fafc;
+    font-size: 14px;
+    font-weight: 600;
+    color: #102382;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+
+    &:hover,
+    &:focus-within {
+        border-color: #102382;
+        background: #f1f5f9;
+    }
+
+    input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+    }
+}
+
+.fileChosen {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+    background: #f0fdf4;
+    font-size: 14px;
+    color: #0f172a;
+
+    svg {
+        flex-shrink: 0;
+    }
+
+    span {
+        flex: 1;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    button {
+        display: flex;
+        padding: 2px;
+        border: none;
+        background: none;
+        color: #64748b;
+        cursor: pointer;
+
+        &:hover {
+            color: #b91c1c;
+        }
+    }
+}
+
+.fileHint {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.error {
+    font-size: 13px;
+    color: #b91c1c;
+}
+
+.formError {
+    margin: 0;
+    padding: 10px 14px;
+    background: #fef2f2;
+    font-size: 14px;
+    color: #b91c1c;
+}
+
+// не display: none: такие поля боты часто пропускают
+.trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 13px 20px;
+    border: none;
+    background: #102382;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover:not(:disabled) {
+        background: #0c1a63;
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: wait;
+    }
+}
+
+.success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0 4px;
+    text-align: center;
+
+    svg {
+        color: #22c55e;
+    }
+
+    .title {
+        padding-right: 0;
+    }
+
+    p {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.5;
+        color: #475569;
+    }
+}

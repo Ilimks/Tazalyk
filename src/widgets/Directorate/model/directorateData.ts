@@ -10,17 +10,9 @@ export interface DirectorateMember {
 export const directorateData: DirectorateMember[] = [
     {
         id: 1,
-        name: 'Арынов Максатбек Дуйшенкулович',
+        name: 'Осмоналиев Женишбек Анарбекович',
         position: 'director',
-        photo: '/assets/images/DirectorPhoto2.webp',
         order: 1
-    },
-    {
-        id: 2,
-        name: 'Апиев Базарбай Бейшембиевич',
-        position: 'mainEngineer',
-        photo: '/assets/images/chief-engineer.jpg',
-        order: 2
     },
     {
         id: 3,

@@ -1,18 +1,17 @@
 import { useLocale, useTranslations } from 'next-intl';
-import { CircleCheck, Clock, Mail, Wallet } from 'lucide-react';
+import { CircleCheck, Clock, Wallet } from 'lucide-react';
 import { getVacancyText, splitRequirements } from '../../lib/localize';
 import type { Vacancy } from '../../model/types';
+import { VacancyApply } from '../VacancyApply/VacancyApply';
 import styles from './VacancyCard.module.scss';
 
 interface VacancyCardProps {
     vacancy: Vacancy;
-    // почта отдела кадров для кнопки «Отправить резюме»
-    applyEmail: string;
 }
 
 const formatNumber = (value: number) => new Intl.NumberFormat('ru-RU').format(value);
 
-export const VacancyCard: React.FC<VacancyCardProps> = ({ vacancy, applyEmail }) => {
+export const VacancyCard: React.FC<VacancyCardProps> = ({ vacancy }) => {
     const t = useTranslations('Vacancies');
     const locale = useLocale();
 
@@ -34,8 +33,6 @@ export const VacancyCard: React.FC<VacancyCardProps> = ({ vacancy, applyEmail })
         return t('VacanciesSalaryNegotiable');
     };
     const salary = getSalary();
-
-    const mailto = `mailto:${applyEmail}?subject=${encodeURIComponent(t('VacanciesApplySubject', { title }))}`;
 
     return (
         <article className={styles.card}>
@@ -72,10 +69,7 @@ export const VacancyCard: React.FC<VacancyCardProps> = ({ vacancy, applyEmail })
                 </div>
             )}
 
-            <a className={styles.apply} href={mailto}>
-                <Mail size={16} aria-hidden />
-                {t('VacanciesApply')}
-            </a>
+            <VacancyApply vacancyId={vacancy.id} vacancyTitle={title} />
         </article>
     );
 };

@@ -10,11 +10,9 @@ import { CatalogGridSkeleton } from './ShopCatalog/CatalogGridSkeleton';
 import styles from './ShopPage.module.scss';
 
 interface ShopPageProps {
-    // фильтры из адреса страницы
     query: ShopQuery;
 }
 
-// Первая страница каталога с выбранными фильтрами загружается на сервере — она сразу есть в HTML
 export const ShopPage = async ({ query }: ShopPageProps) => {
     const [t, locale, data, filterOptions] = await Promise.all([
         getTranslations('Shop'),

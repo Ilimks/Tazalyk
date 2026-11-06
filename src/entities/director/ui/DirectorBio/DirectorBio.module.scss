@@ -50,6 +50,8 @@
         margin: 0;
         text-align: justify;
         letter-spacing: 0.2px;
+        // абзацы биографии разделены переводом строки
+        white-space: pre-line;
         // текст поверх фонового логотипа
         position: relative;
         z-index: 1;

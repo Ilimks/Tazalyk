@@ -1,22 +1,69 @@
-import { getSafeFileUrl } from './url';
+import { getSafeDownloadUrl, getSafeFileUrl } from './url';
 
-const escapeHtml = (value: string) =>
-    value
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
+// Вкладка успевает получить файл за это время, после ссылка больше не нужна
+const OBJECT_URL_LIFETIME_MS = 60_000;
+
+const toTemporaryUrl = (blob: Blob) => {
+    const objectUrl = URL.createObjectURL(blob);
+    setTimeout(() => URL.revokeObjectURL(objectUrl), OBJECT_URL_LIFETIME_MS);
+    return objectUrl;
+};
+
+// Chrome не открывает data: в новой вкладке, а большой data: не может и скачать, поэтому отдаём blob:.
+// Разбираем синхронно: window.open после await сработал бы уже вне клика и попал под блокировку всплывающих окон
+const toObjectUrl = (dataUrl: string): string | null => {
+    try {
+        const [header, base64] = dataUrl.split(',', 2);
+        const type = header.slice('data:'.length).split(';')[0];
+        const binary = atob(base64);
+        const bytes = new Uint8Array(binary.length);
+        for (let index = 0; index < binary.length; index += 1) {
+            bytes[index] = binary.charCodeAt(index);
+        }
+
+        return toTemporaryUrl(new Blob([bytes], { type }));
+    } catch {
+        // повреждённый файл: сообщение покажет вызывающий код
+        return null;
+    }
+};
+
+const toOpenableUrl = (safeUrl: string | null) =>
+    safeUrl?.startsWith('data:') ? toObjectUrl(safeUrl) : safeUrl;
+
+const isOtherSite = (url: string) => new URL(url, window.location.href).origin !== window.location.origin;
+
+// Имя из <a download> браузер не применяет к файлу с другого адреса: документы лежат на API,
+// поэтому файл забираем сами, иначе он сохранился бы под служебным именем
+const fetchAsTemporaryUrl = async (url: string) => {
+    try {
+        const response = await fetch(url);
+        return response.ok ? toTemporaryUrl(await response.blob()) : null;
+    } catch {
+        return null;
+    }
+};
 
 // unavailableMessage — текст alert, если ссылки нет или она небезопасна (передаётся из переводов)
-export const downloadFile = (url: string | undefined, fileName: string, unavailableMessage: string) => {
-    const safeUrl = getSafeFileUrl(url);
-    if (!safeUrl) {
+export const downloadFile = async (url: string | undefined, fileName: string, unavailableMessage: string) => {
+    let href = toOpenableUrl(getSafeDownloadUrl(url));
+    if (!href) {
         alert(unavailableMessage);
         return;
     }
 
+    if (!href.startsWith('blob:') && isOtherSite(href)) {
+        const temporaryUrl = await fetchAsTemporaryUrl(href);
+        if (!temporaryUrl) {
+            // не удалось забрать файл: пусть откроет сам браузер
+            window.open(href, '_blank', 'noopener,noreferrer');
+            return;
+        }
+        href = temporaryUrl;
+    }
+
     const link = document.createElement('a');
-    link.href = safeUrl;
+    link.href = href;
     link.download = fileName;
     link.rel = 'noopener';
     document.body.appendChild(link);
@@ -25,48 +72,16 @@ export const downloadFile = (url: string | undefined, fileName: string, unavaila
 };
 
 export const openInNewTab = (url: string) => {
-    const safeUrl = getSafeFileUrl(url);
-    if (safeUrl) window.open(safeUrl, '_blank', 'noopener,noreferrer');
+    const href = toOpenableUrl(getSafeFileUrl(url));
+    if (href) window.open(href, '_blank', 'noopener,noreferrer');
 };
 
-// PDF и картинки открываются во встроенном просмотрщике, остальное — как обычная ссылка
+// PDF и картинки браузер показывает сам. Word и Excel показать не может, такой файл скачивается
 export const viewFile = (url: string | undefined, fileName: string, unavailableMessage: string) => {
-    const safeUrl = getSafeFileUrl(url);
-    if (!safeUrl) {
-        alert(unavailableMessage);
-        return;
+    const href = toOpenableUrl(getSafeFileUrl(url));
+    if (href) {
+        window.open(href, '_blank', 'noopener,noreferrer');
+    } else {
+        downloadFile(url, fileName, unavailableMessage);
     }
-
-    const ext = fileName?.split('.').pop()?.toLowerCase() || '';
-    const isPdf = ext === 'pdf';
-    const isImage = ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext);
-
-    if (!isPdf && !isImage) {
-        openInNewTab(safeUrl);
-        return;
-    }
-
-    const newWindow = window.open();
-    if (!newWindow) return;
-
-    const escapedUrl = escapeHtml(safeUrl);
-    const safeName = escapeHtml(fileName);
-    const body = isPdf
-        ? `<embed src="${escapedUrl}" type="application/pdf" width="100%" height="100%" />`
-        : `<img src="${escapedUrl}" alt="${safeName}" />`;
-
-    newWindow.document.write(`
-        <html>
-            <head>
-                <title>${safeName}</title>
-                <style>
-                    body { margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center; background: #f1f5f9; }
-                    embed { width: 100%; height: 100%; }
-                    img { max-width: 90%; max-height: 90vh; object-fit: contain; }
-                </style>
-            </head>
-            <body>${body}</body>
-        </html>
-    `);
-    newWindow.document.close();
 };

@@ -116,7 +116,9 @@ export const HeroHomeSection: React.FC = () => {
             </div>
 
             <div className={`${styles.infoPanel} ${isMobile ? styles.infoPanelCentered : ''}`}>
-                <h1 className={styles.heroTitle}>ТАЗАЛЫК</h1>
+                <h1 className={styles.heroTitle}>
+                    <Image src="/assets/icons/logo-name-green.svg" alt="ТАЗАЛЫК" width={520} height={84} priority />
+                </h1>
                 <p className={styles.heroText}>
                     {t('MainHeruDescription')}
                 </p>
