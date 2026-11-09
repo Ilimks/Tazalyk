@@ -119,6 +119,32 @@
     }
 }
 
+.phone {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 8px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #854d0e;
+    text-decoration: none;
+
+    svg {
+        flex-shrink: 0;
+    }
+
+    strong {
+        font-size: 15px;
+        font-weight: 700;
+        color: #713f12;
+        white-space: nowrap;
+    }
+
+    &:hover strong {
+        text-decoration: underline;
+    }
+}
+
 @media (max-width: 768px) {
     .attendanceTable {
         padding: 16px;

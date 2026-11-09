@@ -1,10 +1,14 @@
 'use client';
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { Phone } from 'lucide-react';
 import { Tabs } from '@/shared/ui/Tabs';
 import { materialServices, transportServices } from '../../../model/attendance';
 import { Attendance } from '../../../model/types'
 import styles from './AttendanceTable.module.scss';
+
+// телефон для заказа услуг
+const SERVICES_PHONE = { label: '0550 179 710', href: 'tel:+996550179710' };
 
 export const AttendanceTable: React.FC = () => {
     const t = useTranslations("Attendance");
@@ -56,6 +60,11 @@ export const AttendanceTable: React.FC = () => {
                     
                     <div className={styles.note}>
                         <p>{t('note')}</p>
+                        <a className={styles.phone} href={SERVICES_PHONE.href}>
+                            <Phone size={16} aria-hidden />
+                            <span>{t('phoneLabel')}</span>
+                            <strong>{SERVICES_PHONE.label}</strong>
+                        </a>
                     </div>
                 </div>
             </div>
