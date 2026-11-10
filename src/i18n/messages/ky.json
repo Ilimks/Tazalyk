@@ -17,13 +17,13 @@
         "aboutVacancies": "Бош орундар",
         "subscribers": "АБОНЕНТТЕРГЕ",
         "subscribersTariffs": "Тарифтер",
+        "subscribersServices": "Кызматтар",
         "subscribersComplaints": "Арыздануу",
         "subscribersEmployee": "Жарандарды кабыл алуу",
         "pressCenter": "ПРЕСС-БОРБОР",
         "pressCenterNews": "Жаңылыктар",
         "pressCenterMedia": "Медиа",
         "procurement": "САТЫП АЛУУЛАР",
-        "attendance": "КЫЗМАТТАР",
         "servicesMaterial": "Материалдык каражаттар",
         "servicesTransport": "Транспорттук кызматтар",
         "regulatoryFramework": "НОРМАТИВДИК БАЗА",
@@ -43,6 +43,7 @@
         "FooterAboutResults": "Иштин жыйынтыктары",
         "FooterSubscribers": "Абоненттерге",
         "FooterSubscribersTariffs": "Тарифтер",
+        "FooterSubscribersServices": "Кызматтар",
         "FooterSubscribersComplaints": "Даттануу берүү",
         "FooterSubscribersEmployee": "Жарандарды кабыл алуу",
         "FooterContacts": "Байланыштар",
@@ -474,9 +475,9 @@
         "form": {
             "applicantInfo": "Арыз ээси жөнүндө маалымат",
             "fullName": "Аты-жөнү",
-            "fullNamePlaceholder": "Иванов Иван Иванович",
+            "fullNamePlaceholder": "Асанов Азамат Бакытович",
             "email": "Электрондук почта",
-            "emailPlaceholder": "ivan@example.com",
+            "emailPlaceholder": "azamat@example.kg",
             "phone": "Телефон",
             "phonePlaceholder": "+996 (XXX) XX-XX-XX",
             "complaintContent": "Арыздын мазмуну",
@@ -663,9 +664,18 @@
         "resetFilters": "Чыпкаларды тазалоо"
     },
     "NotFound": {
-        "title": "Барак табылган жок",
-        "description": "Ал өчүрүлгөн же сиз туура эмес шилтеме аркылуу өткөн болушуңуз мүмкүн.",
-        "home": "Башкы бетке"
+        "eyebrow": "404 катасы · барак табылган жок",
+        "title": "Бул баракты шыпырып салган окшойбуз",
+        "description": "Тазалоого ушунчалык берилип, аны да шыпырып салыптырбыз. Шилтеме эскирген же даректе ката болушу мүмкүн.",
+        "home": "Башкы бетке",
+        "contacts": "Биз менен байланышуу",
+        "popular": "Балким, сиз издегениңиз:",
+        "links": {
+            "tariffs": "Тарифтер",
+            "services": "Кызматтар",
+            "news": "Жаңылыктар",
+            "complaints": "Арыздануу"
+        }
     },
     "ErrorPage": {
         "title": "Бир нерсе туура эмес болду",

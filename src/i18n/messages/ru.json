@@ -17,13 +17,13 @@
         "aboutVacancies": "Вакансии",
         "subscribers": "АБОНЕНТАМ",
         "subscribersTariffs": "Тарифы",
+        "subscribersServices": "Услуги",
         "subscribersComplaints": "Подать жалобу",
         "subscribersEmployee": "Прием граждан",
         "pressCenter": "ПРЕСС-ЦЕНТР",
         "pressCenterNews": "Новости",
         "pressCenterMedia": "Медиа",
         "procurement": "ЗАКУПКИ",
-        "attendance": "УСЛУГИ",
         "servicesMaterial": "Материальные средства",
         "servicesTransport": "Транспортные услуги",
         "regulatoryFramework": "НОРМАТИВНАЯ БАЗА",
@@ -43,6 +43,7 @@
         "FooterAboutResults": "Итоги работы",
         "FooterSubscribers": "Абонентам",
         "FooterSubscribersTariffs": "Тарифы",
+        "FooterSubscribersServices": "Услуги",
         "FooterSubscribersComplaints": "Подать жалобу",
         "FooterSubscribersEmployee": "Прием граждан",
         "FooterContacts": "Контакты",
@@ -469,9 +470,9 @@
         "form": {
             "applicantInfo": "Информация о заявителе",
             "fullName": "ФИО",
-            "fullNamePlaceholder": "Иванов Иван Иванович",
+            "fullNamePlaceholder": "Асанов Азамат Бакытович",
             "email": "Email",
-            "emailPlaceholder": "ivan@example.com",
+            "emailPlaceholder": "azamat@example.kg",
             "phone": "Телефон",
             "phonePlaceholder": "+996 (XXX) XX-XX-XX",
             "complaintContent": "Содержание жалобы",
@@ -658,9 +659,18 @@
         "resetFilters": "Сбросить фильтры"
     },
     "NotFound": {
-        "title": "Страница не найдена",
-        "description": "Возможно, она была удалена или вы перешли по неверной ссылке.",
-        "home": "На главную"
+        "eyebrow": "Ошибка 404 · страница не найдена",
+        "title": "Кажется, эту страницу уже убрали",
+        "description": "Мы так увлеклись уборкой, что вымели и её. Возможно, ссылка устарела или в адресе есть опечатка.",
+        "home": "На главную",
+        "contacts": "Связаться с нами",
+        "popular": "Возможно, вы искали:",
+        "links": {
+            "tariffs": "Тарифы",
+            "services": "Услуги",
+            "news": "Новости",
+            "complaints": "Подать жалобу"
+        }
     },
     "ErrorPage": {
         "title": "Что-то пошло не так",

@@ -16,6 +16,17 @@ const MAX_TOTAL_SIZE = 15 * 1024 * 1024;
 // запрос целиком (JSON с фото в base64) — режем до чтения тела
 const MAX_BODY_BYTES = 22 * 1024 * 1024;
 const EMAIL_REGEX = /^[^\s@<>"',;:()[\]\\]+@[^\s@<>"',;:()[\]\\]+\.[^\s@<>"',;:()[\]\\]+$/;
+const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
+
+// Типы обращений из формы. В письмо и админку идёт русское название,
+// даже если жалобу писали на кыргызском: сотрудникам так проще
+const COMPLAINT_TYPES: Record<string, string> = {
+    waste_issue: 'Проблема с вывозом отходов',
+    billing_error: 'Неправильное начисление за вывоз мусора',
+    service_quality: 'Качество услуг',
+    employee_complaint: 'Жалоба на сотрудника',
+    other: 'Другое',
+};
 
 // ---------- лимит частоты: не больше 5 жалоб за 10 минут с одного адреса ----------
 const RATE_WINDOW_MS = 10 * 60 * 1000;
@@ -88,6 +99,13 @@ const toSingleLine = (value: string) => value.replace(/[\r\n]+/g, ' ');
 const readString = (value: unknown, maxLength: number): string =>
     typeof value === 'string' ? value.trim().slice(0, maxLength) : '';
 
+// дата из поля type="date": настоящая дата вида 2026-11-09, а не 2026-02-30
+const isValidDate = (value: string): boolean => {
+    if (!DATE_REGEX.test(value)) return false;
+    const date = new Date(`${value}T00:00:00Z`);
+    return !Number.isNaN(date.getTime()) && date.toISOString().startsWith(value);
+};
+
 const verifyCaptcha = async (token: unknown): Promise<boolean> => {
     const secret = process.env.RECAPTCHA_SECRET_KEY;
     if (!secret) {
@@ -124,6 +142,61 @@ const verifyCaptcha = async (token: unknown): Promise<boolean> => {
     }
 };
 
+interface ComplaintFields {
+    complaint_type: string;
+    full_name: string;
+    email: string;
+    phone: string;
+    subject: string;
+    description: string;
+    incident_date: string;
+    incident_location: string;
+}
+
+// Копия жалобы в админку (раздел «Жалобы»): туда приходят все жалобы, любого типа.
+// Капчу и частоту уже проверили здесь, поэтому бэкенд принимает жалобы только с общим ключом сайта
+const saveToAdmin = async (fields: ComplaintFields, attachments: SafeAttachment[]): Promise<boolean> => {
+    const token = process.env.COMPLAINTS_INTAKE_TOKEN;
+    // на сервере — адрес API внутри Docker (COMPLAINTS_API_URL), локально — обычный адрес API
+    const apiUrl = process.env.COMPLAINTS_API_URL || process.env.NEXT_PUBLIC_API_URL;
+    if (!token || !apiUrl) {
+        console.error('Жалоба не сохранена в админке: не задан COMPLAINTS_INTAKE_TOKEN или адрес API');
+        return false;
+    }
+
+    const form = new FormData();
+    for (const [key, value] of Object.entries(fields)) {
+        if (value) form.append(key, value);
+    }
+    for (const att of attachments) {
+        form.append('photos', new Blob([new Uint8Array(att.content)], { type: att.contentType }), att.filename);
+    }
+
+    const headers: Record<string, string> = { 'X-Intake-Token': token };
+    // внутри Docker запрос идёт к API напрямую по http, мимо nginx. Без этого заголовка
+    // Django за HTTPS-прокси ответил бы перенаправлением на https
+    if (apiUrl.startsWith('http://')) headers['X-Forwarded-Proto'] = 'https';
+
+    try {
+        const res = await fetch(`${apiUrl.replace(/\/+$/, '')}/complaints/`, {
+            method: 'POST',
+            headers,
+            body: form,
+            cache: 'no-store',
+            redirect: 'error',
+            signal: AbortSignal.timeout(15000),
+        });
+        if (!res.ok) {
+            console.error('Жалоба не сохранена в админке: ответ API', res.status);
+            return false;
+        }
+        return true;
+    } catch (error) {
+        console.error('Жалоба не сохранена в админке:', error instanceof Error ? error.name : error);
+        return false;
+    }
+};
+
 export async function POST(request: NextRequest) {
     try {
         // слишком большой запрос отклоняем до чтения тела
@@ -156,7 +229,12 @@ export async function POST(request: NextRequest) {
         const full_name = readString(data.full_name, 200);
         const email = readString(data.email, 200);
         const phone = readString(data.phone, 50);
-        const complaint_type = readString(data.complaint_type, 200);
+        // форма присылает код типа. Вкладка, открытая до обновления сайта, присылает название —
+        // тогда в админке это «Другое», а в письме остаётся присланное название
+        const rawType = readString(data.complaint_type, 200);
+        const knownType = Object.hasOwn(COMPLAINT_TYPES, rawType);
+        const complaint_type = knownType ? rawType : 'other';
+        const typeLabel = knownType ? COMPLAINT_TYPES[rawType] : rawType || COMPLAINT_TYPES.other;
         const subject = readString(data.subject, 300);
         const description = readString(data.description, 10000);
         const incident_date = readString(data.incident_date, 50);
@@ -182,7 +260,7 @@ export async function POST(request: NextRequest) {
             full_name: escapeHtml(full_name),
             email: escapeHtml(email),
             phone: escapeHtml(phone),
-            complaint_type: escapeHtml(complaint_type),
+            complaint_type: escapeHtml(typeLabel),
             subject: escapeHtml(subject),
             // сохраняем переносы строк из textarea
             description: escapeHtml(description).replace(/\r?\n/g, '<br>'),
@@ -202,7 +280,7 @@ export async function POST(request: NextRequest) {
         });
 
         let photosHtml = '';
-        const emailAttachments = [];
+        const emailAttachments: { filename: string; content: Buffer; contentType: string; cid: string }[] = [];
 
         if (attachments.length > 0) {
             for (let i = 0; i < attachments.length; i++) {
@@ -378,18 +456,52 @@ export async function POST(request: NextRequest) {
             </html>
         `;
 
-        await transporter.sendMail({
-            from: process.env.SMTP_USER,
-            to: process.env.ADMIN_EMAIL,
-            // адрес объектом: nodemailer не станет разбирать в нём списки и группы получателей
-            replyTo: { name: '', address: email },
-            subject: toSingleLine(`[ЖАЛОБА] ${complaint_type} от ${full_name}`),
-            html: adminHtml,
-            attachments: emailAttachments,
-        });
+        const sendToStaff = async (): Promise<boolean> => {
+            try {
+                await transporter.sendMail({
+                    from: process.env.SMTP_USER,
+                    to: process.env.ADMIN_EMAIL,
+                    // адрес объектом: nodemailer не станет разбирать в нём списки и группы получателей
+                    replyTo: { name: '', address: email },
+                    subject: toSingleLine(`[ЖАЛОБА] ${typeLabel} от ${full_name}`),
+                    html: adminHtml,
+                    attachments: emailAttachments,
+                });
+                return true;
+            } catch (error) {
+                console.error('Письмо с жалобой не отправлено:', error instanceof Error ? error.message : error);
+                return false;
+            }
+        };
+
+        // Админка и почта независимы: жалоба принята, если дошла хотя бы куда-то одно.
+        // Иначе при сбое почты человек отправил бы её снова и в админке появились бы копии
+        const [savedToAdmin, emailed] = await Promise.all([
+            saveToAdmin(
+                {
+                    complaint_type,
+                    full_name,
+                    email,
+                    phone,
+                    subject,
+                    description,
+                    incident_date: isValidDate(incident_date) ? incident_date : '',
+                    incident_location,
+                },
+                attachments as SafeAttachment[],
+            ),
+            sendToStaff(),
+        ]);
+        if (!savedToAdmin && !emailed) {
+            return NextResponse.json(
+                { success: false, message: 'Ошибка при отправке жалобы' },
+                { status: 500 }
+            );
+        }
 
         // Подтверждение — без текста пользователя: иначе форму можно использовать,
-        // чтобы рассылать с почты предприятия письма с чужим текстом на любые адреса
+        // чтобы рассылать с почты предприятия письма с чужим текстом на любые адреса.
+        // Жалоба уже принята, поэтому сбой этого письма — не ошибка для посетителя
         await transporter.sendMail({
             from: process.env.SMTP_USER,
             to: { name: '', address: email },
@@ -428,6 +540,8 @@ export async function POST(request: NextRequest) {
                 </body>
                 </html>
             `,
+        }).catch((error) => {
+            console.error('Подтверждение заявителю не отправлено:', error instanceof Error ? error.message : error);
         });
 
         return NextResponse.json({ success: true, message: 'Жалоба успешно отправлена' });

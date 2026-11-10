@@ -206,7 +206,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                 <PhotoModal
                     isOpen={!!selectedPhoto}
                     onClose={() => setSelectedPhoto(null)}
-                    images={[selectedPhoto.main_image, ...(selectedPhoto.gallery_images || [])]}
+                    images={[selectedPhoto.main_image]}
                     date={selectedPhoto.date}
                 />
             )}

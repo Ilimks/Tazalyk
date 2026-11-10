@@ -106,11 +106,6 @@ export const ComplaintForm: React.FC = () => {
         }));
     };
 
-    const getComplaintTypeLabel = (value: string) => {
-        const type = complaintTypes.find(t => t.value === value);
-        return type ? type.label : value;
-    };
-
     const onCaptchaChange = (token: string | null) => {
         setCaptchaToken(token);
         if (token) {
@@ -144,7 +139,9 @@ export const ComplaintForm: React.FC = () => {
                     full_name: formData.full_name,
                     email: formData.email,
                     phone: formData.phone,
-                    complaint_type: getComplaintTypeLabel(formData.complaint_type),
+                    // код типа: по нему жалоба попадает в нужный тип в админке,
+                    // а сервер подставляет в письмо русское название
+                    complaint_type: formData.complaint_type,
                     subject: formData.subject,
                     description: formData.description,
                     incident_date: formData.incident_date,

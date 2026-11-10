@@ -30,6 +30,8 @@ export const useFooterNav = () => {
       title: t("FooterSubscribers"),
       items: [
         { label: t("FooterSubscribersTariffs"), href: "/tariffs" },
+        // как в верхнем меню «Абонентам»: платные услуги рядом с тарифами
+        { label: t("FooterSubscribersServices"), href: "/attendance" },
         { label: t("FooterSubscribersShop"), href: "/shop" },
         { label: t("FooterSubscribersServiceZone"), href: "/services" },
         { label: t("FooterSubscribersComplaints"), href: "/complaints" },

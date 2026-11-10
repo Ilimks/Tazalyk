@@ -1,6 +1,6 @@
 'use client'
 import styles from "./PhotoCard.module.scss";
-import { Calendar, Images } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { PhotoModal } from "@/shared/ui/Modals/PhotoModal";
@@ -10,7 +10,6 @@ interface Photo {
     main_image?: string;
     mainImage?: string;
     image?: string;
-    gallery_images?: string[];
     date: string;
     created_at: string;
     updated_at?: string;
@@ -73,12 +72,6 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
     };
 
     const imageUrl = getImageUrl();
-    const galleryCount = currentPhoto.gallery_images?.length || 0;
-    const totalPhotos = galleryCount + 1;
-    const allImages = [
-        imageUrl, 
-        ...(currentPhoto.gallery_images?.filter(img => img && img !== imageUrl) || [])
-    ];
 
     return (
         <>
@@ -96,12 +89,6 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
                         className={`${styles.card__image} ${isHovered ? styles.card__imageZoomed : ''}`}
                         onError={handleImageError}
                     />
-                    {totalPhotos > 1 && (
-                        <div className={styles.card__photoCount}>
-                            <Images size={12} aria-hidden />
-                            <span>{totalPhotos}</span>
-                        </div>
-                    )}
                 </div>
                 <div className={styles.card__content}>
                     <time className={styles.card__content__date}>
@@ -114,7 +101,8 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
             <PhotoModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                images={allImages}
+                // одна запись — одно фото: дополнительные фото больше не показываются
+                images={[imageUrl]}
                 date={currentPhoto.date}
             />
         </>

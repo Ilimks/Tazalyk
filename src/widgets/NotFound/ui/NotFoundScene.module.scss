@@ -1,0 +1,495 @@
+// Страница 404. Цвета — фирменные: тёмно-синий меню и зелёный листьев герба.
+$navy: #102382;
+$navy-soft: #3E4095;
+$green: #22C55E;
+$green-dark: #15803D;
+$ease-out: cubic-bezier(.22, .8, .24, 1);
+$spring: cubic-bezier(.34, 1.56, .64, 1);
+
+.scene {
+    position: relative;
+    overflow: hidden;
+    padding: 48px 0 72px;
+    background:
+        radial-gradient(640px 320px at 12% 8%, rgba($green, .12), transparent 70%),
+        radial-gradient(720px 380px at 88% 18%, rgba($navy, .08), transparent 70%),
+        #f9fafb;
+}
+
+// ---------- падающие листья ----------
+.sky {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.fallingLeaf {
+    position: absolute;
+    top: 0;
+    left: var(--x);
+    width: var(--size);
+    height: var(--size);
+    color: $green;
+    opacity: 0;
+    animation: fall var(--duration) linear var(--delay) infinite;
+
+    svg {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// ---------- содержимое ----------
+.inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.eyebrow {
+    display: inline-flex;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba($green, .12);
+    color: $green-dark;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    animation: rise .6s $ease-out both;
+}
+
+// «4 герб 4»: размеры герба и кольца заданы в em от размера цифр
+.code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // кольцо вокруг герба выше строки цифр — отступаем, чтобы оно не задевало надпись сверху
+    margin-top: .17em;
+    font-size: clamp(104px, 19vw, 220px);
+    font-weight: 900;
+    line-height: .9;
+}
+
+.digit {
+    background: linear-gradient(180deg, $navy-soft 0%, $navy 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 14px 22px rgba($navy, .18));
+    animation: rise .7s $ease-out .1s both;
+}
+
+.digitLast {
+    animation-delay: .25s;
+}
+
+.emblemSlot {
+    position: relative;
+    width: .84em;
+    height: .84em;
+    margin: 0 .1em;
+    animation: pop .9s $spring .35s both;
+}
+
+.emblemFloat {
+    position: absolute;
+    inset: 0;
+    animation: float 5s ease-in-out 1.3s infinite;
+}
+
+.ring {
+    position: absolute;
+    inset: -.07em;
+    border: max(3px, .016em) dashed $green;
+    border-radius: 50%;
+    animation: spin 24s linear infinite;
+}
+
+// листик бежит по кольцу
+.orbit {
+    position: absolute;
+    inset: -.07em;
+    animation: spin 8s linear infinite;
+}
+
+.orbitLeaf {
+    position: absolute;
+    top: -.07em;
+    left: 50%;
+    width: .15em;
+    height: .15em;
+    color: $green;
+    transform: translateX(-50%) rotate(-30deg);
+    filter: drop-shadow(0 4px 6px rgba($green-dark, .3));
+}
+
+.emblem {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow:
+        0 .1em .24em rgba($navy, .16),
+        inset 0 0 0 .012em rgba($navy, .06);
+
+    img {
+        width: 66%;
+        height: auto;
+    }
+}
+
+// ---------- улица с метлой ----------
+.street {
+    position: relative;
+    width: min(520px, 90%);
+    height: 100px;
+    margin-top: 18px;
+}
+
+.road {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, transparent, #cbd5e1 15%, #cbd5e1 85%, transparent);
+}
+
+.sweeper {
+    position: absolute;
+    left: 30%;
+    bottom: 12px;
+    width: 62px;
+}
+
+.broom {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform-origin: 50% 0;
+    animation: sweep 1.1s ease-in-out infinite alternate;
+}
+
+.sweptLeaf,
+.dust {
+    position: absolute;
+    bottom: 0;
+    left: 70%;
+    opacity: 0;
+}
+
+.sweptLeaf {
+    width: 16px;
+    height: 16px;
+    color: $green;
+    animation: swept 2.2s $ease-out var(--delay) infinite;
+
+    svg {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.dust {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    animation: puff 2.2s ease-out var(--delay) infinite;
+}
+
+// ---------- текст и кнопки ----------
+.title {
+    margin: 14px 0 0;
+    color: $navy;
+    font-size: clamp(26px, 3.2vw, 40px);
+    font-weight: 800;
+    line-height: 1.2;
+    animation: rise .7s $ease-out .45s both;
+}
+
+.description {
+    max-width: 560px;
+    margin: 12px 0 0;
+    color: #475569;
+    font-size: 17px;
+    line-height: 1.6;
+    animation: rise .7s $ease-out .55s both;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 28px;
+    animation: rise .7s $ease-out .65s both;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 50px;
+    padding: 0 24px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease, color .2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+
+    &:focus-visible {
+        outline: 3px solid rgba($green, .6);
+        outline-offset: 3px;
+    }
+}
+
+.buttonPrimary {
+    background: $navy;
+    color: #fff;
+    box-shadow: 0 10px 24px rgba($navy, .25);
+
+    &:hover {
+        background: #1a2fa0;
+        box-shadow: 0 14px 28px rgba($navy, .3);
+    }
+}
+
+.buttonGhost {
+    border: 1.5px solid rgba($navy, .18);
+    background: #fff;
+    color: $navy;
+
+    &:hover {
+        border-color: $green;
+        color: $green-dark;
+    }
+}
+
+.quick {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 36px;
+    animation: rise .7s $ease-out .75s both;
+}
+
+.quickLabel {
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.quickList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.quickLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    background: #fff;
+    color: #1e293b;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color .2s ease, color .2s ease, box-shadow .2s ease;
+
+    svg {
+        color: $green;
+        transition: transform .2s ease;
+    }
+
+    &:hover {
+        border-color: $green;
+        color: $navy;
+        box-shadow: 0 6px 16px rgba($navy, .08);
+
+        svg {
+            transform: translateX(3px);
+        }
+    }
+
+    &:focus-visible {
+        outline: 3px solid rgba($green, .6);
+        outline-offset: 2px;
+    }
+}
+
+@media (max-width: 600px) {
+    .scene {
+        padding: 32px 0 56px;
+    }
+
+    .code {
+        margin-top: .26em;
+        font-size: clamp(92px, 26vw, 140px);
+    }
+
+    .street {
+        height: 84px;
+    }
+
+    .sweeper {
+        width: 52px;
+    }
+
+    .description {
+        font-size: 15px;
+    }
+
+    .button {
+        height: 46px;
+        padding: 0 20px;
+        font-size: 15px;
+    }
+}
+
+// кто отключил анимацию в системе, видит страницу сразу и неподвижной
+@media (prefers-reduced-motion: reduce) {
+    .eyebrow,
+    .digit,
+    .emblemSlot,
+    .emblemFloat,
+    .ring,
+    .orbit,
+    .broom,
+    .title,
+    .description,
+    .actions,
+    .quick {
+        animation: none;
+    }
+
+    .fallingLeaf,
+    .sweptLeaf,
+    .dust {
+        display: none;
+    }
+}
+
+// ---------- ключевые кадры ----------
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes pop {
+    from {
+        opacity: 0;
+        transform: scale(.3) rotate(-120deg);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-.05em);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes sweep {
+    from {
+        transform: rotate(16deg);
+    }
+    to {
+        transform: rotate(-16deg);
+    }
+}
+
+@keyframes swept {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(0) scale(.6);
+    }
+    15% {
+        opacity: 1;
+    }
+    60% {
+        opacity: .9;
+        transform: translate(72px, -16px) rotate(160deg) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(136px, 0) rotate(300deg) scale(.8);
+    }
+}
+
+@keyframes puff {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(.4);
+    }
+    20% {
+        opacity: .8;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(96px, -26px) scale(2.2);
+    }
+}
+
+@keyframes fall {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -10vh, 0) rotate(0deg);
+    }
+    10% {
+        opacity: .5;
+    }
+    25% {
+        transform: translate3d(28px, 18vh, 0) rotate(70deg);
+    }
+    50% {
+        transform: translate3d(-14px, 45vh, 0) rotate(160deg);
+    }
+    75% {
+        transform: translate3d(24px, 72vh, 0) rotate(250deg);
+    }
+    90% {
+        opacity: .45;
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(0, 100vh, 0) rotate(340deg);
+    }
+}

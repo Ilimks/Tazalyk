@@ -19,6 +19,8 @@ export const useHeaderMenu = () => {
       title: t('subscribers'),
       dropdown: [
         { label: t('subscribersTariffs'), href: "/tariffs" },
+        // платные услуги рядом с тарифами: и то и другое — «сколько и за что платить»
+        { label: t('subscribersServices'), href: "/attendance" },
         { label: t('subscribersComplaints'), href: "/complaints" },
         { label: t('subscribersEmployee'), href: "/employee" },
       ],
@@ -30,11 +32,9 @@ export const useHeaderMenu = () => {
         { label: t('pressCenterMedia'), href: "/media" }
       ],
     },
-    { 
-      title: t('procurement'), href: "/procurement", dropdown: null 
-    },
     {
-      title: t('attendance'), href: "/attendance", dropdown: null},
+      title: t('procurement'), href: "/procurement", dropdown: null
+    },
     { title: t('shop'), href: "/shop", dropdown: null },
     {
       title: t('regulatoryFramework'),
