@@ -23,7 +23,7 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
     const Icon = DocumentIcons[iconType] ?? DocumentIcons.document;
 
     return (
-        <div className={styles.documentCard}>
+        <div data-reveal suppressHydrationWarning className={styles.documentCard}>
             <div className={styles.cardIcon}>
                 <Icon size={40} aria-hidden />
             </div>

@@ -1,31 +1,18 @@
 .buttonCardNews {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    width: fit-content;
-    color: #1e3a5f;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 168%;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-        color: #22c55e;
-    }
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--brand);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .icon {
-    flex-shrink: 0;
-}
-
-@media (max-width: 600px) {
-    .buttonCardNews {
-        font-size: 12px;
-
-        .icon {
-            width: 14px;
-            height: 14px;
-        }
-    }
+  flex-shrink: 0;
+  transition: transform .2s ease;
 }

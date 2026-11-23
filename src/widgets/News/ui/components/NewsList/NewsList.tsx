@@ -15,6 +15,10 @@ import { useNewsFilter } from '@/features/news/filter/useNewsFilter';
 import type { PaginatedNewsResponse } from '@/entities/news';
 import styles from './NewsList.module.scss';
 
+// ТЗ 4.1.10: фильтр по году — текущий год и два предыдущих
+const CURRENT_YEAR = new Date().getFullYear();
+const NEWS_YEARS = [CURRENT_YEAR, CURRENT_YEAR - 1, CURRENT_YEAR - 2];
+
 interface NewsListProps {
     itemsPerPage?: number;
     // первая страница без фильтров, загруженная на сервере
@@ -85,12 +89,14 @@ export const NewsList: React.FC<NewsListProps> = ({ itemsPerPage = 12, initialDa
         <section className={styles.newsList}>
             <PageHeader title={t('NewsTitle')} description={t('NewsDescription')} />
             <div className="container">
-                <NewsSearch value={searchQuery} onChange={setSearchQuery} onClear={handleSearchClear} />
-                <NewsFilters 
-                    years={[]} 
-                    selectedYear={selectedYear} 
-                    onYearChange={setSelectedYear} 
-                />
+                <div className={styles.toolbar}>
+                    <NewsSearch value={searchQuery} onChange={setSearchQuery} onClear={handleSearchClear} />
+                    <NewsFilters
+                        years={NEWS_YEARS}
+                        selectedYear={selectedYear}
+                        onYearChange={setSelectedYear}
+                    />
+                </div>
                 <NewsStats count={totalCount} hasFilters={hasActiveFilters} searchQuery={searchQuery} selectedYear={selectedYear} />
                 
                 {news.length > 0 ? (

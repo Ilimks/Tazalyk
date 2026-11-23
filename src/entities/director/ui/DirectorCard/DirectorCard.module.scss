@@ -1,62 +1,37 @@
 .directorCard {
+  overflow: hidden;
+  aspect-ratio: 5 / 6;
+  border-radius: var(--r-lg);
+  background: var(--brand-50);
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // пока нет фотографии — спокойные инициалы, а не зелёный щит на полэкрана
+  &__placeholder {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 15px;
-    background-color: rgb(245, 245, 245);
-    padding: 20px;
-    border-radius: 16px;
-    min-width: 320px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, var(--brand-100) 0%, var(--brand-50) 100%);
+    color: var(--brand);
+    font-size: 64px;
+    font-weight: 700;
+    letter-spacing: .02em;
+  }
+}
 
-    &__position {
-        color: #102382;
-        font-size: 20px;
-        font-weight: 600;
-        margin: 0;
-        text-align: center;
-        letter-spacing: 0.3px;
-    }
+@media (max-width: 700px) {
+  .directorCard {
+    width: 148px;
+  }
 
-    .imageWrapper {
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
-        
-        .directorCard__img {
-            display: block;
-            width: 100%;
-            height: auto;
-            max-width: 280px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-            
-            &:hover {
-                transform: scale(1.02);
-            }
-        }
-    }
-
-    .imageWrapper .directorCard__placeholder {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 280px;
-        max-width: 100%;
-        aspect-ratio: 320 / 410;
-        background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-        color: #fff;
-        font-size: 64px;
-        font-weight: 600;
-    }
-
-    &__name {
-        width: 260px;
-        color: #102382;
-        text-align: center;
-        font-size: 20px;
-        font-weight: 700;
-        margin: 0;
-        line-height: 1.3;
-    }
+  .directorCard__placeholder {
+    font-size: 40px;
+  }
 }

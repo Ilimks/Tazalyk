@@ -1,6 +1,6 @@
 import { Badge } from '@/shared/ui/Badge';
 import { ProcurementItem } from '@/entities/procurement/model/types';
-import { typeConfig, methodConfig, statusConfig } from '@/entities/procurement/model/types';
+import { statusConfig } from '@/entities/procurement/model/types';
 import { formatAmount } from '@/shared/lib/utils/format';
 import { useTranslations } from 'next-intl';
 import styles from './TableRow.module.scss';
@@ -29,9 +29,7 @@ export const TableRow: React.FC<TableRowProps> = ({
             onMouseLeave={onMouseLeave}
         >
             <td className={styles.purchaseNumberCell}>
-                <span className={styles.purchaseNumberBadge}>
-                    {index + 1}
-                </span>
+                {index + 1}
             </td>
             <td className={styles.contractNumber}>
                 <span className={styles.contractLink}>{item.contractNumber}</span>
@@ -41,21 +39,9 @@ export const TableRow: React.FC<TableRowProps> = ({
                     <span className={styles.supplierName}>{item.supplier}</span>
                 </div>
             </td>
-            <td>
-                <Badge
-                    label={t(`ProcurementTypes.${item.type}`)}
-                    color={typeConfig[item.type].color}
-                    backgroundColor={typeConfig[item.type].bg}
-                />
-            </td>
-            <td>
-                <Badge
-                    label={t(`ProcurementMethods.${item.method}`)}
-                    color={methodConfig[item.method].color}
-                    backgroundColor={methodConfig[item.method].bg}
-                />
-            </td>
-            <td>
+            <td data-label={t('ProcurementTableBodyType')}>{t(`ProcurementTypes.${item.type}`)}</td>
+            <td data-label={t('ProcurementTableBodyMethod')}>{t(`ProcurementMethods.${item.method}`)}</td>
+            <td data-label={t('ProcurementTableBodyStatus')}>
                 <Badge
                     label={t(`ProcurementStatuses.${item.status}`)}
                     color={statusConfig[item.status].color}
@@ -63,10 +49,10 @@ export const TableRow: React.FC<TableRowProps> = ({
                     showDot={item.status === 'active'}
                 />
             </td>
-            <td className={styles.dateText}>
-                <span>{item.date}</span>
+            <td className={styles.dateText} data-label={t('ProcurementTableBodyDate')}>
+                <time dateTime={item.date}>{item.date.split('-').reverse().join('.')}</time>
             </td>
-            <td className={styles.amountValue}>
+            <td className={styles.amountValue} data-label={t('ProcurementTableBodyContractAamount')}>
                 <span>{formatAmount(item.amount)}</span>
             </td>
         </tr>

@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { ShoppingCart } from 'lucide-react';
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
+import { useAppDispatch, useAppSelector, useMounted } from '@/shared/lib/hooks';
 import { getProductName, type Product } from '@/entities/product';
 import { ORDER_RULES } from '@/entities/order';
 import { addToCart, decrementQuantity, incrementQuantity, syncCartItems } from '../../model/cartSlice';
@@ -25,7 +25,8 @@ export const AddToCartButton: React.FC<AddToCartButtonProps> = ({ product, class
     const t = useTranslations('Cart');
     const locale = useLocale();
     const dispatch = useAppDispatch();
-    const hydrated = useAppSelector(selectCartHydrated);
+    const mounted = useMounted();
+    const hydrated = useAppSelector(selectCartHydrated) && mounted;
     const quantity = useAppSelector((state) => selectCartItemQuantity(state, product.id));
     const linesCount = useAppSelector(selectCartLinesCount);
     const name = getProductName(product, locale);

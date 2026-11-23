@@ -1,1 +1,0 @@
-export { DoubleImageSection } from './DoubleImageSection'

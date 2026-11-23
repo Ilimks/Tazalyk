@@ -45,7 +45,7 @@ export const StructureActivity: React.FC = () => {
                 <h2 className={styles.sectionTitle}>{t('activity.title')}</h2>
                 <div className={styles.grid}>
                     {activities.map(({ icon: Icon, title, description }, index) => (
-                        <div key={index} className={styles.card}>
+                        <div key={index} data-reveal suppressHydrationWarning className={styles.card}>
                             <div className={styles.icon}>
                                 <Icon size={36} aria-hidden />
                             </div>

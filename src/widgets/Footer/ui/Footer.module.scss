@@ -1,10 +1,8 @@
 .footer {
-    background-color: #162A45;
-    padding: 68px 0 32px;
+  background: var(--brand-dark);
+  color: rgba(255, 255, 255, .74);
 
-    &__box {
-        display: flex;
-        flex-direction: column;
-        gap: 82px;
-    }
+  &__box {
+    padding: 56px 0 28px;
+  }
 }

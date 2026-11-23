@@ -3,7 +3,7 @@ import styles from "./HeaderUp.module.scss";
 import mobile from "./HeaderUpMobile.module.scss";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { HeaderIcons } from "../HeaderIcons/HeaderIcons";
+import { MapPin } from "lucide-react";
 import { HeaderInputSearch } from "../Search/Search";
 import { Language } from "@/shared/ui/language/Language";
 import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
@@ -14,6 +14,7 @@ import { CartLink } from "@/features/cart";
 
 export const HeaderUp: React.FC = () => {
   const t = useTranslations("Header");
+  const tFooter = useTranslations("Footer");
   const { isOpen, toggle, close } = useBurger();
 
   return (
@@ -60,24 +61,18 @@ export const HeaderUp: React.FC = () => {
       </div>
 
       <div
-        className={`${styles.header__up__center} ${mobile.header__up__center}`}
-      >
-        <p className={`${styles.header__up__tex1} ${mobile.header__up__text1}`}>
-          {t('header__text1')}
-        </p>
-        <p className={`${styles.header__up__tex2} ${mobile.header__up__text2}`}>
-          {t('header__text2')}
-        </p>
-      </div>
-
-      <div
         className={`${styles.header__up__right} ${mobile.header__up__right}`}
       >
         <HeaderInputSearch />
-        <HeaderIcons />
         <div className={styles.header__up__actions}>
+          <Link href="/contacts" className={styles.header__up__address}>
+            <MapPin size={18} aria-hidden />
+            <span>{tFooter('FooterAddress')}</span>
+          </Link>
           <CartLink />
-          <Language />
+          <div className={styles.header__up__lang}>
+            <Language />
+          </div>
           <BurgerMenu isOpen={isOpen} onClick={toggle} />
         </div>
       </div>

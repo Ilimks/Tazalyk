@@ -1,18 +1,20 @@
 .newsGrid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
 }
 
-@media (max-width: 768px) {
-    .newsGrid {
-        gap: 24px;
-    }
+@media (max-width: 1000px) {
+  .newsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
 }
 
-@media (max-width: 400px) {
-    .newsGrid {
-        gap: 18px;
-    }
+@media (max-width: 600px) {
+  .newsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }

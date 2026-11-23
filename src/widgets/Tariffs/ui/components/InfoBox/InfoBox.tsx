@@ -12,7 +12,7 @@ export const InfoBox: React.FC<InfoBoxProps> = ({ title, items }) => {
     return (
         <section className={styles.info}>
             <div className="container">
-                <div className={styles.infoBox}>
+                <div data-reveal suppressHydrationWarning className={styles.infoBox}>
                     <div className={styles.infoBoxIcon}>
                         <Info aria-hidden />
                     </div>

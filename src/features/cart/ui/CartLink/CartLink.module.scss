@@ -7,7 +7,7 @@
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    color: #1e3a5f;
+    color: var(--ink);
     transition: background-color 0.2s ease, color 0.2s ease;
 
     svg {
@@ -16,12 +16,12 @@
     }
 
     &:hover {
-        background: #f1f5f9;
-        color: #102382;
+        background: var(--bg);
+        color: var(--brand);
     }
 
     &:focus-visible {
-        outline: 2px solid #22c55e;
+        outline: 2px solid var(--green);
         outline-offset: 2px;
     }
 }
@@ -34,10 +34,10 @@
     height: 19px;
     padding: 0 5px;
     border: 2px solid #ffffff;
-    border-radius: 999px;
-    background: #22c55e;
+    border-radius: var(--r-full);
+    background: var(--green);
     color: #ffffff;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     line-height: 15px;
     text-align: center;
@@ -76,7 +76,7 @@
         min-width: 17px;
         height: 17px;
         padding: 0 4px;
-        font-size: 10px;
+        font-size: 12px;
         line-height: 13px;
     }
 }

@@ -1,120 +1,146 @@
 .card {
-    display: flex;
-    gap: 20px;
-    background: white;
-    padding: 20px;
-    border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  transition: border-color .2s ease;
+
+  &:hover {
+    border-color: var(--brand-100);
+  }
 }
 
 .cardIcon {
-    flex-shrink: 0;
-    width: 60px;
-    height: 60px;
-    background: #f1f5f9;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    svg {
-        width: 32px;
-        height: 32px;
-        color: #3b82f6;
-        stroke: currentColor;
-    }
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--brand-50);
+  color: var(--brand);
+
+  svg {
+    width: 28px;
+    height: 28px;
+  }
 }
 
 .cardContent {
-    flex: 1;
+  display: grid;
+  flex: 1;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px 24px;
 }
 
 .cardTitle {
-    font-size: 16px;
-    font-weight: 600;
-    color: #0f172a;
-    margin: 0 0 12px 0;
-    line-height: 1.4;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .cardMeta {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 16px;
-    font-size: 12px;
-    color: #64748b;
+  display: flex;
+  flex-wrap: wrap;
+  grid-row: 2;
+  gap: 4px 18px;
+  color: var(--muted);
+  font-size: 14px;
 }
 
-.cardDate, .cardSize {
-    display: flex;
-    align-items: center;
-    gap: 4px;
+.cardDate,
+.cardSize {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .cardActions {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  gap: 10px;
 }
 
-.viewBtn, .downloadBtn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    
-    svg {
-        stroke: currentColor;
-    }
+.viewBtn,
+.downloadBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: none;
+  border-radius: var(--r-md);
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color .2s ease;
 }
 
 .viewBtn {
-    background: #eff6ff;
-    color: #3b82f6;
-    
-    &:hover {
-        background: #dbeafe;
-        color: #2563eb;
-    }
+  background: var(--brand-50);
+  color: var(--brand);
+
+  &:hover {
+    background: var(--brand-100);
+  }
 }
 
 .downloadBtn {
-    background: #dcfce7;
-    color: #22c55e;
-    
-    &:hover {
-        background: #bbf7d0;
-        color: #16a34a;
-    }
+  background: var(--brand);
+  color: #fff;
+
+  &:hover {
+    background: var(--brand-hover);
+  }
 }
 
-@media (max-width: 768px) {
-    .card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 20px;
+@media (max-width: 800px) {
+  .card {
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .cardIcon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+
+    svg {
+      width: 22px;
+      height: 22px;
     }
-    
-    .cardIcon {
-        width: 50px;
-        height: 50px;
-        
-        svg {
-            width: 28px;
-            height: 28px;
-        }
+  }
+
+  .cardContent {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cardTitle {
+    font-size: 16px;
+  }
+
+  .cardActions {
+    grid-row: auto;
+    grid-column: auto;
+    // на самых узких экранах кнопки встают одна под другой
+    flex-wrap: wrap;
+    margin-top: 10px;
+
+    button {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 0 10px;
+      font-size: 14px;
     }
-    
-    .cardMeta {
-        justify-content: center;
-    }
-    
-    .cardActions {
-        justify-content: center;
-    }
+  }
 }

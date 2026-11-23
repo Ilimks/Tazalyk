@@ -1,11 +1,12 @@
 'use client';
 import { useTranslations } from 'next-intl';
-import { ClipboardList, MessageSquareWarning, Receipt } from 'lucide-react';
+import { CalendarClock, ClipboardList, MessageSquareWarning, Receipt } from 'lucide-react';
 import { ActionCard } from '@/shared/ui/Cards';
 import styles from './PersonalSection.module.scss';
 
 export const PersonalSection: React.FC = () => {
     const t = useTranslations('PersonalCabinet');
+    const tEmployee = useTranslations('Employee');
 
     const actions = [
         {
@@ -28,6 +29,14 @@ export const PersonalSection: React.FC = () => {
             description: t('complaint.description'),
             href: '/complaints',
             icon: <MessageSquareWarning aria-hidden />
+        },
+        // ТЗ 4.1.1: среди важного на главной — приём граждан
+        {
+            id: 4,
+            title: tEmployee('title'),
+            description: tEmployee('scheduleTitle'),
+            href: '/employee',
+            icon: <CalendarClock aria-hidden />
         }
     ];
     

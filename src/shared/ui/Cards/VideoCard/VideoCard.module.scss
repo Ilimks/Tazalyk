@@ -1,227 +1,111 @@
 .card {
-  width: 300px;
-  height: auto;
-  background: #fff;
   overflow: hidden;
-  transition: all 0.3s ease-in-out;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 768px) {
-    width: 270px;
-  }
-
-  @media (max-width: 650px) {
-    width: 240px;
-  }
-  
-  @media (max-width: 550px) {
-    width: 210px;
-  }
-
-  @media (max-width: 480px) {
-    width: 180px;
-  }
-
-  @media (max-width: 420px) {
-    width: 160px;
-  }
-
-  @media (max-width: 390px) {
-    width: 140px;
-  }
+  transition: border-color .2s ease, box-shadow .2s ease;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.15);
+    border-color: var(--brand-100);
+    box-shadow: var(--sh-2);
 
-    .card__video {
-      transform: scale(1.05);
+    .card__playIcon {
+      background: var(--green);
+      color: #05270f;
     }
   }
 
   &__imageContainer {
     position: relative;
-    width: 100%;
-    height: 200px;
     overflow: hidden;
-    background: #0f172a;
-    flex-shrink: 0;
-
-    @media (max-width: 768px) {
-      height: 180px;
-    }
-
-    @media (max-width: 650px) {
-      height: 140px;
-    }
-
-    @media (max-width: 550px) {
-      height: 120px;
-    }
-
-    @media (max-width: 480px) {
-      height: 100px;
-    }
-
-    @media (max-width: 420px) {
-      height: 80px;
-    }
+    aspect-ratio: 3 / 2;
+    background: var(--brand-dark);
   }
 
   &__video {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+  }
 
-    &Zoomed {
-      transform: scale(1.05);
-    }
-
-    @media (max-width: 420px) {
-      height: 80px;
-    }
+  &__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: var(--brand-50);
+    color: var(--brand);
   }
 
   &__playIcon {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 48px;
-    height: 48px;
-    background: #22c55e;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    color: white;
-
-    @media (max-width: 600px) {
-      width: 24px;
-      height: 24px;
-
-      .card__playGlyph {
-        width: 12px;
-        height: 12px;
-      }
-    }
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .94);
+    color: var(--brand);
+    box-shadow: 0 6px 18px rgba(10, 20, 80, .3);
+    transform: translate(-50%, -50%);
+    transition: background-color .2s ease, color .2s ease;
   }
 
-  // треугольник «play» визуально смещён влево — компенсируем
   &__playGlyph {
     margin-left: 3px;
   }
 
-  &__duration {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(4px);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 500;
-    z-index: 2;
-  }
-
   &__galleryCount {
     position: absolute;
+    right: 10px;
+    bottom: 10px;
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    bottom: 12px;
-    left: 12px;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(4px);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 20px;
+    padding: 3px 8px;
+    border-radius: var(--r-full);
+    background: rgba(10, 20, 80, .78);
+    color: #fff;
     font-size: 12px;
-    font-weight: 500;
-    z-index: 2;
+    font-weight: 600;
   }
 
   &__content {
     padding: 12px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
 
     &__date {
-      font-size: 12px;
-      color: #94a3b8;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
+      color: var(--muted);
+      font-size: 14px;
 
-      @media (max-width: 480px) {
-        font-size: 10px;
+      svg {
+        color: var(--green-600);
       }
-    }
-
-    &__title {
-      font-size: 16px;
-      font-weight: 600;
-      color: #0f172a;
-      line-height: 1.4;
-      margin: 0;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      transition: color 0.2s ease;
-
-      &Hovered {
-        color: #22c55e;
-      }
-
-      @media (max-width: 480px) {
-        font-size: 12px;
-      }
-    }
-
-    @media (max-width: 480px) {
-        padding: 10px 14px;
     }
   }
 }
 
-.card__thumbnail {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
+@media (max-width: 600px) {
+  .card {
+    &__playIcon {
+      width: 44px;
+      height: 44px;
+    }
 
-.card__placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #1e293b;
-    color: #94a3b8;
-}
+    &__content {
+      padding: 10px 12px;
 
-.videosGrid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
-  margin: 0 auto;
-
-  @media (max-width: 768px) {
-    gap: 20px;
-  }
-
-  @media (max-width: 480px) {
-    gap: 16px;
+      &__date {
+        font-size: 13px;
+      }
+    }
   }
 }

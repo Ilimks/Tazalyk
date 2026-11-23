@@ -1,46 +1,49 @@
 .pageHeader {
-    text-align: left;
-    margin-bottom: 30px;
-    
-    @media (max-width: 768px) {
-        margin-bottom: 20px;
-    }
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--line);
+  background: var(--brand-50);
 }
 
 .pageTitleWrapper {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 16px;
+  padding-top: 14px;
 }
 
 .pageTitle {
-    font-size: 36px;
-    font-weight: 800;
-    color: #0f172a;
-    margin: 0;
-    letter-spacing: -0.02em;
-    
-    @media (max-width: 768px) {
-        font-size: 32px;
-    }
-    
-    @media (max-width: 480px) {
-        font-size: 26px;
-    }
+  font-size: clamp(30px, 3vw, 44px);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.15;
 }
 
 .pageDescription {
-    max-width: 700px;
-    font-size: 16px;
-    line-height: 1.6;
-    color: #64748b;
-    margin: 0;
-    
-    @media (max-width: 768px) {
-        font-size: 14px;
-    }
-    
-    @media (max-width: 480px) {
-        font-size: 13px;
-    }
+  max-width: 760px;
+  margin-top: 10px;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.pageHeader :global(.container) {
+  padding-bottom: 36px;
+}
+
+@media (max-width: 600px) {
+  .pageHeader {
+    margin-bottom: 24px;
+  }
+
+  .pageTitleWrapper {
+    padding-top: 10px;
+  }
+
+  .pageTitle {
+    font-size: 28px;
+  }
+
+  .pageDescription {
+    font-size: 15px;
+  }
+
+  .pageHeader :global(.container) {
+    padding-bottom: 24px;
+  }
 }

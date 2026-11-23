@@ -14,8 +14,8 @@ export const DirectorateGrid: React.FC<DirectorateGridProps> = ({ members }) => 
         <section className='directorate'>
             <div className="container">
                 <div className={styles.directorateGrid}>
-                    {sortedMembers.map((member, index) => (
-                        <DirectorateCard key={member.id} member={member} index={index} />
+                    {sortedMembers.map((member) => (
+                        <DirectorateCard key={member.id} member={member} />
                     ))}
                 </div>
             </div>

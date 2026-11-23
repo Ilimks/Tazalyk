@@ -16,7 +16,7 @@ export const TariffCard: React.FC<TariffCardProps> = ({ title, icon, baseTariff,
     const t = useTranslations("Tariffs");
 
     return (
-        <div className={styles.tariffCard}>
+        <div data-reveal suppressHydrationWarning className={styles.tariffCard}>
             <div className={styles.cardHeader}>
                 <div className={styles.cardIcon}>{icon}</div>
                 <h3>{title}</h3>

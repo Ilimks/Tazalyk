@@ -1,52 +1,21 @@
+// список строками: названия документов длинные, в узких карточках они ломались
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 24px;
-    margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 40px;
 }
 
-.loader {
-    text-align: center;
-    padding: 80px;
-    background: white;
-    border-radius: 24px;
-    
-    p {
-        color: #64748b;
-        font-size: 14px;
-    }
-}
-
+.loader,
 .empty {
-    text-align: center;
-    padding: 80px;
-    background: white;
-    border-radius: 24px;
-    
-    svg {
-        color: #cbd5e1;
-        margin-bottom: 16px;
-    }
-    
-    p {
-        color: #64748b;
-        font-size: 16px;
-    }
-}
+  padding: 72px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  color: var(--muted);
+  text-align: center;
 
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@media (max-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-    
-    .loader, .empty {
-        padding: 60px 20px;
-    }
+  svg {
+    margin-bottom: 16px;
+  }
 }

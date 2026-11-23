@@ -15,7 +15,7 @@ interface ContactCardProps {
 export const ContactCard: React.FC<ContactCardProps> = ({ icon, title, details, link, linkText }) => {
 
     return (
-        <div className={styles.contactCard}>
+        <div data-reveal suppressHydrationWarning className={styles.contactCard}>
             <div className={styles.contactIcon}>{icon}</div>
             <h4 className={styles.contactTitle}>{title}</h4>
             <div className={styles.contactDetails}>

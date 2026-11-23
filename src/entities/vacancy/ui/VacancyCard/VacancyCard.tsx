@@ -35,7 +35,7 @@ export const VacancyCard: React.FC<VacancyCardProps> = ({ vacancy }) => {
     const salary = getSalary();
 
     return (
-        <article className={styles.card}>
+        <article data-reveal suppressHydrationWarning className={styles.card}>
             <h3 className={styles.title}>{title}</h3>
 
             <ul className={styles.facts}>

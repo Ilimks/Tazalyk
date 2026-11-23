@@ -16,7 +16,7 @@ export const VacanciesCard: React.FC<VacanciesCardProps> = ({
     isDriversCard = false 
 }) => {
     return (
-        <div className={`${styles.card} ${isDriversCard ? styles.driversCard : ''}`}>
+        <div data-reveal suppressHydrationWarning className={`${styles.card} ${isDriversCard ? styles.driversCard : ''}`}>
             <h2 className={styles.cardTitle}>
                 {icon}
                 {title}

@@ -1,243 +1,245 @@
 .hero {
-    width: 100%;
-    height: 82vh;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-    padding: 4rem;
+  position: relative;
+  overflow: hidden;
+  background: var(--brand-dark);
 
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        z-index: 1;
-    }
+  // затемнение только слева, под текстом: фотография остаётся живой
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(10, 20, 80, .94) 0%, rgba(10, 20, 80, .78) 34%, rgba(10, 20, 80, .22) 68%, rgba(10, 20, 80, .1) 100%),
+      linear-gradient(0deg, rgba(10, 20, 80, .55) 0%, rgba(10, 20, 80, 0) 40%);
+  }
 }
 
-// Фоновый слой со слайдами (под затемнением ::before)
+// фоновый слой со слайдами (под затемнением ::before)
 .background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
 .bgImage {
-    object-fit: cover;
-    object-position: center;
+  object-fit: cover;
+  object-position: center;
+}
+
+// текущее фото едва заметно приближается, пока слайд на экране
+.bgCurrent {
+  animation: heroDrift 7s linear both;
+}
+
+@keyframes heroDrift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.035);
+  }
 }
 
 // текущий слайд — сверху
 .bgCurrent {
-    z-index: 2;
-    opacity: 1;
+  z-index: 2;
+  opacity: 1;
 }
 
-// при смене слайда текущий проявляется поверх предыдущего (как прежний transition background-image 0.8s ease)
+// при смене слайда текущий проявляется поверх предыдущего
 .bgFadeIn {
-    animation: heroBgFadeIn 0.8s ease;
+  animation: heroBgFadeIn .8s ease, heroDrift 7s linear both;
 }
 
 .bgPrev {
-    z-index: 1;
-    opacity: 1;
+  z-index: 1;
+  opacity: 1;
 }
 
 // следующий слайд: подгружен заранее, но невидим
 .bgNext {
-    z-index: 0;
-    opacity: 0;
+  z-index: 0;
+  opacity: 0;
 }
 
 @keyframes heroBgFadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: clamp(600px, 78vh, 760px);
+  // снизу место под карточки быстрых ссылок, которые заходят на фото
+  padding-block: 72px 144px;
 }
 
 .infoPanel {
-    position: relative;
-    z-index: 2;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 4rem;
-    max-width: 35%;
+  max-width: 640px;
 }
 
-.infoPanelCentered {
-    max-width: 100%;
-    padding-left: 0;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
+// текст первого экрана появляется по очереди: надпись, заголовок, кнопки
+.heroBrand,
+.heroTitle,
+.heroActions {
+  animation: rise-in .6s var(--ease) backwards;
 }
 
 .heroTitle {
-    align-self: flex-start;
-    // от ширины экрана, а не колонки: колонка на ноутбуках уже нужного размера
-    width: min(36vw, 520px);
-    margin-bottom: 1.5rem;
-
-    img {
-        display: block;
-        width: 100%;
-        height: auto;
-    }
+  animation-delay: .08s;
 }
 
-.heroText {
-    font-size: 2rem;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 2rem;
-    max-width: 400px;
+.heroActions {
+  animation-delay: .16s;
 }
 
-.infoPanelCentered .heroText {
-    max-width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+.heroBrand {
+  display: block;
+  width: 260px;
+  height: auto;
+  margin-bottom: 24px;
+}
+
+.heroTitle {
+  margin-bottom: 32px;
+  color: #fff;
+  font-size: clamp(34px, 3.6vw, 52px);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.14;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .heroBtn {
-    border: 1px solid #cfe9fa;
-    border-radius: 5px;
-    padding: 12px 35px;
-    font-weight: 700;
-    font-size: 16px;
-    color: white;
-    transition: all 0.3s ease;
-    background: none;
-    cursor: pointer;
-    width: fit-content;
-    
-    &:hover {
-        background-color: #1b36b9;
-        border-color: #1b36b9;
-        transform: translateY(-2px);
-    }
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 26px;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, .06);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color .2s ease, border-color .2s ease;
+
+  &:hover {
+    border-color: #fff;
+    background: rgba(255, 255, 255, .16);
+  }
 }
 
-.infoPanelCentered .heroBtn {
-    margin: 0 auto;
+.heroBtnPrimary {
+  border-color: var(--green);
+  background: var(--green);
+  color: #05270f;
+
+  &:hover {
+    border-color: #4ade80;
+    background: #4ade80;
+  }
 }
 
+// круговая карусель слайдов — как была, по просьбе заказчика;
+// поднята на 48px, чтобы нижний кружок не закрывали карточки быстрых ссылок
 .carouselContainer {
-    position: absolute;
-    top: 50%;
-    left: 65%;
-    transform: translate(25%, -7%);
-    z-index: 2;
+  position: absolute;
+  z-index: 2;
+  top: calc(50% - 48px);
+  left: 65%;
+  transform: translate(25%, -7%);
 }
 
 .carousel {
-    position: relative;
-    width: 40rem;
-    height: 40rem;
-    border: 1px dashed rgba(238, 190, 151, 0.5);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40rem;
+  height: 40rem;
+  border: 1px dashed rgba(238, 190, 151, .5);
+  border-radius: 50%;
 }
 
 .slide {
-    position: absolute;
-    border-radius: 50%;
-    outline: 2px solid #22c55e;
-    width: 4rem;
-    height: 4rem;
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s;
-    cursor: pointer;
-    
-    &:hover {
-        transform: scale(1.1);
-        outline: 3px solid #22c55e;
-    }
-    
-    &.active {
-        outline: 3px solid #22c55e;
-        box-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
-        width: 6rem;
-        height: 6rem;
-    }
+  position: absolute;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  outline: 2px solid var(--green);
+  background-position: center;
+  background-size: cover;
+  cursor: pointer;
+  transition: transform .8s cubic-bezier(.25, .1, .25, 1), opacity .5s;
+
+  &:hover {
+    outline: 3px solid var(--green);
+  }
+
+  &.active {
+    width: 6rem;
+    height: 6rem;
+    outline: 3px solid var(--green);
+    box-shadow: 0 0 15px rgba(255, 107, 53, .5);
+  }
 }
 
 @media (max-width: 1200px) {
-    .carouselContainer {
-        display: none;
-    }
-    
-    .infoPanel {
-        max-width: 100%;
-        text-align: center;
-        align-items: center;
-        padding-left: 0;
-    }
-
-    .heroTitle {
-        align-self: center;
-        width: min(46vw, 460px);
-    }
-    
-    .heroText {
-        max-width: 80%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .heroBtn {
-        margin: 0 auto;
-    }
+  .carouselContainer {
+    display: none;
+  }
 }
 
-@media (max-width: 768px) {
-    .hero {
-        padding: 2rem;
-    }
-    
-    .heroTitle {
-        width: min(100%, 340px);
-        margin-bottom: 1rem;
-    }
+@media (max-width: 1000px) {
+  .inner {
+    min-height: 480px;
+    padding-block: 48px 104px;
+  }
 
-    .heroText {
-        font-size: 1.5rem;
-    }
-    
-    .heroBtn {
-        padding: 8px 25px;
-        font-size: 14px;
-    }
+  .hero::before {
+    background: linear-gradient(180deg, rgba(10, 20, 80, .82) 0%, rgba(10, 20, 80, .66) 60%, rgba(10, 20, 80, .78) 100%);
+  }
 }
 
-@media (max-width: 480px) {
-    .hero {
-        height: 60vh;
-    }
-    .heroTitle {
-        width: min(100%, 270px);
-    }
+@media (max-width: 600px) {
+  .inner {
+    min-height: 0;
+    padding-block: 36px 92px;
+  }
 
-    .heroText {
-        font-size: 1rem;
-    }
+  .heroBrand {
+    width: 190px;
+    margin-bottom: 18px;
+  }
+
+  .heroTitle {
+    margin-bottom: 24px;
+    font-size: 30px;
+  }
+
+  .heroActions {
+    flex-direction: column;
+  }
+
+  .heroBtn {
+    width: 100%;
+  }
 }

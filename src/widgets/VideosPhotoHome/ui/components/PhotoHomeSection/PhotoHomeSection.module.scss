@@ -1,6 +1,51 @@
 .photoHome {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 26px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+
+  > :only-child {
+    grid-column: 1 / -1;
+  }
+}
+
+// карточки-заготовки, пока раздел не докрутили
+.skeletonContainer {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.skeletonCard {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+
+.skeletonImage {
+  aspect-ratio: 3 / 2;
+  background: var(--brand-50);
+}
+
+.skeletonTitle {
+  width: 40%;
+  height: 14px;
+  margin: 16px;
+  border-radius: 7px;
+  background: var(--brand-50);
+}
+
+@media (max-width: 1000px) {
+  .photoHome,
+  .skeletonContainer {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .photoHome,
+  .skeletonContainer {
+    gap: 12px;
+  }
 }

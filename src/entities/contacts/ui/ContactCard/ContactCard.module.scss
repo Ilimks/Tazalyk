@@ -1,93 +1,69 @@
 .contactCard {
-    background: #f8fafc;
-    border-radius: 20px;
-    padding: 20px;
-    border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
 }
 
 .contactIcon {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 16px;
-    
-    svg {
-        stroke: white;
-        width: 24px;
-        height: 24px;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 18px;
+  border-radius: 14px;
+  background: var(--brand-50);
+  color: var(--brand);
 }
 
 .contactTitle {
-    font-size: 18px;
-    font-weight: 600;
-    color: #0f172a;
-    margin: 0 0 12px 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .contactDetails {
-    margin-bottom: 16px;
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
 }
 
 .detailItem {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 0;
-    border-bottom: 1px dashed #e2e8f0;
-    
-    &:last-child {
-        border-bottom: none;
-    }
-}
-
-.detailText {
-    flex: 1;
-    font-size: 14px;
-    color: #334155;
-    line-height: 1.4;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .detailLink {
-    @extend .detailText;
-    text-decoration: none;
-    transition: color 0.2s ease;
+  color: var(--ink);
+  font-weight: 600;
 
-    &:hover {
-        color: #3b82f6;
-    }
+  &:hover {
+    color: var(--brand);
+  }
 }
 
 .contactLink {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #3b82f6;
-    text-decoration: none;
-    padding: 6px 12px;
-    background: #eff6ff;
-    border-radius: 10px;
-    transition: all 0.2s ease;
-    margin-top: 8px;
-    
-    svg {
-        stroke: currentColor;
-        transition: transform 0.2s ease;
-    }
-    
-    &:hover {
-        background: #3b82f6;
-        color: white;
-        
-        svg {
-            transform: translateX(3px);
-        }
-    }
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  color: var(--brand);
+  font-size: 15px;
+  font-weight: 600;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contactCard {
+    padding: 18px 16px;
+  }
 }

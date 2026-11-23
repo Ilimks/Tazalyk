@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { MessageSquareWarning } from 'lucide-react';
 import { useHeroCarousel } from '../model/useHeroCarousel';
 import styles from './HeroHomeSection.module.scss';
 import mobile from './HeroHomeSectionMobile.module.scss';
@@ -13,6 +14,7 @@ const HERO_IMAGE_SIZES = '(max-width: 480px) 200vw, (max-width: 1000px) 170vw, 1
 
 export const HeroHomeSection: React.FC = () => {
     const t = useTranslations("Main");
+    const tMenu = useTranslations("HeaderMenu");
     const [isMobile, setIsMobile] = useState(false);
     const [isHydrated, setIsHydrated] = useState(false);
     const {
@@ -69,14 +71,14 @@ export const HeroHomeSection: React.FC = () => {
     const getSlideTransform = (position: number): string => {
         const radius = 20;
         const angle = position * 47 + 141;
-        
+
         let scale = 1;
         if (position === 0) {
             scale = 3;
         } else if (position === -1 || position === 1) {
             scale = 1.8;
         }
-        
+
         return `rotate(${angle}deg) translateY(${radius}rem) rotate(${-angle}deg) scale(${scale})`;
     };
 
@@ -115,16 +117,27 @@ export const HeroHomeSection: React.FC = () => {
                 })}
             </div>
 
-            <div className={`${styles.infoPanel} ${isMobile ? styles.infoPanelCentered : ''}`}>
-                <h1 className={styles.heroTitle}>
-                    <Image src="/assets/icons/logo-name-green.svg" alt="ТАЗАЛЫК" width={520} height={84} priority />
-                </h1>
-                <p className={styles.heroText}>
-                    {t('MainHeruDescription')}
-                </p>
-                <Link href="/history" className={styles.heroBtn}>
-                    {t('MainHeroButton')}
-                </Link>
+            <div className={`container ${styles.inner}`}>
+                <div className={styles.infoPanel}>
+                    <Image
+                        className={styles.heroBrand}
+                        src="/assets/icons/logo-name-green.svg"
+                        alt="ТАЗАЛЫК"
+                        width={260}
+                        height={42}
+                        priority
+                    />
+                    <h1 className={styles.heroTitle}>{t('MainHeruDescription')}</h1>
+                    <div className={styles.heroActions}>
+                        <Link href="/complaints" className={`${styles.heroBtn} ${styles.heroBtnPrimary}`}>
+                            <MessageSquareWarning size={20} aria-hidden />
+                            {tMenu('subscribersComplaints')}
+                        </Link>
+                        <Link href="/history" className={styles.heroBtn}>
+                            {t('MainHeroButton')}
+                        </Link>
+                    </div>
+                </div>
             </div>
 
             {!isMobile && (

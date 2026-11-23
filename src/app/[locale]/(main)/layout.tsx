@@ -4,6 +4,7 @@ import { Footer } from "@/widgets/Footer/ui/Footer";
 import { Header } from "@/widgets/Header/ui/Header";
 import { SideAds, InlineAd } from "@/widgets/Ads";
 import { NavigationProgress } from "@/shared/ui/NavigationProgress";
+import { RevealOnScroll } from "@/shared/ui/RevealOnScroll";
 import { HtmlLang } from "./providers/HtmlLang";
 import { StoreProvider } from "@/providers/StoreProvider";
 import { CartPersistence } from "@/features/cart";
@@ -188,6 +189,7 @@ export default async function LocaleLayout({
       <CartPersistence />
       <NavigationProgress />
       <NextIntlClientProvider>
+        <RevealOnScroll />
         <Header />
         <SideAds>{children}</SideAds>
         <InlineAd />

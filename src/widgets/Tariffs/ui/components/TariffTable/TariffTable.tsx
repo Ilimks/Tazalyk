@@ -15,7 +15,7 @@ export const TariffTable: React.FC<TariffTableProps> = ({ title, columns, rows }
                     <h2 className={styles.sectionTitle}>
                         <span>{title}</span>
                     </h2>
-                    <div className={styles.tableWrapper}>
+                    <div data-reveal suppressHydrationWarning className={styles.tableWrapper}>
                         <table className={styles.tariffTable}>
                             <thead>
                                 <tr>
@@ -28,10 +28,10 @@ export const TariffTable: React.FC<TariffTableProps> = ({ title, columns, rows }
                                 {rows.map((row, index) => (
                                     <tr key={index}>
                                         <td>{row.category}</td>
-                                        <td>{row.unit}</td>
-                                        <td>{row.baseTariff}</td>
-                                        <td dangerouslySetInnerHTML={{ __html: row.taxes }} />
-                                        <td className={styles.totalCell}>{row.total}</td>
+                                        <td data-label={columns[1]}>{row.unit}</td>
+                                        <td data-label={columns[2]}>{row.baseTariff}</td>
+                                        <td data-label={columns[3]} dangerouslySetInnerHTML={{ __html: row.taxes }} />
+                                        <td data-label={columns[4]} className={styles.totalCell}>{row.total}</td>
                                     </tr>
                                 ))}
                             </tbody>

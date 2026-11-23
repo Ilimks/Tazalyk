@@ -8,7 +8,7 @@
     margin: 0;
     padding: 18px 0;
     border: none;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--line);
 
     &:first-child {
         padding-top: 0;
@@ -26,7 +26,7 @@
     width: 100%;
     margin-bottom: 12px;
     padding: 0;
-    color: #0f172a;
+    color: var(--ink);
     font-size: 15px;
     font-weight: 600;
 
@@ -45,7 +45,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #334155;
+    color: var(--text);
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -55,12 +55,12 @@
         width: 18px;
         height: 18px;
         margin: 0;
-        accent-color: #22c55e;
+        accent-color: var(--green);
         cursor: pointer;
     }
 
     &:hover span {
-        color: #102382;
+        color: var(--brand);
     }
 }
 
@@ -80,7 +80,7 @@
 }
 
 .priceLabel {
-    color: #64748b;
+    color: var(--muted);
     font-size: 12px;
     font-weight: 500;
 }
@@ -89,28 +89,28 @@
     width: 100%;
     height: 40px;
     padding: 0 12px;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
     background: #ffffff;
-    color: #0f172a;
+    color: var(--ink);
     font-family: inherit;
     font-size: 14px;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
     &::placeholder {
-        color: #94a3b8;
+        color: var(--muted);
     }
 
     &:focus {
         outline: none;
-        border-color: #22c55e;
+        border-color: var(--green);
         box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
     }
 }
 
 .priceDash {
     padding-bottom: 10px;
-    color: #94a3b8;
+    color: var(--muted);
 }
 
 // Переключатель «Только в наличии»
@@ -129,7 +129,7 @@
     }
 
     input:checked + .switchTrack {
-        background: #22c55e;
+        background: var(--green);
 
         &::after {
             transform: translateX(18px);
@@ -137,7 +137,7 @@
     }
 
     input:focus-visible + .switchTrack {
-        outline: 2px solid #102382;
+        outline: 2px solid var(--brand);
         outline-offset: 2px;
     }
 }
@@ -147,8 +147,8 @@
     flex-shrink: 0;
     width: 40px;
     height: 22px;
-    border-radius: 999px;
-    background: #cbd5e1;
+    border-radius: var(--r-full);
+    background: var(--line-strong);
     transition: background-color 0.2s ease;
 
     &::after {
@@ -166,7 +166,7 @@
 }
 
 .switchLabel {
-    color: #334155;
+    color: var(--text);
     font-size: 14px;
     font-weight: 500;
 }

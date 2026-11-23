@@ -1,12 +1,13 @@
 .directorateGrid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 32px;
-    padding: 40px 0 60px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  padding-bottom: var(--section);
+}
 
-    @media (max-width: 768px) {
-        gap: 22px;
-        padding: 10px 0 30px;
-    }
+@media (max-width: 1100px) {
+  .directorateGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
 }

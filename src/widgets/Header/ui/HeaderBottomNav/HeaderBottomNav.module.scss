@@ -1,150 +1,126 @@
 .header__bottom {
-    background-color: #102382;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    padding: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--brand);
 
-    .header__bottom__nav {
-            
-        .header__bottom__ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap:5px;
-            justify-content: space-evenly;
-            align-items: center;
-            position: relative;
+  .header__bottom__ul {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-inline: -14px;
+  }
 
-            .header__bottom__li {
-                position: relative;
-                // Крупнее и жирнее: на тёмно-синем фоне мелкие буквы читались плохо.
-                // 17px от ~1366px; на узких ноутбуках размер уменьшается вместе с шириной,
-                // чтобы и кыргызские пункты (они длиннее) оставались в одну строку.
-                // Отступы в em, поэтому сжимаются вместе с буквами.
-                font-size: clamp(12px, calc(1.35vw - 1.2px), 17px);
-                font-weight: 700;
-                letter-spacing: 0.02em;
-                white-space: nowrap;
-                color: #fff;
-                padding: 6px 0.6em;
+  .header__bottom__li {
+    position: relative;
+    padding: 0 14px;
+    color: rgba(255, 255, 255, .88);
+    // с учётом кыргызских пунктов: они длиннее и тоже должны помещаться в строку
+    font-size: clamp(13px, 1.12vw, 16px);
+    font-weight: 600;
+    line-height: 56px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color .2s ease;
 
-                // русские пункты короче — им хватает места на 17px уже с ~1150px
-                :global(html[lang='ru']) & {
-                    font-size: clamp(14px, calc(1.6vw - 1.4px), 17px);
-                }
-                transition: color .2s ease;
-                cursor: pointer;
-                a {
-                  color: inherit;
-                  text-decoration: none;
-                }
-
-                a:visited,
-                a:hover,
-                a:active {
-                  color: inherit;
-                }
-            
-                &:hover {
-                    color: #ffffff;
-                }
-            
-                &::after {
-                    content: '';
-                    position: absolute;
-                    bottom: 0;
-                    left: 50%;
-                    width: 0;
-                    height: 2px;
-                    background: #ffffff;
-                    transition: all .2s ease;
-                    transform: translateX(-50%);
-                }
-            
-                &:hover::after {
-                    width: 80%;
-                }
-                .hasDropdown {
-                    user-select: none;
-                }
-                
-                .dropdown {
-                    position: absolute;
-                    // ровно под синей полосой: от низа пункта до низа полосы — её отступ 15px.
-                    // Раньше было 149% высоты пункта, и при другом размере шрифта
-                    // между полосой и списком появлялась щель. Минус 1px — заходим
-                    // под полосу того же цвета, чтобы не было и щели в полпикселя.
-                    top: calc(100% + 15px - 1px);
-                    left: 0;
-                    // по ширине самого длинного пункта, чтобы «Структура и деятельность»
-                    // не разламывалась на две строки
-                    width: max-content;
-                    min-width: 220px;
-                    max-width: 300px;
-                    background: #102382;
-                    z-index: 100;
-                    border-bottom: 3px solid rgb(5, 187, 5);
-                    white-space: normal;
-
-                    // Плавное раскрытие сверху вниз: список «выдвигается» из-под полосы.
-                    // Закрытый список остаётся в разметке, но скрыт и недоступен для мыши
-                    // и клавиатуры — так закрытие тоже получается плавным.
-                    visibility: hidden;
-                    pointer-events: none;
-                    clip-path: inset(0 0 100% 0);
-                    transition:
-                        clip-path .32s cubic-bezier(.22, .8, .24, 1),
-                        visibility 0s linear .32s;
-
-                    ul {
-                        opacity: 0;
-                        transform: translateY(-10px);
-                        transition: opacity .2s ease, transform .32s cubic-bezier(.22, .8, .24, 1);
-                    }
-                }
-
-                .dropdownOpen {
-                    visibility: visible;
-                    pointer-events: auto;
-                    clip-path: inset(0); // целиком, вместе с зелёной полоской снизу
-                    transition: clip-path .32s cubic-bezier(.22, .8, .24, 1), visibility 0s;
-
-                    ul {
-                        opacity: 1;
-                        transform: none;
-                    }
-                }
-
-                .dropdown ul {
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                // кликается вся строка, а не только текст
-                .dropdown li a {
-                    color: #fff;
-                    font-size: 16px;
-                    font-weight: 500;
-                    letter-spacing: normal;
-                    text-decoration: none;
-                    display: block;
-                    padding: 12px 24px;
-                }
-
-                .dropdown li:hover {
-                    background: rgba(255, 255, 255, 0.1);
-                }
-            }
-        }
+    > a {
+      display: block;
+      color: inherit;
     }
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 14px;
+      bottom: 0;
+      left: 14px;
+      height: 3px;
+      border-radius: 3px 3px 0 0;
+      background: var(--green);
+      transform: scaleX(0);
+      transition: transform .2s ease;
+    }
+
+    &:hover,
+    &.expanded,
+    &.current {
+      color: #fff;
+    }
+
+    &:hover::after,
+    &.expanded::after,
+    &.current::after {
+      transform: scaleX(1);
+    }
+  }
+
+  .trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    user-select: none;
+
+    svg {
+      opacity: .7;
+      transition: transform .2s ease;
+    }
+  }
+
+  .expanded .trigger svg {
+    transform: rotate(180deg);
+  }
+
+  .dropdown {
+    position: absolute;
+    z-index: 100;
+    top: calc(100% + 8px);
+    left: 0;
+    // по ширине самого длинного пункта, чтобы «Структура и деятельность» не разламывалась
+    width: max-content;
+    min-width: 240px;
+    max-width: 320px;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--surface);
+    box-shadow: var(--sh-3);
+    line-height: 1.4;
+    white-space: normal;
+
+    // закрытый список остаётся в разметке, но скрыт и недоступен для мыши и клавиатуры
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
+  }
+
+  .dropdownOpen {
+    visibility: visible;
+    pointer-events: auto;
+    opacity: 1;
+    transform: none;
+    transition: opacity .18s ease, transform .18s ease, visibility 0s;
+  }
+
+  // кликается вся строка, а не только текст
+  .dropdown li a {
+    display: block;
+    padding: 11px 14px;
+    border-radius: 10px;
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 500;
+
+    &:hover {
+      background: var(--brand-50);
+      color: var(--brand);
+    }
+  }
 }
 
-// кто отключил анимацию в системе, видит список сразу
 @media (prefers-reduced-motion: reduce) {
-    .header__bottom .header__bottom__nav .header__bottom__ul .header__bottom__li {
-        .dropdown,
-        .dropdown ul {
-            transition: none;
-        }
-    }
+  .header__bottom .dropdown {
+    transition: none;
+  }
 }

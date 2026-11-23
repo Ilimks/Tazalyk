@@ -1,6 +1,6 @@
 'use client';
 import { useMemo } from 'react';
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
+import { useAppDispatch, useAppSelector, useMounted } from '@/shared/lib/hooks';
 import {
     clearCart,
     decrementQuantity,
@@ -18,7 +18,8 @@ import {
 export const useCart = () => {
     const dispatch = useAppDispatch();
     const items = useAppSelector(selectCartItems);
-    const hydrated = useAppSelector(selectCartHydrated);
+    const mounted = useMounted();
+    const hydrated = useAppSelector(selectCartHydrated) && mounted;
     const count = useAppSelector(selectCartCount);
     const total = useAppSelector(selectCartTotal);
 

@@ -2,11 +2,18 @@
   display: none;
   align-items: center;
   justify-content: center;
+  width: 44px;
+  height: 44px;
   padding: 0;
-  background: none;
   border: none;
-  color: #1e3a5f;
+  border-radius: var(--r-md);
+  background: none;
+  color: var(--ink);
   cursor: pointer;
+
+  &:hover {
+    background: var(--brand-50);
+  }
 }
 
 @media (max-width: 1000px) {

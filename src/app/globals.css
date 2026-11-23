@@ -1,4 +1,86 @@
-/* Шрифт Roboto подключается через next/font/local в src/app/layout.tsx (переменная --font-roboto) */
+/*
+ * Дизайн-токены сайта МП «Тазалык».
+ * Те же цвета и шрифт, что в админ-панели и ассистенте поручений:
+ * фирменный синий — основной, зелёный — только акцент (черта, значок, отметка).
+ */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('./fonts/onest/onest-cyrillic-ext-wght-normal.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('./fonts/onest/onest-cyrillic-wght-normal.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('./fonts/onest/onest-latin-ext-wght-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113;
+}
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('./fonts/onest/onest-latin-wght-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --font-sans: 'Onest', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+
+  --brand: #102382;
+  --brand-hover: #0b1a66;
+  --brand-dark: #0a1450;
+  --brand-light: #1d35ad;
+  --brand-50: #eef1fb;
+  --brand-100: #dde3f7;
+
+  /* зелёный: #22c55e — заливки и линии, для текста на белом нужен тёмный */
+  --green: #22c55e;
+  --green-600: #16a34a;
+  --green-text: #15803d;
+  --green-50: #ecfdf3;
+  --green-100: #d3f6e0;
+
+  --ink: #0f172a;
+  --text: #334155;
+  --muted: #586376;
+  --line: #e3e8f1;
+  --line-strong: #c9d2e0;
+  --bg: #f6f8fc;
+  --surface: #ffffff;
+
+  --danger: #dc2626;
+  --danger-text: #b91c1c;
+  --danger-50: #fef2f2;
+  --warn-text: #92400e;
+  --warn-50: #fff8e6;
+  --warn-line: #f5dfa3;
+
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+  --r-full: 999px;
+
+  --sh-1: 0 1px 2px rgba(15, 23, 42, .06);
+  --sh-2: 0 8px 24px -8px rgba(16, 35, 130, .14);
+  --sh-3: 0 20px 44px -16px rgba(16, 35, 130, .28);
+  --ring: 0 0 0 3px rgba(16, 35, 130, .18);
+
+  --section: 72px;
+}
 
 * {
   margin: 0;
@@ -8,16 +90,104 @@
   text-decoration: none;
 }
 
+/* значки не сжимаются, когда рядом длинный текст */
+.lucide {
+  flex-shrink: 0;
+}
+
 .container {
   max-width: 1280px;
   margin: 0 auto;
 }
 
+a {
+  color: inherit;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: var(--font-roboto);
-  background-color: #f9fafb;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5 {
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--brand);
+  color: #fff;
+}
+
+/*
+ * Движение: короткое и спокойное. Одна кривая и три длительности на весь сайт.
+ * Появление блоков при прокрутке — RevealOnScroll, атрибут data-reveal.
+ */
+:root {
+  --ease: cubic-bezier(.22, .7, .3, 1);
+  --t-fast: .18s;
+  --t-base: .28s;
+  --t-slow: .55s;
+}
+
+main {
+  animation: page-in var(--t-base) ease backwards;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+[data-reveal='wait'] {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+[data-reveal='in'] {
+  transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease) !important;
+}
+
+/* кнопки и ссылки-кнопки чуть поддаются нажатию */
+button:active:not(:disabled),
+a[class*='tn']:active,
+a[class*='utton']:active {
+  scale: .98;
 }
 
 @media (max-width: 1350px) {
@@ -27,7 +197,34 @@ body {
 }
 
 @media (max-width: 1000px) {
+  :root {
+    --section: 56px;
+  }
   .container {
-    max-width: 90%;
+    max-width: none;
+    padding-inline: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --section: 44px;
+  }
+  .container {
+    padding-inline: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
   }
 }

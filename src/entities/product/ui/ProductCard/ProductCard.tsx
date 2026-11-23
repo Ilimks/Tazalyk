@@ -34,7 +34,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, action, class
     }, [imageUrl]);
 
     return (
-        <article className={`${styles.card} ${className}`}>
+        <article data-reveal suppressHydrationWarning className={`${styles.card} ${className}`}>
             <div className={styles.media}>
                 {imageUrl && !imageFailed ? (
                     // eslint-disable-next-line @next/next/no-img-element -- next/image не используем: фото с API без оптимизатора

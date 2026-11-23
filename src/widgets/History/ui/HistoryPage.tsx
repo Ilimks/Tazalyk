@@ -1,30 +1,35 @@
 'use client';
-import { useHistoryData } from '../model/historyData';
-import { QuoteCard } from '@/shared/ui/Cards';
-import { PageHeader } from '@/shared/ui/PageHeader';
 import { useTranslations } from 'next-intl';
+import { PageHeader } from '@/shared/ui/PageHeader';
+import { QuoteCard } from '@/shared/ui/Cards';
+import { useHistoryData } from '../model/historyData';
+import { AwardsSection } from './components/AwardsSection/AwardsSection';
 import { HistorySection } from './components/HistorySection';
-import { DoubleImageSection } from './components/DoubleImageSection';
 import { ConclusionSection } from './components/ConclusionSection';
+import styles from './HistoryPage.module.scss';
 
 export const HistoryPage: React.FC = () => {
     const t = useTranslations("History");
-    const { quote, conclusion, historySections, doubleImage } = useHistoryData();
-    
+    const { quote, conclusion, historySections, awards } = useHistoryData();
+
     return (
         <>
             <PageHeader
                 title={t('HistoryTitle')}
                 description={t('HistoryDescription')}
             />
-            
-            {historySections.map((section, index) => (
-                // первое фото видно сразу под заголовком — грузим его без lazy (LCP)
-                <HistorySection key={section.id} {...section} imagePriority={index === 0} />
-            ))}
-            
+
+            <div className="container">
+                <ol className={styles.timeline}>
+                    {historySections.map((section, index) => (
+                        // первое фото видно сразу под заголовком — грузим его без lazy (LCP)
+                        <HistorySection key={section.id} {...section} imagePriority={index === 0} />
+                    ))}
+                </ol>
+                <AwardsSection {...awards} />
+            </div>
+
             <QuoteCard text={quote.text} author={quote.author} />
-            <DoubleImageSection {...doubleImage} />
             <ConclusionSection title={conclusion.title} paragraphs={conclusion.paragraphs} />
         </>
     );

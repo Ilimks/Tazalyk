@@ -1,4 +1,5 @@
 'use client';
+import { HomeSectionHeader } from '@/shared/ui/HomeSectionHeader';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
@@ -47,51 +48,43 @@ export const NewsDetail: React.FC<NewsDetailProps> = ({ news, relatedNews }) => 
         <div className={`${styles.newsDetail} ${mobile.newsDetail}`}>
             <div className="container">
                 <article className={styles.article}>
-                    <div className={styles.imageWrapper}>
-                        <div className={styles.imageContainer}>
-                            <Image
-                                src={imageUrl}
-                                alt={title}
-                                fill
-                                className={styles.mainImage}
-                                priority
-                                sizes="(max-width: 768px) 100vw, 1200px"
-                                onError={() => setImageUrl(PLACEHOLDER_IMAGE)}
-                            />
-                        </div>
-                        <div className={styles.imageOverlay}>
-                            <div className={styles.badge}>{t('NewsBadge')}</div>
-                        </div>
-                    </div>
-
-                    <div className={styles.contentWrapper}>
-                        <div className={styles.header}>
+                    <header className={styles.header}>
+                        <div className={styles.meta}>
+                            <span className={styles.badge}>{t('NewsBadge')}</span>
                             <time className={styles.date} dateTime={getNewsDate(news)}>
                                 <Calendar size={16} aria-hidden />
                                 {formatDate(getNewsDate(news), { format: 'long', locale: dateLocale })}
                             </time>
-                            <h1 className={styles.title}>{title}</h1>
                         </div>
+                        <h1 className={styles.title}>{title}</h1>
+                    </header>
 
-                        <div className={styles.description}>
-                            <p>{description}</p>
-                        </div>
-
-                        <div className={styles.actions}>
-                            <button onClick={handleShare} className={styles.shareBtn}>
-                                <Share2 size={20} aria-hidden />
-                                {t('NewsShare')}
-                            </button>
-                        </div>
+                    <div className={styles.imageContainer}>
+                        <Image
+                            src={imageUrl}
+                            alt={title}
+                            fill
+                            className={styles.mainImage}
+                            priority
+                            sizes="(max-width: 900px) 100vw, 860px"
+                            onError={() => setImageUrl(PLACEHOLDER_IMAGE)}
+                        />
                     </div>
+
+                    {/* абзацы новости разделены переводом строки: раньше текст сливался в один */}
+                    <div className={styles.description}>
+                        <p>{description}</p>
+                    </div>
+
+                    <button onClick={handleShare} className={styles.shareBtn}>
+                        <Share2 size={20} aria-hidden />
+                        {t('NewsShare')}
+                    </button>
                 </article>
 
                 {relatedNews.length > 0 && (
                     <div className={styles.relatedSection}>
-                        <div className={styles.relatedHeader}>
-                            <h3 className={styles.relatedTitle}>{t('NewsSimilar')}</h3>
-                            <div className={styles.relatedUnderline}></div>
-                        </div>
+                        <HomeSectionHeader title={t('NewsSimilar')} />
                         <div className={styles.relatedGrid}>
                             {relatedNews.map((item) => (
                                 <NewsCard key={item.id} news={item} variant="compact" />

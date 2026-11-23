@@ -1,71 +1,59 @@
 .tabs {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 40px;
-    border-bottom: 1px solid #e2e8f0;
+  display: inline-flex;
+  max-width: 100%;
+  margin-bottom: 24px;
+  padding: 4px;
+  overflow-x: auto;
+  border-radius: var(--r-md);
+  background: var(--brand-50);
 }
 
 .tab {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background: none;
-    border: none;
-    font-size: 16px;
-    font-weight: 500;
-    color: #64748b;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 9px;
+  background: none;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color .2s ease, color .2s ease;
 
-    svg {
-        stroke: currentColor;
-    }
-
-    &:hover {
-        color: #22c55e;
-    }
+  &:hover {
+    color: var(--brand);
+  }
 }
 
 .tabActive {
-    color: #22c55e;
-
-    &::after {
-        content: '';
-        position: absolute;
-        bottom: -1px;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: #22c55e;
-    }
+  background: var(--surface);
+  color: var(--brand);
+  box-shadow: var(--sh-1);
 }
 
 .tabCount {
-    margin-left: 4px;
-    font-size: 12px;
-    padding: 2px 6px;
-    background: #f1f5f9;
-    border-radius: 20px;
-    color: #64748b;
-
-    .tabActive & {
-        background: #eff6ff;
-        color: #22c55e;
-    }
+  padding: 1px 9px;
+  border-radius: var(--r-full);
+  background: var(--brand-100);
+  color: var(--brand);
+  font-size: 13px;
 }
 
-@media (max-width: 768px) {
-    .tab {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
-}
+@media (max-width: 600px) {
+  .tabs {
+    display: flex;
+  }
 
-@media (max-width: 480px) {
-    .tab {
-        padding: 8px 16px;
-        font-size: 13px;
-    }
+  .tab {
+    flex: 1;
+    justify-content: center;
+    padding: 6px 10px;
+    font-size: 14px;
+    line-height: 1.25;
+    white-space: normal;
+  }
 }

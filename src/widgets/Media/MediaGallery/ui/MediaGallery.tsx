@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { Images, Video as VideoIcon } from 'lucide-react';
-import { MediaHeader } from '@/shared/ui/MediaHeader';
+import { PageHeader } from '@/shared/ui/PageHeader';
 import { Tabs } from '@/shared/ui/Tabs';
 import { Pagination } from '@/shared/ui/Pagination';
 import { ErrorState } from '@/shared/ui/ErrorState';
@@ -187,12 +187,9 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
 
     return (
         <div className={`${styles.gallery} ${mobile.gallery}`}>
-            <div className="container">
-                <MediaHeader
-                    title={t('title')}
-                    description={t('description')}
-                />
+            <PageHeader title={t('title')} description={t('description')} />
 
+            <div className="container">
                 <Tabs
                     tabs={updateTabCounts}
                     activeTab={activeTab}

@@ -24,7 +24,7 @@ export const AppealsCenterSection: React.FC = () => {
             <Leaf className={`${styles.appeals__leaf} ${styles.appeals__leafRight}`} />
 
             <div className="container">
-                <div className={styles.appeals__box}>
+                <div data-reveal suppressHydrationWarning className={styles.appeals__box}>
                     <div className={styles.appeals__up}>
                         <p className={styles.appeals__brand}>Тазалык</p>
                         <h2 className={styles.appeals__title}>{t('MainReceptionTitle')}</h2>

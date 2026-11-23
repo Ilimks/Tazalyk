@@ -16,12 +16,6 @@ interface NewsCardProps {
   variant?: "compact";
 }
 
-const truncateText = (text: string, maxLength: number) => {
-  if (!text) return '';
-  if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength) + '...';
-};
-
 export const NewsCard = ({ news }: NewsCardProps) => {
   const locale = useLocale();
   const t = useTranslations('News');
@@ -42,6 +36,7 @@ export const NewsCard = ({ news }: NewsCardProps) => {
     <Link
       href={`/news/${news.id}`}
       className={styles.cardLink}
+      data-reveal suppressHydrationWarning
     >
       <article
         className={`${styles.card} ${mobile.card}`}
@@ -53,8 +48,9 @@ export const NewsCard = ({ news }: NewsCardProps) => {
             src={imageUrl}
             alt={title}
             className={`${styles.card__image} ${mobile.card__image} ${isHovered ? styles.card__imageZoomed : ''}`}
-            width={297}
-            height={224}
+            width={600}
+            height={400}
+            sizes="(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 300px"
             priority={false}
           />
         </div>
@@ -67,10 +63,10 @@ export const NewsCard = ({ news }: NewsCardProps) => {
             {formatDate(displayDate, { format: 'long', locale: dateLocale })}
           </time>
           <h3 className={`${styles.card__content__title} ${mobile.card__content__title} ${isHovered ? styles.card__content__titleHovered : ''}`}>
-            {truncateText(title, 45)}
+            {title}
           </h3>
           <p className={`${styles.card__content__description} ${mobile.card__content__description}`}>
-            {truncateText(description, 90)}
+            {description}
           </p>
           <ButtonCardNews
             className={`${styles.card__content__btn} ${mobile.card__content__btn} ${isHovered ? styles.card__content__btnHovered : ''}`}

@@ -12,10 +12,10 @@
     max-height: calc(100vh - 104px);
     padding: 20px;
     overflow-y: auto;
-    border: 1px solid #e2e8f0;
-    border-radius: 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
     background: #ffffff;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--sh-1);
 }
 
 .sidebarHeader {
@@ -25,12 +25,12 @@
     gap: 12px;
     margin-bottom: 18px;
     padding-bottom: 14px;
-    border-bottom: 2px solid #22c55e;
+    border-bottom: 2px solid var(--green);
 }
 
 .sidebarTitle {
     margin: 0;
-    color: #1e3a5f;
+    color: var(--ink);
     font-size: 18px;
     font-weight: 600;
 }
@@ -39,7 +39,7 @@
     padding: 4px 0;
     border: none;
     background: none;
-    color: #102382;
+    color: var(--brand);
     font-family: inherit;
     font-size: 13px;
     font-weight: 500;
@@ -48,7 +48,7 @@
     cursor: pointer;
 
     &:hover {
-        color: #22c55e;
+        color: var(--green-text);
     }
 }
 
@@ -64,12 +64,12 @@
     gap: 12px;
     margin-bottom: 20px;
     padding-bottom: 16px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--line);
 }
 
 .count {
     margin: 0;
-    color: #0f172a;
+    color: var(--ink);
     font-size: 16px;
     font-weight: 500;
 }
@@ -85,10 +85,10 @@
     gap: 8px;
     height: 42px;
     padding: 0 16px;
-    border: 1px solid #102382;
-    border-radius: 12px;
+    border: 1px solid var(--brand);
+    border-radius: var(--r-md);
     background: #ffffff;
-    color: #102382;
+    color: var(--brand);
     font-family: inherit;
     font-size: 14px;
     font-weight: 600;
@@ -101,7 +101,7 @@
     }
 
     &:hover {
-        background: #102382;
+        background: var(--brand);
         color: #ffffff;
     }
 }
@@ -113,8 +113,8 @@
     min-width: 20px;
     height: 20px;
     padding: 0 6px;
-    border-radius: 999px;
-    background: #22c55e;
+    border-radius: var(--r-full);
+    background: var(--green);
     color: #ffffff;
     font-size: 12px;
 }

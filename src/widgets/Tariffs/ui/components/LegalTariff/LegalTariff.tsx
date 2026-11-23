@@ -25,7 +25,7 @@ export const LegalTariff: React.FC<LegalTariffProps> = ({ title, icon, baseTarif
                         <span>{t('TariffsIndLegalTitle')}</span>
                     </h2>
                     <div className={styles.legalTariff}>
-                        <div className={styles.tariffCardLarge}>
+                        <div data-reveal suppressHydrationWarning className={styles.tariffCardLarge}>
                             <div className={styles.cardHeader}>
                                 <div className={styles.cardIcon}>{icon}</div>
                                 <h3>{title}</h3>

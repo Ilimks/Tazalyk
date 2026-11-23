@@ -1,6 +1,6 @@
 'use client';
 import { useTranslations } from 'next-intl';
-import { CalendarDays, Clock, Info, MapPin, User } from 'lucide-react';
+import { CalendarDays, Clock, Info, MapPin, User, Phone } from 'lucide-react';
 import styles from './EmployeeSchedule.module.scss';
 
 export const EmployeeSchedule: React.FC = () => {
@@ -54,34 +54,38 @@ export const EmployeeSchedule: React.FC = () => {
                                 <div className={styles.infoRow}>
                                     <span className={styles.label}>
                                         <CalendarDays size={16} aria-hidden />
-                                        {t('receptionDay')}:
+                                        {t('receptionDay')}
                                     </span>
                                     <span className={styles.value}>{employee.receptionDay}</span>
                                 </div>
                                 <div className={styles.infoRow}>
                                     <span className={styles.label}>
                                         <Clock size={16} aria-hidden />
-                                        {t('receptionTime')}:
+                                        {t('receptionTime')}
                                     </span>
                                     <span className={styles.value}>{employee.receptionTime}</span>
                                 </div>
                                 <div className={styles.infoRow}>
                                     <span className={styles.label}>
                                         <MapPin size={16} aria-hidden />
-                                        {t('address')}:
+                                        {t('address')}
                                     </span>
                                     <span className={styles.value}>{employee.address}</span>
                                 </div>
                             </div>
 
-                            <div className={styles.cardFooter}>
-                                <div className={styles.noteIcon}>
-                                    <Info size={16} aria-hidden />
-                                </div>
-                                <div className={styles.note}>{t('note')}</div>
-                            </div>
                         </div>
                     ))}
+                </div>
+
+                {/* одно примечание на всех: раньше оно повторялось в каждой карточке */}
+                <div className={styles.note}>
+                    <Info size={22} aria-hidden />
+                    <p>{t('note')}</p>
+                    <a className={styles.call} href="tel:+996312345102">
+                        <Phone size={18} aria-hidden />
+                        +996 (312) 34-51-02
+                    </a>
                 </div>
             </div>
         </section>

@@ -4,22 +4,23 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 14px;
-    background: #102382;
+    min-height: 52px;
+    padding: 0 24px;
+    background: var(--brand);
     color: white;
     border: none;
-    border-radius: 12px;
+    border-radius: var(--r-md);
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
     
     &:hover:not(:disabled) {
-        background: #1d35ad;
+        background: var(--brand-light);
     }
     
     &:disabled {
-        background: #94a3b8;
+        background: #8a94a6;
         cursor: not-allowed;
     }
 }

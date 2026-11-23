@@ -1,6 +1,24 @@
 .newsHomeBottom {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+
+  // загрузка, ошибка и «новостей нет» — на всю ширину
+  > :only-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 1000px) {
+  .newsHomeBottom {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .newsHomeBottom {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }

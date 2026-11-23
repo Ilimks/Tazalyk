@@ -1,4 +1,5 @@
 'use client'
+import { ChevronDown } from "lucide-react";
 import { Link, usePathname } from '@/i18n/navigation';
 import styles from "./HeaderBottomNav.module.scss";
 import mobile from "./HeaderBottomNavMobile.module.scss";
@@ -15,6 +16,13 @@ export const HeaderBottomNav: React.FC = () => {
     // на новой странице; теперь на другой странице он считается закрытым.
     const [open, setOpen] = useState<{ index: number; path: string } | null>(null);
     const openIndex = open && open.path === pathname ? open.index : null;
+
+    // раздел, в котором находится посетитель: «/ru/news/5» → «/news»
+    const path = pathname.replace(/^\/(ru|ky)(?=\/|$)/, '') || '/';
+    const isCurrent = (item: (typeof headerMenu)[number]) => {
+        const matches = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
+        return item.href ? matches(item.href) : Boolean(item.dropdown?.some((sub) => matches(sub.href)));
+    };
 
     const toggle = (index: number) =>
         setOpen(openIndex === index ? null : { index, path: pathname });
@@ -45,13 +53,16 @@ export const HeaderBottomNav: React.FC = () => {
                 {headerMenu.map((item, index) => (
                   <li
                     key={item.title}
-                    className={`${styles.header__bottom__li} ${mobile.header__bottom__li}`}
+                    className={`${styles.header__bottom__li} ${mobile.header__bottom__li} ${isCurrent(item) ? styles.current : ''} ${openIndex === index ? styles.expanded : ''}`}
                     onClick={() => (item.dropdown ? toggle(index) : setOpen(null))}
                   >
                     {item.href ? (
                       <Link href={item.href}>{item.title}</Link>
                     ) : (
-                      item.title
+                      <span className={styles.trigger}>
+                        {item.title}
+                        <ChevronDown size={16} aria-hidden />
+                      </span>
                     )}
 
                     {/* список всегда в разметке: так он может плавно и появляться, и прятаться */}

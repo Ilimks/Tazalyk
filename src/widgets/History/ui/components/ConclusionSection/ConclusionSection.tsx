@@ -9,7 +9,7 @@ interface ConclusionSectionProps {
 export const ConclusionSection: React.FC<ConclusionSectionProps> = ({ title, paragraphs }) => (
     <section>
         <div className="container">
-            <div className={styles.conclusion}>
+            <div data-reveal suppressHydrationWarning className={styles.conclusion}>
                 <h2>{title}</h2>
                 {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
             </div>

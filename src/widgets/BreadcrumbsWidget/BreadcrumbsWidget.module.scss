@@ -1,3 +1,5 @@
+// путь и заголовок страницы стоят на одной светлой полосе
 .widget {
-    margin-bottom: 24px;
+  border-top: 1px solid var(--line);
+  background: linear-gradient(180deg, #fff 0%, var(--brand-50) 100%);
 }

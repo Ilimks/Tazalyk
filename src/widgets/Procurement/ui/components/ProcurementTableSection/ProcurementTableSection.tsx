@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ErrorState } from '@/shared/ui/ErrorState';
 import { EmptyState } from '@/shared/ui/EmptyState';
 import { useCopyProtection } from '@/shared/lib/hooks/useCopyProtection';
@@ -12,6 +12,10 @@ import { LoadingState } from '@/shared/ui/LoadingState';
 import { useTranslations } from 'next-intl';
 import type { PageResult } from '@/shared/api';
 import type { ProcurementItem } from '@/entities/procurement';
+import type { ProcurementStatus } from '@/entities/procurement/model/types';
+import { InputNews } from '@/shared/ui/Inputs/InputNews';
+
+const STATUSES = ['all', 'active', 'completed', 'cancelled'] as const;
 
 interface ProcurementTableSectionProps {
     itemsPerPage?: number;
@@ -48,6 +52,17 @@ export const ProcurementTableSection: React.FC<ProcurementTableSectionProps> = (
     // до первого ответа в браузере показываем загрузку, а не «закупок нет»
     const isLoading = loadOnClient && (isLoadingProcurements || (!isSuccess && !loadError));
 
+    // ТЗ 4.1.12: поиск и фильтр. Записи уже загружены целиком, отбираем их в браузере
+    const [query, setQuery] = useState('');
+    const [status, setStatus] = useState<ProcurementStatus | 'all'>('all');
+    const visible = useMemo(() => {
+        const needle = query.trim().toLowerCase();
+        return procurements.filter((item) =>
+            (status === 'all' || item.status === status) &&
+            (!needle || item.contractNumber.toLowerCase().includes(needle) || item.supplier.toLowerCase().includes(needle))
+        );
+    }, [procurements, query, status]);
+
     const renderContent = () => {
         if (isLoading && procurements.length === 0) {
             return <LoadingState />;
@@ -73,7 +88,34 @@ export const ProcurementTableSection: React.FC<ProcurementTableSectionProps> = (
         return (
             <>
                 <TableHeader totalCount={totalCount} isLoading={isLoading} />
-                <TableBody data={procurements} />
+                <div className={styles.toolbar}>
+                    <div className={styles.search}>
+                        <InputNews
+                            value={query}
+                            onChange={setQuery}
+                            onClear={() => setQuery('')}
+                            placeholder={t('ProcurementSearchPlaceholder')}
+                        />
+                    </div>
+                    <div className={styles.statuses}>
+                        {STATUSES.map((value) => (
+                            <button
+                                key={value}
+                                type="button"
+                                className={`${styles.statusBtn} ${status === value ? styles.statusBtnActive : ''}`}
+                                onClick={() => setStatus(value)}
+                                aria-pressed={status === value}
+                            >
+                                {value === 'all' ? t('ProcurementAllStatuses') : t(`ProcurementStatuses.${value}`)}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+                {visible.length > 0 ? (
+                    <TableBody data={visible} />
+                ) : (
+                    <p className={styles.nothing}>{t('ProcurementNothingFound')}</p>
+                )}
             </>
         );
     };

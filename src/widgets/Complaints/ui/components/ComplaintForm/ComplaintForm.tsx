@@ -2,7 +2,8 @@
 import React, { useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { Check } from 'lucide-react';
+import { CalendarClock, Check, Headset, Phone } from 'lucide-react';
+import { Link } from '@/i18n/navigation';
 import {
     FormInput,
     FormTextarea,
@@ -25,6 +26,8 @@ const MAX_ATTACHMENTS = 5;
 
 export const ComplaintForm: React.FC = () => {
     const t = useTranslations("Complaints");
+    const tMain = useTranslations('Main');
+    const tEmployee = useTranslations('Employee');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -213,7 +216,7 @@ export const ComplaintForm: React.FC = () => {
 
     return (
         <section className={styles.complaintfForm}>
-            <div className="container">
+            <div className={`container ${styles.layout}`}>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     
                     <div className={styles.section}>
@@ -326,19 +329,21 @@ export const ComplaintForm: React.FC = () => {
                     </div>
 
                     <div className={styles.section}>
-                        <ReCAPTCHA
-                            ref={captchaRef}
-                            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-                            onChange={onCaptchaChange}
-                            onExpired={() => {
-                                setCaptchaToken(null);
-                                setError(t('form.captchaExpired'));
-                            }}
-                            onErrored={() => {
-                                setCaptchaToken(null);
-                                setError(t('form.captchaError'));
-                            }}
-                        />
+                        <div className={styles.captcha}>
+                            <ReCAPTCHA
+                                ref={captchaRef}
+                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                                onChange={onCaptchaChange}
+                                onExpired={() => {
+                                    setCaptchaToken(null);
+                                    setError(t('form.captchaExpired'));
+                                }}
+                                onErrored={() => {
+                                    setCaptchaToken(null);
+                                    setError(t('form.captchaError'));
+                                }}
+                            />
+                        </div>
                     </div>
 
                     {error && <div className={styles.error}>{error}</div>}
@@ -351,6 +356,26 @@ export const ComplaintForm: React.FC = () => {
                         {isSubmitting ? t('form.submitting') : t('form.submit')}
                     </ButtonComplaint>
                 </form>
+
+                {/* срочное быстрее решить звонком */}
+                <aside className={styles.aside}>
+                    <h3>{tMain('MainReceptionTitle')}</h3>
+                    <a className={styles.call} href="tel:1400">
+                        <Headset size={24} aria-hidden />
+                        <span>{tMain('MainReceptionCallCenter')}</span>
+                        <b>1400</b>
+                    </a>
+                    <a className={styles.call} href="tel:+996312345102">
+                        <Phone size={24} aria-hidden />
+                        <span>{tMain('MainReceptionCityNumber')}</span>
+                        <b>+996 (312) 34-51-02</b>
+                    </a>
+                    <p>{tMain('MainReceptionCall')}</p>
+                    <Link href="/employee" className={styles.asideLink}>
+                        <CalendarClock size={20} aria-hidden />
+                        {tEmployee('title')}
+                    </Link>
+                </aside>
             </div>
         </section>
     );

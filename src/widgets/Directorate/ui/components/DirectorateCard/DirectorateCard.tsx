@@ -1,57 +1,45 @@
 'use client'
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import type { DirectorateMember } from '../../../model';
+import type { DirectorateMember } from '../../../model/directorateData';
 import styles from './DirectorateCard.module.scss';
 
 interface DirectorateCardProps {
     member: DirectorateMember;
-    index: number;
 }
 
-export const DirectorateCard: React.FC<DirectorateCardProps> = ({ member, index }) => {
-    const t = useTranslations('Directorate');
+const getInitials = (name: string) =>
+    name
+        .split(' ')
+        .map((word) => word[0])
+        .slice(0, 2)
+        .join('');
 
-    const getInitials = (name: string) => {
-        return name
-            .split(' ')
-            .map(word => word[0])
-            .slice(0, 2)
-            .join('');
-    };
+export const DirectorateCard: React.FC<DirectorateCardProps> = ({ member }) => {
+    const t = useTranslations('Directorate');
+    const imageRef = useRef<HTMLImageElement>(null);
+    const [photoFailed, setPhotoFailed] = useState(false);
+
+    // ошибка загрузки могла случиться до гидратации, когда onError ещё не был подключён
+    useEffect(() => {
+        const image = imageRef.current;
+        if (image && image.complete && image.naturalWidth === 0) setPhotoFailed(true);
+    }, [member.photo]);
 
     return (
-        <div 
-            className={styles.directorateCard} 
-            style={{ animationDelay: `${(index + 1) * 0.1}s` }}
-        >
-            <div className={styles.photoWrapper}>
-                {member.photo ? (
-                    <img 
-                        src={member.photo} 
-                        alt={member.name}
-                        className={styles.photo}
-                        onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.style.display = 'none';
-                            const placeholder = document.createElement('div');
-                            placeholder.className = styles.photoPlaceholder;
-                            placeholder.innerHTML = `<span>${getInitials(member.name)}</span>`;
-                            target.parentNode?.appendChild(placeholder);
-                        }}
-                    />
+        <article data-reveal suppressHydrationWarning className={styles.card}>
+            <div className={styles.photo}>
+                {member.photo && !photoFailed ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img ref={imageRef} src={member.photo} alt={member.name} onError={() => setPhotoFailed(true)} />
                 ) : (
-                    <div className={styles.photoPlaceholder}>
-                        <span>{getInitials(member.name)}</span>
-                    </div>
+                    <span className={styles.initials} aria-hidden="true">{getInitials(member.name)}</span>
                 )}
             </div>
-
-            <div className={styles.cardBody}>
-                <h3 className={styles.memberName}>{member.name}</h3>
-                <div className={styles.positionBadge}>
-                    {t(`positions.${member.position}`)}
-                </div>
+            <div className={styles.body}>
+                <p className={styles.position}>{t(`positions.${member.position}`)}</p>
+                <h2 className={styles.name}>{member.name}</h2>
             </div>
-        </div>
+        </article>
     );
 };

@@ -1,36 +1,56 @@
 .sectionHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+
+  &__items {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  &__name {
+    font-size: clamp(26px, 2.5vw, 34px);
+    font-weight: 700;
+    letter-spacing: -.01em;
+  }
+
+  &__line {
+    width: 56px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--green);
+    // черта над заголовком, как отметка на маршруте
+    order: -1;
+  }
+
+  &__btn {
+    flex-shrink: 0;
+  }
+}
+
+// ссылка, оформленная как Button
+.sectionHeader__link {
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .sectionHeader {
+    // кыргызские подписи длиннее: кнопка может перейти на следующую строку
+    flex-wrap: wrap;
+    gap: 12px 20px;
 
     &__items {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
+      gap: 10px;
     }
 
     &__name {
-        font-weight: 500;
-        font-size: 30px;
-        line-height: 131%;
-        color: #1e3a5f;
-        margin: 0;
+      font-size: 22px;
     }
 
     &__line {
-        width: 96px;
-        height: 4px;
-        background: #22c55e;
+      width: 40px;
     }
-
-    &__btn {
-        flex-shrink: 0;
-    }
-}
-// ссылка, оформленная как Button
-.sectionHeader__link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
+  }
 }

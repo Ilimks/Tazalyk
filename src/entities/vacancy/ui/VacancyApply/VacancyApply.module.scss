@@ -6,18 +6,20 @@
     gap: 8px;
     align-self: flex-start;
     margin-top: auto;
-    padding: 11px 20px;
-    border: 1px solid #102382;
+    min-height: 48px;
+    padding: 0 22px;
+    border: 1px solid var(--brand);
+    border-radius: var(--r-md);
     background: none;
     font: inherit;
     font-size: 15px;
     font-weight: 600;
-    color: #102382;
+    color: var(--brand);
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease;
 
     &:hover {
-        background: #102382;
+        background: var(--brand);
         color: #ffffff;
     }
 
@@ -38,7 +40,8 @@
     margin: auto;
     padding: 0;
     border: none;
-    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.3);
+    border-radius: var(--r-xl);
+    box-shadow: var(--sh-3);
 
     &::backdrop {
         background: rgba(15, 23, 42, 0.55);
@@ -63,33 +66,32 @@
     padding: 6px;
     border: none;
     background: none;
-    color: #64748b;
+    color: var(--muted);
     cursor: pointer;
 
     &:hover {
-        color: #0f172a;
+        color: var(--ink);
     }
 }
 
 .form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
 .title {
     margin: 0;
     padding-right: 32px;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
-    color: #0f172a;
+    color: var(--ink);
 }
 
 .vacancy {
-    margin: 0 0 6px;
+    margin: 2px 0 20px;
     font-size: 15px;
     font-weight: 600;
-    color: #15803d;
+    color: var(--green-text);
     overflow-wrap: anywhere;
 }
 
@@ -97,13 +99,13 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-    margin-bottom: 8px;
+    margin-bottom: 20px;
 }
 
 .fileLabel {
-    font-size: 14px;
-    font-weight: 500;
-    color: #334155;
+    margin-bottom: 2px;
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .fileChoose {
@@ -112,18 +114,19 @@
     justify-content: center;
     gap: 8px;
     padding: 14px;
-    border: 1px dashed #94a3b8;
-    background: #f8fafc;
-    font-size: 14px;
+    border: 1px dashed var(--brand);
+    border-radius: var(--r-md);
+    background: var(--brand-50);
+    font-size: 15px;
     font-weight: 600;
-    color: #102382;
+    color: var(--brand);
     cursor: pointer;
     transition: border-color 0.2s ease, background-color 0.2s ease;
 
     &:hover,
     &:focus-within {
-        border-color: #102382;
-        background: #f1f5f9;
+        border-color: var(--brand);
+        background: var(--brand-100);
     }
 
     input {
@@ -139,9 +142,10 @@
     align-items: center;
     gap: 8px;
     padding: 12px 14px;
-    background: #f0fdf4;
+    border-radius: var(--r-md);
+    background: var(--green-50);
     font-size: 14px;
-    color: #0f172a;
+    color: var(--ink);
 
     svg {
         flex-shrink: 0;
@@ -158,23 +162,23 @@
         padding: 2px;
         border: none;
         background: none;
-        color: #64748b;
+        color: var(--muted);
         cursor: pointer;
 
         &:hover {
-            color: #b91c1c;
+            color: var(--danger-text);
         }
     }
 }
 
 .fileHint {
-    font-size: 13px;
-    color: #64748b;
+    font-size: 14px;
+    color: var(--muted);
 }
 
 .error {
-    font-size: 13px;
-    color: #b91c1c;
+    font-size: 14px;
+    color: var(--danger-text);
 }
 
 .formError {
@@ -182,7 +186,7 @@
     padding: 10px 14px;
     background: #fef2f2;
     font-size: 14px;
-    color: #b91c1c;
+    color: var(--danger-text);
 }
 
 // не display: none: такие поля боты часто пропускают
@@ -200,9 +204,11 @@
     justify-content: center;
     gap: 8px;
     width: 100%;
-    padding: 13px 20px;
+    min-height: 52px;
+    padding: 0 20px;
     border: none;
-    background: #102382;
+    border-radius: var(--r-md);
+    background: var(--brand);
     font: inherit;
     font-size: 15px;
     font-weight: 600;
@@ -211,7 +217,7 @@
     transition: background-color 0.2s ease;
 
     &:hover:not(:disabled) {
-        background: #0c1a63;
+        background: var(--brand-hover);
     }
 
     &:disabled {
@@ -229,7 +235,7 @@
     text-align: center;
 
     svg {
-        color: #22c55e;
+        color: var(--green-text);
     }
 
     .title {
@@ -240,6 +246,11 @@
         margin: 0;
         font-size: 15px;
         line-height: 1.5;
-        color: #475569;
+        color: var(--text);
     }
+}
+
+// согласие и кнопка — с отступом друг от друга
+.form > .primary {
+    margin-top: 20px;
 }

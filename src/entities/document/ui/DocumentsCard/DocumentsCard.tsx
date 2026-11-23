@@ -27,16 +27,16 @@ export const DocumentsCard: React.FC<DocumentsCardProps> = ({
         });
     };
 
+    // «449.82 KB» → «450 КБ», «1,2 МБ»
     const formatFileSize = (bytes: number) => {
-        if (bytes === 0) return '0 KB';
-        const k = 1024;
-        const sizes = ['KB', 'MB', 'GB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        const number = (value: number, digits: number) =>
+            value.toLocaleString(locale === 'ky' ? 'ky-KG' : 'ru-RU', { maximumFractionDigits: digits });
+        if (bytes < 1024 * 1024) return `${number(bytes / 1024, 0)} КБ`;
+        return `${number(bytes / 1024 / 1024, 1)} МБ`;
     };
 
     return (
-        <div className={styles.card}>
+        <div data-reveal suppressHydrationWarning className={styles.card}>
             <div className={styles.cardIcon}>
                 <FileText size={32} aria-hidden />
             </div>

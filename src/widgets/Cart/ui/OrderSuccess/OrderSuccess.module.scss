@@ -5,10 +5,10 @@
     max-width: 640px;
     margin: 0 auto;
     padding: 48px 32px;
-    border: 1px solid #e2e8f0;
-    border-radius: 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
     background: #ffffff;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--sh-1);
     text-align: center;
 }
 
@@ -20,7 +20,7 @@
     height: 76px;
     margin-bottom: 20px;
     border-radius: 50%;
-    background: #22c55e;
+    background: var(--green);
     color: #ffffff;
 
     svg {
@@ -31,7 +31,7 @@
 
 .title {
     margin: 0 0 12px;
-    color: #0f172a;
+    color: var(--ink);
     font-size: 28px;
     font-weight: 600;
     line-height: 1.25;
@@ -43,11 +43,11 @@
 
 .total {
     margin: 0 0 28px;
-    color: #475569;
+    color: var(--text);
     font-size: 17px;
 
     strong {
-        color: #102382;
+        color: var(--brand);
         font-weight: 600;
         white-space: nowrap;
     }
@@ -55,7 +55,7 @@
 
 .step {
     margin: 0 0 14px;
-    color: #0f172a;
+    color: var(--ink);
     font-size: 17px;
     font-weight: 600;
 }
@@ -77,7 +77,7 @@
     max-width: 420px;
     min-height: 60px;
     padding: 14px 24px;
-    border-radius: 16px;
+    border-radius: var(--r-lg);
     color: #ffffff;
     font-size: 19px;
     font-weight: 600;
@@ -94,7 +94,7 @@
     }
 
     &:focus-visible {
-        outline: 3px solid #102382;
+        outline: 3px solid var(--brand);
         outline-offset: 3px;
     }
 }
@@ -102,7 +102,7 @@
 // Цвета — фирменные цвета мессенджеров, чтобы кнопки сразу узнавали
 .whatsapp {
     background: #128c7e;
-    box-shadow: 0 8px 20px rgba(18, 140, 126, 0.3);
+    box-shadow: var(--sh-2);
 
     &:hover {
         background: #0f7468;
@@ -111,7 +111,7 @@
 
 .telegram {
     background: #1b84b8;
-    box-shadow: 0 8px 20px rgba(27, 132, 184, 0.3);
+    box-shadow: var(--sh-2);
 
     &:hover {
         background: #17719e;
@@ -121,7 +121,7 @@
 .hint {
     max-width: 440px;
     margin: 14px 0 0;
-    color: #64748b;
+    color: var(--muted);
     font-size: 14px;
     line-height: 1.5;
 }
@@ -132,10 +132,10 @@
     gap: 10px;
     margin: 0;
     padding: 14px 20px;
-    border: 1px solid #dcfce7;
-    border-radius: 14px;
-    background: #f0fdf4;
-    color: #166534;
+    border: 1px solid var(--green-100);
+    border-radius: var(--r-md);
+    background: var(--green-50);
+    color: var(--green-text);
     font-size: 16px;
     font-weight: 500;
     text-align: left;
@@ -149,14 +149,14 @@
 
 .back {
     margin-top: 28px;
-    color: #102382;
+    color: var(--brand);
     font-size: 15px;
     font-weight: 500;
     text-decoration: underline;
     text-underline-offset: 3px;
 
     &:hover {
-        color: #22c55e;
+        color: var(--green-text);
     }
 }
 
@@ -172,7 +172,7 @@
 @media (max-width: 640px) {
     .success {
         padding: 32px 18px;
-        border-radius: 18px;
+        border-radius: var(--r-lg);
     }
 
     .icon {

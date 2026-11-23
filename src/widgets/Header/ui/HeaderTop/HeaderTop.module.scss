@@ -1,0 +1,50 @@
+.top {
+  background: var(--brand-dark);
+  color: rgba(255, 255, 255, .78);
+  font-size: 14px;
+
+  &__box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 44px;
+  }
+
+  &__hello b {
+    margin-right: 6px;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__call {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: inherit;
+
+    svg {
+      color: var(--green);
+    }
+
+    b {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .top {
+    display: none;
+  }
+}

@@ -1,168 +1,201 @@
 .organization {
-    padding: 60px 0;
-    background: #f8fafc;
+  padding-bottom: var(--section);
 }
 
 .sectionTitle {
-    font-size: 28px;
-    font-weight: 700;
-    color: #0f172a;
-    text-align: center;
-    margin-bottom: 48px;
+  margin-bottom: 28px;
+  font-size: clamp(24px, 2.2vw, 30px);
+  font-weight: 700;
 }
 
-.orgChart {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
+.chart {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .director {
-    margin-bottom: 20px;
+  padding: 18px 56px;
+  border-radius: var(--r-md);
+  background: var(--brand);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
 }
 
-.directorCard {
-    background: #102382;
-    color: white;
-    font-weight: 600;
-    font-size: 18px;
-    padding: 12px 32px;
-    border-radius: 8px;
-    text-align: center;
-}
+// отделы прямого подчинения стоят по сторонам от ствола
+.direct {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 300px);
+  gap: 80px;
+  padding: 28px 0;
 
-.lineDown {
+  // ствол от директора вниз
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
     width: 2px;
-    height: 30px;
-    background: #cbd5e1;
-    margin: 0 auto;
+    margin-left: -1px;
+    background: var(--line-strong);
+  }
+
+  // перекладина к отделам
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 2px;
+    background: var(--line-strong);
+    transform: translate(-50%, -50%);
+  }
 }
 
-.lineHorizontal {
-    width: 100%;
+.directCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 72px;
+  padding: 14px 18px;
+  border: 1px solid var(--brand-100);
+  border-radius: var(--r-md);
+  background: var(--brand-50);
+  color: var(--brand);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.branches {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+  padding-top: 28px;
+
+  // перекладина над заместителями: от середины первой колонки до середины последней
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: calc((100% - 72px) / 8);
+    left: calc((100% - 72px) / 8);
     height: 2px;
-    background: #cbd5e1;
-    margin: 0 auto;
+    background: var(--line-strong);
+  }
+}
+
+.branch {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -29px;
+    left: 50%;
+    width: 2px;
+    height: 28px;
+    margin-left: -1px;
+    background: var(--line-strong);
+  }
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  min-height: 108px;
+  padding: 18px 20px;
+  border-radius: 15px 15px 0 0;
+  background: var(--brand-50);
+  color: var(--brand);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.units {
+  padding: 8px 20px 12px;
+
+  li {
     position: relative;
-    top: -1px;
+    padding: 11px 0 11px 18px;
+    font-size: 15px;
+    line-height: 1.4;
+
+    + li {
+      border-top: 1px solid var(--line);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 0;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+  }
 }
 
-.topRow {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 16px;
-    width: 100%;
-    margin-top: 20px;
+@media (max-width: 1000px) {
+  .branches {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-top: 0;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .branch::before {
+    display: none;
+  }
+
+  .head {
+    min-height: 0;
+  }
 }
 
-.position {
+@media (max-width: 640px) {
+  .chart {
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .director {
     text-align: center;
-}
+  }
 
-.positionCard {
-    background: #e2e8f0;
-    padding: 12px 8px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #0f172a;
-    line-height: 1.3;
-    min-height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+  .direct {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0;
 
-.lineVertical {
-    width: 2px;
-    height: 20px;
-    background: #cbd5e1;
-    margin: 8px auto 0;
-}
-
-.lineHorizontalBottom {
-    width: 100%;
-    height: 2px;
-    background: #cbd5e1;
-    margin: 0 auto;
-}
-
-.bottomRow, .thirdRow, .fourthRow, .fifthRow, .sixthRow {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 16px;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.subPosition {
-    text-align: center;
-}
-
-.subPositionCard {
-    background: #ffffff;
-    border: 1px solid #cbd5e1;
-    padding: 12px 8px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 400;
-    color: #334155;
-    line-height: 1.3;
-    min-height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sixthRow {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 16px;
-    width: 100%;
-    margin-top: 20px;
-    
-    .subPosition {
-        &:nth-child(1) {
-            grid-column: 6 / 7;
-        }
+    &::before,
+    &::after {
+      display: none;
     }
-}
+  }
 
-@media (max-width: 1024px) {
-    .topRow, .bottomRow, .thirdRow, .fourthRow, .fifthRow {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-    }
-    
-    .sixthRow {
-        grid-template-columns: 1fr;
-    }
-}
+  .directCard {
+    min-height: 0;
+  }
 
-@media (max-width: 768px) {
-    .organization {
-        padding: 40px 0;
-    }
-    
-    .sectionTitle {
-        font-size: 22px;
-        margin-bottom: 32px;
-    }
-    
-    .directorCard {
-        font-size: 16px;
-        padding: 10px 24px;
-    }
-    
-    .topRow, .bottomRow, .thirdRow, .fourthRow, .fifthRow {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-    
-    .positionCard, .subPositionCard {
-        font-size: 12px;
-        padding: 10px;
-    }
+  .branches {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }

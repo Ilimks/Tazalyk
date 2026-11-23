@@ -48,22 +48,10 @@ export type ProcurementType = ProcurementItem['type'];
 export type ProcurementMethod = ProcurementItem['method'];
 export type ProcurementStatus = ProcurementItem['status'];
 
-// подписи — в сообщениях Procurement.ProcurementTypes / ProcurementMethods / ProcurementStatuses
-export const typeConfig = {
-    goods: { color: '#8b5cf6', bg: '#8b5cf610' },
-    services: { color: '#06b6d4', bg: '#06b6d410' },
-    works: { color: '#f59e0b', bg: '#f59e0b10' }
-} as const;
-
-export const methodConfig = {
-    direct: { color: '#22c55e', bg: '#22c55e10' },
-    quotation: { color: '#3b82f6', bg: '#3b82f610' },
-    simple: { color: '#f59e0b', bg: '#f59e0b10' },
-    tender: { color: '#ef4444', bg: '#ef444410' }
-} as const;
-
+// подписи — в сообщениях Procurement.ProcurementTypes / ProcurementMethods / ProcurementStatuses.
+// Цветом отмечен только статус: когда цветное всё, ничего не выделяется
 export const statusConfig = {
-    active: { color: '#22c55e', bg: '#22c55e10' },
-    completed: { color: '#64748b', bg: '#f1f5f9' },
-    cancelled: { color: '#ef4444', bg: '#fef2f2' }
+    active: { color: '#15803d', bg: '#ecfdf3' },
+    completed: { color: '#475569', bg: '#eef1f6' },
+    cancelled: { color: '#b91c1c', bg: '#fef2f2' }
 } as const;

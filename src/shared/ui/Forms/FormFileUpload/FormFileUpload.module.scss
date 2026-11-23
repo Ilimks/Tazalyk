@@ -4,9 +4,8 @@
 
 .label {
     display: block;
-    font-size: 14px;
-    font-weight: 500;
-    color: #334155;
+    font-size: 15px;
+    font-weight: 600;
     margin-bottom: 8px;
 }
 
@@ -15,14 +14,17 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 10px 20px;
-        background: #f1f5f9;
-        border-radius: 12px;
+        min-height: 50px;
+        padding: 0 22px;
+        border: 1px dashed var(--brand);
+        background: var(--brand-50);
+        color: var(--brand);
+        border-radius: var(--r-md);
         cursor: pointer;
         transition: all 0.2s;
         
         &:hover {
-            background: #e2e8f0;
+            background: var(--brand-100);
         }
         
         .fileInput {
@@ -30,14 +32,14 @@
         }
         
         span {
-            font-size: 14px;
-            color: #475569;
+            font-size: 15px;
+            font-weight: 600;
         }
     }
     
     .hint {
-        font-size: 12px;
-        color: #94a3b8;
+        font-size: 14px;
+        color: var(--muted);
         margin-top: 8px;
     }
 }
@@ -54,21 +56,21 @@
     align-items: center;
     gap: 12px;
     padding: 12px;
-    background: #f8fafc;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
+    background: var(--bg);
+    border-radius: var(--r-md);
+    border: 1px solid var(--line);
     
     &:hover {
-        background: #f1f5f9;
+        background: var(--bg);
     }
 }
 
 .previewImage {
     width: 50px;
     height: 50px;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
     overflow: hidden;
-    background: #e2e8f0;
+    background: var(--line);
     flex-shrink: 0;
     
     .thumbnail {
@@ -88,14 +90,14 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 500;
-        color: #0f172a;
+        color: var(--ink);
     }
     
     .fileSize {
-        font-size: 11px;
-        color: #64748b;
+        font-size: 14px;
+        color: var(--muted);
     }
 }
 
@@ -103,11 +105,11 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: #ef4444;
+    color: var(--danger-text);
     display: flex;
     align-items: center;
     padding: 4px 8px;
-    border-radius: 6px;
+    border-radius: var(--r-sm);
     transition: all 0.2s;
     
     &:hover {
@@ -118,7 +120,7 @@
 
 .error {
     display: block;
-    font-size: 12px;
-    color: #ef4444;
+    font-size: 14px;
+    color: var(--danger-text);
     margin-top: 4px;
 }

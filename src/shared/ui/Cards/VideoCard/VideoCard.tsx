@@ -39,6 +39,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
     return (
         <>
             <article
+                data-reveal suppressHydrationWarning
                 className={styles.card}
                 onClick={openModal}
                 onKeyDown={(e) => {

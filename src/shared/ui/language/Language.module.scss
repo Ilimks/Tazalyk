@@ -1,48 +1,55 @@
 .lang {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  border-radius: var(--r-sm);
+  background: rgba(255, 255, 255, .12);
 }
 
 .langItem {
-    background: transparent;
-    border: none;
-    font-size: 16px;
-    font-weight: 600;
-    color: #1e3a5f;
-    padding: 4px 10px;
-    cursor: pointer;
+  min-width: 44px;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, .85);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+  transition: background-color .2s ease, color .2s ease;
 }
 
 .active {
-    background-color: #facc15;
-    border-radius: 6px;
-    color: #1e3a5f;
+  background: #fff;
+  color: var(--brand);
 }
 
 .divider {
-    width: 1px;
-    height: 20px;
-    background-color: #cbd5e1;
+  display: none;
 }
 
+// без верхней полосы переключатель стоит на белом
+@media (max-width: 1000px) {
+  .lang {
+    background: var(--brand-50);
+  }
+
+  .langItem {
+    color: var(--muted);
+  }
+
+  .active {
+    background: var(--surface);
+    color: var(--brand);
+    box-shadow: var(--sh-1);
+  }
+}
 
 @media (max-width: 600px) {
-    .lang {
-        gap: 4px;
-    }
-
-    .langItem {
-        font-size: 12px;
-        font-weight: 600;
-        padding: 4px 8px;
-    }
-
-    .active {
-        border-radius: 4px;
-    }
-
-    .divider {
-        height: 16px;
-    }
+  .langItem {
+    min-width: 36px;
+    padding: 4px 6px;
+    font-size: 12px;
+  }
 }

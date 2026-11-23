@@ -26,7 +26,7 @@ export const HomeSectionHeader: React.FC<HomeSectionHeaderProps> = ({
     const buttonClassName = `${styles.sectionHeader__btn} ${mobile.sectionHeader__btn}`;
 
     return (
-        <div className={`${styles.sectionHeader} ${mobile.sectionHeader} ${className}`}>
+        <div data-reveal suppressHydrationWarning className={`${styles.sectionHeader} ${mobile.sectionHeader} ${className}`}>
             <div className={`${styles.sectionHeader__items} ${mobile.sectionHeader__items}`}>
                 <h2 id={titleId} className={`${styles.sectionHeader__name} ${mobile.sectionHeader__name}`}>{title}</h2>
                 <div className={`${styles.sectionHeader__line} ${mobile.sectionHeader__line}`}></div>

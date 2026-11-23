@@ -1,5 +1,16 @@
+'use client';
 import { useTranslations } from 'next-intl';
 import styles from './StructureOrganization.module.scss';
+
+// Кто кому подчиняется — по схеме предприятия. У отделов кадров и безопасности подразделений нет.
+const BRANCHES = [
+    { head: 'deputyPlanning', units: ['planningEconomic', 'developmentAnalysis', 'documentFlow', 'accounting'] },
+    { head: 'deputyAbonent', units: ['abonentService', 'procurementDept', 'administrative', 'legal'] },
+    { head: 'deputyProduction', units: ['sanitaryCleaningSite', 'solidWasteSite', 'alaTooSquare', 'vasilievskySite'] },
+    { head: 'mainEngineer', units: ['transport', 'landscapingRoads', 'demolitionDept', 'fountainsSite', 'strayAnimalsDept'] },
+] as const;
+
+const DIRECT = ['hr', 'security'] as const;
 
 export const StructureOrganization: React.FC = () => {
     const t = useTranslations("Structure");
@@ -8,207 +19,27 @@ export const StructureOrganization: React.FC = () => {
         <section className={styles.organization}>
             <div className="container">
                 <h2 className={styles.sectionTitle}>{t('organization.title')}</h2>
-                
-                <div className={styles.orgChart}>
-                    {/* Директор */}
-                    <div className={styles.director}>
-                        <div className={styles.directorCard}>
-                            {t('organization.director')}
-                        </div>
+
+                <div className={styles.chart}>
+                    <div className={styles.director}>{t('organization.director')}</div>
+
+                    <div className={styles.direct}>
+                        {DIRECT.map((key) => (
+                            <div key={key} className={styles.directCard}>{t(`organization.${key}`)}</div>
+                        ))}
                     </div>
 
-                    {/* Линия от директора вниз */}
-                    <div className={styles.lineDown}></div>
-                    
-                    {/* Горизонтальная линия */}
-                    <div className={styles.lineHorizontal}></div>
-
-                    {/* Первый ряд - 6 позиций */}
-                    <div className={styles.topRow}>
-                        <div className={styles.position}>
-                            <div className={styles.positionCard}>
-                                {t('organization.deputyPlanning')}
+                    <div className={styles.branches}>
+                        {BRANCHES.map(({ head, units }) => (
+                            <div key={head} data-reveal suppressHydrationWarning className={styles.branch}>
+                                <h3 className={styles.head}>{t(`organization.${head}`)}</h3>
+                                <ul className={styles.units}>
+                                    {units.map((unit) => (
+                                        <li key={unit}>{t(`organization.${unit}`)}</li>
+                                    ))}
+                                </ul>
                             </div>
-                            <div className={styles.lineVertical}></div>
-                        </div>
-                        <div className={styles.position}>
-                            <div className={styles.positionCard}>
-                                {t('organization.deputyAbonent')}
-                            </div>
-                            <div className={styles.lineVertical}></div>
-                        </div>
-                        <div className={styles.position}>
-                            <div className={styles.positionCard}>
-                                {t('organization.deputyProduction')}
-                            </div>
-                            <div className={styles.lineVertical}></div>
-                        </div>
-                        <div className={styles.position}>
-                            <div className={styles.positionCard}>
-                                {t('organization.hr')}
-                            </div>
-                            <div className={styles.lineVertical}></div>
-                        </div>
-                        <div className={styles.position}>
-                            <div className={styles.positionCard}>
-                                {t('organization.security')}
-                            </div>
-                            <div className={styles.lineVertical}></div>
-                        </div>
-                        <div className={styles.position}>
-                            <div className={styles.positionCard}>
-                                {t('organization.mainEngineer')}
-                            </div>
-                            <div className={styles.lineVertical}></div>
-                        </div>
-                    </div>
-
-                    {/* Горизонтальная линия под первым рядом */}
-                    <div className={styles.lineHorizontalBottom}></div>
-
-                    {/* Второй ряд подразделений */}
-                    <div className={styles.bottomRow}>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.planningEconomic')}
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.abonentService')}
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.sanitaryCleaningSite')}
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.transport')}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Третий ряд */}
-                    <div className={styles.thirdRow}>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.developmentAnalysis')}
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.procurementDept')}
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.solidWasteSite')}
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.landscapingRoads')}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Четвертый ряд */}
-                    <div className={styles.fourthRow}>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.documentFlow')}
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.administrative')}
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.alaTooSquare')}
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.demolitionDept')}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Пятый ряд */}
-                    <div className={styles.fifthRow}>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.accounting')}
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.legal')}
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.vasilievskySite')}
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.fountainsSite')}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Шестой ряд - отдел по борьбе с бродячими животными */}
-                    <div className={styles.sixthRow}>
-                        <div className={styles.subPosition}>
-                            <div className={styles.subPositionCard}>
-                                {t('organization.strayAnimalsDept')}
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>

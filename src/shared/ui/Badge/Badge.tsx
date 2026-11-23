@@ -21,7 +21,7 @@ export const Badge: React.FC<BadgeProps> = ({
             style={{
                 backgroundColor,
                 color,
-                borderColor: `${color}20`
+                
             }}
         >
             {showDot && <span className={styles.statusDot}></span>}

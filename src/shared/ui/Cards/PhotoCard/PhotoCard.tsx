@@ -75,7 +75,8 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
 
     return (
         <>
-            <article 
+            <article
+                data-reveal suppressHydrationWarning
                 className={styles.card}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
