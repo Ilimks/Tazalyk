@@ -33,10 +33,10 @@ const getNews = cache(async (id: string) => {
 
 const getRelatedNews = async (id: string) => {
   try {
-    const { results } = await newsApi.getAll({ page: 1, page_size: 5 }, getServerFetchOptions());
-    return results.filter((item) => String(item.id) !== id).slice(0, 4);
+    const { results } = await newsApi.getAll({ page: 1, page_size: 6 }, getServerFetchOptions());
+    return results.filter((item) => String(item.id) !== id).slice(0, 5);
   } catch {
-    // похожие новости необязательны — страница откроется и без них
+    // другие новости необязательны — страница откроется и без них
     return [];
   }
 };

@@ -87,7 +87,7 @@ export const NewsList: React.FC<NewsListProps> = ({ itemsPerPage = 12, initialDa
     
     return (
         <section className={styles.newsList}>
-            <PageHeader title={t('NewsTitle')} description={t('NewsDescription')} />
+            <PageHeader title={t('NewsTitle')} description={t('NewsDescription')} image="/assets/images/covers/news.webp" imagePosition="50% 46%" />
             <div className="container">
                 <div className={styles.toolbar}>
                     <NewsSearch value={searchQuery} onChange={setSearchQuery} onClear={handleSearchClear} />
