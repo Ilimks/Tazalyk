@@ -66,4 +66,19 @@
   .contactCard {
     padding: 18px 16px;
   }
+
+  // телефоны и почту нажимают пальцем
+  .contactDetails {
+    gap: 0;
+  }
+
+  .detailLink {
+    display: inline-block;
+    padding-block: 10px;
+  }
+
+  .contactLink {
+    min-height: 44px;
+    margin-bottom: -10px;
+  }
 }

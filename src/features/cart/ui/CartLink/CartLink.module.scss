@@ -61,8 +61,8 @@
 
 @media (max-width: 600px) {
     .link {
-        width: 36px;
-        height: 36px;
+        width: 44px;
+        height: 44px;
 
         svg {
             width: 22px;
@@ -71,8 +71,8 @@
     }
 
     .badge {
-        top: -3px;
-        right: -4px;
+        top: 1px;
+        right: 0;
         min-width: 17px;
         height: 17px;
         padding: 0 4px;

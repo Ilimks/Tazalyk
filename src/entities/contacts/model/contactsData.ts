@@ -52,26 +52,8 @@ export const useContactData = () => {
     // }
   ];
 
-  const mapLocations = [
-    {
-      id: 1,
-      lat: 42.88696827273928,
-      lon: 74.56530374444422,
-      name: t('ContactsMapOffice'),
-      address: t('ContactsAddress1')
-    },
-    {
-      id: 2,
-      lat: 42.885665545849534,
-      lon: 74.57351177508033,
-      name: t('ContactsMapBase'),
-      address: t('ContactsAddress2')
-    }
-];
-
   return {
     additionalInfo,
     contactItems,
-    mapLocations,
   };
 };

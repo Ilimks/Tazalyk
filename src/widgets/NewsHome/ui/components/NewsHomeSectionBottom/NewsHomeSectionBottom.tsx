@@ -89,7 +89,7 @@ export const NewsHomeSectionBottom: React.FC<NewsHomeSectionBottomProps> = ({ in
     return (
         <div className={`${styles.newsHomeBottom} ${mobile.newsHomeBottom}`}>
             {latestNews.map((item) => (
-                <NewsCard key={item.id} news={item} variant="compact" />
+                <NewsCard key={item.id} news={item} variant="tile" />
             ))}
         </div>
     );

@@ -6,9 +6,7 @@ export const ContactsMapSection: React.FC = () => {
     return (
         <section className={styles.contactsMapSection}>
             <div className="container">
-                <div className={styles.mapSection}>
-                    <ContactsMap />
-                </div>
+                <ContactsMap />
             </div>
         </section>
     );

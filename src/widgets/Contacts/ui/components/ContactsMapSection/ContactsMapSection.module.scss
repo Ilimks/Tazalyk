@@ -1,13 +1,3 @@
 .contactsMapSection {
   padding-bottom: var(--section);
 }
-
-.mapSection {
-  height: 480px;
-}
-
-@media (max-width: 600px) {
-  .mapSection {
-    height: 360px;
-  }
-}

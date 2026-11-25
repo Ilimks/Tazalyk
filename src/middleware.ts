@@ -13,7 +13,8 @@ const API_ORIGIN = (() => {
 })();
 
 // Политика безопасности контента: скрипты — только свои (с одноразовым nonce) и капча Google,
-// рамки — капча и карты Яндекса, встраивать сайт в чужие страницы нельзя.
+// картинки — свои, файлы API и плитки карты OpenStreetMap, рамки — только капча,
+// встраивать сайт в чужие страницы нельзя.
 // Next.js сам ставит nonce своим скриптам, если видит его в заголовке запроса.
 const buildCsp = (nonce: string) =>
   [
@@ -21,11 +22,11 @@ const buildCsp = (nonce: string) =>
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/${isDev ? " 'unsafe-eval'" : ''}`,
     // style="" у элементов React и стили виджета капчи
     "style-src 'self' 'unsafe-inline'",
-    `img-src 'self' data: blob: ${API_ORIGIN} https://mptazalyk.kg https://www.gstatic.com`,
+    `img-src 'self' data: blob: ${API_ORIGIN} https://mptazalyk.kg https://www.gstatic.com https://tile.openstreetmap.org`,
     `media-src 'self' data: blob: ${API_ORIGIN}`,
     "font-src 'self'",
     `connect-src 'self' ${API_ORIGIN} https://www.google.com/recaptcha/${isDev ? ' ws: wss:' : ''}`,
-    'frame-src https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/ https://yandex.ru https://*.yandex.ru',
+    'frame-src https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/',
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",

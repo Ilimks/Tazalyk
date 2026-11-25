@@ -31,7 +31,8 @@ export const BreadcrumbsWidget: React.FC<BreadcrumbsWidgetProps> = ({ currentLab
     };
 
     return (
-        <section className={styles.widget}>
+        // свою подпись передаёт страница новости: заголовок у неё в самой статье
+        <section className={currentLabel ? `${styles.widget} ${styles.alone}` : styles.widget}>
             <JsonLd data={breadcrumbList} />
             <div className="container">
                 <Breadcrumbs items={items} />

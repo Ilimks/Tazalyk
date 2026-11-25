@@ -1,0 +1,376 @@
+.map {
+    position: relative;
+}
+
+.stage {
+    position: relative;
+    height: 620px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    background: #e8edf4;
+    // слои Leaflet имеют z-index до 1000 — держим их внутри карты, под шапкой и меню
+    isolation: isolate;
+
+    @media (max-width: 1024px) {
+        height: 520px;
+    }
+
+    @media (max-width: 600px) {
+        height: 380px;
+        border-radius: var(--r-lg);
+    }
+}
+
+.basesOnly .stage {
+    height: 480px;
+
+    @media (max-width: 600px) {
+        height: 340px;
+    }
+}
+
+.canvas {
+    position: absolute;
+    inset: 0;
+    background: transparent;
+    font-family: var(--font-sans);
+
+    &:focus-visible {
+        outline-offset: -3px;
+    }
+
+    // плитки OpenStreetMap чуть спокойнее, чтобы граница и базы читались первыми
+    :global(.leaflet-tile-pane) {
+        filter: saturate(.72) contrast(.96) brightness(1.03);
+    }
+
+    :global(.leaflet-control-zoom) {
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        overflow: hidden;
+        box-shadow: var(--sh-2);
+    }
+
+    :global(.leaflet-bar.leaflet-control-zoom a) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        line-height: 1;
+        font-size: 22px;
+        color: var(--brand);
+        background: var(--surface);
+        border-color: var(--line);
+        transition: background-color var(--t-fast) ease;
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                background: var(--brand-50);
+            }
+        }
+
+        &:focus-visible {
+            outline-offset: -3px;
+        }
+    }
+
+    :global(.leaflet-bar.leaflet-control-zoom a.leaflet-disabled) {
+        color: var(--line-strong);
+    }
+
+    :global(.leaflet-control-attribution) {
+        padding: 2px 8px;
+        font-family: var(--font-sans);
+        font-size: 12px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, .86);
+        border-top-left-radius: var(--r-sm);
+
+        a {
+            color: var(--brand);
+            text-decoration: underline;
+        }
+    }
+}
+
+.border {
+    stroke: var(--brand);
+    stroke-width: 3px;
+    stroke-linejoin: round;
+    fill: var(--green);
+    fill-opacity: .13;
+}
+
+.outside {
+    fill: var(--brand-dark);
+    fill-opacity: .1;
+}
+
+// капля с номером базы: поворачивается вокруг острия, номер остаётся прямым
+.pin {
+    > span {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 43px;
+        transition: transform var(--t-base) var(--ease);
+
+        &::before {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            width: 13px;
+            height: 13px;
+            background: var(--brand);
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        > span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: grid;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            background: var(--brand);
+            border: 2px solid #fff;
+            border-radius: 50%;
+            box-shadow: var(--sh-2);
+            transition: transform var(--t-base) var(--ease);
+        }
+    }
+
+    &:focus-visible {
+        outline: none;
+
+        > span > span {
+            box-shadow: 0 0 0 4px var(--green);
+        }
+    }
+}
+
+[data-spread='on'] {
+    .pinLeft > span {
+        transform: rotate(-38deg);
+
+        > span {
+            transform: rotate(38deg);
+        }
+    }
+
+    .pinRight > span {
+        transform: rotate(38deg);
+
+        > span {
+            transform: rotate(-38deg);
+        }
+    }
+
+    .labelLeft {
+        margin: 6px 0 0 -22px;
+    }
+
+    .labelRight {
+        margin: 6px 0 0 22px;
+    }
+}
+
+.label {
+    padding: 4px 10px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    box-shadow: var(--sh-1);
+
+    // на телефоне подписи не помещаются, адреса с теми же номерами — сразу под картой
+    @media (max-width: 600px) {
+        display: none;
+    }
+}
+
+.labelLeft,
+.labelRight {
+    transition: margin var(--t-base) var(--ease);
+}
+
+.state {
+    position: absolute;
+    inset: 0;
+    z-index: 500;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    text-align: center;
+    color: var(--text);
+    background: var(--bg);
+    pointer-events: none;
+
+    p {
+        max-width: 36ch;
+    }
+}
+
+.hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 900;
+    width: max-content;
+    max-width: calc(100% - 48px);
+    padding: 10px 16px;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    background: rgba(10, 20, 80, .88);
+    border-radius: var(--r-md);
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity var(--t-fast) ease;
+    pointer-events: none;
+}
+
+.hintOn {
+    opacity: 1;
+}
+
+// на компьютере список лежит поверх карты слева, на планшете и телефоне — под ней
+.panel {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 1;
+    display: grid;
+    gap: 8px;
+    width: 316px;
+
+    @media (max-width: 1024px) {
+        position: static;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+        width: auto;
+        margin-top: 12px;
+    }
+}
+
+.bases {
+    display: contents;
+}
+
+.city,
+.base {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--sh-2);
+    transition: border-color var(--t-fast) ease;
+
+    &.on {
+        border-color: var(--brand);
+    }
+
+    @media (max-width: 1024px) {
+        box-shadow: none;
+    }
+}
+
+.city,
+.show {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 60px;
+    padding: 12px 14px;
+    text-align: left;
+    color: var(--ink);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.city svg {
+    margin-left: auto;
+    color: var(--brand);
+}
+
+.show {
+    background: none;
+    border: 0;
+    border-radius: var(--r-lg);
+}
+
+.text {
+    display: grid;
+    min-width: 0;
+    line-height: 1.35;
+
+    b {
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    span {
+        font-size: 14px;
+        color: var(--muted);
+    }
+}
+
+.swatch {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: rgba(34, 197, 94, .18);
+    border: 3px solid var(--brand);
+    border-radius: 8px;
+}
+
+.number {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--brand);
+    border-radius: 50%;
+}
+
+.route {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 10px 14px 12px 54px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--brand);
+    border-top: 1px solid var(--line);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+@media print {
+    .stage {
+        break-inside: avoid;
+    }
+}

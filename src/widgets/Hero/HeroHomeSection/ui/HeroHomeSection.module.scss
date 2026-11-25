@@ -214,8 +214,11 @@
     padding-block: 48px 104px;
   }
 
+  // темнее слева и внизу, под текстом и кнопками; сверху справа фото остаётся живым
   .hero::before {
-    background: linear-gradient(180deg, rgba(10, 20, 80, .82) 0%, rgba(10, 20, 80, .66) 60%, rgba(10, 20, 80, .78) 100%);
+    background:
+      linear-gradient(90deg, rgba(10, 20, 80, .6) 0%, rgba(10, 20, 80, .12) 100%),
+      linear-gradient(180deg, rgba(10, 20, 80, .4) 0%, rgba(10, 20, 80, .56) 50%, rgba(10, 20, 80, .88) 100%);
   }
 }
 
@@ -235,11 +238,26 @@
     font-size: 30px;
   }
 
+  // кнопки по ширине текста, в один ряд
   .heroActions {
-    flex-direction: column;
+    gap: 10px;
   }
 
   .heroBtn {
-    width: 100%;
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 18px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 370px) {
+  .heroActions {
+    gap: 8px;
+  }
+
+  .heroBtn {
+    padding: 0 13px;
+    font-size: 14px;
   }
 }

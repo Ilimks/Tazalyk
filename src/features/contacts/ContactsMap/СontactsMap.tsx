@@ -1,45 +1,9 @@
-'use client'
-import { useState } from 'react';
+'use client';
 import { useTranslations } from 'next-intl';
-import { Loading } from '@/shared/ui/Loading';
-import { useContactData } from '@/entities/contacts';
-import styles from './ContactsMap.module.scss';
-
-type MapLocation = {
-    id: number;
-    lat: number;
-    lon: number;
-    name: string;
-    address: string;
-};
+import { CityMap } from '@/shared/ui/CityMap';
 
 export const ContactsMap: React.FC = () => {
     const t = useTranslations('Contacts');
-    const [mapLoaded, setMapLoaded] = useState(false);
-    const { mapLocations } = useContactData();
 
-    const points = mapLocations.map((loc: MapLocation) => `${loc.lon}%2C${loc.lat}%2Cpm2rdl`).join('~');
-    const mapUrl = `https://yandex.ru/map-widget/v1/?ll=74.56976932681516%2C42.88606147619031&z=16&pt=${points}`;
-
-    return (
-        <div className={styles.mapContainer}>
-            <div className={styles.mapWrapper}>
-                {!mapLoaded && (
-                    <div className={styles.mapLoader}>
-                        <Loading />
-                    </div>
-                )}
-                <iframe
-                    src={mapUrl}
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    allowFullScreen
-                    onLoad={() => setMapLoaded(true)}
-                    style={{ opacity: mapLoaded ? 1 : 0, transition: 'opacity 0.3s ease' }}
-                    title={t('ContactsMapTitle')}
-                />
-            </div>
-        </div>
-    );
+    return <CityMap mode="bases" title={t('ContactsMapTitle')} />;
 };

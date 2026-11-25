@@ -1,5 +1,11 @@
 // путь и заголовок страницы стоят на одной светлой полосе
 .widget {
   border-top: 1px solid var(--line);
-  background: linear-gradient(180deg, #fff 0%, var(--brand-50) 100%);
+  // к низу цвет меняется всё медленнее: на стыке с полосой заголовка не видно границы
+  background: linear-gradient(180deg, #fff 0%, #f6f8fd 45%, #f1f3fc 75%, var(--brand-50) 100%);
+}
+
+// страница без полосы заголовка (новость): сразу уходит в фон страницы
+.alone {
+  background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
 }

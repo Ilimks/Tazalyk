@@ -13,19 +13,31 @@
 
   .header__bottom__li {
     position: relative;
-    padding: 0 14px;
     color: rgba(255, 255, 255, .88);
     // с учётом кыргызских пунктов: они длиннее и тоже должны помещаться в строку
     font-size: clamp(13px, 1.12vw, 16px);
     font-weight: 600;
     line-height: 56px;
     white-space: nowrap;
-    cursor: pointer;
     transition: color .2s ease;
+
+    // нажимается вся ячейка, а не только текст
+    > a,
+    .trigger {
+      padding: 0 14px;
+      color: inherit;
+    }
 
     > a {
       display: block;
-      color: inherit;
+    }
+
+    // на синей полосе синяя рамка не видна
+    > a:focus-visible,
+    .trigger:focus-visible {
+      border-radius: var(--r-sm);
+      outline-color: #fff;
+      outline-offset: -6px;
     }
 
     &::after {
@@ -41,16 +53,24 @@
       transition: transform .2s ease;
     }
 
-    &:hover,
     &.expanded,
     &.current {
       color: #fff;
     }
 
-    &:hover::after,
     &.expanded::after,
     &.current::after {
       transform: scaleX(1);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: #fff;
+      }
+
+      &:hover::after {
+        transform: scaleX(1);
+      }
     }
   }
 
@@ -58,7 +78,14 @@
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    height: 56px;
+    border: 0;
+    background: none;
+    font: inherit;
+    line-height: inherit;
+    cursor: pointer;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
 
     svg {
       opacity: .7;
@@ -112,9 +139,16 @@
     font-size: 15px;
     font-weight: 500;
 
-    &:hover {
+    &:focus-visible {
       background: var(--brand-50);
       color: var(--brand);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background: var(--brand-50);
+        color: var(--brand);
+      }
     }
   }
 }

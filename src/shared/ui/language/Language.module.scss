@@ -48,8 +48,9 @@
 
 @media (max-width: 600px) {
   .langItem {
-    min-width: 36px;
-    padding: 4px 6px;
-    font-size: 12px;
+    min-width: 40px;
+    padding: 10px 6px;
+    font-size: 13px;
+    touch-action: manipulation;
   }
 }

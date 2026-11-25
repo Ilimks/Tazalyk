@@ -190,6 +190,59 @@ a[class*='utton']:active {
   scale: .98;
 }
 
+/* телефон: поле мельче 16px заставляет iPhone увеличить страницу при нажатии */
+@media (pointer: coarse), (max-width: 600px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* печать (тарифы, документы, график приёма): прокрутки нет, всё содержимое видно сразу */
+@media print {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  /* меню, поиск и корзина на бумаге не нужны */
+  header nav,
+  header button,
+  header form,
+  header input {
+    display: none !important;
+  }
+
+  header,
+  header * {
+    position: static !important;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  table,
+  tr,
+  img {
+    break-inside: avoid;
+  }
+}
+
 @media (max-width: 1350px) {
   .container {
     max-width: 95%;

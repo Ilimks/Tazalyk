@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/patch-next-image.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/patch-next-image.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
@@ -11,6 +13,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
     "@swc/helpers": "^0.5.21",
+    "leaflet": "1.9.4",
     "lucide-react": "1.48.0",
     "next": "15.5.29",
     "next-intl": "^4.7.0",
@@ -24,6 +27,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@types/grecaptcha": "^3.0.9",
+    "@types/leaflet": "1.9.12",
     "@types/node": "^20",
     "@types/nodemailer": "^8.0.0",
     "@types/react": "^18.3.31",

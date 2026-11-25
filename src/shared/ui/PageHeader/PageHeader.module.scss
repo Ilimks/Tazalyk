@@ -1,7 +1,8 @@
+// полоса заголовка перетекает в фон страницы: без линии и обрыва цвета.
+// Отступ до содержимого входит в полосу, чтобы переход был длиннее и мягче
 .pageHeader {
-  margin-bottom: 40px;
-  border-bottom: 1px solid var(--line);
-  background: var(--brand-50);
+  padding-bottom: 40px;
+  background: linear-gradient(180deg, var(--brand-50) 0%, #eff2fb 25%, #f2f5fc 60%, #f5f7fc 85%, var(--bg) 100%);
 }
 
 .pageTitleWrapper {
@@ -28,7 +29,7 @@
 
 @media (max-width: 600px) {
   .pageHeader {
-    margin-bottom: 24px;
+    padding-bottom: 24px;
   }
 
   .pageTitleWrapper {

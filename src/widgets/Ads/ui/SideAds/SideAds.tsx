@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
+import { Slot } from '@/shared/ui/Slot/Slot';
 import { sideAds, AdBanner } from '../../model/ads';
 import { AdLink } from '../AdLink/AdLink';
 import styles from './SideAds.module.scss';
@@ -31,7 +32,7 @@ export const SideAds: React.FC<SideAdsProps> = ({ children }) => {
 
     return (
         <div className={styles.wrapper}>
-            {children}
+            <Slot>{children}</Slot>
             {renderRail(sideAds.left, 'left')}
             {renderRail(sideAds.right, 'right')}
         </div>

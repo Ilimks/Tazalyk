@@ -106,8 +106,15 @@
         margin-bottom: 14px;
       }
 
+      // область нажатия пальцем, а не строка текста
+      &__ul {
+        gap: 0;
+      }
+
       &__link {
-        font-size: 14px;
+        padding-block: 10px;
+        font-size: 15px;
+        touch-action: manipulation;
       }
 
       // контакты — во всю ширину

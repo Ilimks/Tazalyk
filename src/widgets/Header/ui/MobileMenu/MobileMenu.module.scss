@@ -1,9 +1,10 @@
+// меню на телефоне: тёмная панель в цветах верхней полосы и подвала
 .overlay {
   position: fixed;
   z-index: 998;
   inset: 0;
   visibility: hidden;
-  background: rgba(10, 20, 80, .5);
+  background: rgba(6, 12, 50, .6);
   opacity: 0;
   transition: opacity .25s ease, visibility 0s linear .25s;
 }
@@ -25,17 +26,26 @@
   width: min(360px, 88vw);
   height: 100dvh;
   padding: 12px 16px 24px;
+  overflow-x: hidden;
   overflow-y: auto;
-  background: var(--surface);
-  color: var(--ink);
+  overscroll-behavior: contain;
+  background: linear-gradient(170deg, #15298a 0%, var(--brand-dark) 55%, #080f3d 100%);
+  color: #fff;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, .28) transparent;
   transform: translateX(100%);
   transition: transform .28s cubic-bezier(.22, .8, .24, 1), visibility 0s linear .28s;
+
+  // фирменная синяя рамка фокуса на тёмном не видна
+  :focus-visible {
+    outline-color: #fff;
+  }
 }
 
 .open {
   visibility: visible;
   transform: none;
-  transition: transform .28s cubic-bezier(.22, .8, .24, 1);
+  transition: transform .32s cubic-bezier(.22, .8, .24, 1);
 }
 
 .topBar {
@@ -45,10 +55,17 @@
   margin-bottom: 14px;
 }
 
-.logoIcon img {
-  display: block;
-  width: 52px;
-  height: 52px;
+// у логотипа тёмно-синие части: на тёмном ему нужна белая подложка
+.logoIcon {
+  padding: 4px;
+  border-radius: var(--r-md);
+  background: #fff;
+
+  img {
+    display: block;
+    width: 48px;
+    height: 48px;
+  }
 }
 
 .closeButton {
@@ -59,9 +76,25 @@
   height: 44px;
   border: none;
   border-radius: var(--r-md);
-  background: var(--brand-50);
-  color: var(--brand);
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
   cursor: pointer;
+  transition: background-color .2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, .2);
+  }
+
+  svg {
+    transform: rotate(-90deg);
+    transition: transform .2s ease;
+  }
+}
+
+// подсказки поиска раскрываются поверх пунктов
+.search {
+  position: relative;
+  z-index: 2;
 }
 
 .menuList {
@@ -69,7 +102,7 @@
 }
 
 .menuItem + .menuItem {
-  border-top: 1px solid var(--line);
+  border-top: 1px solid rgba(255, 255, 255, .12);
 }
 
 .menuLink,
@@ -78,31 +111,85 @@
   align-items: center;
   justify-content: space-between;
   min-height: 54px;
+  color: #fff;
   font-size: 17px;
   font-weight: 600;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  > span {
+    transition: transform .25s var(--ease), color .25s ease;
+  }
+
+  &:active > span {
+    color: #86efac;
+    transform: translateX(6px);
+  }
+}
+
+// пункт с подпунктами — кнопка: снимаем её собственный вид
+.submenuTrigger {
+  width: 100%;
+  border: 0;
+  background: none;
+  text-align: left;
+}
+
+@media (hover: hover) {
+  .menuLink:hover > span,
+  .submenuTrigger:hover > span {
+    color: #86efac;
+    transform: translateX(6px);
+  }
 }
 
 .arrow {
-  color: var(--muted);
-  transition: transform .2s ease;
+  color: rgba(255, 255, 255, .7);
+  transition: transform .3s var(--ease), color .2s ease;
 
   &.rotated {
-    color: var(--brand);
+    color: var(--green);
     transform: rotate(180deg);
   }
 }
 
+// подпункты раскрываются по своей настоящей высоте
 .submenu {
-  display: none;
-  margin-bottom: 12px;
-  padding: 6px;
-  border-radius: var(--r-md);
-  background: var(--brand-50);
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  margin-bottom: 0;
+  opacity: 0;
+  transition: grid-template-rows .28s var(--ease), margin-bottom .28s var(--ease), opacity .2s ease,
+    visibility 0s linear .28s;
 }
 
 .submenuOpen {
-  display: block;
+  grid-template-rows: 1fr;
+  visibility: visible;
+  margin-bottom: 12px;
+  opacity: 1;
+  transition: grid-template-rows .32s var(--ease), margin-bottom .32s var(--ease), opacity .3s ease;
+}
+
+.submenuList {
+  min-height: 0;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, .08);
+}
+
+.submenuItem {
+  padding: 0 6px;
+
+  &:first-child {
+    padding-top: 6px;
+  }
+
+  &:last-child {
+    padding-bottom: 6px;
+  }
 }
 
 .submenuLink {
@@ -111,18 +198,75 @@
   min-height: 46px;
   padding: 0 14px;
   border-radius: 10px;
-  color: var(--ink);
+  color: rgba(255, 255, 255, .9);
   font-size: 16px;
   font-weight: 500;
+  transform: translateY(-6px);
+  transition: transform .28s var(--ease), background-color .2s ease, color .2s ease;
+  -webkit-tap-highlight-color: transparent;
 
   &:hover,
   &:active {
-    background: var(--surface);
-    color: var(--brand);
+    background: rgba(255, 255, 255, .14);
+    color: #fff;
   }
+}
+
+.submenuOpen .submenuLink {
+  transform: none;
 }
 
 .socialFooter {
   margin-top: auto;
   padding-top: 24px;
+}
+
+// открытие: панель выезжает, следом по очереди проявляются логотип, поиск, пункты и соцсети
+.topBar,
+.search,
+.menuItem,
+.socialFooter {
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.open .topBar,
+.open .search,
+.open .menuItem,
+.open .socialFooter {
+  opacity: 1;
+  transform: none;
+  transition: opacity .4s var(--ease), transform .4s var(--ease);
+}
+
+.open .topBar {
+  transition-delay: 60ms;
+}
+
+.open .search {
+  transition-delay: 100ms;
+}
+
+@for $i from 1 through 8 {
+  .open .menuItem:nth-child(#{$i}) {
+    transition-delay: #{120 + $i * 35}ms;
+  }
+}
+
+.open .socialFooter {
+  transition-delay: 440ms;
+}
+
+.open .closeButton svg {
+  transform: none;
+  transition: transform .45s var(--ease) .12s;
+}
+
+// «уменьшить движение»: всё видно сразу, без ожидания очереди
+@media (prefers-reduced-motion: reduce) {
+  .menu,
+  .menu * {
+    transition-delay: 0s !important;
+  }
 }
