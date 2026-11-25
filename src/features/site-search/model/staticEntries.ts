@@ -1,6 +1,7 @@
 import type { SearchEntry } from './types';
 
 // Разделы, услуги и люди, которые посетитель ищет по названию. Тексты самих страниц — в searchIndex.ts
+// Несколько записей с одним адресом — разные названия одной страницы, кроме отмеченных role
 export const STATIC_ENTRIES: SearchEntry[] = [
     { id: '1', type: 'page', url: '/history', title: 'История предприятия', titleKy: 'Ишкананын тарыхы' },
     { id: '2', type: 'page', url: '/history', title: 'История', titleKy: 'Тарых' },
@@ -12,10 +13,10 @@ export const STATIC_ENTRIES: SearchEntry[] = [
     { id: '6', type: 'page', url: '/structure', title: 'Структура и деятельность', titleKy: 'Түзүм жана ишмердүүлүк' },
     { id: '7', type: 'page', url: '/structure', title: 'Организационная структура', titleKy: 'Уюштуруу түзүмү' },
     { id: '8', type: 'page', url: '/structure', title: 'Деятельность предприятия', titleKy: 'Ишкананын ишмердүүлүгү' },
-    { id: '9', type: 'page', url: '/structure', title: 'Вывоз отходов', titleKy: 'Таштандыларды чыгаруу' },
-    { id: '10', type: 'page', url: '/structure', title: 'Санитарная очистка', titleKy: 'Санитардык тазалоо' },
-    { id: '11', type: 'page', url: '/structure', title: 'Фонтанные комплексы', titleKy: 'Фонтан комплекстери' },
-    { id: '12', type: 'page', url: '/structure', title: 'Снос объектов', titleKy: 'Объекттерди бузуу' },
+    { id: '9', type: 'page', url: '/structure', title: 'Вывоз отходов', titleKy: 'Таштандыларды чыгаруу', role: 'item' },
+    { id: '10', type: 'page', url: '/structure', title: 'Санитарная очистка', titleKy: 'Санитардык тазалоо', role: 'item' },
+    { id: '11', type: 'page', url: '/structure', title: 'Фонтанные комплексы', titleKy: 'Фонтан комплекстери', role: 'item' },
+    { id: '12', type: 'page', url: '/structure', title: 'Снос объектов', titleKy: 'Объекттерди бузуу', role: 'item' },
 
     { id: '13', type: 'page', url: '/services', title: 'Зона обслуживания', titleKy: 'Тейлөө аймагы' },
     { id: '14', type: 'page', url: '/services', title: 'Зона', titleKy: 'Аймак' },
@@ -25,9 +26,9 @@ export const STATIC_ENTRIES: SearchEntry[] = [
     { id: '17', type: 'page', url: '/vacancies', title: 'Вакансии', titleKy: 'Бош орундар' },
 
     { id: '18', type: 'page', url: '/tariffs', title: 'Тарифы', titleKy: 'Тарифтер' },
-    { id: '19', type: 'page', url: '/tariffs', title: 'Физические лица', titleKy: 'Жеке жактар' },
-    { id: '20', type: 'page', url: '/tariffs', title: 'Юридические лица', titleKy: 'Юридикалык жактар' },
-    { id: '21', type: 'page', url: '/tariffs', title: 'Тарифы для пенсионеров', titleKy: 'Пенсионерлер үчүн тарифтер' },
+    { id: '19', type: 'page', url: '/tariffs', title: 'Физические лица', titleKy: 'Жеке жактар', role: 'item' },
+    { id: '20', type: 'page', url: '/tariffs', title: 'Юридические лица', titleKy: 'Юридикалык жактар', role: 'item' },
+    { id: '21', type: 'page', url: '/tariffs', title: 'Тарифы для пенсионеров', titleKy: 'Пенсионерлер үчүн тарифтер', role: 'item' },
 
     { id: '22', type: 'page', url: '/complaints', title: 'Подать Жалобу', titleKy: 'Арыз берүү' },
     { id: '23', type: 'page', url: '/complaints', title: 'Жалоба', titleKy: 'Арыз' },
@@ -104,8 +105,8 @@ export const STATIC_ENTRIES: SearchEntry[] = [
 
     { id: '86', type: 'page', url: '/', title: 'Колл-центр 1400', titleKy: 'Колл-борбор 1400' },
 
-    { id: '87', type: 'page', url: '/directorate', title: 'Осмоналиев Женишбек Анарбекович', titleKy: 'Осмоналиев Женишбек Анарбекович' },
-    { id: '89', type: 'page', url: '/directorate', title: 'Иманакунова Бааркан Мелисовна', titleKy: 'Иманакунова Бааркан Мелисовна' },
-    { id: '90', type: 'page', url: '/directorate', title: 'Ибраев Кубанычбек Жумалиевич', titleKy: 'Ибраев Кубанычбек Жумалиевич' },
-    { id: '91', type: 'page', url: '/directorate', title: 'Иманакунов Улан Маратович', titleKy: 'Иманакунов Улан Маратович' },
+    { id: '87', type: 'page', url: '/directorate', title: 'Осмоналиев Женишбек Анарбекович', titleKy: 'Осмоналиев Женишбек Анарбекович', role: 'item' },
+    { id: '89', type: 'page', url: '/directorate', title: 'Иманакунова Бааркан Мелисовна', titleKy: 'Иманакунова Бааркан Мелисовна', role: 'item' },
+    { id: '90', type: 'page', url: '/directorate', title: 'Ибраев Кубанычбек Жумалиевич', titleKy: 'Ибраев Кубанычбек Жумалиевич', role: 'item' },
+    { id: '91', type: 'page', url: '/directorate', title: 'Иманакунов Улан Маратович', titleKy: 'Иманакунов Улан Маратович', role: 'item' },
 ];

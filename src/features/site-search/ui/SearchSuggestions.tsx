@@ -33,7 +33,10 @@ export const SearchSuggestions: React.FC<SearchSuggestionsProps> = ({
                     {hits.map((hit) => (
                         <li key={hit.key}>
                             <Link href={hit.url} onClick={onResultClick} className={styles.item}>
-                                <span className={styles.type}>{t(`types.${hit.type}`)}</span>
+                                <span className={styles.type}>
+                                    {t(`types.${hit.type}`)}
+                                    {hit.date && <span className={styles.date}>{hit.date}</span>}
+                                </span>
                                 <span className={styles.title}>{hit.title}</span>
                                 {hit.snippet && <span className={styles.snippet}>{hit.snippet}</span>}
                             </Link>

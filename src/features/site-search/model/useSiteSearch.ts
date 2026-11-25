@@ -8,16 +8,16 @@ import type { SearchHit } from './types';
 
 // запрос к серверу — когда пользователь перестал печатать
 const DEBOUNCE_MS = 250;
+// записей в каждом разделе данных (максимум сервера): подсказки и страница поиска считают одинаково
+const API_LIMIT = 20;
 
 interface UseSiteSearchOptions {
     initialQuery?: string;
     // сколько результатов показывать; без лимита — все
     limit?: number;
-    // сколько записей запрашивать в каждом разделе данных
-    apiLimit?: number;
 }
 
-export const useSiteSearch = ({ initialQuery = '', limit, apiLimit = 5 }: UseSiteSearchOptions = {}) => {
+export const useSiteSearch = ({ initialQuery = '', limit }: UseSiteSearchOptions = {}) => {
     const locale = useLocale();
     const router = useRouter();
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -53,7 +53,7 @@ export const useSiteSearch = ({ initialQuery = '', limit, apiLimit = 5 }: UseSit
 
         const timer = setTimeout(async () => {
             try {
-                const hits = await searchApi.find(text, apiLimit, locale, controller.signal);
+                const hits = await searchApi.find(text, API_LIMIT, locale, controller.signal);
                 if (!cancelled) setDataHits(hits);
             } catch (error) {
                 // без сервера остаётся поиск по страницам сайта
@@ -68,7 +68,7 @@ export const useSiteSearch = ({ initialQuery = '', limit, apiLimit = 5 }: UseSit
             controller.abort();
             clearTimeout(timer);
         };
-    }, [text, hasQuery, locale, apiLimit]);
+    }, [text, hasQuery, locale]);
 
     // подсказки закрываются по клику мимо и по Esc
     useEffect(() => {

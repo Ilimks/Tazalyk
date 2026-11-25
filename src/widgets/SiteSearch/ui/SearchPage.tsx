@@ -8,19 +8,13 @@ import { PageHeader } from '@/shared/ui/PageHeader';
 import { SEARCH_HIT_TYPES, useSiteSearch } from '@/features/site-search';
 import styles from './SearchPage.module.scss';
 
-// по столько записей запрашиваем в каждом разделе (максимум сервера)
-const PAGE_API_LIMIT = 20;
-
 interface SearchPageProps {
     initialQuery: string;
 }
 
 export const SearchPage: React.FC<SearchPageProps> = ({ initialQuery }) => {
     const t = useTranslations('Search');
-    const { query, setQuery, hits, hasQuery, isLoading, isEmpty, goToResults } = useSiteSearch({
-        initialQuery,
-        apiLimit: PAGE_API_LIMIT,
-    });
+    const { query, setQuery, hits, hasQuery, isLoading, isEmpty, goToResults } = useSiteSearch({ initialQuery });
 
     const groups = useMemo(
         () =>
@@ -37,7 +31,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({ initialQuery }) => {
 
     return (
         <div className={styles.page}>
-            <PageHeader title={t('title')} description={t('description')} />
+            <PageHeader title={t('title')} description={t('description')} image="/assets/images/covers/search.webp" imagePosition="50% 50%" />
 
             <div className="container">
                 <form className={styles.form} onSubmit={handleSubmit} role="search">
@@ -76,6 +70,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({ initialQuery }) => {
                                     {items.map((hit) => (
                                         <li key={hit.key}>
                                             <Link href={hit.url} className={styles.item}>
+                                                {hit.date && <span className={styles.date}>{hit.date}</span>}
                                                 <span className={styles.itemTitle}>{hit.title}</span>
                                                 {hit.snippet && <span className={styles.snippet}>{hit.snippet}</span>}
                                             </Link>

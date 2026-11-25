@@ -26,6 +26,8 @@ export interface SearchHit {
     title: string;
     snippet: string;
     url: string;
+    // день публикации новости: 22.05.2026
+    date?: string;
     // чем больше, тем выше в списке
     score: number;
 }
@@ -39,6 +41,9 @@ export interface SearchEntry {
     titleKy: string;
     text?: string;
     textKy?: string;
+    // page — заголовок самой страницы, item — отдельная запись на ней (человек, тариф, направление),
+    // без роли — ещё одно название страницы
+    role?: 'page' | 'item';
 }
 
 // Ответ GET /api/search/

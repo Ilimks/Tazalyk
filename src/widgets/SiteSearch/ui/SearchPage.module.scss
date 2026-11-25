@@ -126,6 +126,12 @@
     transition: color 0.2s ease;
 }
 
+.date {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.3;
+}
+
 .snippet {
     color: var(--muted);
     font-size: 15px;
