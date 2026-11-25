@@ -29,6 +29,19 @@ export const AttendanceTable: React.FC = () => {
         <section className={styles.attendance}>
             <div className="container">
                 <div className={styles.attendanceTable}>
+                    {/* как заказать — до прайса, а не под ним */}
+                    <div className={styles.order}>
+                        <div className={styles.order__text}>
+                            <h2>{t('orderTitle')}</h2>
+                            <p>{t('note')}</p>
+                        </div>
+                        <a className={styles.phone} href={SERVICES_PHONE.href}>
+                            <Phone size={18} aria-hidden />
+                            <span className={styles.phone__label}>{t('orderCall')}</span>
+                            <strong>{SERVICES_PHONE.label}</strong>
+                        </a>
+                    </div>
+
                     <Tabs
                         tabs={tabs}
                         activeTab={activeCategory}
@@ -56,15 +69,6 @@ export const AttendanceTable: React.FC = () => {
                                 ))}
                             </tbody>
                         </table>
-                    </div>
-                    
-                    <div className={styles.note}>
-                        <p>{t('note')}</p>
-                        <a className={styles.phone} href={SERVICES_PHONE.href}>
-                            <Phone size={16} aria-hidden />
-                            <span>{t('phoneLabel')}</span>
-                            <strong>{SERVICES_PHONE.label}</strong>
-                        </a>
                     </div>
                 </div>
             </div>

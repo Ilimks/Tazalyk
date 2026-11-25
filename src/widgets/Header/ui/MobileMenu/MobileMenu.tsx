@@ -1,7 +1,7 @@
 "use client";
 import { Link } from '@/i18n/navigation';
 import Image from "next/image";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown, Headset, X } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import styles from "./MobileMenu.module.scss";
 import { useMobileMenu } from "../../hooks/useMobileMenu";
@@ -17,6 +17,7 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
   const { menuRef, openSubmenu, toggleSubmenu, handleKeyDown } = useMobileMenu(isOpen, onClose);
   const t = useTranslations("HeaderMenu");
   const tCommon = useTranslations("Common");
+  const tMain = useTranslations("Main");
 
   return (
     <>
@@ -180,6 +181,12 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
         </ul>
 
         <div className={styles.socialFooter}>
+          {/* верхней полосы с номером на телефоне нет */}
+          <a className={styles.call} href="tel:1400">
+            <Headset size={20} aria-hidden />
+            <span>{tMain('MainReceptionCallCenter')}</span>
+            <b>1400</b>
+          </a>
           <MobileHeaderIcons />
         </div>
       </nav>

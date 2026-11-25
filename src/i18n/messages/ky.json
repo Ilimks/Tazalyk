@@ -1,8 +1,6 @@
 {
     "Header": {
         "header__logo": "Муниципалдык ишканасы",
-        "header__text1": "Бүгүн жакшы күн!",
-        "header__text2": "Биздин порталга кош келиңиз",
         "header__search": "Сайттан издөө"
     },
     
@@ -336,30 +334,20 @@
         "TariffsTitle": "Тарифтер",
         "TariffsDescription": "Бишкек шаарында катуу тиричилик калдыктарын чыгаруу жана көмүү боюнча кызматтарга тарифтер. Бишкек шаардык кеңешинин 2023-жылдын 1-февралындагы токтому менен бекитилген.",
         
-        "TariffsIndividualTitle": "Жеке жактар үчүн (калк)",
+        "TariffsIndividualCaption": "Жеке жактар",
         "TariffsIndividualCardPopulation": "Калк",
         "TariffsIndividualCardPensioners": "Пенсионерлер",
-        "TariffsAllCardBase": "Негизги тариф:",
         "TariffsIndividualCardTotal": "1 адамга жалпы:",
         "TariffsIndividualCardPeople": "Тариф 1 адамга айына көрсөтүлгөн",
         "TariffsIndividualCardPreferential": "Пенсионерлер үчүн жеңилдетилген тариф",
         
-        "TariffsIndLegalTitle": "Юридикалык жактар үчүн (менчик формасына карабастан чарба жүргүзүүчү субъекттер)",
+        "TariffsLegalCaption": "Менчик формасына карабастан чарбалык субъекттер",
         "TariffsIndLegalCardTitle": "Юридикалык жактар",
         "TariffsIndLegalCardTotal": "1 м³ үчүн жалпы:",
         "TariffsIndLegalCardWaste": "Тариф катуу тиричилик калдыктарынын 1 куб метрине көрсөтүлгөн",
         
-        "TariffsTableTitle": "Тарифтердин жыйынтык таблицасы",
-        "TariffsTableCardCategory": "Категория",
-        "TariffsTableCardUnit": "Өлчөө бирдиги",
         "TariffsTableCardBase": "Негизги тариф",
-        "TariffsTableCardFees": "Салыктар жана жыйымдар",
-        "TariffsTableCardTotal": "Жалпы",
         
-        "TariffsTableCardPopulation": "Калк",
-        "TariffsTableCardPensioners": "Пенсионерлер",
-        "TariffsTableCardLegal": "Юридикалык жактар",
-        "TariffsTableCardPeople": "1 адам/ай",
         
         "TariffsNoteTitle": "Эскертүү",
         "TariffsNoteCardText1": "Тарифтер Бишкек шаардык кеңешинин токтому менен бекитилген жана 2023-жылдын 1-февралынан тартып күчүнө кирген.",
@@ -368,12 +356,11 @@
         "TariffsNoteCardText4": "Пенсионерлерге пенсиялык күбөлүк болгон учурда жеңилдетилген тариф каралат",
         "TariffsNoteCardText5": "Юридикалык жактар үчүн катуу тиричилик калдыктарынын жылдык көлөмү топтолуу нормалары жана чыгарылган калдыктардын чыныгы көлөмү боюнча эсептелет",
         "TariffsNsp": "НСП",
-        "TariffsVat": "КНС",
-        "TariffsUnitPerson": "1 адамга айына",
-        "TariffsUnitWaste": "1 м³ КТК"
+        "TariffsVat": "КНС"
     },
 
     "Vacancies": {
+        "VacanciesPhoto": "«Тазалык» МИнин кызматкери парктагы аллеяны шыпырууда",
         "VacanciesTitle": "Бош орундар",
         "VacanciesDescription": "«Тазалык» МИнин командасына кошулуңуз! Биз туруктуу иш, расмий ишке орношуу жана кесиптик өнүгүү мүмкүнчүлүктөрүн сунуштайбыз.",
         "VacanciesAll": "Бардык талапкерлер үчүн",
@@ -538,6 +525,8 @@
     },
 
     "Attendance": {
+        "orderTitle": "Кызматка кантип буйрутма берсе болот",
+        "orderCall": "Чалуу",
         "title": "Кызматтар",
         "description": "«Тазалык» муниципалдык ишканасынын 2025-жылга келишимдик негизде көрсөтүлүүчү кызматтардын тизмеси",
         "materialServices": "Материалдык каражаттар",
@@ -546,7 +535,6 @@
         "unit": "Өлчөө бирдиги",
         "price": "Кызматтын баасы (сом менен)",
         "note": "Бардык кызматтар келишимдик негизде көрсөтүлөт. Баалар бардык салыктар менен көрсөтүлгөн.",
-        "phoneLabel": "Байланыш үчүн телефон:",
         "units": {
             "pcs": "даана",
             "sqm": "м²",
@@ -888,6 +876,8 @@
         }
     },
     "Common": {
+        "more": "Толугураак",
+        "less": "Жыйноо",
         "close": "Жабуу",
         "delete": "Өчүрүү",
         "clear": "Тазалоо",

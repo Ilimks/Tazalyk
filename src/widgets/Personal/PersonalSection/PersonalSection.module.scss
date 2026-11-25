@@ -3,6 +3,8 @@
   position: relative;
   z-index: 3;
   margin-top: -72px;
+  // дальше идёт тёмная полоса колл-центра: карточки не должны в неё упираться
+  padding-bottom: 40px;
 }
 
 .grid {
@@ -31,6 +33,7 @@
 @media (max-width: 600px) {
   .section {
     margin-top: -60px;
+    padding-bottom: 28px;
   }
 
   .grid {

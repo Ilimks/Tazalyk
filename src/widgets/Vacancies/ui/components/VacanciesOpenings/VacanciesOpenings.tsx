@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { BriefcaseBusiness } from 'lucide-react';
 import { VacancyCard, vacanciesApi, type Vacancy } from '@/entities/vacancy';
@@ -51,6 +52,14 @@ export const VacanciesOpenings: React.FC<VacanciesOpeningsProps> = ({ initialVac
                         {vacancies.map((vacancy) => (
                             <VacancyCard key={vacancy.id} vacancy={vacancy} />
                         ))}
+                        {/* свободное место в последнем ряду занимает своя фотография, а не пустота */}
+                        <div
+                            className={styles.photo}
+                            data-in-three={vacancies.length % 3}
+                            data-in-two={vacancies.length % 2}
+                        >
+                            <Image src="/assets/images/Slide6.webp" alt={t('VacanciesPhoto')} fill sizes="(max-width: 1130px) 50vw, 850px" />
+                        </div>
                     </div>
                 ) : (
                     <p className={styles.empty}>{t('VacanciesOpenEmpty')}</p>

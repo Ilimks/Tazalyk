@@ -69,7 +69,6 @@ export const HeroHomeSection: React.FC = () => {
     };
 
     const getSlideTransform = (position: number): string => {
-        const radius = 20;
         const angle = position * 47 + 141;
 
         let scale = 1;
@@ -79,7 +78,7 @@ export const HeroHomeSection: React.FC = () => {
             scale = 1.8;
         }
 
-        return `rotate(${angle}deg) translateY(${radius}rem) rotate(${-angle}deg) scale(${scale})`;
+        return `rotate(${angle}deg) translateY(var(--ring)) rotate(${-angle}deg) scale(${scale})`;
     };
 
     const getSlidePosition = (index: number): number => {

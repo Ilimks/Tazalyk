@@ -48,7 +48,7 @@
 .content {
   h2 {
     margin-bottom: 14px;
-    font-size: 26px;
+    font-size: var(--h2);
     font-weight: 700;
   }
 
@@ -103,7 +103,7 @@
   }
 
   .content h2 {
-    font-size: 22px;
+    font-size: var(--h2);
   }
 
   .images {

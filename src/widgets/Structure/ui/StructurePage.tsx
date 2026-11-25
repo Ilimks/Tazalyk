@@ -13,6 +13,8 @@ export const StructurePage: React.FC = () => {
             <PageHeader
                 title={t('title')}
                 description={t('description')}
+                image="/assets/images/History1.webp"
+                imagePosition="50% 40%"
             />
             
             <StructureOrganization />

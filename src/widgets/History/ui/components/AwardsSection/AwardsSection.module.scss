@@ -20,7 +20,7 @@
 
   h2 {
     margin: 18px 0 14px;
-    font-size: 26px;
+    font-size: var(--h2);
     font-weight: 700;
   }
 
@@ -51,7 +51,7 @@
     padding: 24px 20px;
 
     h2 {
-      font-size: 22px;
+      font-size: var(--h2);
     }
   }
 }

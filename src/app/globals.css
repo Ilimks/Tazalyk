@@ -80,6 +80,15 @@
   --ring: 0 0 0 3px rgba(16, 35, 130, .18);
 
   --section: 72px;
+
+  /* заголовки: раздел страницы, подраздел, карточка. Заголовок самой страницы — в PageHeader */
+  --h2: clamp(24px, 2.2vw, 32px);
+  --h3: 20px;
+  --h4: 18px;
+
+  /* кнопки: обычная и крупная (главное действие страницы) */
+  --btn: 44px;
+  --btn-lg: 52px;
 }
 
 * {
@@ -262,6 +271,9 @@ a[class*='utton']:active {
 @media (max-width: 600px) {
   :root {
     --section: 44px;
+    --h2: 22px;
+    --h3: 18px;
+    --h4: 16px;
   }
   .container {
     padding-inline: 16px;

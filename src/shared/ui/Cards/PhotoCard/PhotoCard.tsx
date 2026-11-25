@@ -2,7 +2,8 @@
 import styles from "./PhotoCard.module.scss";
 import { Calendar } from "lucide-react";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { mediaCaption } from "@/entities/media/lib/caption";
 import { PhotoModal } from "@/shared/ui/Modals/PhotoModal";
 
 interface Photo {
@@ -10,6 +11,8 @@ interface Photo {
     main_image?: string;
     mainImage?: string;
     image?: string;
+    caption_ru?: string;
+    caption_ky?: string;
     date: string;
     created_at: string;
     updated_at?: string;
@@ -23,6 +26,7 @@ const getPlaceholderImage = (text: string) => `data:image/svg+xml,%3Csvg xmlns='
 
 export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
     const t = useTranslations("MediaGallery");
+    const locale = useLocale();
     const placeholderImage = getPlaceholderImage(t('noPhoto'));
     const [isHovered, setIsHovered] = useState(false);
     const [imgError, setImgError] = useState(false);
@@ -72,6 +76,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
     };
 
     const imageUrl = getImageUrl();
+    const caption = mediaCaption(currentPhoto, locale);
 
     return (
         <>
@@ -81,17 +86,27 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={handleCardClick}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleCardClick();
+                    }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label={`${t('photo')}: ${caption || formatDate(currentPhoto.date)}`}
             >
                 <div className={styles.card__imageContainer}>
                     <img 
                         src={imageUrl}
-                        alt={t('photo')}
+                        alt=""
                         loading="lazy"
                         className={`${styles.card__image} ${isHovered ? styles.card__imageZoomed : ''}`}
                         onError={handleImageError}
                     />
                 </div>
                 <div className={styles.card__content}>
+                    {caption && <p className={styles.card__caption}>{caption}</p>}
                     <time className={styles.card__content__date}>
                         <Calendar size={14} aria-hidden />
                         {formatDate(currentPhoto.date)}
@@ -105,6 +120,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
                 // одна запись — одно фото: дополнительные фото больше не показываются
                 images={[imageUrl]}
                 date={currentPhoto.date}
+                caption={caption}
             />
         </>
     );

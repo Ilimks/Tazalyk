@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { Calendar, Play, X } from 'lucide-react';
 import styles from './VideoModal.module.scss';
@@ -11,6 +11,7 @@ interface VideoModalProps {
     // превью основного видео: показывается, пока видео загружается
     poster?: string;
     date?: string;
+    caption?: string;
     galleryVideos?: string[];
 }
 
@@ -20,10 +21,20 @@ export const VideoModal: React.FC<VideoModalProps> = ({
     videoUrl,
     poster,
     date,
+    caption,
     galleryVideos = []
 }) => {
     const t = useTranslations('MediaGallery');
     const tCommon = useTranslations('Common');
+    // фокус в окне: клавиатура и экранное чтение работают с окном, а не со страницей под ним
+    const closeRef = useRef<HTMLButtonElement>(null);
+    useEffect(() => {
+        if (!isOpen) return;
+        const opener = document.activeElement as HTMLElement | null;
+        closeRef.current?.focus({ preventScroll: true });
+        return () => opener?.focus({ preventScroll: true });
+    }, [isOpen]);
+
     const [currentVideo, setCurrentVideo] = useState(videoUrl);
 
     const allVideos = useMemo(() => {
@@ -80,9 +91,17 @@ export const VideoModal: React.FC<VideoModalProps> = ({
 
     return (
         <div className={styles.overlay} onClick={onClose}>
-            <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-                <button 
-                    className={styles.closeBtn} 
+            <div
+                className={styles.modal}
+                onClick={(e) => e.stopPropagation()}
+                role="dialog"
+                aria-modal="true"
+                aria-label={caption || t('videos')}
+            >
+                <button
+                    ref={closeRef}
+                    type="button"
+                    className={styles.closeBtn}
                     onClick={onClose}
                     aria-label={tCommon('close')}
                 >
@@ -102,6 +121,8 @@ export const VideoModal: React.FC<VideoModalProps> = ({
                     />
                 </div>
                 
+                {caption && <p className={styles.caption}>{caption}</p>}
+
                 {date && (
                     <div className={styles.videoDate}>
                         <Calendar size={16} aria-hidden />

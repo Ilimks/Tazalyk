@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { mediaCaption } from '@/entities/media/lib/caption';
 import { Images, Video as VideoIcon } from 'lucide-react';
 import { PageHeader } from '@/shared/ui/PageHeader';
 import { Tabs } from '@/shared/ui/Tabs';
@@ -39,6 +40,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
     initialVideos = null,
 }) => {
     const t = useTranslations('MediaGallery');
+    const locale = useLocale();
     const [activeTab, setActiveTab] = useState<MediaType>(defaultTab);
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -205,6 +207,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                     onClose={() => setSelectedPhoto(null)}
                     images={[selectedPhoto.main_image]}
                     date={selectedPhoto.date}
+                    caption={mediaCaption(selectedPhoto, locale)}
                 />
             )}
 
@@ -215,6 +218,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
                     videoUrl={selectedVideo.main_video_url}
                     poster={selectedVideo.thumbnail}
                     galleryVideos={selectedVideo.gallery_videos}
+                    caption={mediaCaption(selectedVideo, locale)}
                 />
             )}
         </div>

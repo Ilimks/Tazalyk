@@ -27,7 +27,7 @@ export const STATIC_ENTRIES: SearchEntry[] = [
     { id: '18', type: 'page', url: '/tariffs', title: 'Тарифы', titleKy: 'Тарифтер' },
     { id: '19', type: 'page', url: '/tariffs', title: 'Физические лица', titleKy: 'Жеке жактар' },
     { id: '20', type: 'page', url: '/tariffs', title: 'Юридические лица', titleKy: 'Юридикалык жактар' },
-    { id: '21', type: 'page', url: '/tariffs', title: 'Сводная таблица тарифов', titleKy: 'Тарифтердин жыйынтык таблицасы' },
+    { id: '21', type: 'page', url: '/tariffs', title: 'Тарифы для пенсионеров', titleKy: 'Пенсионерлер үчүн тарифтер' },
 
     { id: '22', type: 'page', url: '/complaints', title: 'Подать Жалобу', titleKy: 'Арыз берүү' },
     { id: '23', type: 'page', url: '/complaints', title: 'Жалоба', titleKy: 'Арыз' },

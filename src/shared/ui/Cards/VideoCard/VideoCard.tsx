@@ -2,6 +2,8 @@
 import styles from "./VideoCard.module.scss";
 import { Calendar, Film, Play, Video as VideoIcon } from "lucide-react";
 import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { mediaCaption } from "@/entities/media/lib/caption";
 import { VideoModal } from "@/shared/ui/Modals/VideoModal";
 
 interface Video {
@@ -10,6 +12,8 @@ interface Video {
     gallery_videos: string[];
     // картинка-превью с API; если её нет — показываем заглушку
     thumbnail?: string;
+    caption_ru?: string;
+    caption_ky?: string;
     date: string;
     created_at: string;
 }
@@ -21,6 +25,9 @@ interface VideoCardProps {
 // В карточке грузится только превью. Само видео начинает загружаться,
 // когда пользователь нажал на карточку и открылось окно с плеером
 export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
+    const t = useTranslations("MediaGallery");
+    const locale = useLocale();
+    const caption = mediaCaption(video, locale);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [thumbnailFailed, setThumbnailFailed] = useState(false);
     const showThumbnail = Boolean(video.thumbnail) && !thumbnailFailed;
@@ -50,6 +57,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
                 }}
                 role="button"
                 tabIndex={0}
+                aria-label={`${t('videos')}: ${caption || formatDate(video.date)}`}
             >
                 <div className={styles.card__imageContainer}>
                     {showThumbnail ? (
@@ -79,6 +87,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
                     )}
                 </div>
                 <div className={styles.card__content}>
+                    {caption && <p className={styles.card__caption}>{caption}</p>}
                     <time className={styles.card__content__date}>
                         <Calendar size={14} aria-hidden />
                         {formatDate(video.date)}
@@ -92,6 +101,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
                 videoUrl={video.main_video_url}
                 poster={showThumbnail ? video.thumbnail : undefined}
                 galleryVideos={video.gallery_videos}
+                caption={caption}
             />
         </>
     );

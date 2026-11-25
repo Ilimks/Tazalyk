@@ -1,17 +1,69 @@
 .directorBio {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
   max-width: 78ch;
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    > :not(:first-child) {
+      display: none;
+    }
+
+    &.open > * {
+      display: block;
+    }
+  }
 
   &__text {
     font-size: 16px;
     line-height: 1.65;
+  }
+
+  &__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: var(--btn);
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--brand);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    svg {
+      transition: transform var(--t-base) var(--ease);
+    }
+
+    &[aria-expanded='true'] svg {
+      transform: rotate(180deg);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
   }
 }
 
 @media (max-width: 600px) {
   .directorBio__text {
     font-size: 15px;
+  }
+}
+
+// на бумаге кнопки нет — биография целиком
+@media print {
+  .directorBio__body > :not(:first-child) {
+    display: block;
+  }
+
+  .directorBio__more {
+    display: none;
   }
 }

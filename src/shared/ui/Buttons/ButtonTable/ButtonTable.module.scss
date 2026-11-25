@@ -54,19 +54,19 @@
 }
 
 .sm {
-  min-height: 40px;
+  min-height: var(--btn);
   padding: 0 16px;
   font-size: 14px;
 }
 
 .md {
-  min-height: 44px;
+  min-height: var(--btn);
   padding: 0 20px;
   font-size: 15px;
 }
 
 .lg {
-  min-height: 52px;
+  min-height: var(--btn-lg);
   padding: 0 28px;
   font-size: 16px;
 }

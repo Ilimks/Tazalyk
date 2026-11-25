@@ -11,13 +11,14 @@ export default function Home() {
   return (
     <main>
       <HeroHomeSection/>
+      {/* сначала то, за чем приходят жители: действия, телефон, новости; о предприятии — ниже */}
       <PersonalSection />
-      <DirectorHomeSection />
+      <AppealsCenterSection/>
       <NewsHomeSection/>
       {/* магазин контейнеров; без товаров раздел не показывается */}
       <ShopHomeSection/>
-      <AppealsCenterSection/>
       <VideosPhotoHomeSection/>
+      <DirectorHomeSection />
     </main>
   );
 }

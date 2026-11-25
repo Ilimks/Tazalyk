@@ -20,6 +20,8 @@ export const VacanciesPage: React.FC<VacanciesPageProps> = ({ initialVacancies }
             <PageHeader
                 title={t('VacanciesTitle')}
                 description={t('VacanciesDescription')}
+                image="/assets/images/History2.webp"
+                imagePosition="50% 34%"
             />
 
             <VacanciesOpenings initialVacancies={initialVacancies} />

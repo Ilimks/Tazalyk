@@ -1,64 +1,46 @@
-export const getIndividualTariffs = (t: (key: string) => string) => [
+// Тарифы утверждены постановлением Бишкекского городского кенеша, действуют с 01.02.2023
+export const getTariffs = (t: (key: string) => string) => [
     {
         id: 1,
-        title: t('TariffsIndividualCardPopulation'),
         icon: 'user',
-        baseTariff: 41.00,
-        nsp: { rate: 3, amount: 1.23 },
+        title: t('TariffsIndividualCardPopulation'),
+        caption: t('TariffsIndividualCaption'),
+        rows: [
+            { label: t('TariffsTableCardBase'), amount: 41.00 },
+            { label: `${t('TariffsNsp')} 3%`, amount: 1.23 },
+        ],
+        totalLabel: t('TariffsIndividualCardTotal'),
         total: 42.23,
-        unit: t('TariffsUnitPerson'),
-        note: t('TariffsIndividualCardPeople')
+        note: t('TariffsIndividualCardPeople'),
     },
     {
         id: 2,
-        title: t('TariffsIndividualCardPensioners'),
         icon: 'star',
-        baseTariff: 22.50,
-        nsp: { rate: 3, amount: 0.68 },
+        title: t('TariffsIndividualCardPensioners'),
+        caption: t('TariffsIndividualCaption'),
+        rows: [
+            { label: t('TariffsTableCardBase'), amount: 22.50 },
+            { label: `${t('TariffsNsp')} 3%`, amount: 0.68 },
+        ],
+        totalLabel: t('TariffsIndividualCardTotal'),
         total: 23.18,
-        unit: t('TariffsUnitPerson'),
-        note: t('TariffsIndividualCardPreferential')
-    }
+        note: t('TariffsIndividualCardPreferential'),
+    },
+    {
+        id: 3,
+        icon: 'building',
+        title: t('TariffsIndLegalCardTitle'),
+        caption: t('TariffsLegalCaption'),
+        rows: [
+            { label: t('TariffsTableCardBase'), amount: 361.00 },
+            { label: `${t('TariffsVat')} 12%`, amount: 43.32 },
+            { label: `${t('TariffsNsp')} 2%`, amount: 7.22 },
+        ],
+        totalLabel: t('TariffsIndLegalCardTotal'),
+        total: 411.54,
+        note: t('TariffsIndLegalCardWaste'),
+    },
 ];
-
-export const getLegalTariff = (t: (key: string) => string) => ({
-    title: t('TariffsIndLegalCardTitle'),
-    icon: 'building',
-    baseTariff: 361.00,
-    vat: { rate: 12, amount: 43.32 },
-    nsp: { rate: 2, amount: 7.22 },
-    total: 411.54,
-    unit: t('TariffsUnitWaste'),
-    note: t('TariffsIndLegalCardWaste')
-});
-
-export const getSummaryTable = (t: (key: string) => string) => ({
-    title: t('TariffsTableTitle'),
-    columns: [t('TariffsTableCardCategory'), t('TariffsTableCardUnit'), t('TariffsTableCardBase'), t('TariffsTableCardFees'), t('TariffsTableCardTotal')],
-    rows: [
-        {
-            category: t('TariffsTableCardPopulation'),
-            unit: t('TariffsTableCardPeople'),
-            baseTariff: '41.00 сом',
-            taxes: `${t('TariffsNsp')} 3%: 1.23 сом`,
-            total: '42.23 сом'
-        },
-        {
-            category: t('TariffsTableCardPensioners'),
-            unit: t('TariffsTableCardPeople'),
-            baseTariff: '22.50 сом',
-            taxes: `${t('TariffsNsp')} 3%: 0.68 сом`,
-            total: '23.18 сом'
-        },
-        {
-            category: t('TariffsTableCardLegal'),
-            unit: t('TariffsUnitWaste'),
-            baseTariff: '361.00 сом',
-            taxes: `${t('TariffsVat')} 12%: 43.32 сом<br/>${t('TariffsNsp')} 2%: 7.22 сом`,
-            total: '411.54 сом'
-        }
-    ]
-});
 
 export const getAdditionalInfo = (t: (key: string) => string) => ({
     title: t('TariffsNoteTitle'),

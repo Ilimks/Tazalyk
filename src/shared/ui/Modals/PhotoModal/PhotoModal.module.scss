@@ -137,6 +137,24 @@
     border-radius: var(--r-sm);
 }
 
+.caption {
+    color: #ffffff;
+    margin: 18px 24px 0;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+
+    + div {
+        margin-top: 6px;
+    }
+
+    @media (max-width: 768px) {
+        margin: 14px 20px 0;
+        font-size: 16px;
+    }
+}
+
 .imageDate {
     margin: 20px 24px 16px;
     display: flex;
@@ -144,7 +162,7 @@
     gap: 8px;
     font-size: 14px;
     font-weight: 500;
-    color: var(--muted);
+    color: #cbd5e1;
 
     svg {
         stroke: #94a3b8;
@@ -170,7 +188,7 @@
     margin: 16px 0 12px;
     font-size: 14px;
     font-weight: 500;
-    color: var(--muted);
+    color: #cbd5e1;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -242,7 +260,7 @@
         padding: 8px;
         font-size: 12px;
         font-weight: 500;
-        color: var(--muted);
+        color: #cbd5e1;
         text-align: center;
         background: #1e293b;
         

@@ -1,8 +1,9 @@
 .directorSection {
   display: grid;
-  grid-template-columns: 300px minmax(0, 1fr);
-  gap: 48px;
-  padding: 40px;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 36px;
+  align-items: start;
+  padding: 32px;
   border: 1px solid var(--line);
   border-radius: var(--r-xl);
   background: var(--surface);
@@ -26,7 +27,7 @@
 
   &__name {
     margin-bottom: 16px;
-    font-size: clamp(24px, 2.3vw, 32px);
+    font-size: var(--h2);
     font-weight: 700;
     letter-spacing: -.01em;
   }
@@ -35,30 +36,55 @@
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 28px;
+    margin-top: 16px;
   }
 }
 
 @media (max-width: 1000px) {
   .directorSection {
-    grid-template-columns: 220px minmax(0, 1fr);
-    gap: 32px;
-    padding: 28px;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 28px;
+    padding: 24px;
   }
 }
 
 @media (max-width: 700px) {
+  // фото рядом с именем, текст под ними во всю ширину
   .directorSection {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 6px 16px;
+    padding: 16px;
+
+    > :first-child {
+      grid-row: 1 / span 2;
+      width: 96px;
+    }
+
+    &__right {
+      display: contents;
+
+      > :nth-child(n + 3) {
+        grid-column: 1 / -1;
+      }
+    }
+
+    &__position {
+      align-self: end;
+      justify-self: start;
+      margin: 0;
+    }
+
+    &__name {
+      align-self: start;
+      margin-bottom: 8px;
+      font-size: var(--h3);
+    }
 
     &__links {
       gap: 8px;
-      margin-top: 20px;
+      margin-top: 6px;
 
       a {
-        min-height: 44px;
         padding: 0 12px;
       }
     }

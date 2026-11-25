@@ -1,6 +1,8 @@
 export interface Photo {
     id: string;
     main_image: string;
+    caption_ru?: string;
+    caption_ky?: string;
     date: string;
     created_at: string;
     updated_at?: string;
@@ -11,6 +13,8 @@ export interface Video {
     main_video_url: string;
     gallery_videos: string[];
     thumbnail?: string;
+    caption_ru?: string;
+    caption_ky?: string;
     date: string;
     created_at: string;
     updated_at?: string;

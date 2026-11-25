@@ -1,8 +1,6 @@
 {
     "Header": {
         "header__logo": "Муниципальное предприятие",
-        "header__text1": "Сегодня хороший день!",
-        "header__text2": "Добро пожаловать на наш портал",
         "header__search": "Найти на сайте"
     },
     
@@ -335,27 +333,17 @@
     "Tariffs": {
         "TariffsTitle": "Тарифы", 
         "TariffsDescription": "Тарифы на услуги по вывозу и захоронению твердых бытовых отходов в городе Бишкек. Утверждены постановлением Бишкекского городского кенеша от 01.02.2023г.",
-        "TariffsIndividualTitle": "Для физических лиц (население)",
+        "TariffsIndividualCaption": "Физические лица",
         "TariffsIndividualCardPopulation": "Население",
         "TariffsIndividualCardPensioners": "Пенсионеры",
-        "TariffsAllCardBase": "Базовый тариф:",
         "TariffsIndividualCardTotal": "Итого с 1 человека:",
         "TariffsIndividualCardPeople": "Тариф указан за 1 человека в месяц",
         "TariffsIndividualCardPreferential": "Льготный тариф для пенсионеров",
-        "TariffsIndLegalTitle": "Для юридических лиц (хозяйствующие субъекты независимо от форм собственности)",
+        "TariffsLegalCaption": "Хозяйствующие субъекты независимо от форм собственности",
         "TariffsIndLegalCardTitle": "Юридические лица",
         "TariffsIndLegalCardTotal": "Итого за 1 м³:",
         "TariffsIndLegalCardWaste": "Тариф указан за 1 кубический метр твердых бытовых отходов",
-        "TariffsTableTitle": "Сводная таблица тарифов",
-        "TariffsTableCardCategory": "Категория",
-        "TariffsTableCardUnit": "Единица измерения",
         "TariffsTableCardBase": "Базовый тариф",
-        "TariffsTableCardFees": "Налоги и сборы",
-        "TariffsTableCardTotal": "Итого",
-        "TariffsTableCardPopulation": "Население",
-        "TariffsTableCardPensioners": "Пенсионеры",
-        "TariffsTableCardLegal": "Юридические лица",
-        "TariffsTableCardPeople": "1 человек/мес",
         "TariffsNoteTitle": "Примечание",
         "TariffsNoteCardText1": "Тарифы утверждены постановлением Бишкекского городского кенеша и действуют с 01.02.2023г.",
         "TariffsNoteCardText2": "НСП - налог с продаж (для физических лиц - 3%, для юридических лиц - 2%)",
@@ -363,12 +351,11 @@
         "TariffsNoteCardText4": "Для пенсионеров предоставляется льготный тариф при наличии пенсионного удостоверения",
         "TariffsNoteCardText5": "Для юридических лиц расчет годового объема твердых бытовых отходов производится по нормам накопления и фактическому объему вывезенных отходов",
         "TariffsNsp": "НСП",
-        "TariffsVat": "НДС",
-        "TariffsUnitPerson": "1 человек в месяц",
-        "TariffsUnitWaste": "1 м³ ТБО"
+        "TariffsVat": "НДС"
     },
 
     "Vacancies": {
+        "VacanciesPhoto": "Сотрудник МП «Тазалык» подметает аллею в парке",
         "VacanciesTitle": "Вакансии", 
         "VacanciesDescription": "Присоединяйтесь к команде МП «Тазалык»! Мы предлагаем стабильную работу, официальное трудоустройство и возможности для профессионального развития.",
         "VacanciesAll": "Для всех кандидатов",
@@ -533,6 +520,8 @@
     },
 
     "Attendance": {
+        "orderTitle": "Как заказать услугу",
+        "orderCall": "Позвонить",
         "title": "Услуги",
         "description": "Перечень оказываемых услуг (прочих) на договорной основе муниципального предприятия «Тазалык» на 2025 год",
         "materialServices": "Материальные средства",
@@ -541,7 +530,6 @@
         "unit": "Ед. измер.",
         "price": "Стоимость в сомах, с налогами",
         "note": "Все услуги оказываются на договорной основе. Цены указаны с учетом всех налогов.",
-        "phoneLabel": "Телефон для связи:",
         "units": {
             "pcs": "шт",
             "sqm": "м²",
@@ -883,6 +871,8 @@
         }
     },
     "Common": {
+        "more": "Подробнее",
+        "less": "Свернуть",
         "close": "Закрыть",
         "delete": "Удалить",
         "clear": "Очистить",

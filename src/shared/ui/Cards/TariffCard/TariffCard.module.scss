@@ -9,17 +9,25 @@
 
 .cardHeader {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 14px;
   padding: 22px 24px 0;
 
-  h3 {
-    font-size: 20px;
+  h2 {
+    font-size: var(--h3);
     font-weight: 700;
   }
 }
 
+.caption {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
 .cardIcon {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,7 +47,7 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 14px 24px 24px;
+  padding: 18px 24px 24px;
 }
 
 .priceRow {
@@ -60,21 +68,16 @@
   white-space: nowrap;
 }
 
-// итог — внизу карточки, отдельной плашкой
+// итог — первым, отдельной плашкой
 .priceTotal {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
-  margin-top: auto;
+  margin-bottom: 6px;
   padding: 18px 20px;
   border-radius: var(--r-md);
   background: var(--green-50);
-}
-
-.priceRow:nth-last-of-type(3) {
-  margin-bottom: 18px;
-  border-bottom: none;
 }
 
 .totalLabel {
@@ -94,7 +97,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 14px;
+  // пояснения всех карточек стоят на одной линии
+  margin-top: auto;
+  padding-top: 16px;
   color: var(--muted);
   font-size: 14px;
   line-height: 1.4;

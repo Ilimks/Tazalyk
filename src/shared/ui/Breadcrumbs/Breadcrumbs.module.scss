@@ -1,5 +1,5 @@
 .breadcrumbs {
-  padding: 22px 0 0;
+  padding: 16px 0 0;
 
   &__list {
     display: flex;
@@ -39,7 +39,7 @@
 
 @media (max-width: 600px) {
   .breadcrumbs {
-    padding-top: 16px;
+    padding-top: 12px;
 
     &__item {
       font-size: 14px;

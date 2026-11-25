@@ -17,7 +17,7 @@ export const InfoBox: React.FC<InfoBoxProps> = ({ title, items }) => {
                         <Info aria-hidden />
                     </div>
                     <div className={styles.infoBoxContent}>
-                        <h4>{title}</h4>
+                        <h2>{title}</h2>
                         <ul>
                             {items.map((item, index) => (
                                 <li key={index}>{item}</li>

@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { Calendar, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Image from 'next/image';
@@ -10,16 +10,27 @@ interface PhotoModalProps {
     onClose: () => void;
     images: string[];
     date?: string;
+    caption?: string;
 }
 
 export const PhotoModal: React.FC<PhotoModalProps> = ({ 
     isOpen, 
     onClose, 
     images: initialImages,
-    date
+    date,
+    caption
 }) => {
     const t = useTranslations('MediaGallery');
     const tCommon = useTranslations('Common');
+    // фокус в окне: клавиатура и экранное чтение работают с окном, а не со страницей под ним
+    const closeRef = useRef<HTMLButtonElement>(null);
+    useEffect(() => {
+        if (!isOpen) return;
+        const opener = document.activeElement as HTMLElement | null;
+        closeRef.current?.focus({ preventScroll: true });
+        return () => opener?.focus({ preventScroll: true });
+    }, [isOpen]);
+
     const [currentImage, setCurrentImage] = useState('');
     const [touchStart, setTouchStart] = useState<number | null>(null);
     const [touchEnd, setTouchEnd] = useState<number | null>(null);
@@ -136,9 +147,17 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
 
     return (
         <div className={styles.overlay} onClick={onClose}>
-            <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-                <button 
-                    className={styles.closeBtn} 
+            <div
+                className={styles.modal}
+                onClick={(e) => e.stopPropagation()}
+                role="dialog"
+                aria-modal="true"
+                aria-label={caption || t('photo')}
+            >
+                <button
+                    ref={closeRef}
+                    type="button"
+                    className={styles.closeBtn}
                     onClick={onClose}
                     aria-label={tCommon('close')}
                 >
@@ -166,7 +185,7 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                             <Image 
                                 key={currentImage}
                                 src={currentImageUrl}
-                                alt={t('photo')}
+                                alt={caption || t('photo')}
                                 className={styles.modalImage}
                                 width={1200}
                                 height={800}
@@ -193,6 +212,8 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                     </div>
                 )}
                 
+                {caption && <p className={styles.caption}>{caption}</p>}
+
                 {date && (
                     <div className={styles.imageDate}>
                         <Calendar size={16} aria-hidden />

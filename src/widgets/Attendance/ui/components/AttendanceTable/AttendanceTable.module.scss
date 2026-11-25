@@ -63,17 +63,31 @@
   }
 }
 
-.note {
+.order {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  margin-top: 20px;
-  padding: 18px 24px;
+  gap: 24px;
+  margin-bottom: 24px;
+  padding: 20px 24px;
   border: 1px solid var(--brand-100);
   border-radius: var(--r-lg);
   background: var(--brand-50);
-  font-size: 16px;
+
+  &__text {
+    max-width: 62ch;
+  }
+
+  h2 {
+    margin-bottom: 4px;
+    font-size: var(--h4);
+    font-weight: 700;
+  }
+
+  p {
+    color: var(--text);
+    font-size: 16px;
+  }
 }
 
 .phone {
@@ -81,7 +95,7 @@
   flex-shrink: 0;
   align-items: center;
   gap: 10px;
-  min-height: 48px;
+  min-height: var(--btn-lg);
   padding: 0 22px;
   border-radius: var(--r-md);
   background: var(--brand);
@@ -121,11 +135,15 @@
     }
   }
 
-  .note {
+  .order {
     flex-direction: column;
     align-items: stretch;
+    gap: 14px;
     padding: 16px;
-    font-size: 15px;
+
+    p {
+      font-size: 15px;
+    }
   }
 
   .phone {

@@ -1,1 +1,0 @@
-export { TariffTable } from './TariffTable';

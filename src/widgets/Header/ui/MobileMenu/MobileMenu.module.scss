@@ -221,6 +221,35 @@
   padding-top: 24px;
 }
 
+.call {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--btn-lg);
+  margin-bottom: 16px;
+  padding: 0 16px;
+  border: 1px solid rgba(134, 239, 172, .4);
+  border-radius: var(--r-md);
+  color: rgba(255, 255, 255, .9);
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+
+  svg {
+    color: #86efac;
+  }
+
+  b {
+    margin-left: auto;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  &:active {
+    background: rgba(255, 255, 255, .1);
+  }
+}
+
 // открытие: панель выезжает, следом по очереди проявляются логотип, поиск, пункты и соцсети
 .topBar,
 .search,

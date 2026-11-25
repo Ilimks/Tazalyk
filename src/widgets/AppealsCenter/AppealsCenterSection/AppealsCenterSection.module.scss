@@ -71,7 +71,7 @@
 
   &__title {
     color: #fff;
-    font-size: clamp(26px, 2.5vw, 34px);
+    font-size: var(--h2);
     font-weight: 700;
     letter-spacing: -.01em;
   }

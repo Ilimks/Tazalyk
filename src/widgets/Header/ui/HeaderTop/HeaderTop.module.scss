@@ -10,10 +10,20 @@
     min-height: 44px;
   }
 
-  &__hello b {
-    margin-right: 6px;
-    color: #fff;
-    font-weight: 600;
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__hours {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    svg {
+      color: var(--green);
+    }
   }
 
   &__right {
@@ -26,19 +36,31 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    min-height: 44px;
     color: inherit;
 
     svg {
       color: var(--green);
     }
 
+    // главный номер предприятия — крупнее всего в этой строке
     b {
       color: #fff;
+      font-size: 22px;
       font-weight: 700;
+      letter-spacing: .01em;
+      line-height: 1;
     }
 
-    &:hover {
-      color: #fff;
+    &:focus-visible {
+      border-radius: var(--r-sm);
+      outline-color: #fff;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: #fff;
+      }
     }
   }
 }
