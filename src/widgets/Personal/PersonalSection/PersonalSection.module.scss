@@ -1,10 +1,6 @@
-// карточки заходят на первый экран
+// быстрые ссылки жителя — отдельная секция под первым экраном
 .section {
-  position: relative;
-  z-index: 3;
-  margin-top: -72px;
-  // дальше идёт тёмная полоса колл-центра: карточки не должны в неё упираться
-  padding-bottom: 40px;
+  padding: 48px 0;
 }
 
 .grid {
@@ -32,8 +28,7 @@
 
 @media (max-width: 600px) {
   .section {
-    margin-top: -60px;
-    padding-bottom: 28px;
+    padding: 20px 0 28px;
   }
 
   .grid {

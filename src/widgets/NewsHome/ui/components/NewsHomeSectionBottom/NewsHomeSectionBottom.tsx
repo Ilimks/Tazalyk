@@ -43,6 +43,9 @@ export const NewsHomeSectionBottom: React.FC<NewsHomeSectionBottomProps> = ({ in
             .slice(0, 4);
     }, [news]);
 
+    // свежая новость крупно, три остальные строками рядом (на компьютере)
+    const featured = latestNews.length === 4;
+
     if (isLoading && latestNews.length === 0) {
         return (
             <div className={`${styles.newsHomeBottom} ${mobile.newsHomeBottom}`}>
@@ -87,9 +90,14 @@ export const NewsHomeSectionBottom: React.FC<NewsHomeSectionBottomProps> = ({ in
     }
 
     return (
-        <div className={`${styles.newsHomeBottom} ${mobile.newsHomeBottom}`}>
-            {latestNews.map((item) => (
-                <NewsCard key={item.id} news={item} variant="tile" />
+        <div className={`${styles.newsHomeBottom} ${mobile.newsHomeBottom} ${featured ? styles.featured : ''}`}>
+            {latestNews.map((item, index) => (
+                <NewsCard
+                    key={item.id}
+                    news={item}
+                    variant="tile"
+                    layout={!featured ? undefined : index === 0 ? 'lead' : 'row'}
+                />
             ))}
         </div>
     );

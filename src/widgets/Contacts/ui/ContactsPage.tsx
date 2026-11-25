@@ -11,6 +11,8 @@ export const ContactsPage: React.FC = () => {
             <PageHeader
                 title={t('ContactsTitle')} 
                 description={t('ContactsDescription')} 
+                image="/assets/images/covers/contacts.webp"
+                imagePosition="50% 50%"
             />
             <ContactsInfoSection/>
             <ContactsMapSection/>

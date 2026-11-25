@@ -27,7 +27,7 @@ export const PhotoHomeSection: React.FC = () => {
     );
 
     const recentPhotos = useMemo(() => 
-        safePhotos.slice(0, 4),
+        safePhotos.slice(0, 5),
         [safePhotos]
     );
 
@@ -78,7 +78,7 @@ export const PhotoHomeSection: React.FC = () => {
     }
 
     return (
-        <div className={`${styles.photoHome} ${mobile.photoHome}`}>
+        <div className={`${styles.photoHome} ${mobile.photoHome} ${recentPhotos.length === 5 ? styles.bento : ''}`}>
             {recentPhotos.map((photo) => (
                 <PhotoCard key={photo.id} photo={photo} />
             ))}

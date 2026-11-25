@@ -3,7 +3,7 @@
   align-items: center;
   padding: 3px;
   border-radius: var(--r-sm);
-  background: rgba(255, 255, 255, .12);
+  background: var(--brand-50);
 }
 
 .langItem {
@@ -12,7 +12,7 @@
   border: none;
   border-radius: 6px;
   background: transparent;
-  color: rgba(255, 255, 255, .85);
+  color: var(--muted);
   font-size: 13px;
   font-weight: 600;
   line-height: 20px;
@@ -21,29 +21,13 @@
 }
 
 .active {
-  background: #fff;
+  background: var(--surface);
   color: var(--brand);
+  box-shadow: var(--sh-1);
 }
 
 .divider {
   display: none;
-}
-
-// без верхней полосы переключатель стоит на белом
-@media (max-width: 1000px) {
-  .lang {
-    background: var(--brand-50);
-  }
-
-  .langItem {
-    color: var(--muted);
-  }
-
-  .active {
-    background: var(--surface);
-    color: var(--brand);
-    box-shadow: var(--sh-1);
-  }
 }
 
 @media (max-width: 600px) {

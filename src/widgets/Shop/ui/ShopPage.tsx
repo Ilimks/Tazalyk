@@ -27,7 +27,7 @@ export const ShopPage = async ({ query }: ShopPageProps) => {
 
     return (
         <div className={styles.shopPage}>
-            <PageHeader title={t('title')} description={t('description')} />
+            <PageHeader title={t('title')} description={t('description')} image="/assets/images/covers/shop.webp" imagePosition="50% 22%" />
             <div className="container">
                 <Suspense fallback={<CatalogGridSkeleton />}>
                     <ShopCatalog

@@ -37,6 +37,8 @@ export const DocumentsPage = async ({ kind }: DocumentsPageProps) => {
             <PageHeader
                 title={t(`${kind}Title`)}
                 description={t(`${kind}Description`)}
+                image={`/assets/images/covers/${kind}.webp`}
+                imagePosition="50% 45%"
             />
             <div className={styles.documentsPage}>
                 <div className="container">

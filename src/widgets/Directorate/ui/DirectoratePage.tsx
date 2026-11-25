@@ -11,6 +11,8 @@ export const DirectoratePage: React.FC = () => {
             <PageHeader
                title={t('DirectorateTitle')}
                description={t('DirectorateDescription')}
+               image="/assets/images/covers/directorate.webp"
+               imagePosition="50% 60%"
             />
             <DirectorateGrid members={directorateData} />
         </>

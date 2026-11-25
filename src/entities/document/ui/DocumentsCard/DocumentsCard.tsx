@@ -1,5 +1,5 @@
 'use client';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { Calendar, Download, Eye, FileText, HardDrive } from 'lucide-react';
 import { Document } from '../../model/types';
 import styles from './DocumentsCard.module.scss';
@@ -16,11 +16,11 @@ export const DocumentsCard: React.FC<DocumentsCardProps> = ({
     onDownload,
 }) => {
     const t = useTranslations("Documents");
-    const locale = useLocale();
 
+    // формат один на оба языка: в Chrome нет кыргызского, и дата с сервера не совпадала с браузером
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString(locale === 'ky' ? 'ky-KG' : 'ru-RU', {
+        return date.toLocaleDateString('ru-RU', {
             day: '2-digit',
             month: '2-digit',
             year: 'numeric',
@@ -30,7 +30,7 @@ export const DocumentsCard: React.FC<DocumentsCardProps> = ({
     // «449.82 KB» → «450 КБ», «1,2 МБ»
     const formatFileSize = (bytes: number) => {
         const number = (value: number, digits: number) =>
-            value.toLocaleString(locale === 'ky' ? 'ky-KG' : 'ru-RU', { maximumFractionDigits: digits });
+            value.toLocaleString('ru-RU', { maximumFractionDigits: digits });
         if (bytes < 1024 * 1024) return `${number(bytes / 1024, 0)} КБ`;
         return `${number(bytes / 1024 / 1024, 1)} МБ`;
     };

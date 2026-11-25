@@ -189,7 +189,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
 
     return (
         <div className={`${styles.gallery} ${mobile.gallery}`}>
-            <PageHeader title={t('title')} description={t('description')} />
+            <PageHeader title={t('title')} description={t('description')} image="/assets/images/covers/media.webp" imagePosition="50% 8%" />
 
             <div className="container">
                 <Tabs

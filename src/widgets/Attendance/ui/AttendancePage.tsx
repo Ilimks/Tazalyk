@@ -11,8 +11,8 @@ export const AttendancePage: React.FC = () => {
             <PageHeader
                 title={t('title')}
                 description={t('description')}
-                image="/assets/images/Slide4.webp"
-                imagePosition="50% 58%"
+                image="/assets/images/covers/services.webp"
+                imagePosition="50% 50%"
             />
             
             <AttendanceTable />

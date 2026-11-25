@@ -3,8 +3,9 @@ import styles from "./HeaderUp.module.scss";
 import mobile from "./HeaderUpMobile.module.scss";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { MapPin } from "lucide-react";
+import { Clock, Headset, MapPin } from "lucide-react";
 import { HeaderInputSearch } from "../Search/Search";
+import { HeaderIcons } from "../HeaderIcons/HeaderIcons";
 import { Language } from "@/shared/ui/language/Language";
 import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
 import { useBurger } from "../../model/useBurger";
@@ -15,6 +16,7 @@ import { CartLink } from "@/features/cart";
 export const HeaderUp: React.FC = () => {
   const t = useTranslations("Header");
   const tFooter = useTranslations("Footer");
+  const tMain = useTranslations("Main");
   const { isOpen, toggle, close } = useBurger();
 
   return (
@@ -65,10 +67,29 @@ export const HeaderUp: React.FC = () => {
       >
         <HeaderInputSearch />
         <div className={styles.header__up__actions}>
-          <Link href="/contacts" className={styles.header__up__address}>
-            <MapPin size={18} aria-hidden />
-            <span>{tFooter('FooterAddress')}</span>
-          </Link>
+          {/* адрес и график — двумя строками, рядом колл-центр, соцсети и язык */}
+          <div className={styles.header__up__info}>
+            <Link href="/contacts" className={styles.header__up__address}>
+              <MapPin size={16} aria-hidden />
+              <span>{tFooter('FooterAddress')}</span>
+            </Link>
+            <p className={styles.header__up__hours}>
+              <Clock size={16} aria-hidden />
+              <span>{tFooter('FooterWorkHours')}</span>
+            </p>
+          </div>
+          <a className={styles.header__up__call} href="tel:1400">
+            <span className={styles.header__up__callIcon}>
+              <Headset size={22} aria-hidden />
+            </span>
+            <span className={styles.header__up__callText}>
+              {tMain('MainReceptionCallCenter')}
+              <b>1400</b>
+            </span>
+          </a>
+          <div className={styles.header__up__social}>
+            <HeaderIcons />
+          </div>
           <CartLink />
           <div className={styles.header__up__lang}>
             <Language />

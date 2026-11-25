@@ -8,6 +8,25 @@
   }
 }
 
+// пять фото: последнее крупно, четыре сеткой рядом
+.bento > article:first-of-type {
+  display: flex;
+  grid-column: span 2;
+  grid-row: span 2;
+  flex-direction: column;
+
+  > :first-child {
+    flex: 1;
+    aspect-ratio: auto;
+    min-height: 0;
+  }
+
+  img {
+    position: absolute;
+    inset: 0;
+  }
+}
+
 // карточки-заготовки, пока раздел не докрутили
 .skeletonContainer {
   display: grid;
@@ -47,5 +66,16 @@
   .photoHome,
   .skeletonContainer {
     gap: 12px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .bento > article:first-of-type {
+    grid-row: auto;
+
+    > :first-child {
+      flex: none;
+      aspect-ratio: 16 / 9;
+    }
   }
 }

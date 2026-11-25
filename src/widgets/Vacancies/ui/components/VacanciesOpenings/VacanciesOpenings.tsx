@@ -58,7 +58,7 @@ export const VacanciesOpenings: React.FC<VacanciesOpeningsProps> = ({ initialVac
                             data-in-three={vacancies.length % 3}
                             data-in-two={vacancies.length % 2}
                         >
-                            <Image src="/assets/images/Slide6.webp" alt={t('VacanciesPhoto')} fill sizes="(max-width: 1130px) 50vw, 850px" />
+                            <Image src="/assets/images/work/driver.webp" alt={t('VacanciesPhoto')} fill sizes="(max-width: 1130px) 50vw, 850px" />
                         </div>
                     </div>
                 ) : (

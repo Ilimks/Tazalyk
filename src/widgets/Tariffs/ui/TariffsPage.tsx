@@ -14,8 +14,8 @@ export const TariffsPage: React.FC = () => {
             <PageHeader
                 title={t('TariffsTitle')}
                 description={t('TariffsDescription')}
-                image="/assets/images/History5.webp"
-                imagePosition="50% 62%"
+                image="/assets/images/covers/tariffs.webp"
+                imagePosition="50% 50%"
             />
 
             <TariffsSection />

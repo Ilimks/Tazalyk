@@ -94,6 +94,67 @@
   }
 }
 
+// главная на компьютере: первая новость крупно, остальные строками
+@media (min-width: 1001px) {
+  .lead,
+  .row {
+    .card__imageContainer {
+      position: relative;
+      aspect-ratio: auto;
+    }
+
+    .card__image {
+      position: absolute;
+      inset: 0;
+    }
+  }
+
+  .lead {
+    .card__imageContainer {
+      flex: 1 1 260px;
+    }
+
+    .card__content {
+      flex: none;
+      padding: 24px 28px 26px;
+    }
+
+    .card__content__title {
+      font-size: 24px;
+      line-height: 1.28;
+      letter-spacing: -.01em;
+      -webkit-line-clamp: 2;
+    }
+
+    .card__content__description {
+      font-size: 16px;
+    }
+  }
+
+  .row {
+    flex-direction: row;
+
+    .card__imageContainer {
+      flex: 0 0 34%;
+      min-height: 158px;
+    }
+
+    .card__content {
+      justify-content: center;
+      min-width: 0;
+      padding: 18px 22px;
+    }
+
+    .card__content__description {
+      display: none;
+    }
+
+    .card__content__btn {
+      margin-top: 4px;
+    }
+  }
+}
+
 // главная на телефоне: карточки по две в ряд, поэтому без описания и мельче
 @media (max-width: 600px) {
   .tile {

@@ -2,8 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 32px;
-  padding: 16px 0;
+  gap: 28px;
+  min-height: 88px;
+  padding: 10px 0;
 
   &__left {
     display: flex;
@@ -13,8 +14,8 @@
 
     .header__up__logo {
       display: block;
-      width: 68px;
-      height: 68px;
+      width: 66px;
+      height: 66px;
     }
 
     .header__up__logoName {
@@ -54,37 +55,102 @@
 
   &__actions {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
+
+    @media (max-width: 1400px) {
+      gap: 15px;
+    }
   }
 
-  &__address {
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  &__address,
+  &__hours {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
     color: var(--text);
     font-size: 14px;
     font-weight: 500;
+    line-height: 20px;
     white-space: nowrap;
 
     svg {
       flex-shrink: 0;
       color: var(--green-600);
     }
+  }
 
-    &:hover {
-      color: var(--brand);
+  &__address {
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--brand);
+      }
     }
   }
 
-  // язык в этой строке нужен только там, где нет верхней полосы
+  // главный номер предприятия — самое заметное в строке
+  &__call {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    white-space: nowrap;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover .header__up__callIcon {
+        background: var(--green-100);
+      }
+    }
+  }
+
+  &__callIcon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: var(--green-50);
+    color: var(--green-600);
+    transition: background-color .2s ease;
+  }
+
+  &__callText {
+    display: flex;
+    flex-direction: column;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 16px;
+
+    b {
+      color: var(--brand);
+      font-size: 25px;
+      font-weight: 700;
+      letter-spacing: .01em;
+      line-height: 26px;
+    }
+  }
+
   &__lang {
+    display: block;
+  }
+}
+
+// в узком окне соцсети остаются в подвале, адрес и график — в «Контактах»
+@media (max-width: 1268px) {
+  .header__up__social {
     display: none;
   }
 }
 
-@media (max-width: 1200px) {
-  .header__up__address {
+@media (max-width: 1180px) {
+  .header__up__info {
     display: none;
   }
 }
@@ -92,7 +158,13 @@
 @media (max-width: 1000px) {
   .header__up {
     gap: 12px;
+    min-height: 0;
     padding: 10px 0;
+
+    // на телефоне 1400 стоит в меню и в блоке приёма обращений
+    &__call {
+      display: none;
+    }
 
     &__left {
       gap: 10px;
@@ -111,10 +183,6 @@
     &__right,
     &__actions {
       gap: 8px;
-    }
-
-    &__lang {
-      display: block;
     }
   }
 }

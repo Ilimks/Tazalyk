@@ -62,7 +62,7 @@ export const CartPage: React.FC = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const header = <PageHeader title={t('title')} description={order ? undefined : t('description')} />;
+    const header = <PageHeader title={t('title')} description={order ? undefined : t('description')} image="/assets/images/covers/cart.webp" imagePosition="50% 50%" />;
 
     if (order) {
         return (

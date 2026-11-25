@@ -1,12 +1,6 @@
+// Высота — --hero-h в globals.css: шапка и первый экран занимают ровно окно,
+// карточки быстрых ссылок стоят отдельной секцией под ним
 .hero {
-  // Высота под окно: шапка, первый экран и карточки «Тарифы … Приём граждан» видны целиком.
-  // 340px — шапка и та часть карточек, что ниже фото. Кольцо карусели меняется вместе с высотой.
-  --hero-h: clamp(322px, calc(100vh - 340px), 720px);
-
-  @supports (height: 1svh) {
-    --hero-h: clamp(322px, calc(100svh - 340px), 720px);
-  }
-
   position: relative;
   overflow: hidden;
   background: var(--brand-dark);
@@ -35,6 +29,13 @@
 .bgImage {
   object-fit: cover;
   object-position: center;
+}
+
+// на телефоне в кадре тот, кто работает, а не тёмный левый край
+@media (max-width: 1000px) {
+  .bgImage {
+    object-position: 63% 50%;
+  }
 }
 
 // текущее фото едва заметно приближается, пока слайд на экране
@@ -89,8 +90,7 @@
   flex-direction: column;
   justify-content: center;
   min-height: var(--hero-h);
-  // снизу место под карточки быстрых ссылок, которые заходят на фото
-  padding-block: 28px 104px;
+  padding-block: 32px;
 }
 
 .infoPanel {
@@ -166,15 +166,16 @@
   }
 }
 
-// круговая карусель слайдов — как была, по просьбе заказчика;
-// поднята, чтобы нижний кружок не закрывали карточки быстрых ссылок.
-// Размеры — доли высоты первого экрана: на 720px это прежние 40rem, 6rem и 4rem
+// круговая карусель слайдов — как была, по просьбе заказчика.
+// Размеры — доли высоты первого экрана: на 720px это прежние 40rem, 6rem и 4rem.
+// Второй предел — по ширине окна, чтобы правый кружок не уходил за край
 .carouselContainer {
   position: absolute;
   z-index: 2;
-  --ring: calc(var(--hero-h) * .444);
+  --k: min(var(--hero-h), 43vw);
+  --ring: calc(var(--k) * .444);
 
-  top: calc(50% - max(var(--hero-h) * .067, 56px));
+  top: calc(50% - 8px);
   left: 65%;
   transform: translate(25%, -7%);
 }
@@ -192,8 +193,8 @@
 
 .slide {
   position: absolute;
-  width: calc(var(--hero-h) * .089);
-  height: calc(var(--hero-h) * .089);
+  width: calc(var(--k) * .089);
+  height: calc(var(--k) * .089);
   border-radius: 50%;
   outline: 2px solid var(--green);
   background-position: center;
@@ -206,8 +207,8 @@
   }
 
   &.active {
-    width: calc(var(--hero-h) * .133);
-    height: calc(var(--hero-h) * .133);
+    width: calc(var(--k) * .133);
+    height: calc(var(--k) * .133);
     outline: 3px solid var(--green);
     box-shadow: 0 0 15px rgba(255, 107, 53, .5);
   }
@@ -221,8 +222,8 @@
 
 @media (max-width: 1000px) {
   .inner {
-    min-height: 480px;
-    padding-block: 48px 104px;
+    min-height: 420px;
+    padding-block: 48px;
   }
 
   // темнее слева и внизу, под текстом и кнопками; сверху справа фото остаётся живым
@@ -236,7 +237,7 @@
 @media (max-width: 600px) {
   .inner {
     min-height: 0;
-    padding-block: 36px 92px;
+    padding-block: 40px 44px;
   }
 
   .heroBrand {

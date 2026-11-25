@@ -11,8 +11,8 @@ export const EmployeePage: React.FC = () => {
             <PageHeader
                 title={t('title')}
                 description={t('description')}
-                image="/assets/images/History3.webp"
-                imagePosition="50% 46%"
+                image="/assets/images/covers/reception.webp"
+                imagePosition="50% 50%"
             />
             
             <EmployeeSchedule/>

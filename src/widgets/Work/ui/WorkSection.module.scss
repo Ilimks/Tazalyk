@@ -1,0 +1,165 @@
+.work {
+  padding: var(--section) 0;
+  background: var(--surface);
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+// первое направление крупно (2 × 2), остальные пять по одной ячейке: сетка 3 × 3 без пустых мест
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 240px;
+  gap: 20px;
+}
+
+.tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  background: var(--brand-dark);
+
+  img {
+    object-fit: cover;
+  }
+
+  // затемнение снизу, под надписью
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(8, 15, 55, .88) 0%, rgba(8, 15, 55, .5) 32%, rgba(8, 15, 55, 0) 66%);
+    pointer-events: none;
+  }
+}
+
+.tile.lead {
+  grid-column: span 2;
+  grid-row: span 2;
+
+  .text {
+    padding: 28px;
+  }
+
+  h3 {
+    font-size: 28px;
+    letter-spacing: -.01em;
+  }
+
+  p {
+    font-size: 17px;
+  }
+}
+
+.text {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 18px 20px;
+  color: #fff;
+
+  h3 {
+    font-size: var(--h3);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  p {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, .86);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 1000px) {
+  .grid {
+    grid-auto-rows: 210px;
+    gap: 16px;
+  }
+}
+
+// узкие ячейки: «Благоустройство» одним словом
+@media (max-width: 760px) {
+  .text {
+    padding: 14px;
+
+    h3 {
+      font-size: 16px;
+    }
+
+    p {
+      font-size: 13px;
+    }
+  }
+
+  .tile.lead {
+    .text {
+      padding: 20px;
+    }
+
+    h3 {
+      font-size: 22px;
+    }
+
+    p {
+      font-size: 15px;
+    }
+  }
+}
+
+// телефон: первое и последнее направления во всю ширину, между ними по два
+@media (max-width: 640px) {
+  .box {
+    gap: 20px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 196px;
+    gap: 12px;
+  }
+
+  .tile.lead {
+    grid-row: auto;
+  }
+
+  .tile:last-child {
+    grid-column: span 2;
+  }
+
+  .text {
+    padding: 12px;
+
+    h3 {
+      font-size: clamp(13px, 4.1vw, 15px);
+    }
+
+    p {
+      margin-top: 3px;
+      font-size: 12.5px;
+      line-height: 1.3;
+    }
+  }
+
+  .tile.lead,
+  .tile:last-child {
+    .text {
+      padding: 16px;
+    }
+
+    h3 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+}

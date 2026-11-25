@@ -1,20 +1,14 @@
 import { useState, useCallback, useRef } from 'react';
 import { getImageProps } from 'next/image';
 
-const slideImages = [
-    "/assets/images/Slide1.webp",
-    "/assets/images/Slide2.webp",
-    "/assets/images/Slide3.webp",
-    "/assets/images/Slide4.webp",
-    "/assets/images/Slide5.webp",
-    "/assets/images/Slide6.webp",
-    "/assets/images/Slide7.webp",
-];
+// снимки из пака «Тазалык коридор»: фото справа, слева тёмное продолжение под заголовок
+const SLIDES = [1, 2, 3, 4, 5, 6, 7];
+const slideImages = SLIDES.map((n) => `/assets/images/hero/hero-${n}.webp`);
 
-// Миниатюры для круговой карусели: самый большой кружок ~288px (6rem * scale 3),
-// поэтому берём оптимизированную версию шириной 640px (2x), а не полный слайд 1920px.
-const slideThumbs = slideImages.map(
-    (src) => getImageProps({ src, alt: '', width: 320, height: 320 }).props.src
+// Кружки карусели: свои квадратные кадры, самый большой кружок ~288px
+// (6rem * scale 3), поэтому 640px (2x)
+const slideThumbs = SLIDES.map(
+    (n) => getImageProps({ src: `/assets/images/hero/thumb-${n}.webp`, alt: '', width: 320, height: 320 }).props.src
 );
 
 export const useHeroCarousel = () => {

@@ -17,6 +17,8 @@ export const HistoryPage: React.FC = () => {
             <PageHeader
                 title={t('HistoryTitle')}
                 description={t('HistoryDescription')}
+                image="/assets/images/covers/history.webp"
+                imagePosition="50% 46%"
             />
 
             <div className="container">

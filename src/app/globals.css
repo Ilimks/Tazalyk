@@ -89,6 +89,16 @@
   /* кнопки: обычная и крупная (главное действие страницы) */
   --btn: 44px;
   --btn-lg: 52px;
+
+  /* высота шапки на компьютере и первого экрана под ней: вместе они ровно по окну */
+  --header-h: 144px;
+  --hero-h: clamp(440px, calc(100vh - var(--header-h)), 760px);
+}
+
+@supports (height: 1svh) {
+  :root {
+    --hero-h: clamp(440px, calc(100svh - var(--header-h)), 760px);
+  }
 }
 
 * {

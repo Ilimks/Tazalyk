@@ -26,10 +26,10 @@ $banner-width: 160px;
     right: calc((100% - #{$content-width}) / 4 - #{$banner-width * 0.5});
 }
 
-// На главной полноэкранный hero (высота 82vh в HeroHomeSection.module.scss) шире контента:
+// На главной первый экран (высота --hero-h) шире контента:
 // баннеры начинаются под ним, чтобы не закрывать заголовок и карусель
 .wrapper:has([data-fullscreen-hero]) .rail {
-    top: calc(82vh + 24px);
+    top: calc(var(--hero-h) + 24px);
 }
 
 .sticky {

@@ -11,6 +11,8 @@ export const ServiceZonePage: React.FC = () => {
             <PageHeader
                 title={t('ServiceTitle')}
                 description={t('ServiceDescription')}
+                image="/assets/images/covers/zone.webp"
+                imagePosition="50% 46%"
             />
             <ServiceZoneMap />
         </>

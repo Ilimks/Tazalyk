@@ -30,6 +30,8 @@ export const Procurements = async () => {
             <PageHeader
                 title={t('ProcurementTitle')}
                 description={t('ProcurementDescription')}
+                image="/assets/images/covers/procurement.webp"
+                imagePosition="50% 42%"
             />
             <InfoCard 
                 title={t('ProcurementInfoCardTitle')}

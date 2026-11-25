@@ -11,8 +11,8 @@ export const ComplaintsPage: React.FC = () => {
             <PageHeader
                 title={t('title')}
                 description={t('description')}
-                image="/assets/images/History6.webp"
-                imagePosition="50% 70%"
+                image="/assets/images/covers/complaints.webp"
+                imagePosition="50% 50%"
             />
             
             <ComplaintForm />

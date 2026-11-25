@@ -20,7 +20,7 @@ export const VacanciesPage: React.FC<VacanciesPageProps> = ({ initialVacancies }
             <PageHeader
                 title={t('VacanciesTitle')}
                 description={t('VacanciesDescription')}
-                image="/assets/images/History2.webp"
+                image="/assets/images/covers/vacancies.webp"
                 imagePosition="50% 34%"
             />
 

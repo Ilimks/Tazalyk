@@ -15,9 +15,11 @@ interface NewsCardProps {
   news: News;
   // tile — главная: на телефоне две карточки в ряд, без описания
   variant?: "compact" | "tile";
+  // главная на компьютере: крупная карточка или строка «фото слева»
+  layout?: "lead" | "row";
 }
 
-export const NewsCard = ({ news, variant }: NewsCardProps) => {
+export const NewsCard = ({ news, variant, layout }: NewsCardProps) => {
   const locale = useLocale();
   const t = useTranslations('News');
   const [isHovered, setIsHovered] = useState(false);
@@ -41,7 +43,7 @@ export const NewsCard = ({ news, variant }: NewsCardProps) => {
       data-reveal suppressHydrationWarning
     >
       <article
-        className={`${styles.card} ${mobile.card} ${isTile ? styles.tile : ''}`}
+        className={`${styles.card} ${mobile.card} ${isTile ? styles.tile : ''} ${layout ? styles[layout] : ''}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -52,7 +54,7 @@ export const NewsCard = ({ news, variant }: NewsCardProps) => {
             className={`${styles.card__image} ${mobile.card__image} ${isHovered ? styles.card__imageZoomed : ''}`}
             width={600}
             height={400}
-            sizes={isTile ? "(max-width: 1000px) 46vw, 300px" : "(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 300px"}
+            sizes={layout === "lead" ? "(max-width: 1000px) 46vw, 660px" : layout === "row" ? "(max-width: 1000px) 46vw, 210px" : isTile ? "(max-width: 1000px) 46vw, 300px" : "(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 300px"}
             priority={false}
           />
         </div>
