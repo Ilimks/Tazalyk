@@ -11,7 +11,6 @@ import { toProductQuery, type ShopQuery } from '@/features/product-filters';
 interface UseCatalogDataParams {
     query: ShopQuery;
     queryKey: string;
-    // данные, которые сервер загрузил для адреса dataKey; null — сервер не дождался API
     dataKey: string;
     initialData: PaginatedProductsResponse | null;
 }
@@ -25,8 +24,6 @@ interface ClientState {
 
 const EMPTY_STATE: ClientState = { key: null, data: null, error: false, outOfRange: false };
 
-// Товары каталога: обычно приходят с сервера вместе со страницей;
-// если сервер не смог их загрузить, запрашиваем их из браузера
 export const useCatalogData = ({ query, queryKey, dataKey, initialData }: UseCatalogDataParams) => {
     const serverData = initialData && dataKey === queryKey ? initialData : null;
     const loadOnClient = serverData === null;
@@ -52,7 +49,6 @@ export const useCatalogData = ({ query, queryKey, dataKey, initialData }: UseCat
         return () => {
             cancelled = true;
         };
-        // query однозначно задаётся queryKey
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loadOnClient, queryKey, attempt]);
 
@@ -70,7 +66,6 @@ export const useCatalogData = ({ query, queryKey, dataKey, initialData }: UseCat
     };
 };
 
-// Варианты фильтров: с сервера, а если там не получилось — из браузера
 export const useFilterOptions = (initialOptions: ProductFilterOptions | null) => {
     const [loadedOptions, setLoadedOptions] = useState<ProductFilterOptions | null>(null);
     const loadOnClient = initialOptions === null;
@@ -84,7 +79,6 @@ export const useFilterOptions = (initialOptions: ProductFilterOptions | null) =>
                 if (!cancelled) setLoadedOptions(options);
             })
             .catch(() => {
-                // без вариантов фильтры всё равно работают: материалы показываются полным списком
             });
         return () => {
             cancelled = true;

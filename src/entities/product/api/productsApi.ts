@@ -6,14 +6,11 @@ import type {
     ProductQuery,
 } from '../model/types';
 
-// Как часто сервер обновляет кэш каталога, секунд
 export const PRODUCTS_REVALIDATE_SECONDS = 60;
 
-// Опции серверной загрузки каталога (общий хелпер из shared/api с кэшем каталога)
 export const getProductsServerFetchOptions = (): RequestInit =>
     getServerFetchOptions(PRODUCTS_REVALIDATE_SECONDS);
 
-// Списки (объёмы, материалы) API принимает через запятую: volume=120,240
 const toApiParams = (query: ProductQuery) => ({
     page: query.page && query.page > 1 ? query.page : undefined,
     page_size: query.page_size || undefined,

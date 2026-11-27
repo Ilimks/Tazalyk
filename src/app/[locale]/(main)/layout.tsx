@@ -1,59 +1,12 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Footer } from "@/widgets/Footer/ui/Footer";
-import { Header } from "@/widgets/Header/ui/Header";
-import { SideAds, InlineAd } from "@/widgets/Ads";
-import { NavigationProgress } from "@/shared/ui/NavigationProgress";
-import { RevealOnScroll } from "@/shared/ui/RevealOnScroll";
-import { HtmlLang } from "./providers/HtmlLang";
-import { StoreProvider } from "@/providers/StoreProvider";
-import { CartPersistence } from "@/features/cart";
-import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getTranslations } from "next-intl/server";
-import { routing } from "@/i18n/routing";
-import { SITE_URL, ORGANIZATION } from "@/shared/config/site";
-import { JsonLd } from "@/shared/ui/JsonLd";
-import { ReactNode } from "react";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
+import type { ReactNode } from "react";
+import { SITE_URL, OG_IMAGE } from "@/shared/config/site";
+import { isLocale } from "@/i18n/locale";
+import { SiteShell } from "@/app/_shell/SiteShell";
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  themeColor: "#102382",
-};
-
-// тексты (title, description, openGraph, twitter) — в generateMetadata из сообщений Metadata
-const baseMetadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  category: "government",
-  classification: "Municipal Enterprise",
-  formatDetection: {
-    email: true,
-    address: true,
-    telephone: true,
-  },
-  icons: {
-    icon: [
-      { url: "/assets/favicon.ico", sizes: "any" },
-      { url: "/assets/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/assets/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-    ],
-    shortcut: "/assets/favicon.ico",
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
-  },
-  manifest: "/assets/site.webmanifest",
-  appleWebApp: {
-    title: "Тазалык",
-    statusBarStyle: "black-translucent",
-  },
-  other: {
-    "msapplication-TileColor": "#102382",
-  },
-};
-
-// Разделы сайта со своими заголовками и описаниями: messages → Metadata.pages.<раздел>
 const PAGE_KEYS = [
   "history",
   "structure",
@@ -80,8 +33,6 @@ const getPageKey = (pathWithoutLocale: string) => {
   return (PAGE_KEYS as readonly string[]).includes(section) ? section : null;
 };
 
-const OG_IMAGE = "/assets/og-image.jpg";
-
 export async function generateMetadata({
   params,
 }: {
@@ -89,14 +40,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
-  // x-pathname выставляет middleware, например "/ky/news". На адресах, где middleware не работает,
-  // заголовок мог прислать сам посетитель — принимаем только обычный путь сайта
   const rawPathname = (await headers()).get("x-pathname") ?? "";
   const pathname = /^\/(ru|ky)(\/[\w\-/]*)?$/.test(rawPathname) ? rawPathname : `/${locale}`;
   const pathWithoutLocale = pathname.replace(/^\/(ru|ky)(?=\/|$)/, "");
   const url = `${SITE_URL}${pathname}`;
 
-  // у каждого раздела свой заголовок и описание; главная и прочие страницы — общие
   const pageKey = getPageKey(pathWithoutLocale);
   const title = pageKey ? `${t(`pages.${pageKey}.title`)} | ${t("siteName")}` : t("title");
   const description = pageKey ? t(`pages.${pageKey}.description`) : t("description");
@@ -104,7 +52,6 @@ export async function generateMetadata({
   const shareDescription = pageKey ? description : t("ogDescription");
 
   return {
-    ...baseMetadata,
     title,
     description,
     keywords: t("keywords"),
@@ -153,48 +100,6 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
-
-  const t = await getTranslations({ locale, namespace: "Metadata" });
-  const organization = {
-    "@context": "https://schema.org",
-    "@type": "GovernmentOrganization",
-    "@id": `${SITE_URL}/#organization`,
-    name: t("siteName"),
-    alternateName: "Тазалык",
-    description: t("description"),
-    url: `${SITE_URL}/${locale}`,
-    logo: `${SITE_URL}/assets/icon-512.png`,
-    image: `${SITE_URL}${OG_IMAGE}`,
-    email: ORGANIZATION.email,
-    telephone: ORGANIZATION.phone,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: ORGANIZATION.street[locale],
-      addressLocality: ORGANIZATION.city[locale],
-      addressCountry: "KG",
-    },
-    areaServed: { "@type": "City", name: ORGANIZATION.city[locale] },
-    sameAs: ORGANIZATION.social,
-  };
-
-  return (
-    <StoreProvider>
-      <JsonLd data={organization} />
-      <HtmlLang locale={locale} />
-      {/* корзина магазина ↔ localStorage, читается только в браузере после монтирования */}
-      <CartPersistence />
-      <NavigationProgress />
-      <NextIntlClientProvider>
-        <RevealOnScroll />
-        <Header />
-        <SideAds>{children}</SideAds>
-        <InlineAd />
-        <Footer />
-      </NextIntlClientProvider>
-    </StoreProvider>
-  );
+  if (!isLocale(locale)) notFound();
+  return <SiteShell locale={locale}>{children}</SiteShell>;
 }

@@ -4,7 +4,6 @@
   border-radius: var(--r-md);
 }
 
-// длинный список прокручивается внутри, шапка остаётся на месте
 .tableWrapperScrollable {
   overflow-y: auto;
   max-height: 720px;
@@ -60,7 +59,6 @@
   }
 }
 
-// на телефоне строка становится карточкой
 @media (max-width: 700px) {
   .tableWrapper {
     overflow: visible;
@@ -99,7 +97,6 @@
       text-align: right;
     }
 
-    // порядковый номер на телефоне не нужен
     td:first-child {
       display: none;
     }
@@ -117,7 +114,6 @@
 
     td[data-label]::before {
       content: attr(data-label);
-      // переносится по словам, если рядом длинное значение
       flex: 0 1 auto;
       min-width: min-content;
       white-space: normal;

@@ -32,9 +32,16 @@
 
 @media (max-width: 600px) {
   .langItem {
+    position: relative;
     min-width: 40px;
-    padding: 10px 6px;
+    padding: 5px 8px;
     font-size: 13px;
     touch-action: manipulation;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -4px 0;
+    }
   }
 }

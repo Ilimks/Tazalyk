@@ -19,7 +19,6 @@ const STATUSES = ['all', 'active', 'completed', 'cancelled'] as const;
 
 interface ProcurementTableSectionProps {
     itemsPerPage?: number;
-    // первая страница, загруженная на сервере; null — сервер не смог её загрузить, грузим в браузере
     initialData?: PageResult<ProcurementItem> | null;
 }
 
@@ -45,14 +44,11 @@ export const ProcurementTableSection: React.FC<ProcurementTableSectionProps> = (
         if (loadOnClient) loadProcurements(1, itemsPerPage);
     }, [loadOnClient, loadProcurements, itemsPerPage]);
 
-    // таблица показывает только первую страницу, поэтому данные с сервера заменяют загрузку целиком
     const procurements = initialData ? initialData.items : loadedProcurements;
     const totalCount = initialData ? initialData.totalCount : loadedCount;
     const error = loadOnClient ? loadError : null;
-    // до первого ответа в браузере показываем загрузку, а не «закупок нет»
     const isLoading = loadOnClient && (isLoadingProcurements || (!isSuccess && !loadError));
 
-    // ТЗ 4.1.12: поиск и фильтр. Записи уже загружены целиком, отбираем их в браузере
     const [query, setQuery] = useState('');
     const [status, setStatus] = useState<ProcurementStatus | 'all'>('all');
     const visible = useMemo(() => {

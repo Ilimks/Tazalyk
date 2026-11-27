@@ -1,5 +1,6 @@
 'use client';
 import { useTranslations } from 'next-intl';
+import { COMPANY_FACTS } from '@/shared/config/site';
 
 export const useHistoryData = () => {
     const t = useTranslations("History");
@@ -18,7 +19,6 @@ export const useHistoryData = () => {
         ]
     };
 
-    // по порядку лет: раньше «2021–2025» стоял выше «2016–2020»
     const historySections = [
         {
             id: 1,
@@ -46,7 +46,7 @@ export const useHistoryData = () => {
             title: t('HistoryStageTitle'),
             images: [{ src: '/assets/images/History4.webp', width: 1400, height: 935, alt: t('HistoryImage4Alt'), caption: t('HistoryImage4Caption') }],
             showStats: true,
-            paragraphs: [t('HistoryStage1'), t('HistoryStage2'), t('HistoryStage3')]
+            paragraphs: [t('HistoryStage1', { vehicles: COMPANY_FACTS.vehicles, employees: COMPANY_FACTS.employees }), t('HistoryStage2'), t('HistoryStage3')]
         }
     ];
 

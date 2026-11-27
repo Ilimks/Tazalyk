@@ -1,6 +1,5 @@
 import { Attendance } from "./types";
 
-// Названия услуг — в сообщениях Attendance.items.<category>.<id>, единицы — в Attendance.units
 export const materialServices: Attendance[] = [
     { id: 1, unit: 'pcs', price: 6050.16, category: 'material' },
     { id: 2, unit: 'sqm', price: 580.0, category: 'material' },

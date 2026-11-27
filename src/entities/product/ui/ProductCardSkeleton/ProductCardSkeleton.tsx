@@ -1,6 +1,5 @@
 import styles from './ProductCardSkeleton.module.scss';
 
-// Заглушка карточки товара на время загрузки
 export const ProductCardSkeleton: React.FC = () => (
     <div className={styles.card} aria-hidden="true">
         <div className={`${styles.media} ${styles.shimmer}`} />

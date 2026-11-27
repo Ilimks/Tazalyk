@@ -12,7 +12,6 @@ interface VacancyApplyProps {
     vacancyTitle: string;
 }
 
-// те же правила, что на сервере: ошибка видна сразу, без отправки файла
 const MAX_FILE_BYTES = 5 * 1024 * 1024;
 const FILE_TYPES = '.pdf,.docx,.jpg,.jpeg,.png';
 const FILE_NAME_PATTERN = /\.(pdf|docx|jpe?g|png)$/i;
@@ -25,7 +24,6 @@ type Errors = Partial<Record<ServerField | 'form', string>>;
 
 const emptyValues = { full_name: '', phone: '', email: '', comment: '', website: '' };
 
-// Заявка уходит в раздел «Отклики» админки, поэтому кандидату не нужна почтовая программа
 export const VacancyApply: React.FC<VacancyApplyProps> = ({ vacancyId, vacancyTitle }) => {
     const t = useTranslations('Vacancies');
     const tCommon = useTranslations('Common');
@@ -41,7 +39,6 @@ export const VacancyApply: React.FC<VacancyApplyProps> = ({ vacancyId, vacancyTi
 
     const closeDialog = () => dialogRef.current?.close();
 
-    // после успешной отправки форма снова пустая: можно откликнуться ещё раз
     const handleClosed = () => {
         if (!sent) return;
         setValues(emptyValues);
@@ -163,7 +160,6 @@ export const VacancyApply: React.FC<VacancyApplyProps> = ({ vacancyId, vacancyTi
                 className={styles.dialog}
                 aria-label={t('VacanciesApply')}
                 onClose={handleClosed}
-                // нажатие на затемнённый фон попадает в сам dialog, а не в его содержимое
                 onClick={(event) => event.target === dialogRef.current && closeDialog()}
             >
                 <div className={styles.content}>
@@ -272,7 +268,6 @@ export const VacancyApply: React.FC<VacancyApplyProps> = ({ vacancyId, vacancyTi
                                 maxLength={1000}
                             />
 
-                            {/* ловушка для ботов: человек этого поля не видит */}
                             <input
                                 className={styles.trap}
                                 type="text"

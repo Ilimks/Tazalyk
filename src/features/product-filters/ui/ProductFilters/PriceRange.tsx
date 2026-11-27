@@ -9,14 +9,12 @@ interface PriceRangeProps {
     max: number | null;
     placeholderMin?: string;
     placeholderMax?: string;
-    // 0 — сразу (в выдвижной панели), иначе после паузы в наборе
     debounceMs: number;
     onChange: (min: number | null, max: number | null) => void;
 }
 
 const toText = (value: number | null) => (value === null ? '' : String(value));
 const toNumber = (text: string): number | null => (text === '' ? null : Number(text));
-// только цифры, не больше 10 знаков
 const cleanInput = (value: string) => value.replace(/\D/g, '').replace(/^0+(?=\d)/, '').slice(0, 10);
 
 export const PriceRange: React.FC<PriceRangeProps> = ({
@@ -36,7 +34,6 @@ export const PriceRange: React.FC<PriceRangeProps> = ({
     const onChangeRef = useRef(onChange);
     onChangeRef.current = onChange;
 
-    // значения поменялись снаружи (сброс фильтров, «Назад») — показываем их, если пользователь сейчас не печатает
     useEffect(() => {
         if (timerRef.current === null) {
             setFrom(toText(min));
@@ -81,7 +78,6 @@ export const PriceRange: React.FC<PriceRangeProps> = ({
         }
     };
 
-    // по уходу из поля применяем сразу, не дожидаясь паузы
     const handleBlur = () => {
         if (timerRef.current !== null) flush();
     };

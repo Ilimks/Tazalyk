@@ -17,7 +17,6 @@ export const useMobileMenu = (isOpen: boolean, onClose: () => void) => {
     };
   }, [isOpen]);
 
-  // открыли — клавиатура работает в меню, закрыли — вернулась на кнопку, с которой открывали
   useEffect(() => {
     if (!isOpen) return;
     const menu = menuRef.current;
@@ -29,7 +28,6 @@ export const useMobileMenu = (isOpen: boolean, onClose: () => void) => {
     };
   }, [isOpen]);
 
-  // Esc закрывает меню, Tab ходит по кругу внутри него
   const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     if (event.key === 'Escape') {
       event.stopPropagation();

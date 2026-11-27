@@ -38,7 +38,6 @@
   grid-template-columns: 1fr 1fr;
   gap: 0 20px;
 
-  // одно поле в строке — на всю ширину
   > :only-child {
     grid-column: 1 / -1;
   }
@@ -191,7 +190,6 @@
   }
 }
 
-// виджет проверки Google шириной 304 px: на узком телефоне уменьшается, чтобы не вылезать за форму
 @media (max-width: 374px) {
   .captcha {
     height: 66px;

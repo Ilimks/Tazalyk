@@ -16,7 +16,6 @@ export const useVideos = () => {
     const isLoading = status === 'loading';
     const isSuccess = status === 'succeeded';
 
-    // ошибка попадает в state.videos.error и показывается через ErrorState
     const loadVideos = useCallback((page: number = 1, pageSize: number = 12) => {
         dispatch(fetchVideos({ page, pageSize }));
     }, [dispatch]);

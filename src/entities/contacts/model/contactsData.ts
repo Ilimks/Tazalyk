@@ -42,14 +42,6 @@ export const useContactData = () => {
       title: t('ContactsDataWork'),
       details: [t('ContactsWorkDays'), t('ContactsWeekend')]
     },
-    // {
-    //   id: 5,
-    //   icon: 'social',
-    //   title: t('ContactsDataNetwork'),
-    //   details: ['Instagram', 'Facebook'],
-    //   link: 'https://www.instagram.com/mp_tazalyk_bishkek?igsh=MW51dDdvY2tyaHJxYg==',
-    //   linkText: 'Подписаться'
-    // }
   ];
 
   return {

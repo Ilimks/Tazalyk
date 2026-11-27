@@ -14,7 +14,6 @@ export interface EmptyStateConfig {
   icon: LucideIcon;
 }
 
-// Тексты для каждого варианта лежат в messages/*.json → EmptyState.<variant>.title / description
 export const variantConfig: Record<EmptyStateVariant, EmptyStateConfig> = {
   news: { icon: Newspaper },
   video: { icon: Video },

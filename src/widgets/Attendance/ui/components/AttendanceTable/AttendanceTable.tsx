@@ -7,7 +7,6 @@ import { materialServices, transportServices } from '../../../model/attendance';
 import { Attendance } from '../../../model/types'
 import styles from './AttendanceTable.module.scss';
 
-// телефон для заказа услуг
 const SERVICES_PHONE = { label: '0550 179 710', href: 'tel:+996550179710' };
 
 export const AttendanceTable: React.FC = () => {
@@ -29,7 +28,6 @@ export const AttendanceTable: React.FC = () => {
         <section className={styles.attendance}>
             <div className="container">
                 <div className={styles.attendanceTable}>
-                    {/* как заказать — до прайса, а не под ним */}
                     <div className={styles.order}>
                         <div className={styles.order__text}>
                             <h2>{t('orderTitle')}</h2>

@@ -8,7 +8,6 @@ export type SearchHitType =
     | 'legislation'
     | 'procurement';
 
-// Порядок разделов на странице результатов
 export const SEARCH_HIT_TYPES: readonly SearchHitType[] = [
     'page',
     'service',
@@ -26,13 +25,10 @@ export interface SearchHit {
     title: string;
     snippet: string;
     url: string;
-    // день публикации новости: 22.05.2026
     date?: string;
-    // чем больше, тем выше в списке
     score: number;
 }
 
-// Запись поиска по страницам сайта: текст на обоих языках, показываем на языке страницы
 export interface SearchEntry {
     id: string;
     type: 'page' | 'service';
@@ -41,12 +37,9 @@ export interface SearchEntry {
     titleKy: string;
     text?: string;
     textKy?: string;
-    // page — заголовок самой страницы, item — отдельная запись на ней (человек, тариф, направление),
-    // без роли — ещё одно название страницы
     role?: 'page' | 'item';
 }
 
-// Ответ GET /api/search/
 export interface ApiSearchItem {
     type: Exclude<SearchHitType, 'page' | 'service'>;
     id: string;

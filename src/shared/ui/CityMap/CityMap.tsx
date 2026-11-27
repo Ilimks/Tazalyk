@@ -11,38 +11,25 @@ import { BASES, type BaseId } from './bases';
 import styles from './CityMap.module.scss';
 
 interface Props {
-    /** zone — весь город и граница, bases — только базы крупно */
     mode: 'zone' | 'bases';
-    /** название карты для программ экранного чтения */
     title: string;
 }
 
 const TILES = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-// прямоугольник вокруг области: всё, что вне границы города, слегка затеняется
 const AROUND: [number, number][] = [[40, 70], [46, 70], [46, 79], [40, 79]];
 const BASE_ZOOM = 16;
 const HINT_MS = 1400;
-// ближе этого метки баз накладываются друг на друга, px
 const PIN_GAP = 40;
 
-/** Ссылка на маршрут до базы в OpenStreetMap: откуда — человек укажет сам. */
 const routeUrl = (lat: number, lon: number) =>
     `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=%3B${lat}%2C${lon}`;
 
-/** Отступы карты: на компьютере слева лежит список, под ним ничего важного быть не должно. */
 const fitOptions = (mode: Props['mode']): FitBoundsOptions => {
     const side = mode === 'zone' ? 20 : 72;
     const left = window.innerWidth > 1024 ? 348 + (mode === 'zone' ? 0 : 130) : side;
     return { paddingTopLeft: [left, side], paddingBottomRight: [side, side], maxZoom: BASE_ZOOM };
 };
 
-/**
- * Карта города на данных OpenStreetMap: граница Бишкека и две базы предприятия.
- *
- * Страница под картой всегда прокручивается: на телефоне карта двигается двумя
- * пальцами, на компьютере колесо меняет масштаб только после щелчка по карте.
- * Адреса баз выписаны рядом текстом — они видны, даже если карта не загрузилась.
- */
 export const CityMap: React.FC<Props> = ({ mode, title }) => {
     const t = useTranslations('CityMap');
     const canvasRef = useRef<HTMLDivElement>(null);
@@ -80,7 +67,6 @@ export const CityMap: React.FC<Props> = ({ mode, title }) => {
             const map = L.map(canvas, {
                 zoomControl: false,
                 scrollWheelZoom: false,
-                // на телефоне одним пальцем листают страницу, карту двигают двумя
                 dragging: !coarse,
                 minZoom: 10,
                 maxZoom: 18,
@@ -120,7 +106,6 @@ export const CityMap: React.FC<Props> = ({ mode, title }) => {
             L.control.zoom({ position: 'bottomright', zoomInTitle: t('zoomIn'), zoomOutTitle: t('zoomOut') }).addTo(map);
 
             for (const base of BASES) {
-                // головка с номером и остриё: остриё всегда стоит точно на месте базы
                 const pin = document.createElement('span');
                 const number = document.createElement('span');
                 number.textContent = String(base.id);
@@ -132,7 +117,6 @@ export const CityMap: React.FC<Props> = ({ mode, title }) => {
                     keyboard: true,
                     riseOnHover: true,
                 });
-                // базы рядом (меньше километра): подписи разводятся в разные стороны
                 marker.bindTooltip(t(`bases.${base.id}.address`), {
                     permanent: true,
                     direction: base.id === 1 ? 'left' : 'right',
@@ -143,7 +127,6 @@ export const CityMap: React.FC<Props> = ({ mode, title }) => {
                 marker.addTo(map);
             }
 
-            // на общем плане базы ближе друг к другу, чем ширина метки: метки расходятся веером
             const [first, second] = BASES;
             const spread = () => {
                 const gap = map.project([first.lat, first.lon]).distanceTo(map.project([second.lat, second.lon]));
@@ -152,7 +135,6 @@ export const CityMap: React.FC<Props> = ({ mode, title }) => {
             map.on('zoomend', spread);
             spread();
 
-            // колесо меняет масштаб только после щелчка по карте
             const enableWheel = () => map.scrollWheelZoom.enable();
             const disableWheel = () => map.scrollWheelZoom.disable();
             map.on('click focus', enableWheel);
@@ -167,7 +149,6 @@ export const CityMap: React.FC<Props> = ({ mode, title }) => {
             };
             canvas.addEventListener('touchmove', onTouchMove, { passive: true });
 
-            // размер меняется при повороте телефона и когда страница догружает шрифт
             const resize = new ResizeObserver(() => map.invalidateSize({ animate: false }));
             resize.observe(canvas);
 
@@ -191,7 +172,6 @@ export const CityMap: React.FC<Props> = ({ mode, title }) => {
             cleanups.forEach((run) => run());
             mapRef.current = null;
         };
-        // карта создаётся один раз: режим и язык в пределах страницы не меняются
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

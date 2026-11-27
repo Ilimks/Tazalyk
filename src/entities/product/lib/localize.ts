@@ -1,5 +1,3 @@
-// Кыргызское название, если оно заполнено, иначе русское.
-// Подходит и для товара из API, и для позиции корзины (у обоих есть name_ru и name_ky)
 export const getProductName = (
     item: { name_ru: string; name_ky?: string | null },
     locale: string

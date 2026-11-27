@@ -1,7 +1,5 @@
 import type { SearchEntry } from './types';
 
-// Разделы, услуги и люди, которые посетитель ищет по названию. Тексты самих страниц — в searchIndex.ts
-// Несколько записей с одним адресом — разные названия одной страницы, кроме отмеченных role
 export const STATIC_ENTRIES: SearchEntry[] = [
     { id: '1', type: 'page', url: '/history', title: 'История предприятия', titleKy: 'Ишкананын тарыхы' },
     { id: '2', type: 'page', url: '/history', title: 'История', titleKy: 'Тарых' },

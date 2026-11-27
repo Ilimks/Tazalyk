@@ -25,18 +25,14 @@ import { parseOrderError } from '../../model/errors';
 import styles from './CheckoutForm.module.scss';
 
 interface CheckoutFormProps {
-    // товары заказа: id и количество (цены считает сервер)
     lines: OrderItemPayload[];
     onSuccess: (order: OrderCreated) => void;
-    // сервер отклонил товары (закончились, сняты с продажи) — виджет корзины покажет «Обновить корзину»
     onItemsError: (messages: string[]) => void;
-    // блок над формой, например итог заказа
     summary?: ReactNode;
 }
 
 type FieldErrors = Partial<Record<CheckoutField, string>>;
 
-// для кыргызской версии вместо русского текста сервера показываем своё сообщение по полю
 const SERVER_FIELD_MESSAGE: Record<CheckoutField, CheckoutErrorCode> = {
     customer_name: 'nameLength',
     phone: 'phoneInvalid',
@@ -111,7 +107,6 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({ lines, onSuccess, on
         (field: keyof CheckoutValues) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
             const next = { ...values, [field]: event.target.value } as CheckoutValues;
             setValues(next);
-            // ошибка пропадает, как только поле исправлено
             if (field !== 'website' && (touched[field] || errors[field])) {
                 setErrors((prev) => ({ ...prev, [field]: errorText(validateCheckoutField(field, next)) }));
             }
@@ -147,7 +142,6 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({ lines, onSuccess, on
             return;
         }
 
-        // сообщения сервера на русском — на кыргызской версии показываем свои
         const useServerText = locale === 'ru';
         const fieldErrors: FieldErrors = {};
         (Object.keys(result.fields) as CheckoutField[]).forEach((field) => {
@@ -335,7 +329,6 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({ lines, onSuccess, on
                 />
             </div>
 
-            {/* ловушка для ботов: человек это поле не видит и не заполняет */}
             <div className={styles.honeypot} aria-hidden="true">
                 <label htmlFor={fieldId('website')}>{t('honeypot')}</label>
                 <input

@@ -9,7 +9,6 @@
     border-radius: var(--r-xl);
     overflow: hidden;
     background: #e8edf4;
-    // слои Leaflet имеют z-index до 1000 — держим их внутри карты, под шапкой и меню
     isolation: isolate;
 
     @media (max-width: 1024px) {
@@ -40,7 +39,6 @@
         outline-offset: -3px;
     }
 
-    // плитки OpenStreetMap чуть спокойнее, чтобы граница и базы читались первыми
     :global(.leaflet-tile-pane) {
         filter: saturate(.72) contrast(.96) brightness(1.03);
     }
@@ -108,7 +106,6 @@
     fill-opacity: .1;
 }
 
-// капля с номером базы: поворачивается вокруг острия, номер остаётся прямым
 .pin {
     > span {
         position: absolute;
@@ -195,7 +192,6 @@
     border-radius: var(--r-sm);
     box-shadow: var(--sh-1);
 
-    // на телефоне подписи не помещаются, адреса с теми же номерами — сразу под картой
     @media (max-width: 600px) {
         display: none;
     }
@@ -246,7 +242,6 @@
     opacity: 1;
 }
 
-// на компьютере список лежит поверх карты слева, на планшете и телефоне — под ней
 .panel {
     position: absolute;
     top: 16px;

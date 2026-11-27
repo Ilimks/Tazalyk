@@ -7,8 +7,6 @@ interface ButtonCardNewsProps {
   tabIndex?: number;
 }
 
-// Подпись «Подробнее →» внутри карточки-ссылки. Это span, а не button:
-// кнопка внутри <a> — невалидный HTML, а кликабельна и так вся карточка
 export const ButtonCardNews: React.FC<ButtonCardNewsProps> = ({ children, className = '' }) => {
   return (
     <span className={`${styles.buttonCardNews} ${className}`}>

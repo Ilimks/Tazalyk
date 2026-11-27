@@ -7,7 +7,6 @@ const initialState: CartState = {
     hydrated: false,
 };
 
-// количество одного товара: целое от 1 до 100, как на сервере
 export const clampQuantity = (quantity: number): number => {
     if (!Number.isFinite(quantity)) return ORDER_RULES.minQuantity;
     return Math.min(ORDER_RULES.maxQuantity, Math.max(ORDER_RULES.minQuantity, Math.trunc(quantity)));
@@ -17,10 +16,8 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        // корзина из localStorage: при загрузке страницы и при изменении в другой вкладке
         hydrateCart: (state, action: PayloadAction<CartItem[]>) => {
             const items = action.payload.map((item) => ({ ...item }));
-            // то, что успели положить в корзину до чтения localStorage, не теряем
             if (!state.hydrated) {
                 state.items.forEach((added) => {
                     const stored = items.find((item) => item.id === added.id);
@@ -41,7 +38,6 @@ const cartSlice = createSlice({
                 existing.quantity = clampQuantity(existing.quantity + action.payload.quantity);
                 return;
             }
-            // в заказе не больше 20 разных товаров
             if (state.items.length >= ORDER_RULES.maxLines) return;
             state.items.push({ ...action.payload, quantity: clampQuantity(action.payload.quantity) });
         },
@@ -51,7 +47,6 @@ const cartSlice = createSlice({
             if (item) item.quantity = clampQuantity(item.quantity + 1);
         },
 
-        // с 1 до 0 — товар убирается из корзины
         decrementQuantity: (state, action: PayloadAction<string>) => {
             const index = state.items.findIndex(({ id }) => id === action.payload);
             if (index === -1) return;
@@ -75,7 +70,6 @@ const cartSlice = createSlice({
             state.items = [];
         },
 
-        // свежие название, цена и фото из каталога; removeIds — товары, которые больше нельзя заказать
         syncCartItems: (
             state,
             action: PayloadAction<{ updates?: CartItemDetails[]; removeIds?: string[] }>
@@ -84,7 +78,6 @@ const cartSlice = createSlice({
             if (removeIds.length) {
                 state.items = state.items.filter(({ id }) => !removeIds.includes(id));
             }
-            // Immer не меняет состояние, если присвоено то же значение
             updates.forEach((details) => {
                 const item = state.items.find(({ id }) => id === details.id);
                 if (!item) return;

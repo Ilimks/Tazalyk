@@ -9,12 +9,9 @@ import { toCartItemDetails } from './toCartItem';
 import type { CartItem } from './types';
 
 export interface CartRefreshResult {
-    // позиции, которые убраны из корзины: товар снят с продажи или закончился
     removed: CartItem[];
 }
 
-// «Обновить корзину»: заново берёт каждый товар из каталога, обновляет цены и названия
-// и убирает то, что больше нельзя заказать. Ошибка сети пробрасывается вызывающему
 export const useCartRefresh = () => {
     const dispatch = useAppDispatch();
     const items = useAppSelector(selectCartItems);
@@ -28,7 +25,6 @@ export const useCartRefresh = () => {
                     try {
                         return { item, product: await productsApi.getById(item.id) };
                     } catch (error) {
-                        // 404 — товар удалён или скрыт
                         if (error instanceof ApiError && error.status === 404) return { item, product: null };
                         throw error;
                     }

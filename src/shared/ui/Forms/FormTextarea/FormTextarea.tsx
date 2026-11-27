@@ -9,7 +9,6 @@ interface FormTextareaProps {
     placeholder?: string;
     rows?: number;
     error?: string;
-    // необязательные: id связывает подпись и ошибку с полем
     id?: string;
     maxLength?: number;
     onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;

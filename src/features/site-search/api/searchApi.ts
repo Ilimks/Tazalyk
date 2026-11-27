@@ -4,7 +4,6 @@ import type { ApiSearchItem, SearchHit } from '../model/types';
 const SCORE_IN_TITLE = 70;
 const SCORE_IN_TEXT = 30;
 
-// У товаров и документов нет своих страниц: ведём в их раздел
 const hitUrl = (item: ApiSearchItem): string => {
     switch (item.type) {
         case 'news':
@@ -22,7 +21,6 @@ const hitUrl = (item: ApiSearchItem): string => {
     }
 };
 
-// Одна и та же запись, введённая в админке несколько раз
 const copyKey = (item: ApiSearchItem) =>
     [item.type, item.date, item.title_ru, item.title_ky, item.snippet_ru, item.snippet_ky].join('|');
 

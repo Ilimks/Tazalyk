@@ -15,9 +15,7 @@ import styles from './ProductFilters.module.scss';
 interface ProductFiltersProps {
     value: ShopQuery;
     onChange: (next: ShopQuery) => void;
-    // варианты из /shop/products/filters/; null — ещё не загружены или API недоступен
     options: ProductFilterOptions | null;
-    // пауза перед применением цены; 0 — сразу
     priceDebounceMs?: number;
 }
 
@@ -32,11 +30,9 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
 }) => {
     const t = useTranslations('Shop');
     const id = useId();
-    // цена применяется с задержкой — берём самые свежие остальные фильтры, а не те, что были при наборе
     const valueRef = useRef(value);
     valueRef.current = value;
 
-    // выбранное в адресе показываем, даже если такого варианта сейчас нет в каталоге, — чтобы его можно было снять
     const volumes = useMemo(
         () => Array.from(new Set([...(options?.volumes ?? []), ...value.volumes])).sort((a, b) => a - b),
         [options, value.volumes]

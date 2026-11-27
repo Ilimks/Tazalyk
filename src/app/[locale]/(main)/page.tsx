@@ -12,12 +12,10 @@ export default function Home() {
   return (
     <main>
       <HeroHomeSection/>
-      {/* сначала то, за чем приходят жители: действия, телефон, новости; о предприятии — ниже */}
       <PersonalSection />
       <AppealsCenterSection/>
       <WorkSection />
       <NewsHomeSection/>
-      {/* магазин контейнеров; без товаров раздел не показывается */}
       <ShopHomeSection/>
       <VideosPhotoHomeSection/>
       <DirectorHomeSection />

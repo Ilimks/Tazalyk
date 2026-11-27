@@ -11,7 +11,6 @@ import type { DocumentsKind } from '../model/types';
 
 interface DocumentsContentProps {
     kind: DocumentsKind;
-    // документы, загруженные на сервере; null — сервер не смог их загрузить, грузим в браузере
     initialDocuments?: Document[] | null;
 }
 
@@ -27,7 +26,6 @@ export const DocumentsContent: React.FC<DocumentsContentProps> = ({ kind, initia
         if (loadOnClient) fetchDocuments();
     }, [loadOnClient, fetchDocuments]);
 
-    // список документов не листается через API, поэтому данные с сервера заменяют загрузку целиком
     const documents = initialDocuments ?? loadedDocuments;
     const loading = loadOnClient && isLoading;
     const error = loadOnClient ? loadError : null;

@@ -6,14 +6,11 @@ import { MIN_QUERY_LENGTH } from '../lib/text';
 import { loadSearchIndex, searchEntries } from './searchIndex';
 import type { SearchHit } from './types';
 
-// запрос к серверу — когда пользователь перестал печатать
 const DEBOUNCE_MS = 250;
-// записей в каждом разделе данных (максимум сервера): подсказки и страница поиска считают одинаково
 const API_LIMIT = 20;
 
 interface UseSiteSearchOptions {
     initialQuery?: string;
-    // сколько результатов показывать; без лимита — все
     limit?: number;
 }
 
@@ -44,7 +41,6 @@ export const useSiteSearch = ({ initialQuery = '', limit }: UseSiteSearchOptions
         setIsLoading(true);
         setIsOpen(true);
 
-        // тексты страниц ищутся в браузере и появляются сразу
         loadSearchIndex()
             .then((entries) => {
                 if (!cancelled) setPageHits(searchEntries(entries, text, locale));
@@ -56,7 +52,6 @@ export const useSiteSearch = ({ initialQuery = '', limit }: UseSiteSearchOptions
                 const hits = await searchApi.find(text, API_LIMIT, locale, controller.signal);
                 if (!cancelled) setDataHits(hits);
             } catch (error) {
-                // без сервера остаётся поиск по страницам сайта
                 if (!cancelled) console.error('Search request failed:', error);
             } finally {
                 if (!cancelled) setIsLoading(false);
@@ -70,7 +65,6 @@ export const useSiteSearch = ({ initialQuery = '', limit }: UseSiteSearchOptions
         };
     }, [text, hasQuery, locale]);
 
-    // подсказки закрываются по клику мимо и по Esc
     useEffect(() => {
         if (!isOpen) return;
 

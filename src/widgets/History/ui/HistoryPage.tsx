@@ -24,7 +24,6 @@ export const HistoryPage: React.FC = () => {
             <div className="container">
                 <ol className={styles.timeline}>
                     {historySections.map((section, index) => (
-                        // первое фото видно сразу под заголовком — грузим его без lazy (LCP)
                         <HistorySection key={section.id} {...section} imagePriority={index === 0} />
                     ))}
                 </ol>

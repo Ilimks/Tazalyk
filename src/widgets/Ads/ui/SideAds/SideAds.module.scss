@@ -1,4 +1,3 @@
-// Ширина контента сайта — .container в globals.css
 $content-width: 1280px;
 $banner-width: 160px;
 
@@ -13,11 +12,9 @@ $banner-width: 160px;
     bottom: 24px;
     width: $banner-width;
     z-index: 5;
-    // колонка не перекрывает клики по контенту под ней, кликабелен только баннер
     pointer-events: none;
 }
 
-// центр свободного поля: ((ширина − контент) / 2) / 2 − половина баннера
 .left {
     left: calc((100% - #{$content-width}) / 4 - #{$banner-width * 0.5});
 }
@@ -26,8 +23,6 @@ $banner-width: 160px;
     right: calc((100% - #{$content-width}) / 4 - #{$banner-width * 0.5});
 }
 
-// На главной первый экран (высота --hero-h) шире контента:
-// баннеры начинаются под ним, чтобы не закрывать заголовок и карусель
 .wrapper:has([data-fullscreen-hero]) .rail {
     top: calc(var(--hero-h) + 24px);
 }
@@ -61,7 +56,6 @@ $banner-width: 160px;
     }
 }
 
-// 1280 + 2 × (160 + отступы) — только тогда по бокам есть место
 @media (min-width: 1680px) {
     .rail {
         display: block;

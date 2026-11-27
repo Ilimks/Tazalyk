@@ -6,7 +6,6 @@ import styles from './SearchSuggestions.module.scss';
 
 interface SearchSuggestionsProps {
     hits: SearchHit[];
-    // сколько всего найдено, в подсказках показана только часть
     total: number;
     isLoading: boolean;
     isEmpty: boolean;

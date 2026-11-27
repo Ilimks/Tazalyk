@@ -4,7 +4,6 @@ import styles from './DirectorCard.module.scss'
 
 interface DirectorCardProps {
     name: string;
-    // пока фото нет, на его месте показываем инициалы
     photoUrl?: string;
 }
 

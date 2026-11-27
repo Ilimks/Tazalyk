@@ -7,7 +7,6 @@ interface ShopProps {
 }
 
 export default async function Shop({ searchParams }: ShopProps) {
-    // фильтры из адреса (?volume=240&ordering=price) — первая страница каталога рисуется на сервере
     const query = parseShopQuery(searchParamsFromRecord(await searchParams));
 
     return (

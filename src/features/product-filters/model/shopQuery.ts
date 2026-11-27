@@ -7,15 +7,12 @@ import {
     type ProductQuery,
 } from '@/entities/product';
 
-// Состояние фильтров магазина. Хранится в адресе страницы (?volume=120,240&ordering=price&page=2),
-// поэтому ссылкой можно поделиться, а «Назад» возвращает к выбранным фильтрам
 export interface ShopQuery {
     volumes: number[];
     materials: ProductMaterial[];
     priceMin: number | null;
     priceMax: number | null;
     inStock: boolean;
-    // null — порядок менеджера («сначала популярные»)
     ordering: ProductOrdering | null;
     page: number;
 }
@@ -34,7 +31,6 @@ const MAX_VOLUMES = 30;
 const MAX_PRICE = 1_000_000_000;
 const MAX_PAGE = 1000;
 
-// URLSearchParams из браузера или из searchParams страницы
 interface ParamsReader {
     get(name: string): string | null;
 }
@@ -51,7 +47,6 @@ const parsePriceParam = (value: string | null): number | null => {
 
 const sortNumbers = (values: number[]) => [...values].sort((a, b) => a - b);
 
-// Всё, что пришло из адреса, проверяется: неизвестные значения просто отбрасываются
 export const parseShopQuery = (params: ParamsReader): ShopQuery => {
     const volumes = sortNumbers(
         Array.from(
@@ -79,7 +74,6 @@ export const parseShopQuery = (params: ParamsReader): ShopQuery => {
     };
 };
 
-// searchParams серверной страницы Next.js → объект с методом get
 export const searchParamsFromRecord = (
     record: Record<string, string | string[] | undefined>
 ): URLSearchParams => {
@@ -91,8 +85,6 @@ export const searchParamsFromRecord = (
     return params;
 };
 
-// Строка запроса в одном и том же порядке ключей: и для адреса, и как ключ данных.
-// Значения — только цифры и известные слова, поэтому запятые оставляем как есть (?volume=120,240)
 export const serializeShopQuery = (query: ShopQuery): string => {
     const parts: string[] = [];
     if (query.volumes.length) parts.push(`volume=${sortNumbers(query.volumes).join(',')}`);
@@ -112,7 +104,6 @@ export const getShopHref = (query: ShopQuery): string => {
     return search ? `/shop?${search}` : '/shop';
 };
 
-// Параметры запроса к API
 export const toProductQuery = (query: ShopQuery, pageSize: number = PRODUCTS_PAGE_SIZE): ProductQuery => ({
     page: query.page,
     page_size: pageSize,
@@ -124,14 +115,12 @@ export const toProductQuery = (query: ShopQuery, pageSize: number = PRODUCTS_PAG
     ordering: query.ordering,
 });
 
-// Сколько фильтров выбрано (сортировка и страница не считаются)
 export const countActiveFilters = (query: ShopQuery): number =>
     query.volumes.length +
     query.materials.length +
     (query.priceMin !== null || query.priceMax !== null ? 1 : 0) +
     (query.inStock ? 1 : 0);
 
-// Сброс фильтров; выбранная сортировка остаётся
 export const resetShopFilters = (query: ShopQuery): ShopQuery => ({
     ...EMPTY_SHOP_QUERY,
     ordering: query.ordering,

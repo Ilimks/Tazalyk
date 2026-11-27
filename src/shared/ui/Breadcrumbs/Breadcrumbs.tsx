@@ -3,7 +3,6 @@ import styles from './Breadcrumbs.module.scss';
 
 export type BreadcrumbItem = {
     label: string;
-    // путь без префикса языка, например "/news"
     href: string;
     isActive: boolean;
 };

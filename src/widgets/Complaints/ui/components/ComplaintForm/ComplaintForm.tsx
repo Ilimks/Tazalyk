@@ -21,7 +21,6 @@ interface Attachment {
     type: string;
 }
 
-// столько же принимает /api/send-complaint
 const MAX_ATTACHMENTS = 5;
 
 export const ComplaintForm: React.FC = () => {
@@ -66,7 +65,6 @@ export const ComplaintForm: React.FC = () => {
     };
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        // сервер принимает не больше MAX_ATTACHMENTS фото — лишние не добавляем
         const freeSlots = MAX_ATTACHMENTS - formData.attachments.length;
         const selected = Array.from(e.target.files || []);
         const files = selected.slice(0, Math.max(freeSlots, 0));
@@ -98,7 +96,6 @@ export const ComplaintForm: React.FC = () => {
             attachments: [...prev.attachments, ...newAttachments]
         }));
         setError(tooMany ? t('form.tooManyFiles', { max: MAX_ATTACHMENTS }) : null);
-        // то же фото можно выбрать снова после удаления
         e.target.value = '';
     };
 
@@ -133,7 +130,6 @@ export const ComplaintForm: React.FC = () => {
             return;
         }
 
-        // Капча проверяется на сервере в /api/send-complaint
         try {
             const response = await fetch('/api/send-complaint', {
                 method: 'POST',
@@ -142,8 +138,6 @@ export const ComplaintForm: React.FC = () => {
                     full_name: formData.full_name,
                     email: formData.email,
                     phone: formData.phone,
-                    // код типа: по нему жалоба попадает в нужный тип в админке,
-                    // а сервер подставляет в письмо русское название
                     complaint_type: formData.complaint_type,
                     subject: formData.subject,
                     description: formData.description,
@@ -357,7 +351,6 @@ export const ComplaintForm: React.FC = () => {
                     </ButtonComplaint>
                 </form>
 
-                {/* срочное быстрее решить звонком */}
                 <aside className={styles.aside}>
                     <h3>{tMain('MainReceptionTitle')}</h3>
                     <a className={styles.call} href="tel:1400">

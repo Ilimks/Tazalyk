@@ -7,12 +7,9 @@ import { VacancyCard, vacanciesApi, type Vacancy } from '@/entities/vacancy';
 import styles from './VacanciesOpenings.module.scss';
 
 interface VacanciesOpeningsProps {
-    // загружены на сервере вместе со страницей; null — сервер не дождался API
     initialVacancies: Vacancy[] | null;
 }
 
-// Открытые вакансии из админки (отдел кадров). Если API недоступен, блок не показывается —
-// остальная страница остаётся как была
 export const VacanciesOpenings: React.FC<VacanciesOpeningsProps> = ({ initialVacancies }) => {
     const t = useTranslations('Vacancies');
     const [vacancies, setVacancies] = useState<Vacancy[] | null>(initialVacancies);
@@ -39,7 +36,6 @@ export const VacanciesOpenings: React.FC<VacanciesOpeningsProps> = ({ initialVac
                 <h2 id="vacancies-openings-title" className={styles.heading}>
                     <BriefcaseBusiness size={28} aria-hidden />
                     {t('VacanciesOpenTitle')}
-                    {/* число карточек и так видно — экранный диктор не должен читать «вакансии2» */}
                     {vacancies.length > 0 && (
                         <span className={styles.count} aria-hidden>
                             {vacancies.length}
@@ -52,7 +48,6 @@ export const VacanciesOpenings: React.FC<VacanciesOpeningsProps> = ({ initialVac
                         {vacancies.map((vacancy) => (
                             <VacancyCard key={vacancy.id} vacancy={vacancy} />
                         ))}
-                        {/* свободное место в последнем ряду занимает своя фотография, а не пустота */}
                         <div
                             className={styles.photo}
                             data-in-three={vacancies.length % 3}

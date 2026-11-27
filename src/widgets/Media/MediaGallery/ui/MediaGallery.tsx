@@ -23,7 +23,6 @@ import { useVideos } from '@/features/media/model/useVideos';
 interface MediaGalleryProps {
     itemsPerPage?: number;
     defaultTab?: MediaType;
-    // первые страницы фото и видео, загруженные на сервере; null — загружаем в браузере
     initialPhotos?: PageResult<Photo> | null;
     initialVideos?: PageResult<Video> | null;
 }
@@ -64,7 +63,6 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
         totalCount: videosTotalCount
     } = useVideos();
 
-    // Пока пользователь не уходил с первой страницы вкладки, показываем данные с сервера без повторного запроса
     const [usingInitialPhotos, setUsingInitialPhotos] = useState(initialPhotos !== null);
     const [usingInitialVideos, setUsingInitialVideos] = useState(initialVideos !== null);
     const serverPhotos = usingInitialPhotos ? initialPhotos : null;
@@ -87,7 +85,6 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
             }
             loadVideos(currentPage, itemsPerPage);
         }
-        // usingInitialPhotos и usingInitialVideos меняются только внутри этого эффекта
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTab, currentPage, itemsPerPage, loadPhotos, loadVideos]);
 
@@ -96,7 +93,6 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
     const photosCount = serverPhotos ? serverPhotos.totalCount : photosTotalCount;
     const videosCount = serverVideos ? serverVideos.totalCount : videosTotalCount;
 
-    // до первого ответа в браузере показываем загрузку, а не «материалов нет»
     const photosPending = !serverPhotos && (photosLoading || (!photosLoaded && !photosError));
     const videosPending = !serverVideos && (videosLoading || (!videosLoaded && !videosError));
 
@@ -110,7 +106,6 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
         : (serverVideos ? serverVideos.totalPages : videosTotalPages);
     const totalCount = activeTab === 'photos' ? photosCount : videosCount;
 
-    // страница сбрасывается вместе со сменой вкладки, чтобы не запрашивать чужую страницу новой вкладки
     const handleTabChange = useCallback((tabId: string) => {
         if (tabId === activeTab) return;
         setActiveTab(tabId as MediaType);

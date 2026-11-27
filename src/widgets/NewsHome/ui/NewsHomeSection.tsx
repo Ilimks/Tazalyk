@@ -7,7 +7,6 @@ import { newsApi, getServerFetchOptions, type News } from '@/entities/news';
 
 const LATEST_NEWS_COUNT = 4;
 
-// Последние новости загружаются на сервере, чтобы сразу попасть в HTML главной страницы
 const getLatestNews = async (): Promise<News[] | null> => {
     try {
         const { results } = await newsApi.getAll(

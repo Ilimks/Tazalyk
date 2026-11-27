@@ -4,13 +4,6 @@ import { ArrowRight, Home, MessageCircle } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import styles from './NotFoundScene.module.scss';
 
-/**
- * Страница 404 в духе предприятия: «эту страницу уже убрали».
- * Вместо нуля — герб в вращающемся кольце, под цифрами метла подметает листья,
- * на фоне падают листья. Вся анимация на CSS — без скриптов в браузере;
- * при «уменьшить движение» в системе всё стоит на месте.
- */
-
 const QUICK_LINKS = [
     { key: 'tariffs', href: '/tariffs' },
     { key: 'services', href: '/attendance' },
@@ -18,7 +11,6 @@ const QUICK_LINKS = [
     { key: 'complaints', href: '/complaints' },
 ] as const;
 
-// падающие листья: место по горизонтали, задержка, длительность, размер
 const FALLING_LEAVES = [
     { x: '6%', delay: '0s', duration: '13s', size: 22 },
     { x: '18%', delay: '4s', duration: '16s', size: 16 },
@@ -28,7 +20,6 @@ const FALLING_LEAVES = [
     { x: '91%', delay: '10s', duration: '17s', size: 15 },
 ];
 
-// листья и пыль, которые метла сметает вправо
 const SWEPT = [
     { delay: '0s', kind: 'leaf' },
     { delay: '0.55s', kind: 'dust' },

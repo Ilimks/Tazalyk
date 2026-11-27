@@ -1,4 +1,3 @@
-// Оформление как у карточки новости (entities/news/ui/NewsCard)
 .card {
   display: flex;
   min-width: 0;
@@ -120,7 +119,6 @@
 }
 
 .price {
-  // цена и кнопка прижаты к низу карточки
   margin-top: auto;
   padding-top: 4px;
   color: var(--ink);

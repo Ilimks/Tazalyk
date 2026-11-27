@@ -7,13 +7,11 @@ export interface CheckoutValues {
     delivery_method: DeliveryMethod;
     address: string;
     comment: string;
-    // ловушка для ботов, человек её не видит
     website: string;
 }
 
 export type CheckoutField = 'customer_name' | 'phone' | 'contact_method' | 'delivery_method' | 'address' | 'comment';
 
-// порядок полей в форме: к первому полю с ошибкой переводим фокус
 export const CHECKOUT_FIELDS: readonly CheckoutField[] = [
     'customer_name',
     'phone',
@@ -26,7 +24,6 @@ export const CHECKOUT_FIELDS: readonly CheckoutField[] = [
 export const isCheckoutField = (value: string): value is CheckoutField =>
     (CHECKOUT_FIELDS as readonly string[]).includes(value);
 
-// ключи сообщений в messages → Checkout.errors
 export type CheckoutErrorCode =
     | 'nameRequired'
     | 'nameLength'
@@ -48,7 +45,6 @@ export const INITIAL_CHECKOUT_VALUES: CheckoutValues = {
     website: '',
 };
 
-// Те же проверки, что на сервере; пробелы по краям сервер тоже обрезает
 export const validateCheckoutField = (
     field: CheckoutField,
     values: CheckoutValues

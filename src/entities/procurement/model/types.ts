@@ -48,8 +48,6 @@ export type ProcurementType = ProcurementItem['type'];
 export type ProcurementMethod = ProcurementItem['method'];
 export type ProcurementStatus = ProcurementItem['status'];
 
-// подписи — в сообщениях Procurement.ProcurementTypes / ProcurementMethods / ProcurementStatuses.
-// Цветом отмечен только статус: когда цветное всё, ничего не выделяется
 export const statusConfig = {
     active: { color: '#15803d', bg: '#ecfdf3' },
     completed: { color: '#475569', bg: '#eef1f6' },

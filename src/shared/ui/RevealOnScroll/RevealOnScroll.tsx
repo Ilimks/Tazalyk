@@ -3,18 +3,10 @@ import { useEffect } from 'react';
 import { usePathname } from '@/i18n/navigation';
 
 const SELECTOR = '[data-reveal]';
-// соседние карточки появляются волной, но не дольше четверти секунды
 const STAGGER_MS = 60;
 const STAGGER_MAX = 4;
 const STATES = ['wait', 'in', 'done'];
 
-/**
- * Мягкое появление блоков при прокрутке. Ничего не рисует.
- *
- * Без JavaScript и для поисковиков всё видно сразу: прячутся только блоки
- * ниже экрана, и только когда скрипт уже готов их показать.
- * Состояние хранится в data-атрибуте, а не в классе: React его не перетирает.
- */
 export const RevealOnScroll: React.FC = () => {
     const pathname = usePathname();
 
@@ -29,7 +21,6 @@ export const RevealOnScroll: React.FC = () => {
             element.style.transitionDelay = `${Math.max(order, 0) * STAGGER_MS}ms`;
             element.dataset.reveal = 'in';
 
-            // появилось — убираем следы, чтобы не мешать переходам при наведении
             const clean = (event: TransitionEvent) => {
                 if (event.target !== element || event.propertyName !== 'opacity') return;
                 element.removeEventListener('transitionend', clean);
@@ -41,7 +32,6 @@ export const RevealOnScroll: React.FC = () => {
 
         const observer = new IntersectionObserver(
             (entries) => {
-                // все попавшие в кадр одновременно — одной волной, слева направо
                 for (const entry of entries) {
                     if (!entry.isIntersecting) continue;
                     observer.unobserve(entry.target);
@@ -52,9 +42,7 @@ export const RevealOnScroll: React.FC = () => {
         );
 
         const prepare = (element: HTMLElement) => {
-            // в разметке атрибут пустой (React пишет «true»), дальше здесь только наши состояния
             if (STATES.includes(element.dataset.reveal ?? '')) return;
-            // то, что уже на экране, не прячем: иначе страница мигнёт
             if (element.getBoundingClientRect().top < window.innerHeight * 0.92) {
                 element.dataset.reveal = 'done';
                 return;
@@ -65,7 +53,6 @@ export const RevealOnScroll: React.FC = () => {
 
         document.querySelectorAll<HTMLElement>(SELECTOR).forEach(prepare);
 
-        // карточки, которые догрузились позже (галерея, магазин)
         const mutations = new MutationObserver((records) => {
             for (const record of records) {
                 record.addedNodes.forEach((node) => {
@@ -80,7 +67,6 @@ export const RevealOnScroll: React.FC = () => {
         return () => {
             observer.disconnect();
             mutations.disconnect();
-            // при переходе на другую страницу ничего не должно остаться спрятанным
             document.querySelectorAll<HTMLElement>('[data-reveal="wait"]').forEach((element) => {
                 element.dataset.reveal = 'done';
             });

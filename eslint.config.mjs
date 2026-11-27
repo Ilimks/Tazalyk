@@ -4,7 +4,6 @@ import { FlatCompat } from "@eslint/eslintrc";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// eslint-config-next 15 поставляется в старом формате — подключаем через FlatCompat
 const compat = new FlatCompat({ baseDirectory: __dirname });
 
 const eslintConfig = [

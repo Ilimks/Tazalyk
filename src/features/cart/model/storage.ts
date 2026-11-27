@@ -3,7 +3,6 @@ import { getSafeHttpUrl } from '@/shared/lib/utils/url';
 import type { CartItem } from './types';
 import { clampQuantity } from './cartSlice';
 
-// Корзина хранится только в этом браузере; читать её можно лишь после монтирования
 export const CART_STORAGE_KEY = 'tazalyk:cart';
 const STORAGE_VERSION = 1;
 
@@ -13,7 +12,6 @@ const PRICE_RE = /^\d{1,12}(\.\d{1,2})?$/;
 const toText = (value: unknown, maxLength: number): string =>
     typeof value === 'string' ? value.slice(0, maxLength) : '';
 
-// данные из localStorage мог изменить кто угодно — берём только то, что похоже на позицию корзины
 const sanitizeItem = (raw: unknown): CartItem | null => {
     if (!raw || typeof raw !== 'object') return null;
     const item = raw as Record<string, unknown>;
@@ -58,7 +56,6 @@ export const readStoredCart = (): CartItem[] => {
         });
         return items;
     } catch {
-        // приватный режим, запрет на хранилище или испорченные данные — начинаем с пустой корзины
         return [];
     }
 };
@@ -71,11 +68,9 @@ export const writeStoredCart = (items: CartItem[]): void => {
             return;
         }
         const value = JSON.stringify({ v: STORAGE_VERSION, items });
-        // одинаковое значение не записываем — иначе вкладки будут будить друг друга событием storage
         if (window.localStorage.getItem(CART_STORAGE_KEY) !== value) {
             window.localStorage.setItem(CART_STORAGE_KEY, value);
         }
     } catch {
-        // хранилище переполнено или недоступно — корзина работает до закрытия вкладки
     }
 };

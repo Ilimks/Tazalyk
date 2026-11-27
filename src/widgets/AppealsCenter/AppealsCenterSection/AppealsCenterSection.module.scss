@@ -2,7 +2,6 @@
   position: relative;
   overflow: hidden;
   padding: 56px 0;
-  // спокойный фирменный синий; листья и волны — еле заметным рисунком
   background: linear-gradient(110deg, var(--brand-dark) 0%, var(--brand) 60%, #14488a 100%);
 
   &__waves {

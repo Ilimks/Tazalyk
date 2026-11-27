@@ -68,7 +68,6 @@ export const FormFileUpload: React.FC<FormFileUploadProps> = ({
                             <div key={idx} className={styles.attachment}>
                                 <div className={styles.previewImage}>
                                     {file.type.startsWith('image/') && (
-                                        // превью из data URL — next/image здесь не нужен
                                         // eslint-disable-next-line @next/next/no-img-element
                                         <img 
                                             src={file.data} 

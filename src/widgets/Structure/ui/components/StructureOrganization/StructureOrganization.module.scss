@@ -24,7 +24,6 @@
   font-weight: 700;
 }
 
-// отделы прямого подчинения стоят по сторонам от ствола
 .direct {
   position: relative;
   display: grid;
@@ -32,7 +31,6 @@
   gap: 80px;
   padding: 28px 0;
 
-  // ствол от директора вниз
   &::before {
     content: '';
     position: absolute;
@@ -44,7 +42,6 @@
     background: var(--line-strong);
   }
 
-  // перекладина к отделам
   &::after {
     content: '';
     position: absolute;
@@ -81,7 +78,6 @@
   width: 100%;
   padding-top: 28px;
 
-  // перекладина над заместителями: от середины первой колонки до середины последней
   &::before {
     content: '';
     position: absolute;

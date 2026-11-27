@@ -1,6 +1,7 @@
 'use client'
 import styles from "./PhotoCard.module.scss";
 import { Calendar } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { mediaCaption } from "@/entities/media/lib/caption";
@@ -82,6 +83,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
         <>
             <article
                 data-reveal suppressHydrationWarning
+                data-snow
                 className={styles.card}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
@@ -97,10 +99,11 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
                 aria-label={`${t('photo')}: ${caption || formatDate(currentPhoto.date)}`}
             >
                 <div className={styles.card__imageContainer}>
-                    <img 
+                    <Image
                         src={imageUrl}
                         alt=""
-                        loading="lazy"
+                        fill
+                        sizes="(max-width: 1000px) 50vw, 640px"
                         className={`${styles.card__image} ${isHovered ? styles.card__imageZoomed : ''}`}
                         onError={handleImageError}
                     />
@@ -117,7 +120,6 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
             <PhotoModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                // одна запись — одно фото: дополнительные фото больше не показываются
                 images={[imageUrl]}
                 date={currentPhoto.date}
                 caption={caption}

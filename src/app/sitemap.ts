@@ -2,11 +2,9 @@ import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/shared/config/site';
 import { newsApi, type News } from '@/entities/news';
 
-// карта сайта пересобирается раз в час, чтобы в неё попадали новые новости
 export const revalidate = 3600;
 
 const LOCALES = ['ru', 'ky'] as const;
-// API отдаёт посетителям не больше 20 записей с медиа на страницу
 const NEWS_PAGE_SIZE = 20;
 const MAX_NEWS_PAGES = 100;
 
@@ -30,12 +28,10 @@ const STATIC_ROUTES = [
   '/vacancies',
 ];
 
-// ссылки на обе языковые версии страницы
 const languageAlternates = (path: string) => ({
   languages: Object.fromEntries(LOCALES.map((locale) => [locale, `${SITE_URL}/${locale}${path}`])),
 });
 
-// все новости из API; если API недоступен — карта сайта строится без них
 const fetchAllNews = async (): Promise<News[]> => {
   const all: News[] = [];
   try {
@@ -64,7 +60,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries = LOCALES.flatMap((locale) =>
     STATIC_ROUTES.map((route) => ({
       url: `${SITE_URL}/${locale}${route}`,
-      // дата меняется только у страниц, где появляется новый контент
       lastModified: route === '' || route === '/news' ? latestNewsDate : undefined,
       changeFrequency:
         route === '' || route === '/news'

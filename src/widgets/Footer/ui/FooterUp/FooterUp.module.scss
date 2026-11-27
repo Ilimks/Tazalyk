@@ -5,7 +5,6 @@
 
   &__left {
     &__logo {
-      // у логотипа тёмно-синие части: на тёмном фоне ему нужна белая подложка
       width: 92px;
       height: 92px;
       padding: 10px;
@@ -54,7 +53,6 @@
         color: #fff;
       }
 
-      // длинная почта переносится, а не раздвигает страницу
       span {
         min-width: 0;
         overflow-wrap: anywhere;
@@ -106,7 +104,6 @@
         margin-bottom: 14px;
       }
 
-      // область нажатия пальцем, а не строка текста
       &__ul {
         gap: 0;
       }
@@ -117,10 +114,15 @@
         touch-action: manipulation;
       }
 
-      // контакты — во всю ширину
       &__column:last-child {
         grid-column: 1 / -1;
       }
     }
   }
+}
+
+.footer__up__left__logoLink {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
 }

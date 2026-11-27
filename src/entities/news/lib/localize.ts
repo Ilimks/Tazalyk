@@ -1,6 +1,5 @@
 import { News } from '../model/types';
 
-// Кыргызский текст, если он заполнен, иначе русский
 export const getNewsTitle = (news: News, locale: string): string =>
     (locale === 'ky' && news.title_ky) || news.title_ru;
 

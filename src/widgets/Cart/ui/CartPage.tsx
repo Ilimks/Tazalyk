@@ -31,7 +31,6 @@ export const CartPage: React.FC = () => {
         [items]
     );
 
-    // корзину поменяли — старое сообщение о недоступных товарах уже не актуально
     useEffect(() => {
         setItemsError(null);
     }, [items]);
@@ -75,7 +74,6 @@ export const CartPage: React.FC = () => {
         );
     }
 
-    // до чтения localStorage (и на сервере) показываем заглушку, а не «корзина пуста»
     if (!hydrated) {
         return (
             <div className={styles.cartPage}>

@@ -12,13 +12,11 @@ const getInitialProcurements = async (): Promise<PageResult<ProcurementItem> | n
     try {
         return await procurementsApi.getAll(1, PROCUREMENTS_PER_PAGE, getServerFetchOptions());
     } catch (error) {
-        // если API недоступен, таблица загрузится в браузере и покажет ошибку с кнопкой повтора
         console.error('Failed to prefetch procurements:', error);
         return null;
     }
 };
 
-// Первая страница закупок загружается на сервере — таблица сразу есть в HTML для поисковиков
 export const Procurements = async () => {
     const [t, initialProcurements] = await Promise.all([
         getTranslations("Procurement"),

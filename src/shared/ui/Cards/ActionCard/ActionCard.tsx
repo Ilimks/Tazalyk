@@ -17,7 +17,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({
     href
 }) => {
     return (
-        <Link href={href} className={styles.card}>
+        <Link href={href} className={styles.card} data-snow>
             <div className={styles.cardContent}>
                 {icon && (
                     <div className={styles.iconWrapper}>

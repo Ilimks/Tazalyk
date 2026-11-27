@@ -17,7 +17,6 @@ export const OrderSuccess: React.FC<OrderSuccessProps> = ({ order }) => {
     const titleRef = useRef<HTMLHeadingElement>(null);
     const orderNumber = Number.isFinite(Number(order.number)) ? String(order.number) : '';
 
-    // ссылки из ответа API — только если это https-ссылки на сам мессенджер
     const contacts = [
         {
             method: 'whatsapp',
@@ -35,10 +34,8 @@ export const OrderSuccess: React.FC<OrderSuccessProps> = ({ order }) => {
         },
     ]
         .filter((contact) => contact.url)
-        // первым идёт мессенджер, который покупатель выбрал в форме
         .sort((a, b) => Number(b.method === order.contact_method) - Number(a.method === order.contact_method));
 
-    // экранный диктор сразу прочитает, что заказ оформлен
     useEffect(() => {
         titleRef.current?.focus();
     }, []);

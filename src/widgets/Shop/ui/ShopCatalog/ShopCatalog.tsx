@@ -25,15 +25,12 @@ import { CatalogGridSkeleton } from './CatalogGridSkeleton';
 import styles from './ShopCatalog.module.scss';
 
 interface ShopCatalogProps {
-    // для какого адреса сервер загрузил initialData (строка запроса без «?»)
     dataKey: string;
     initialData: PaginatedProductsResponse | null;
     initialFilterOptions: ProductFilterOptions | null;
 }
 
-// ширина, с которой фильтры показываются колонкой слева, а не в выдвижной панели
 const DESKTOP_QUERY = '(min-width: 1001px)';
-// липкая навигация сайта — чтобы при смене страницы начало каталога не пряталось под ней
 const STICKY_HEADER_OFFSET = 90;
 
 export const ShopCatalog: React.FC<ShopCatalogProps> = ({ dataKey, initialData, initialFilterOptions }) => {
@@ -49,12 +46,10 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ dataKey, initialData, 
     const totalPages = data ? Math.ceil(data.count / PRODUCTS_PAGE_SIZE) : 0;
     const showSkeleton = isPending || (catalog.isLoading && !data);
 
-    // страницы с таким номером больше нет — открываем первую
     useEffect(() => {
         if (catalog.isOutOfRange) setPage(1);
     }, [catalog.isOutOfRange, setPage]);
 
-    // на широком экране панель не нужна: фильтры видны слева
     useEffect(() => {
         if (!isDrawerOpen) return;
         const media = window.matchMedia(DESKTOP_QUERY);

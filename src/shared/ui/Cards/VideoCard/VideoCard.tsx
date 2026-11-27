@@ -10,7 +10,6 @@ interface Video {
     id: string;
     main_video_url: string;
     gallery_videos: string[];
-    // картинка-превью с API; если её нет — показываем заглушку
     thumbnail?: string;
     caption_ru?: string;
     caption_ky?: string;
@@ -22,8 +21,6 @@ interface VideoCardProps {
     video: Video;
 }
 
-// В карточке грузится только превью. Само видео начинает загружаться,
-// когда пользователь нажал на карточку и открылось окно с плеером
 export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
     const t = useTranslations("MediaGallery");
     const locale = useLocale();
@@ -47,6 +44,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
         <>
             <article
                 data-reveal suppressHydrationWarning
+                data-snow
                 className={styles.card}
                 onClick={openModal}
                 onKeyDown={(e) => {
@@ -61,7 +59,6 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
             >
                 <div className={styles.card__imageContainer}>
                     {showThumbnail ? (
-                        // адрес превью приходит с API, домен может быть любым — поэтому обычный img
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
                             src={video.thumbnail}

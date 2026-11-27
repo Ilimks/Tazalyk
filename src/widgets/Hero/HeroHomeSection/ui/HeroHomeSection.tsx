@@ -8,8 +8,6 @@ import mobile from './HeroHomeSectionMobile.module.scss';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 
-// Фон растягивается как background-size: cover, поэтому на узких высоких экранах
-// картинка шире viewport (82vh / 60vh * ~1.5) — sizes учитывает это, чтобы не мылить.
 const HERO_IMAGE_SIZES = '(max-width: 480px) 200vw, (max-width: 1000px) 170vw, 100vw';
 
 export const HeroHomeSection: React.FC = () => {
@@ -24,7 +22,6 @@ export const HeroHomeSection: React.FC = () => {
         slideThumbs
     } = useHeroCarousel();
 
-    // Предыдущий слайд остаётся непрозрачным под текущим, пока тот проявляется (кроссфейд 0.8s).
     const [prevSlide, setPrevSlide] = useState<number | null>(null);
     const [shownSlide, setShownSlide] = useState(currentSlide);
     if (shownSlide !== currentSlide) {
@@ -54,8 +51,6 @@ export const HeroHomeSection: React.FC = () => {
         return () => clearInterval(interval);
     }, [isMobile, setCurrentSlide, slideImages.length]);
 
-    // В DOM только текущий слайд, предыдущий (для кроссфейда) и, на десктопе после
-    // гидрации, следующий — он заранее подгружается невидимым. Остальные не качаются.
     const nextSlide = (currentSlide + 1) % slideImages.length;
     const shouldPreloadNext = isHydrated && !isMobile;
 
@@ -93,10 +88,8 @@ export const HeroHomeSection: React.FC = () => {
     return (
         <section
             className={`${styles.hero} ${mobile.hero}`}
-            // боковая реклама начинается под этим блоком (см. SideAds.module.scss)
             data-fullscreen-hero
         >
-            {/* Фон — next/image: первый слайд есть в HTML с сервера и предзагружается (LCP) */}
             <div className={styles.background} aria-hidden="true">
                 {slideImages.map((src, index) => {
                     const layerClass = getBackgroundClass(index);

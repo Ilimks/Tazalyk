@@ -10,6 +10,7 @@ import { Language } from "@/shared/ui/language/Language";
 import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
 import { useBurger } from "../../model/useBurger";
 import { MobileMenu } from "../MobileMenu/MobileMenu";
+import { WinterHat } from "@/shared/ui/WinterHat";
 import { useTranslations } from 'next-intl';
 import { CartLink } from "@/features/cart";
 
@@ -22,7 +23,7 @@ export const HeaderUp: React.FC = () => {
   return (
     <div className={`${styles.header__up} ${mobile.header__up}`}>
       <div className={`${styles.header__up__left} ${mobile.header__up__left}`}>
-        <Link href="/">
+        <Link href="/" className={styles.header__up__logoLink}>
           <Image
             className={`${styles.header__up__logo} ${mobile.header__up__logo}`}
             src="/assets/icons/logo.svg"
@@ -31,6 +32,7 @@ export const HeaderUp: React.FC = () => {
             height={70}
             priority
           />
+          <WinterHat />
         </Link>
         <Link href="/">
           <div
@@ -47,7 +49,6 @@ export const HeaderUp: React.FC = () => {
                 priority
               />
             </h4>
-            {/* textLength растягивает подпись точно по ширине надписи на любом языке */}
             <svg
               className={`${styles.header__up__logoName2} ${mobile.header__up__logoName2}`}
               viewBox="0 0 165 15"
@@ -67,7 +68,6 @@ export const HeaderUp: React.FC = () => {
       >
         <HeaderInputSearch />
         <div className={styles.header__up__actions}>
-          {/* адрес и график — двумя строками, рядом колл-центр, соцсети и язык */}
           <div className={styles.header__up__info}>
             <Link href="/contacts" className={styles.header__up__address}>
               <MapPin size={16} aria-hidden />

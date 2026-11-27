@@ -11,13 +11,9 @@ export const HeaderBottomNav: React.FC = () => {
     const pathname = usePathname();
     const navRef = useRef<HTMLElement>(null);
 
-    // Открытый список запоминается вместе со страницей, на которой его открыли.
-    // Шапка при переходе не пересоздаётся, и раньше список оставался открытым
-    // на новой странице; теперь на другой странице он считается закрытым.
     const [open, setOpen] = useState<{ index: number; path: string } | null>(null);
     const openIndex = open && open.path === pathname ? open.index : null;
 
-    // раздел, в котором находится посетитель: «/ru/news/5» → «/news»
     const path = pathname.replace(/^\/(ru|ky)(?=\/|$)/, '') || '/';
     const isCurrent = (item: (typeof headerMenu)[number]) => {
         const matches = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
@@ -27,7 +23,6 @@ export const HeaderBottomNav: React.FC = () => {
     const toggle = (index: number) =>
         setOpen(openIndex === index ? null : { index, path: pathname });
 
-    // клик мимо меню или Esc тоже закрывают список; после Esc человек остаётся на той же кнопке меню
     useEffect(() => {
         if (openIndex === null) return;
         const onPointerDown = (event: PointerEvent) => {
@@ -49,12 +44,11 @@ export const HeaderBottomNav: React.FC = () => {
     }, [openIndex]);
 
     return (
-        <div className={`${styles.header__bottom} ${mobile.header__bottom}`}>
+        <div className={`${styles.header__bottom} ${mobile.header__bottom}`} data-snow-ground>
           <div className="container">
             <nav
               ref={navRef}
               className={`${styles.header__bottom__nav} ${mobile.header__bottom__nav}`}
-              // клавишей Tab ушли из меню — список закрывается
               onBlur={(event) => {
                 if (!event.currentTarget.contains(event.relatedTarget)) setOpen(null);
               }}
@@ -81,7 +75,6 @@ export const HeaderBottomNav: React.FC = () => {
                       </button>
                     )}
 
-                    {/* список всегда в разметке: так он может плавно и появляться, и прятаться */}
                     {item.dropdown && (
                       <div
                         id={`header-menu-${index}`}

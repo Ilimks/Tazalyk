@@ -8,7 +8,6 @@ import { VacanciesOpenings } from './components/VacanciesOpenings';
 import type { Vacancy } from '@/entities/vacancy';
 
 interface VacanciesPageProps {
-    // открытые вакансии с сервера; null — догрузятся в браузере
     initialVacancies: Vacancy[] | null;
 }
 

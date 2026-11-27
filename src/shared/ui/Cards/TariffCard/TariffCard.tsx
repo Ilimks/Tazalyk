@@ -9,7 +9,6 @@ export interface TariffRow {
 
 interface TariffCardProps {
     title: string;
-    /** для кого тариф */
     caption: string;
     icon: React.ReactNode;
     rows: TariffRow[];
@@ -19,7 +18,7 @@ interface TariffCardProps {
 }
 
 export const TariffCard: React.FC<TariffCardProps> = ({ title, caption, icon, rows, totalLabel, total, note }) => (
-    <article data-reveal suppressHydrationWarning className={styles.tariffCard}>
+    <article data-reveal suppressHydrationWarning data-snow className={styles.tariffCard}>
         <div className={styles.cardHeader}>
             <div className={styles.cardIcon}>{icon}</div>
             <div>
@@ -28,7 +27,6 @@ export const TariffCard: React.FC<TariffCardProps> = ({ title, caption, icon, ro
             </div>
         </div>
         <div className={styles.tariffBody}>
-            {/* сначала то, что платит житель, потом — из чего складывается */}
             <div className={styles.priceTotal}>
                 <span className={styles.totalLabel}>{totalLabel}</span>
                 <span className={styles.totalValue}>{total.toFixed(2)} сом</span>

@@ -1,0 +1,90 @@
+.snow {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  width: 100%;
+  height: 0;
+  overflow-x: clip;
+  pointer-events: none;
+}
+
+.man {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+  visibility: hidden;
+  will-change: transform;
+}
+
+.toggle {
+  position: fixed;
+  left: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  z-index: 41;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 50%;
+  background: rgba(16, 35, 130, .82);
+  color: #fff;
+  box-shadow: var(--sh-2);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(6px);
+  transition: background-color .2s ease, color .2s ease, transform .12s ease;
+
+  &:active {
+    transform: scale(.94);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--green-600);
+    outline-offset: 2px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--brand);
+    }
+  }
+}
+
+.toggleOff {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, .94);
+  color: var(--brand);
+
+  svg {
+    opacity: .55;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: #fff;
+    }
+  }
+}
+
+@media print {
+  .snow,
+  .layer,
+  .toggle {
+    display: none;
+  }
+}

@@ -14,14 +14,12 @@
   .header__bottom__li {
     position: relative;
     color: rgba(255, 255, 255, .88);
-    // с учётом кыргызских пунктов: они длиннее и тоже должны помещаться в строку
     font-size: clamp(13px, 1.12vw, 16px);
     font-weight: 600;
     line-height: 56px;
     white-space: nowrap;
     transition: color .2s ease;
 
-    // нажимается вся ячейка, а не только текст
     > a,
     .trigger {
       padding: 0 14px;
@@ -32,7 +30,6 @@
       display: block;
     }
 
-    // на синей полосе синяя рамка не видна
     > a:focus-visible,
     .trigger:focus-visible {
       border-radius: var(--r-sm);
@@ -102,7 +99,6 @@
     z-index: 100;
     top: calc(100% + 8px);
     left: 0;
-    // по ширине самого длинного пункта, чтобы «Структура и деятельность» не разламывалась
     width: max-content;
     min-width: 240px;
     max-width: 320px;
@@ -114,7 +110,6 @@
     line-height: 1.4;
     white-space: normal;
 
-    // закрытый список остаётся в разметке, но скрыт и недоступен для мыши и клавиатуры
     visibility: hidden;
     pointer-events: none;
     opacity: 0;
@@ -130,7 +125,6 @@
     transition: opacity .18s ease, transform .18s ease, visibility 0s;
   }
 
-  // кликается вся строка, а не только текст
   .dropdown li a {
     display: block;
     padding: 11px 14px;

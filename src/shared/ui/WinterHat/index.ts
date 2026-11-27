@@ -1,0 +1,1 @@
+export { WinterHat } from './WinterHat';

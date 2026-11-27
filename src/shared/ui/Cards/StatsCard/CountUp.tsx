@@ -8,7 +8,6 @@ interface CountUpProps {
 
 const DURATION_MS = 900;
 
-// Число «набегает» один раз, когда доходит до экрана. В разметке с сервера сразу стоит итог
 export const CountUp: React.FC<CountUpProps> = ({ value, suffix = '' }) => {
     const ref = useRef<HTMLSpanElement>(null);
     const [shown, setShown] = useState(value);
@@ -16,7 +15,6 @@ export const CountUp: React.FC<CountUpProps> = ({ value, suffix = '' }) => {
     useEffect(() => {
         const element = ref.current;
         if (!element || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        // уже на экране — не трогаем, чтобы число не прыгало на глазах
         if (element.getBoundingClientRect().top < window.innerHeight) return;
 
         let frame = 0;

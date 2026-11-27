@@ -1,11 +1,9 @@
-// Тонкая полоса загрузки при переходе между страницами
 .bar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height: 3px;
-    // выше липкого меню шапки и мобильного меню
     z-index: 2000;
     background: linear-gradient(90deg, var(--green), var(--green-600));
     box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);

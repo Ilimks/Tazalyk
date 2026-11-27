@@ -7,7 +7,6 @@ export {
     getProductsServerFetchOptions,
     PRODUCTS_REVALIDATE_SECONDS,
 } from './api/productsApi';
-// только для серверных компонентов
 export { prefetchProducts, prefetchProductFilters } from './api/prefetch';
 export {
     PRODUCT_MATERIALS,

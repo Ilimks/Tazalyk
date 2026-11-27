@@ -1,7 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import styles from './ContactCard.module.scss';
 
-// строка карточки: обычный текст или ссылка, например номер телефона
 type ContactDetail = string | { text: string; href: string };
 
 interface ContactCardProps {

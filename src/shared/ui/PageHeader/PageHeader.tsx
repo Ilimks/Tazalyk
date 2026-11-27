@@ -4,9 +4,7 @@ import styles from './PageHeader.module.scss';
 interface PageHeaderProps {
     title: string;
     description?: string;
-    /** своя фотография справа в полосе заголовка; на телефоне её нет */
     image?: string;
-    /** что держать в кадре, как object-position */
     imagePosition?: string;
 }
 

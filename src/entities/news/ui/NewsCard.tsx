@@ -13,9 +13,7 @@ import { Link } from '@/i18n/navigation';
 
 interface NewsCardProps {
   news: News;
-  // tile — главная: на телефоне две карточки в ряд, без описания
   variant?: "compact" | "tile";
-  // главная на компьютере: крупная карточка или строка «фото слева»
   layout?: "lead" | "row";
 }
 
@@ -43,6 +41,7 @@ export const NewsCard = ({ news, variant, layout }: NewsCardProps) => {
       data-reveal suppressHydrationWarning
     >
       <article
+        data-snow
         className={`${styles.card} ${mobile.card} ${isTile ? styles.tile : ''} ${layout ? styles[layout] : ''}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

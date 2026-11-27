@@ -5,7 +5,6 @@
     align-items: start;
 }
 
-// Фильтры колонкой слева (на широких экранах)
 .sidebar {
     position: sticky;
     top: 84px;
@@ -78,7 +77,6 @@
     margin-left: auto;
 }
 
-// Кнопка «Фильтры» — только когда колонки фильтров нет
 .filtersButton {
     display: none;
     align-items: center;
@@ -141,14 +139,12 @@
     background: #ffffff;
 }
 
-// 3 колонки товаров рядом с фильтрами
 @media (max-width: 1199px) {
     .grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
-// Фильтры уходят в выдвижную панель
 @media (max-width: 1000px) {
     .catalog {
         grid-template-columns: minmax(0, 1fr);
@@ -169,7 +165,6 @@
     }
 }
 
-// Телефоны: 2 колонки
 @media (max-width: 640px) {
     .toolbar {
         gap: 10px;

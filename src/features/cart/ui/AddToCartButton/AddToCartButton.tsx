@@ -20,7 +20,6 @@ interface AddToCartButtonProps {
     className?: string;
 }
 
-// «В корзину»; если товар уже в корзине — счётчик −/+ (на «−» с единицы товар убирается)
 export const AddToCartButton: React.FC<AddToCartButtonProps> = ({ product, className = '' }) => {
     const t = useTranslations('Cart');
     const locale = useLocale();
@@ -32,7 +31,6 @@ export const AddToCartButton: React.FC<AddToCartButtonProps> = ({ product, class
     const name = getProductName(product, locale);
     const inCart = hydrated && quantity > 0;
 
-    // в корзине — цена и название из каталога, а не те, что были при добавлении
     useEffect(() => {
         if (inCart && product.in_stock) {
             dispatch(syncCartItems({ updates: [toCartItemDetails(product)] }));

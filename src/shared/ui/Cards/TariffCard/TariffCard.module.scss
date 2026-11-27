@@ -68,7 +68,6 @@
   white-space: nowrap;
 }
 
-// итог — первым, отдельной плашкой
 .priceTotal {
   display: flex;
   align-items: baseline;
@@ -97,7 +96,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  // пояснения всех карточек стоят на одной линии
   margin-top: auto;
   padding-top: 16px;
   color: var(--muted);

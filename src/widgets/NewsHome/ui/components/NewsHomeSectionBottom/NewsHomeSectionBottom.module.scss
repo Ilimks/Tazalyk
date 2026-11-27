@@ -3,7 +3,6 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px;
 
-  // загрузка, ошибка и «новостей нет» — на всю ширину
   > :only-child {
     grid-column: 1 / -1;
   }

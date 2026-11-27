@@ -9,8 +9,6 @@ interface SideAdsProps {
     children: ReactNode;
 }
 
-// Оборачивает контент страницы и ставит баннеры в свободные поля слева и справа.
-// Баннеры «прилипают» при прокрутке и не заезжают на футер.
 export const SideAds: React.FC<SideAdsProps> = ({ children }) => {
     const t = useTranslations('Ads');
 

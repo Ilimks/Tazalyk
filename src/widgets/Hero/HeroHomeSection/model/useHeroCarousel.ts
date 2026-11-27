@@ -1,12 +1,9 @@
 import { useState, useCallback, useRef } from 'react';
 import { getImageProps } from 'next/image';
 
-// снимки из пака «Тазалык коридор»: фото справа, слева тёмное продолжение под заголовок
 const SLIDES = [1, 2, 3, 4, 5, 6, 7];
 const slideImages = SLIDES.map((n) => `/assets/images/hero/hero-${n}.webp`);
 
-// Кружки карусели: свои квадратные кадры, самый большой кружок ~288px
-// (6rem * scale 3), поэтому 640px (2x)
 const slideThumbs = SLIDES.map(
     (n) => getImageProps({ src: `/assets/images/hero/thumb-${n}.webp`, alt: '', width: 320, height: 320 }).props.src
 );

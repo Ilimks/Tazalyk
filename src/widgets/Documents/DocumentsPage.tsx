@@ -19,13 +19,11 @@ const getInitialDocuments = async (kind: DocumentsKind): Promise<Document[] | nu
     try {
         return await documentsApis[kind].getAll(getServerFetchOptions());
     } catch (error) {
-        // если API недоступен, список загрузится в браузере и покажет ошибку с кнопкой повтора
         console.error(`Failed to prefetch ${kind}:`, error);
         return null;
     }
 };
 
-// Список документов загружается на сервере — он сразу есть в HTML для поисковиков
 export const DocumentsPage = async ({ kind }: DocumentsPageProps) => {
     const [t, initialDocuments] = await Promise.all([
         getTranslations('Documents'),

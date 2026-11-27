@@ -4,6 +4,7 @@ import mobile from "./FooterUpMobile.module.scss";
 import { Link } from '@/i18n/navigation';
 import { useFooterNav } from "../../model/footerMenu";
 import { useTranslations } from 'next-intl';
+import { WinterHat } from "@/shared/ui/WinterHat";
 
 export const FooterUp: React.FC = () => {
   const t = useTranslations("Footer");
@@ -12,7 +13,7 @@ export const FooterUp: React.FC = () => {
   return (
     <div className={`${styles.footer__up} ${mobile.footer__up}`}>
       <div className={`${styles.footer__up__left} ${mobile.footer__up__left}`}>
-        <Link href="/">
+        <Link href="/" className={styles.footer__up__left__logoLink}>
           <Image
             className={`${styles.footer__up__left__logo} ${mobile.footer__up__left__logo}`}
             src="/assets/icons/logo.svg"
@@ -21,6 +22,7 @@ export const FooterUp: React.FC = () => {
             height={60}   
             priority
           />
+          <WinterHat inset={10} />
         </Link>
         <div className={`${styles.footer__up__left__textBox} ${mobile.footer__up__left__textBox}`}>
           <p className={`${styles.footer__up__left__text} ${mobile.footer__up__left__text}`}>

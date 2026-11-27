@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { SearchSuggestions, useSiteSearch } from "@/features/site-search";
 
 interface MobileSearchProps {
-  // вызывается при переходе к результату: меню нужно закрыть
   onResultClick?: () => void;
 }
 

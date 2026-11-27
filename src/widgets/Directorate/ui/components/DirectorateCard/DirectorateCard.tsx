@@ -20,7 +20,6 @@ export const DirectorateCard: React.FC<DirectorateCardProps> = ({ member }) => {
     const imageRef = useRef<HTMLImageElement>(null);
     const [photoFailed, setPhotoFailed] = useState(false);
 
-    // ошибка загрузки могла случиться до гидратации, когда onError ещё не был подключён
     useEffect(() => {
         const image = imageRef.current;
         if (image && image.complete && image.naturalWidth === 0) setPhotoFailed(true);

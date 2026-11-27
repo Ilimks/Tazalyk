@@ -10,7 +10,6 @@ import styles from './NewsHomeSectionBottom.module.scss';
 import mobile from './NewsHomeSectionBottomMobile.module.scss';
 
 interface NewsHomeSectionBottomProps {
-    // новости с сервера; null — сервер не смог их загрузить, грузим в браузере
     initialNews: News[] | null;
 }
 
@@ -28,7 +27,6 @@ export const NewsHomeSectionBottom: React.FC<NewsHomeSectionBottomProps> = ({ in
     }, [loadOnClient, loadNews]);
 
     const news = loadOnClient ? loadedNews : initialNews;
-    // до первого ответа в браузере показываем загрузку, а не «новостей нет»
     const isLoading = loadOnClient && (isLoadingNews || (!isSuccess && !error));
 
     const latestNews = useMemo(() => {
@@ -43,7 +41,6 @@ export const NewsHomeSectionBottom: React.FC<NewsHomeSectionBottomProps> = ({ in
             .slice(0, 4);
     }, [news]);
 
-    // свежая новость крупно, три остальные строками рядом (на компьютере)
     const featured = latestNews.length === 4;
 
     if (isLoading && latestNews.length === 0) {

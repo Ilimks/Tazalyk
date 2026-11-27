@@ -12,14 +12,12 @@ import {
 import styles from './FiltersDrawer.module.scss';
 
 interface FiltersDrawerProps {
-    // фильтры на момент открытия; изменения копятся в черновике до «Применить»
     initialQuery: ShopQuery;
     options: ProductFilterOptions | null;
     onApply: (query: ShopQuery) => void;
     onClose: () => void;
 }
 
-// Выдвижная панель фильтров для телефонов и планшетов. Монтируется только открытой
 export const FiltersDrawer: React.FC<FiltersDrawerProps> = ({ initialQuery, options, onApply, onClose }) => {
     const t = useTranslations('Shop.filters');
     const titleId = useId();
@@ -40,7 +38,6 @@ export const FiltersDrawer: React.FC<FiltersDrawerProps> = ({ initialQuery, opti
                 onCloseRef.current();
                 return;
             }
-            // фокус не уходит из панели по Tab
             if (event.key === 'Tab' && panelRef.current) {
                 const focusable = panelRef.current.querySelectorAll<HTMLElement>(
                     'button:not([disabled]), input:not([disabled]), select:not([disabled]), [href]'

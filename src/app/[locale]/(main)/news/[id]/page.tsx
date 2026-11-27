@@ -21,7 +21,6 @@ interface NewsDetailProps {
   }>;
 }
 
-// cache — один запрос к API на generateMetadata и страницу
 const getNews = cache(async (id: string) => {
   try {
     return await newsApi.getById(id, getServerFetchOptions());
@@ -36,7 +35,6 @@ const getRelatedNews = async (id: string) => {
     const { results } = await newsApi.getAll({ page: 1, page_size: 6 }, getServerFetchOptions());
     return results.filter((item) => String(item.id) !== id).slice(0, 5);
   } catch {
-    // другие новости необязательны — страница откроется и без них
     return [];
   }
 };
@@ -47,7 +45,6 @@ const truncate = (text: string, max: number) =>
 export async function generateMetadata({ params }: NewsDetailProps): Promise<Metadata> {
   const { id, locale } = await params;
   const news = await getNews(id);
-  // notFound здесь, а не только в странице: так поисковики получают настоящий статус 404
   if (!news) notFound();
 
   const t = await getTranslations({ locale, namespace: "Metadata" });

@@ -4,7 +4,6 @@ import { Document, DocumentsState } from './types';
 
 const initialState: DocumentsState = {
     items: [],
-    // true до первой загрузки, иначе страница на мгновение показывает «Документов нет»
     loading: true,
     error: null,
     totalCount: 0,
@@ -39,7 +38,6 @@ const documentSlice = createSlice({
             .addCase(fetchLocalActs.pending, (state) => {
                 state.loading = true;
                 state.error = null;
-                // законодательство и локальные акты делят один список — старые документы не показываем
                 state.items = [];
             })
             .addCase(fetchLocalActs.fulfilled, (state, action: PayloadAction<Document[]>) => {
@@ -54,7 +52,6 @@ const documentSlice = createSlice({
             .addCase(fetchLegislation.pending, (state) => {
                 state.loading = true;
                 state.error = null;
-                // законодательство и локальные акты делят один список — старые документы не показываем
                 state.items = [];
             })
             .addCase(fetchLegislation.fulfilled, (state, action: PayloadAction<Document[]>) => {

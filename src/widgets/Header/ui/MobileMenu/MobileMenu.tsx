@@ -7,6 +7,7 @@ import styles from "./MobileMenu.module.scss";
 import { useMobileMenu } from "../../hooks/useMobileMenu";
 import { MobileSearch } from "../MobileSearch";
 import { MobileHeaderIcons } from "../MobileHeaderIcons";
+import { WinterHat } from "@/shared/ui/WinterHat";
 
 interface Props {
   isOpen: boolean;
@@ -42,6 +43,7 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
               height={40}
               priority
             />
+            <WinterHat inset={4} />
           </div>
 
           <button className={styles.closeButton} onClick={onClose} aria-label={tCommon('closeMenu')}>
@@ -181,7 +183,6 @@ export const MobileMenu = ({ isOpen, onClose }: Props) => {
         </ul>
 
         <div className={styles.socialFooter}>
-          {/* верхней полосы с номером на телефоне нет */}
           <a className={styles.call} href="tel:1400">
             <Headset size={20} aria-hidden />
             <span>{tMain('MainReceptionCallCenter')}</span>

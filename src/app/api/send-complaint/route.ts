@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
-// Проверенное вложение: тип определён по содержимому файла, имя задаём сами
 interface SafeAttachment {
     filename: string;
     contentType: string;
@@ -11,15 +10,11 @@ interface SafeAttachment {
 
 const MAX_ATTACHMENTS = 5;
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
-// Gmail не принимает письма больше 25 МБ, base64 в письме добавляет треть
 const MAX_TOTAL_SIZE = 15 * 1024 * 1024;
-// запрос целиком (JSON с фото в base64) — режем до чтения тела
 const MAX_BODY_BYTES = 22 * 1024 * 1024;
 const EMAIL_REGEX = /^[^\s@<>"',;:()[\]\\]+@[^\s@<>"',;:()[\]\\]+\.[^\s@<>"',;:()[\]\\]+$/;
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 
-// Типы обращений из формы. В письмо и админку идёт русское название,
-// даже если жалобу писали на кыргызском: сотрудникам так проще
 const COMPLAINT_TYPES: Record<string, string> = {
     waste_issue: 'Проблема с вывозом отходов',
     billing_error: 'Неправильное начисление за вывоз мусора',
@@ -28,14 +23,10 @@ const COMPLAINT_TYPES: Record<string, string> = {
     other: 'Другое',
 };
 
-// ---------- лимит частоты: не больше 5 жалоб за 10 минут с одного адреса ----------
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT = 5;
 const recentRequests = new Map<string, number[]>();
 
-// Адрес клиента для лимита. Заголовкам прокси верим, только если сайт стоит за nginx (TRUST_PROXY=1):
-// иначе посетитель сам пришлёт любой X-Forwarded-For и обойдёт лимит.
-// Берём последний адрес цепочки — его добавляет сам nginx (proxy_add_x_forwarded_for), подделать нельзя
 const clientKey = (request: NextRequest): string => {
     if (process.env.TRUST_PROXY !== '1') return 'direct';
     const forwarded = request.headers.get('x-forwarded-for');
@@ -51,7 +42,6 @@ const isRateLimited = (key: string): boolean => {
     }
     timestamps.push(now);
     recentRequests.set(key, timestamps);
-    // не даём карте разрастись от множества адресов
     if (recentRequests.size > 10000) {
         for (const [k, times] of recentRequests) {
             if (times.every((time) => now - time >= RATE_WINDOW_MS)) recentRequests.delete(k);
@@ -60,7 +50,6 @@ const isRateLimited = (key: string): boolean => {
     return false;
 };
 
-// ---------- фото: тип определяем по первым байтам, а не по имени и заявленному типу ----------
 const IMAGE_SIGNATURES: { mime: string; ext: string; test: (b: Buffer) => boolean }[] = [
     { mime: 'image/jpeg', ext: 'jpg', test: (b) => b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff },
     { mime: 'image/png', ext: 'png', test: (b) => b.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])) },
@@ -68,7 +57,6 @@ const IMAGE_SIGNATURES: { mime: string; ext: string; test: (b: Buffer) => boolea
     { mime: 'image/heic', ext: 'heic', test: (b) => b.toString('ascii', 4, 8) === 'ftyp' && /^(heic|heix|hevc|mif1|msf1)$/.test(b.toString('ascii', 8, 12)) },
 ];
 
-// null — вложение не фото или повреждено
 const parseAttachment = (att: unknown, index: number): SafeAttachment | null => {
     if (!att || typeof att !== 'object') return null;
     const { data } = att as Record<string, unknown>;
@@ -80,11 +68,9 @@ const parseAttachment = (att: unknown, index: number): SafeAttachment | null => 
     const type = IMAGE_SIGNATURES.find((signature) => signature.test(content));
     if (!type) return null;
 
-    // имя от пользователя не используем: в нём может быть что угодно, вплоть до «.exe»
     return { filename: `photo-${index + 1}.${type.ext}`, contentType: type.mime, content, size: content.length };
 };
 
-// Экранирование пользовательского ввода перед вставкой в HTML письма
 const escapeHtml = (value: unknown): string =>
     String(value ?? '')
         .replace(/&/g, '&amp;')
@@ -93,13 +79,11 @@ const escapeHtml = (value: unknown): string =>
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
 
-// Строка без переносов — для темы письма
 const toSingleLine = (value: string) => value.replace(/[\r\n]+/g, ' ');
 
 const readString = (value: unknown, maxLength: number): string =>
     typeof value === 'string' ? value.trim().slice(0, maxLength) : '';
 
-// дата из поля type="date": настоящая дата вида 2026-11-09, а не 2026-02-30
 const isValidDate = (value: string): boolean => {
     if (!DATE_REGEX.test(value)) return false;
     const date = new Date(`${value}T00:00:00Z`);
@@ -121,14 +105,12 @@ const verifyCaptcha = async (token: unknown): Promise<boolean> => {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({ secret, response: token }),
-            // Google может не ответить — не держим запрос бесконечно
             signal: AbortSignal.timeout(5000),
         });
         if (!res.ok) return false;
         const result = await res.json();
         if (result.success !== true) return false;
 
-        // капча должна быть решена на нашем сайте, а не на чужом с тем же ключом
         const siteHost = new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mptazalyk.kg').hostname;
         const allowedHosts = new Set([siteHost, `www.${siteHost}`]);
         if (process.env.NODE_ENV !== 'production') {
@@ -153,11 +135,8 @@ interface ComplaintFields {
     incident_location: string;
 }
 
-// Копия жалобы в админку (раздел «Жалобы»): туда приходят все жалобы, любого типа.
-// Капчу и частоту уже проверили здесь, поэтому бэкенд принимает жалобы только с общим ключом сайта
 const saveToAdmin = async (fields: ComplaintFields, attachments: SafeAttachment[]): Promise<boolean> => {
     const token = process.env.COMPLAINTS_INTAKE_TOKEN;
-    // на сервере — адрес API внутри Docker (COMPLAINTS_API_URL), локально — обычный адрес API
     const apiUrl = process.env.COMPLAINTS_API_URL || process.env.NEXT_PUBLIC_API_URL;
     if (!token || !apiUrl) {
         console.error('Жалоба не сохранена в админке: не задан COMPLAINTS_INTAKE_TOKEN или адрес API');
@@ -173,8 +152,6 @@ const saveToAdmin = async (fields: ComplaintFields, attachments: SafeAttachment[
     }
 
     const headers: Record<string, string> = { 'X-Intake-Token': token };
-    // внутри Docker запрос идёт к API напрямую по http, мимо nginx. Без этого заголовка
-    // Django за HTTPS-прокси ответил бы перенаправлением на https
     if (apiUrl.startsWith('http://')) headers['X-Forwarded-Proto'] = 'https';
 
     try {
@@ -199,7 +176,6 @@ const saveToAdmin = async (fields: ComplaintFields, attachments: SafeAttachment[
 
 export async function POST(request: NextRequest) {
     try {
-        // слишком большой запрос отклоняем до чтения тела
         const contentLength = Number(request.headers.get('content-length') || 0);
         if (!contentLength || contentLength > MAX_BODY_BYTES) {
             return NextResponse.json({ success: false, code: 'too_large' }, { status: 413 });
@@ -220,8 +196,6 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // считаем только запросы с пройденной капчей: иначе пять пустых запросов
-        // закрыли бы форму для всех, кто выходит в интернет через тот же адрес
         if (isRateLimited(clientKey(request))) {
             return NextResponse.json({ success: false, code: 'rate_limited' }, { status: 429 });
         }
@@ -229,8 +203,6 @@ export async function POST(request: NextRequest) {
         const full_name = readString(data.full_name, 200);
         const email = readString(data.email, 200);
         const phone = readString(data.phone, 50);
-        // форма присылает код типа. Вкладка, открытая до обновления сайта, присылает название —
-        // тогда в админке это «Другое», а в письме остаётся присланное название
         const rawType = readString(data.complaint_type, 200);
         const knownType = Object.hasOwn(COMPLAINT_TYPES, rawType);
         const complaint_type = knownType ? rawType : 'other';
@@ -262,7 +234,6 @@ export async function POST(request: NextRequest) {
             phone: escapeHtml(phone),
             complaint_type: escapeHtml(typeLabel),
             subject: escapeHtml(subject),
-            // сохраняем переносы строк из textarea
             description: escapeHtml(description).replace(/\r?\n/g, '<br>'),
             incident_date: escapeHtml(incident_date),
             incident_location: escapeHtml(incident_location),
@@ -461,7 +432,6 @@ export async function POST(request: NextRequest) {
                 await transporter.sendMail({
                     from: process.env.SMTP_USER,
                     to: process.env.ADMIN_EMAIL,
-                    // адрес объектом: nodemailer не станет разбирать в нём списки и группы получателей
                     replyTo: { name: '', address: email },
                     subject: toSingleLine(`[ЖАЛОБА] ${typeLabel} от ${full_name}`),
                     html: adminHtml,
@@ -474,8 +444,6 @@ export async function POST(request: NextRequest) {
             }
         };
 
-        // Админка и почта независимы: жалоба принята, если дошла хотя бы куда-то одно.
-        // Иначе при сбое почты человек отправил бы её снова и в админке появились бы копии
         const [savedToAdmin, emailed] = await Promise.all([
             saveToAdmin(
                 {
@@ -499,9 +467,6 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Подтверждение — без текста пользователя: иначе форму можно использовать,
-        // чтобы рассылать с почты предприятия письма с чужим текстом на любые адреса.
-        // Жалоба уже принята, поэтому сбой этого письма — не ошибка для посетителя
         await transporter.sendMail({
             from: process.env.SMTP_USER,
             to: { name: '', address: email },

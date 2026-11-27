@@ -30,7 +30,6 @@ export const PersonalSection: React.FC = () => {
             href: '/complaints',
             icon: <MessageSquareWarning aria-hidden />
         },
-        // ТЗ 4.1.1: среди важного на главной — приём граждан
         {
             id: 4,
             title: tEmployee('title'),

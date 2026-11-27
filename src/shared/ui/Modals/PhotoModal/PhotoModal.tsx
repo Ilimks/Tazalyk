@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { Calendar, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Image from 'next/image';
@@ -22,7 +22,6 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
 }) => {
     const t = useTranslations('MediaGallery');
     const tCommon = useTranslations('Common');
-    // фокус в окне: клавиатура и экранное чтение работают с окном, а не со страницей под ним
     const closeRef = useRef<HTMLButtonElement>(null);
     useEffect(() => {
         if (!isOpen) return;
@@ -49,51 +48,42 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
         }
     }, [isOpen, allImages]);
 
+    const showNeighbour = useCallback((offset: number) => {
+        setCurrentImage((current) => allImages[allImages.indexOf(current) + offset] ?? current);
+    }, [allImages]);
+
+    const nextImage = () => showNeighbour(1);
+    const prevImage = () => showNeighbour(-1);
+
     useEffect(() => {
+        if (!isOpen) return;
+
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (!isOpen) return;
-            
             switch (e.key) {
                 case 'Escape':
                     onClose();
                     break;
                 case 'ArrowLeft':
-                    prevImage();
+                    showNeighbour(-1);
                     break;
                 case 'ArrowRight':
-                    nextImage();
+                    showNeighbour(1);
                     break;
             }
         };
 
-        if (isOpen) {
-            document.addEventListener('keydown', handleKeyDown);
-            document.body.style.overflow = 'hidden';
-        }
+        document.addEventListener('keydown', handleKeyDown);
+        document.body.style.overflow = 'hidden';
 
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
             document.body.style.overflow = 'unset';
         };
-    }, [isOpen, onClose, currentImage]);
+    }, [isOpen, onClose, showNeighbour]);
 
     const switchImage = (newUrl: string) => {
         if (newUrl === currentImage) return;
         setCurrentImage(newUrl);
-    };
-
-    const nextImage = () => {
-        const currentIndex = allImages.findIndex(img => img === currentImage);
-        if (currentIndex < allImages.length - 1) {
-            setCurrentImage(allImages[currentIndex + 1]);
-        }
-    };
-
-    const prevImage = () => {
-        const currentIndex = allImages.findIndex(img => img === currentImage);
-        if (currentIndex > 0) {
-            setCurrentImage(allImages[currentIndex - 1]);
-        }
     };
 
     const handleTouchStart = (e: React.TouchEvent) => {

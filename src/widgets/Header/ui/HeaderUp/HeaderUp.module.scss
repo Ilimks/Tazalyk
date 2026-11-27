@@ -23,7 +23,6 @@
       flex-direction: column;
       gap: 4px;
       width: 165px;
-      // с этим отступом хвосты букв «р» и «у» стоят вровень с низом подписи на эмблеме
       margin-bottom: 4px;
     }
 
@@ -33,7 +32,6 @@
       height: auto;
     }
 
-    // цвет — как у надписи в логотипе
     .header__up__logoName2 {
       display: block;
       width: 100%;
@@ -95,7 +93,6 @@
     }
   }
 
-  // главный номер предприятия — самое заметное в строке
   &__call {
     display: inline-flex;
     align-items: center;
@@ -142,7 +139,6 @@
   }
 }
 
-// в узком окне соцсети остаются в подвале, адрес и график — в «Контактах»
 @media (max-width: 1268px) {
   .header__up__social {
     display: none;
@@ -161,7 +157,6 @@
     min-height: 0;
     padding: 10px 0;
 
-    // на телефоне 1400 стоит в меню и в блоке приёма обращений
     &__call {
       display: none;
     }
@@ -216,4 +211,10 @@
   .header__up__left .header__up__logoName {
     display: none;
   }
+}
+
+.header__up__logoLink {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
 }

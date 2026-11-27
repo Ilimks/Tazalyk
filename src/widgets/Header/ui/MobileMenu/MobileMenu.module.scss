@@ -1,4 +1,3 @@
-// меню на телефоне: тёмная панель в цветах верхней полосы и подвала
 .overlay {
   position: fixed;
   z-index: 998;
@@ -36,7 +35,6 @@
   transform: translateX(100%);
   transition: transform .28s cubic-bezier(.22, .8, .24, 1), visibility 0s linear .28s;
 
-  // фирменная синяя рамка фокуса на тёмном не видна
   :focus-visible {
     outline-color: #fff;
   }
@@ -55,8 +53,8 @@
   margin-bottom: 14px;
 }
 
-// у логотипа тёмно-синие части: на тёмном ему нужна белая подложка
 .logoIcon {
+  position: relative;
   padding: 4px;
   border-radius: var(--r-md);
   background: #fff;
@@ -91,7 +89,6 @@
   }
 }
 
-// подсказки поиска раскрываются поверх пунктов
 .search {
   position: relative;
   z-index: 2;
@@ -128,7 +125,6 @@
   }
 }
 
-// пункт с подпунктами — кнопка: снимаем её собственный вид
 .submenuTrigger {
   width: 100%;
   border: 0;
@@ -154,7 +150,6 @@
   }
 }
 
-// подпункты раскрываются по своей настоящей высоте
 .submenu {
   display: grid;
   grid-template-rows: 0fr;
@@ -250,7 +245,6 @@
   }
 }
 
-// открытие: панель выезжает, следом по очереди проявляются логотип, поиск, пункты и соцсети
 .topBar,
 .search,
 .menuItem,
@@ -292,7 +286,6 @@
   transition: transform .45s var(--ease) .12s;
 }
 
-// «уменьшить движение»: всё видно сразу, без ожидания очереди
 @media (prefers-reduced-motion: reduce) {
   .menu,
   .menu * {

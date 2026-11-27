@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl';
 import { usePathname } from '@/i18n/navigation';
 import type { BreadcrumbItem } from '@/shared/ui/Breadcrumbs';
 
-// сегмент адреса → ключ в messages/*.json → Breadcrumbs
 const ROUTE_KEYS: Record<string, string> = {
     news: 'news',
     media: 'media',
@@ -39,9 +38,7 @@ const humanize = (segment: string) =>
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
 
-// currentLabel — подпись последнего пункта, например заголовок новости
 export const useBreadcrumbs = (currentLabel?: string): BreadcrumbItem[] => {
-    // путь без префикса языка: "/news/12"
     const pathname = usePathname();
     const t = useTranslations('Breadcrumbs');
 

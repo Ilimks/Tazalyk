@@ -2,10 +2,8 @@ import { ApiError, getUncachedServerFetchOptions } from '@/shared/api';
 import { productsApi, type PaginatedProductsResponse } from '@/entities/product';
 import { toProductQuery, type ShopQuery } from '@/features/product-filters';
 
-// страницы с таким номером нет (API отвечает 404) — например, по старой ссылке после сокращения каталога
 export const PAGE_OUT_OF_RANGE = 'out-of-range' as const;
 
-// Серверная загрузка страницы каталога. null — API недоступен, каталог догрузится в браузере
 export const loadCatalogPage = async (
     query: ShopQuery
 ): Promise<PaginatedProductsResponse | typeof PAGE_OUT_OF_RANGE | null> => {

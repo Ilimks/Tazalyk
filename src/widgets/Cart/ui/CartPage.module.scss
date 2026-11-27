@@ -123,7 +123,6 @@
     }
 }
 
-// Итог в форме оформления
 .summary {
     margin-bottom: 24px;
     padding: 16px 18px;
@@ -164,7 +163,6 @@
     line-height: 1.4;
 }
 
-// Сообщение сервера о недоступных товарах
 .alert {
     display: flex;
     gap: 12px;
@@ -278,7 +276,6 @@
     padding: 0 24px;
 }
 
-// Заглушка до чтения корзины из браузера
 .skeleton {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 420px;

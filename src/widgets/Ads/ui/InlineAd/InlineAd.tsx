@@ -3,7 +3,6 @@ import { inlineAd, sideAds } from '../../model/ads';
 import { AdLink } from '../AdLink/AdLink';
 import styles from './InlineAd.module.scss';
 
-// Горизонтальный баннер для экранов, где по бокам нет места
 export const InlineAd: React.FC = () => {
     const t = useTranslations('Ads');
 

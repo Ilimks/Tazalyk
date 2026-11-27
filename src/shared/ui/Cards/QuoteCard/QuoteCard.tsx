@@ -13,7 +13,6 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({ text, author }) => (
             <div data-reveal suppressHydrationWarning className={styles.quote}>
                 <div className={styles.quoteContent}>
                     <Quote size={48} strokeWidth={1.5} aria-hidden />
-                    {/* кавычки и тире уже есть в самом тексте */}
                     <blockquote>{text}</blockquote>
                     <cite>{author}</cite>
                 </div>

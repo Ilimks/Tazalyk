@@ -1,0 +1,41 @@
+name: Проверка
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Сайт
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Зависимости
+        run: npm ci
+      - name: Проверка кода
+        run: npm run lint -- --max-warnings 0
+      - name: Типы
+        run: npm run typecheck
+      - name: Все страницы открываются
+        run: npm run test:smoke
+
+  image:
+    name: Сборка образа
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Docker-образ собирается
+        run: docker build --build-arg NEXT_PUBLIC_RECAPTCHA_SITE_KEY=ci-check-placeholder --tag tazalyk-site:check .

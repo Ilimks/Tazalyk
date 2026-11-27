@@ -1,4 +1,3 @@
-// Страница 404. Цвета — фирменные: тёмно-синий меню и зелёный листьев герба.
 $navy: var(--brand);
 $navy-soft: #3E4095;
 $green: var(--green);
@@ -16,7 +15,6 @@ $spring: cubic-bezier(.34, 1.56, .64, 1);
         var(--bg);
 }
 
-// ---------- падающие листья ----------
 .sky {
     position: absolute;
     inset: 0;
@@ -39,7 +37,6 @@ $spring: cubic-bezier(.34, 1.56, .64, 1);
     }
 }
 
-// ---------- содержимое ----------
 .inner {
     position: relative;
     z-index: 1;
@@ -62,12 +59,10 @@ $spring: cubic-bezier(.34, 1.56, .64, 1);
     animation: rise .6s $ease-out both;
 }
 
-// «4 герб 4»: размеры герба и кольца заданы в em от размера цифр
 .code {
     display: flex;
     align-items: center;
     justify-content: center;
-    // кольцо вокруг герба выше строки цифр — отступаем, чтобы оно не задевало надпись сверху
     margin-top: .17em;
     font-size: clamp(104px, 19vw, 220px);
     font-weight: 700;
@@ -109,7 +104,6 @@ $spring: cubic-bezier(.34, 1.56, .64, 1);
     animation: spin 24s linear infinite;
 }
 
-// листик бежит по кольцу
 .orbit {
     position: absolute;
     inset: -.07em;
@@ -144,7 +138,6 @@ $spring: cubic-bezier(.34, 1.56, .64, 1);
     }
 }
 
-// ---------- улица с метлой ----------
 .street {
     position: relative;
     width: min(520px, 90%);
@@ -205,7 +198,6 @@ $spring: cubic-bezier(.34, 1.56, .64, 1);
     animation: puff 2.2s ease-out var(--delay) infinite;
 }
 
-// ---------- текст и кнопки ----------
 .title {
     margin: 14px 0 0;
     color: $navy;
@@ -366,7 +358,6 @@ $spring: cubic-bezier(.34, 1.56, .64, 1);
     }
 }
 
-// кто отключил анимацию в системе, видит страницу сразу и неподвижной
 @media (prefers-reduced-motion: reduce) {
     .eyebrow,
     .digit,
@@ -389,7 +380,6 @@ $spring: cubic-bezier(.34, 1.56, .64, 1);
     }
 }
 
-// ---------- ключевые кадры ----------
 @keyframes rise {
     from {
         opacity: 0;

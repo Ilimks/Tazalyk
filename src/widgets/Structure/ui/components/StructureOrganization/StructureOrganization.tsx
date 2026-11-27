@@ -2,7 +2,6 @@
 import { useTranslations } from 'next-intl';
 import styles from './StructureOrganization.module.scss';
 
-// Кто кому подчиняется — по схеме предприятия. У отделов кадров и безопасности подразделений нет.
 const BRANCHES = [
     { head: 'deputyPlanning', units: ['planningEconomic', 'developmentAnalysis', 'documentFlow', 'accounting'] },
     { head: 'deputyAbonent', units: ['abonentService', 'procurementDept', 'administrative', 'legal'] },

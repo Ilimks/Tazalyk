@@ -21,7 +21,6 @@
     height: 4px;
     border-radius: 2px;
     background: var(--green);
-    // черта над заголовком, как отметка на маршруте
     order: -1;
   }
 
@@ -30,14 +29,12 @@
   }
 }
 
-// ссылка, оформленная как Button
 .sectionHeader__link {
   white-space: nowrap;
 }
 
 @media (max-width: 600px) {
   .sectionHeader {
-    // кыргызские подписи длиннее: кнопка может перейти на следующую строку
     flex-wrap: wrap;
     gap: 12px 20px;
 

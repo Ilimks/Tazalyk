@@ -21,7 +21,6 @@ export const VacancyCard: React.FC<VacancyCardProps> = ({ vacancy }) => {
     const requirements = splitRequirements(getVacancyText(vacancy, 'requirements', locale));
 
     const { salary_from: from, salary_to: to } = vacancy;
-    // «30 000 – 40 000 сом», «от 30 000 сом», «до 40 000 сом», без зарплаты — «по договорённости»
     const getSalary = () => {
         if (from !== null && to !== null) {
             return from === to

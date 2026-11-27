@@ -3,7 +3,12 @@ import { routing } from './i18n/routing';
 
 const isDev = process.env.NODE_ENV === 'development';
 
-// адрес API: с него приходят картинки, видео и данные (локально http://localhost:8000, на сервере https://api.mptazalyk.kg)
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+const NEWS_PATH = /^\/(?:ru|ky)\/news\/([^/]+)\/?$/;
+const NEWS_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const NEWS_CHECK_TIMEOUT_MS = 3000;
+const MISSING_PATH = '/_missing';
+
 const API_ORIGIN = (() => {
   try {
     return new URL(process.env.NEXT_PUBLIC_API_URL || '').origin;
@@ -12,15 +17,10 @@ const API_ORIGIN = (() => {
   }
 })();
 
-// Политика безопасности контента: скрипты — только свои (с одноразовым nonce) и капча Google,
-// картинки — свои, файлы API и плитки карты OpenStreetMap, рамки — только капча,
-// встраивать сайт в чужие страницы нельзя.
-// Next.js сам ставит nonce своим скриптам, если видит его в заголовке запроса.
 const buildCsp = (nonce: string) =>
   [
     "default-src 'self'",
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/${isDev ? " 'unsafe-eval'" : ''}`,
-    // style="" у элементов React и стили виджета капчи
     "style-src 'self' 'unsafe-inline'",
     `img-src 'self' data: blob: ${API_ORIGIN} https://mptazalyk.kg https://www.gstatic.com https://tile.openstreetmap.org`,
     `media-src 'self' data: blob: ${API_ORIGIN}`,
@@ -35,7 +35,22 @@ const buildCsp = (nonce: string) =>
     "manifest-src 'self'",
   ].join('; ');
 
-export function middleware(request: NextRequest) {
+async function newsIsMissing(pathname: string) {
+  const id = NEWS_PATH.exec(pathname)?.[1];
+  if (!id) return false;
+  if (!NEWS_ID.test(id)) return true;
+  try {
+    const response = await fetch(`${API_URL}/news/${id}/`, {
+      method: 'HEAD',
+      signal: AbortSignal.timeout(NEWS_CHECK_TIMEOUT_MS),
+    });
+    return response.status === 404;
+  } catch {
+    return false;
+  }
+}
+
+export async function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
   const pathnameHasLocale = routing.locales.some(
@@ -56,22 +71,17 @@ export function middleware(request: NextRequest) {
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-next-intl-locale', locale);
-  // нужен layout для canonical и hreflang
   requestHeaders.set('x-pathname', pathname);
   requestHeaders.set('x-nonce', nonce);
   requestHeaders.set('Content-Security-Policy', csp);
 
-  const response = NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
+  const response = (await newsIsMissing(pathname))
+    ? NextResponse.rewrite(new URL(`/${locale}${MISSING_PATH}`, request.url), { request: { headers: requestHeaders } })
+    : NextResponse.next({ request: { headers: requestHeaders } });
   response.headers.set('Content-Security-Policy', csp);
   return response;
 }
 
 export const config = {
-  // пропускаем api, служебные пути Next.js, файлы из public и файлы в корне
-  // (sitemap.xml, robots.txt, ads.txt, google*.html)
   matcher: ['/((?!api/|_next/|assets/|[^/]+\\.[^/]+$).*)'],
 };

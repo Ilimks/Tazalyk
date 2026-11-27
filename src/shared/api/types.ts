@@ -1,4 +1,3 @@
-// Формат списков с пагинацией, который отдаёт API (Django REST Framework)
 export interface PaginatedResponse<T> {
     count: number;
     next: string | null;
@@ -6,7 +5,6 @@ export interface PaginatedResponse<T> {
     results: T[];
 }
 
-// Страница списка в удобном для UI виде
 export interface PageResult<T> {
     items: T[];
     totalCount: number;

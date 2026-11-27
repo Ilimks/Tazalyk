@@ -1,7 +1,6 @@
 export interface DirectorateMember {
     id: number;
     name: string;
-    // ключ должности в сообщениях Directorate.positions
     position: 'director' | 'mainEngineer' | 'deputy';
     photo?: string;
     order?: number;

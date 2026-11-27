@@ -3,7 +3,6 @@ import { useTranslations } from 'next-intl';
 import { HomeSectionHeader } from '@/shared/ui/HomeSectionHeader';
 import styles from './WorkSection.module.scss';
 
-/** Все направления работы предприятия, с надписью на фото. Откуда снимки — docs/photo-sources.md */
 export const WorkSection: React.FC = () => {
     const t = useTranslations('Work');
     const tActivity = useTranslations('Structure.activity');
@@ -29,7 +28,7 @@ export const WorkSection: React.FC = () => {
                     />
                     <ul className={styles.grid}>
                         {tiles.map(({ key, title, text, position }, index) => (
-                            <li key={key} data-reveal suppressHydrationWarning className={`${styles.tile} ${index === 0 ? styles.lead : ''}`}>
+                            <li key={key} data-reveal suppressHydrationWarning data-snow className={`${styles.tile} ${index === 0 ? styles.lead : ''}`}>
                                 <Image
                                     src={`/assets/images/work/${key}.webp`}
                                     alt=""

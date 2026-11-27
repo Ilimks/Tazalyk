@@ -19,7 +19,6 @@ export const useHeaderMenu = () => {
       title: t('subscribers'),
       dropdown: [
         { label: t('subscribersTariffs'), href: "/tariffs" },
-        // платные услуги рядом с тарифами: и то и другое — «сколько и за что платить»
         { label: t('subscribersServices'), href: "/attendance" },
         { label: t('subscribersComplaints'), href: "/complaints" },
         { label: t('subscribersEmployee'), href: "/employee" },

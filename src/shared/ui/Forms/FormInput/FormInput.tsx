@@ -9,7 +9,6 @@ interface FormInputProps {
     required?: boolean;
     placeholder?: string;
     error?: string;
-    // необязательные: id связывает подпись, подсказку и ошибку с полем
     id?: string;
     hint?: string;
     maxLength?: number;

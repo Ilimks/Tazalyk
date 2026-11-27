@@ -3,14 +3,12 @@ import { useTranslations } from 'next-intl';
 
 interface NewsStatsProps {
     count: number;
-    hasFilters: boolean;
     searchQuery?: string;
     selectedYear?: string;
 }
 
 export const NewsStats: React.FC<NewsStatsProps> = ({
     count,
-    hasFilters,
     searchQuery,
     selectedYear
 }) => {

@@ -1,10 +1,8 @@
 import { baseApi, getServerFetchOptions as getSharedServerFetchOptions } from '@/shared/api';
 import { News, NewsFilters, PaginatedNewsResponse } from '../model/types';
 
-// Как часто сервер обновляет кэш новостей, секунд
 export const NEWS_REVALIDATE_SECONDS = 60;
 
-// Опции серверной загрузки новостей (общий хелпер из shared/api с кэшем новостей)
 export const getServerFetchOptions = (): RequestInit =>
     getSharedServerFetchOptions(NEWS_REVALIDATE_SECONDS);
 

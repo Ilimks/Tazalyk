@@ -17,7 +17,6 @@ export const DocumentsCard: React.FC<DocumentsCardProps> = ({
 }) => {
     const t = useTranslations("Documents");
 
-    // формат один на оба языка: в Chrome нет кыргызского, и дата с сервера не совпадала с браузером
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('ru-RU', {
@@ -27,7 +26,6 @@ export const DocumentsCard: React.FC<DocumentsCardProps> = ({
         });
     };
 
-    // «449.82 KB» → «450 КБ», «1,2 МБ»
     const formatFileSize = (bytes: number) => {
         const number = (value: number, digits: number) =>
             value.toLocaleString('ru-RU', { maximumFractionDigits: digits });

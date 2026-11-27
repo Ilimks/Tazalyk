@@ -9,12 +9,9 @@ interface QuantityStepperProps {
     value: number;
     onIncrement: () => void;
     onDecrement: () => void;
-    // если передан — число можно ввести с клавиатуры (сохраняется при уходе из поля или по Enter)
     onChange?: (value: number) => void;
-    // «−» неактивна, когда value <= min; при min = 0 «−» на единице убирает товар из корзины
     min?: number;
     max?: number;
-    // название товара для экранных дикторов
     label?: string;
     size?: 'md' | 'sm';
     className?: string;

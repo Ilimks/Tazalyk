@@ -10,8 +10,6 @@ interface CartLinkProps {
     className?: string;
 }
 
-// Кнопка корзины в шапке. Счётчик появляется только после чтения корзины из localStorage,
-// поэтому серверная разметка и первая отрисовка в браузере совпадают
 export const CartLink: React.FC<CartLinkProps> = ({ className = '' }) => {
     const t = useTranslations('Cart');
     const mounted = useMounted();

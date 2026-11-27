@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { StatsCard } from '@/shared/ui/Cards';
 import styles from './HistorySection.module.scss';
 
-// колонка с фото ~ 480px, на телефоне — во всю ширину
 const IMAGE_SIZES = '(max-width: 900px) 92vw, 480px';
 
 export interface HistoryImage {
@@ -22,7 +21,6 @@ interface HistorySectionProps {
     paragraphs: string[];
 }
 
-// «2008-2010: Начало пути» → годы отдельно, название отдельно
 const splitTitle = (title: string) => {
     const match = title.match(/^(\d{4})\s*[-–]\s*(\d{4}):\s*(.+)$/);
     return match ? { years: `${match[1]}–${match[2]}`, name: match[3] } : { years: '', name: title };

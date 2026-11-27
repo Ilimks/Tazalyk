@@ -10,7 +10,6 @@ import styles from './ProductCard.module.scss';
 
 interface ProductCardProps {
     product: Product;
-    // кнопка действия (например, «В корзину» из features/cart) — карточка о корзине не знает
     action?: ReactNode;
     className?: string;
 }
@@ -27,14 +26,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, action, class
         ? t(`materials.${product.material}`)
         : product.material_label;
 
-    // ошибка загрузки могла случиться до гидратации, когда onError ещё не был подключён
     useEffect(() => {
         const image = imageRef.current;
         if (image && image.complete && image.naturalWidth === 0) setImageFailed(true);
     }, [imageUrl]);
 
     return (
-        <article data-reveal suppressHydrationWarning className={`${styles.card} ${className}`}>
+        <article data-reveal suppressHydrationWarning data-snow className={`${styles.card} ${className}`}>
             <div className={styles.media}>
                 {imageUrl && !imageFailed ? (
                     // eslint-disable-next-line @next/next/no-img-element -- next/image не используем: фото с API без оптимизатора

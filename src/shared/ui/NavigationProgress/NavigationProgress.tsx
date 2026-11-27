@@ -4,20 +4,14 @@ import { usePathname } from 'next/navigation';
 import styles from './NavigationProgress.module.scss';
 
 const START_EVENT = 'navigation-progress:start';
-// Полоса видна при каждом переходе хотя бы столько. Раньше она появлялась только
-// после задержки 120 мс, а страницы сайта открываются примерно за 100 мс —
-// и полосу не было видно вовсе
 const MIN_VISIBLE_MS = 400;
 const TRICKLE_INTERVAL_MS = 150;
-// если переход так и не закончился (ошибка сети, отменённый клик) — убираем полосу
 const SAFETY_TIMEOUT_MS = 15000;
 
-// Для переходов из кода (router.push), которые нельзя поймать по клику на ссылку
 export const startNavigationProgress = () => {
     window.dispatchEvent(new Event(START_EVENT));
 };
 
-// Клик по ссылке на другую страницу этого сайта, которая откроется в текущей вкладке
 const isPageNavigationClick = (event: MouseEvent): boolean => {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
         return false;
@@ -54,7 +48,6 @@ export const NavigationProgress: React.FC = () => {
         isRunning.current = false;
         window.clearTimeout(timers.current.safety);
 
-        // страница уже открылась, но полоса добегает до конца не раньше MIN_VISIBLE_MS
         const wait = Math.max(0, MIN_VISIBLE_MS - (Date.now() - startedAt.current));
         timers.current.complete = window.setTimeout(() => {
             window.clearInterval(timers.current.trickle);
@@ -74,9 +67,7 @@ export const NavigationProgress: React.FC = () => {
         startedAt.current = Date.now();
         setVisible(true);
         setProgress(0);
-        // со следующего кадра, чтобы рывок с нуля был плавным
         timers.current.show = window.setTimeout(() => setProgress(20), 16);
-        // полоса замедляется у 90% и ждёт, пока страница откроется
         timers.current.trickle = window.setInterval(() => {
             setProgress((value) => value + (90 - value) * 0.12);
         }, TRICKLE_INTERVAL_MS);
@@ -88,7 +79,6 @@ export const NavigationProgress: React.FC = () => {
             if (isPageNavigationClick(event)) start();
         };
 
-        // capture: Link из Next.js отменяет стандартный переход ещё до всплытия события
         document.addEventListener('click', handleClick, true);
         window.addEventListener('popstate', start);
         window.addEventListener(START_EVENT, start);
@@ -101,7 +91,6 @@ export const NavigationProgress: React.FC = () => {
         };
     }, [start]);
 
-    // новая страница открылась
     useEffect(() => {
         finish();
     }, [pathname, finish]);

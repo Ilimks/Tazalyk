@@ -11,13 +11,11 @@ import { loadHomeProducts } from '../model/loadHomeProducts';
 import styles from './ShopHomeSection.module.scss';
 
 interface ShopHomeSectionContentProps {
-    // товары с сервера; null — сервер не смог их загрузить, грузим в браузере
     initialProducts: Product[] | null;
 }
 
 type LoadError = 'timeout' | 'connection';
 
-// тайм-аут fetch приходит как AbortError/TimeoutError, остальное считаем проблемой связи
 const toLoadError = (error: unknown): LoadError =>
     error instanceof DOMException && (error.name === 'TimeoutError' || error.name === 'AbortError')
         ? 'timeout'
@@ -43,7 +41,6 @@ export const ShopHomeSectionContent: React.FC<ShopHomeSectionContentProps> = ({ 
             .finally(() => setIsLoading(false));
     }, []);
 
-    // сервер не дождался API — догружаем в браузере один раз
     useEffect(() => {
         if (initialProducts === null && !hasLoadedRef.current) {
             hasLoadedRef.current = true;
@@ -51,7 +48,6 @@ export const ShopHomeSectionContent: React.FC<ShopHomeSectionContentProps> = ({ 
         }
     }, [initialProducts, load]);
 
-    // как в остальных разделах главной: загрузка, ошибка с повтором или заглушка «товаров пока нет»
     const renderBody = () => {
         if (isLoading && !products?.length) return <LoadingState />;
 

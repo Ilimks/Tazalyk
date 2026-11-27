@@ -8,7 +8,6 @@ interface VideoModalProps {
     isOpen: boolean;
     onClose: () => void;
     videoUrl: string;
-    // превью основного видео: показывается, пока видео загружается
     poster?: string;
     date?: string;
     caption?: string;
@@ -26,7 +25,6 @@ export const VideoModal: React.FC<VideoModalProps> = ({
 }) => {
     const t = useTranslations('MediaGallery');
     const tCommon = useTranslations('Common');
-    // фокус в окне: клавиатура и экранное чтение работают с окном, а не со страницей под ним
     const closeRef = useRef<HTMLButtonElement>(null);
     useEffect(() => {
         if (!isOpen) return;
@@ -143,7 +141,6 @@ export const VideoModal: React.FC<VideoModalProps> = ({
                                     tabIndex={0}
                                     onKeyDown={(e) => e.key === 'Enter' && switchVideo(url)}
                                 >
-                                    {/* видео частей не загружаются, пока их не выбрали */}
                                     {index === 0 && poster ? (
                                         // eslint-disable-next-line @next/next/no-img-element
                                         <img src={poster} alt="" className={styles.galleryVideo} loading="lazy" />

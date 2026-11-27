@@ -3,14 +3,12 @@ import styles from './Loading.module.scss';
 export interface LoadingProps {
   size?: number | string;
   color?: string;
-  speed?: number;
   className?: string;
 }
 
 export const Loading: React.FC<LoadingProps> = ({
   size = 60,
   color = "green",
-  speed = 3,
   className = "",
 }) => {
   const sizePx = typeof size === 'number' ? `${size}px` : size;

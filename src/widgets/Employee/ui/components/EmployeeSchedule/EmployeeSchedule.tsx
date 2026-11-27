@@ -78,7 +78,6 @@ export const EmployeeSchedule: React.FC = () => {
                     ))}
                 </div>
 
-                {/* одно примечание на всех: раньше оно повторялось в каждой карточке */}
                 <div className={styles.note}>
                     <Info size={22} aria-hidden />
                     <p>{t('note')}</p>

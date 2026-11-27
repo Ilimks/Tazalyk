@@ -7,11 +7,9 @@ import mobile from "./HomeSectionHeaderMobile.module.scss";
 interface HomeSectionHeaderProps {
     title: string;
     buttonText?: string;
-    // путь без языка, например "/news" — язык подставит Link
     buttonLink?: string;
     onButtonClick?: () => void;
     className?: string;
-    // id заголовка, чтобы секция могла сослаться на него через aria-labelledby
     titleId?: string;
 }
 
@@ -32,7 +30,6 @@ export const HomeSectionHeader: React.FC<HomeSectionHeaderProps> = ({
                 <div className={`${styles.sectionHeader__line} ${mobile.sectionHeader__line}`}></div>
             </div>
             {buttonText && buttonLink && !onButtonClick && (
-                // настоящая ссылка: её видят поисковики и можно открыть в новой вкладке
                 <Link
                     href={buttonLink}
                     className={`${buttonStyles.button} ${styles.sectionHeader__link} ${buttonClassName}`}

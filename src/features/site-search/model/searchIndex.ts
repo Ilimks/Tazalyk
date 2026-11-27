@@ -4,7 +4,6 @@ import type { SearchEntry, SearchHit } from './types';
 
 type Messages = Record<string, unknown>;
 
-// Страницы сайта и их тексты в сообщениях. title — путь к заголовку страницы
 const PAGES: { url: string; title: string; sources: string[] }[] = [
     { url: '/', title: 'Breadcrumbs.home', sources: ['Main'] },
     { url: '/history', title: 'History.HistoryTitle', sources: ['History'] },
@@ -25,7 +24,6 @@ const PAGES: { url: string; title: string; sources: string[] }[] = [
     { url: '/shop', title: 'Shop.title', sources: ['Shop.title', 'Shop.description'] },
 ];
 
-// служебные подписи форм не описывают содержание страницы
 const SKIPPED_KEYS = /error|placeholder|required|invalid|submit|loading|retry|aria|button|hint|form|upload/i;
 
 const pick = (messages: Messages, path: string): unknown =>
@@ -36,7 +34,6 @@ const pick = (messages: Messages, path: string): unknown =>
 
 const collectText = (value: unknown): string[] => {
     if (typeof value === 'string') {
-        // переменные и разметка в сообщениях — не текст
         return [value.replace(/<[^>]+>/g, ' ').replace(/\{[^{}]*\}/g, ' ')];
     }
     if (value && typeof value === 'object') {
@@ -52,7 +49,6 @@ const pageText = (messages: Messages, sources: string[]) =>
 
 let indexPromise: Promise<SearchEntry[]> | null = null;
 
-// Тексты обоих языков загружаются при первом поиске, а не вместе с каждой страницей
 export const loadSearchIndex = (): Promise<SearchEntry[]> => {
     indexPromise ??= Promise.all([
         import('@/i18n/messages/ru.json'),
@@ -72,7 +68,6 @@ export const loadSearchIndex = (): Promise<SearchEntry[]> => {
             ...STATIC_ENTRIES,
         ])
         .catch((error) => {
-            // следующий поиск попробует загрузить ещё раз
             indexPromise = null;
             throw error;
         });
@@ -93,12 +88,9 @@ const titleScore = (titles: string[], query: string): number => {
     return SCORE.title;
 };
 
-// У страницы несколько названий («Новости», «Свежие новости»): оставляем одну строку, по возможности с заголовком страницы.
-// Если ближе всего к запросу отдельные записи страницы (например, люди), остаются они
 const onePerPage = (found: FoundEntry[]): FoundEntry[] => {
     const groups = new Map<string, FoundEntry[]>();
     found.forEach((item) => {
-        // услуги — разные записи, хотя страница у них одна
         const key = item.entry.type === 'page' ? item.entry.url : item.entry.id;
         groups.set(key, [...(groups.get(key) ?? []), item]);
     });
@@ -139,7 +131,6 @@ export const searchEntries = (entries: SearchEntry[], query: string, locale: str
         });
     });
 
-    // совпадение в тексте страницы лишнее, если эта страница уже нашлась по названию
     const urlsWithTitle = new Set(found.filter(({ hit }) => hit.score > SCORE.text).map(({ hit }) => hit.url));
     return onePerPage(
         found.filter(({ hit }) => hit.score > SCORE.text || !urlsWithTitle.has(hit.url))

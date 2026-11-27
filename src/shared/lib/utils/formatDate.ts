@@ -18,12 +18,6 @@ const weekdaysKy = [
   'жекшемби', 'дүйшөмбү', 'шейшемби', 'шаршемби', 'бейшемби', 'жума', 'ишемби'
 ];
 
-/**
- * @param date
- * @param options
- * @returns
- */
-
 export function formatDate(
   date: string | number | Date,
   options: FormatDateOptions = {}

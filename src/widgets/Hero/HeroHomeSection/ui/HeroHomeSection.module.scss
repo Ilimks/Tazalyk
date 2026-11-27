@@ -1,11 +1,8 @@
-// Высота — --hero-h в globals.css: шапка и первый экран занимают ровно окно,
-// карточки быстрых ссылок стоят отдельной секцией под ним
 .hero {
   position: relative;
   overflow: hidden;
   background: var(--brand-dark);
 
-  // затемнение только слева, под текстом: фотография остаётся живой
   &::before {
     content: '';
     position: absolute;
@@ -17,7 +14,6 @@
   }
 }
 
-// фоновый слой со слайдами (под затемнением ::before)
 .background {
   position: absolute;
   z-index: 0;
@@ -31,14 +27,12 @@
   object-position: center;
 }
 
-// на телефоне в кадре тот, кто работает, а не тёмный левый край
 @media (max-width: 1000px) {
   .bgImage {
     object-position: 63% 50%;
   }
 }
 
-// текущее фото едва заметно приближается, пока слайд на экране
 .bgCurrent {
   animation: heroDrift 7s linear both;
 }
@@ -52,13 +46,11 @@
   }
 }
 
-// текущий слайд — сверху
 .bgCurrent {
   z-index: 2;
   opacity: 1;
 }
 
-// при смене слайда текущий проявляется поверх предыдущего
 .bgFadeIn {
   animation: heroBgFadeIn .8s ease, heroDrift 7s linear both;
 }
@@ -68,7 +60,6 @@
   opacity: 1;
 }
 
-// следующий слайд: подгружен заранее, но невидим
 .bgNext {
   z-index: 0;
   opacity: 0;
@@ -97,7 +88,6 @@
   max-width: 640px;
 }
 
-// текст первого экрана появляется по очереди: надпись, заголовок, кнопки
 .heroBrand,
 .heroTitle,
 .heroActions {
@@ -166,9 +156,6 @@
   }
 }
 
-// круговая карусель слайдов — как была, по просьбе заказчика.
-// Размеры — доли высоты первого экрана: на 720px это прежние 40rem, 6rem и 4rem.
-// Второй предел — по ширине окна, чтобы правый кружок не уходил за край
 .carouselContainer {
   position: absolute;
   z-index: 2;
@@ -226,7 +213,6 @@
     padding-block: 48px;
   }
 
-  // темнее слева и внизу, под текстом и кнопками; сверху справа фото остаётся живым
   .hero::before {
     background:
       linear-gradient(90deg, rgba(10, 20, 80, .6) 0%, rgba(10, 20, 80, .12) 100%),
@@ -250,7 +236,6 @@
     font-size: 30px;
   }
 
-  // кнопки по ширине текста, в один ряд
   .heroActions {
     gap: 10px;
   }

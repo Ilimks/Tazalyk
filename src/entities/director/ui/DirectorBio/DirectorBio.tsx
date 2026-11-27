@@ -8,12 +8,10 @@ interface DirectorBioProps {
     bio: string;
 }
 
-// Виден первый абзац, остальное — по кнопке: на телефоне биография занимала целый экран
 export const DirectorBio: React.FC<DirectorBioProps> = ({ bio }) => {
     const t = useTranslations('Common')
     const [isOpen, setIsOpen] = useState(false)
     const id = useId()
-    // абзацы биографии разделены пустой строкой
     const paragraphs = bio.split('\n\n')
 
     return (

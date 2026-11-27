@@ -11,7 +11,6 @@ interface SortSelectProps {
     className?: string;
 }
 
-// '' — порядок менеджера («сначала популярные»)
 const SORT_OPTIONS: { value: ProductOrdering | ''; key: string }[] = [
     { value: '', key: 'popular' },
     { value: 'price', key: 'cheap' },
@@ -23,7 +22,6 @@ const SORT_OPTIONS: { value: ProductOrdering | ''; key: string }[] = [
 export const SortSelect: React.FC<SortSelectProps> = ({ value, onChange, className = '' }) => {
     const t = useTranslations('Shop.sort');
     const id = useId();
-    // «по убыванию объёма» в списке нет — показываем ближайший вариант
     const selected = value === '-volume' ? 'volume' : value ?? '';
 
     return (

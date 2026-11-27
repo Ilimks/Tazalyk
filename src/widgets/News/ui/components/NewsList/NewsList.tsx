@@ -15,13 +15,11 @@ import { useNewsFilter } from '@/features/news/filter/useNewsFilter';
 import type { PaginatedNewsResponse } from '@/entities/news';
 import styles from './NewsList.module.scss';
 
-// ТЗ 4.1.10: фильтр по году — текущий год и два предыдущих
 const CURRENT_YEAR = new Date().getFullYear();
 const NEWS_YEARS = [CURRENT_YEAR, CURRENT_YEAR - 1, CURRENT_YEAR - 2];
 
 interface NewsListProps {
     itemsPerPage?: number;
-    // первая страница без фильтров, загруженная на сервере
     initialData?: PaginatedNewsResponse | null;
 }
 
@@ -33,7 +31,6 @@ export const NewsList: React.FC<NewsListProps> = ({ itemsPerPage = 12, initialDa
     } = useNews();
     const { searchQuery, setSearchQuery, selectedYear, setSelectedYear, resetFilters, hasActiveFilters } = useNewsFilter();
 
-    // Пока пользователь не менял фильтры и страницу, показываем данные с сервера без повторного запроса
     const [usingInitial, setUsingInitial] = useState(initialData !== null);
     const isInitialQuery = currentPage === 1 && !searchQuery && selectedYear === 'all';
 
@@ -52,13 +49,11 @@ export const NewsList: React.FC<NewsListProps> = ({ itemsPerPage = 12, initialDa
             search: searchQuery || undefined,
             year: selectedYear !== 'all' ? selectedYear : undefined,
         });
-        // usingInitial и isInitialQuery выводятся из перечисленных зависимостей
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage, searchQuery, selectedYear, itemsPerPage, loadNews]);
     
     useEffect(() => {
         if (currentPage !== 1) changePage(1);
-        // сбрасываем страницу только при смене фильтров, а не при смене страницы
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchQuery, selectedYear]);
     
@@ -97,7 +92,7 @@ export const NewsList: React.FC<NewsListProps> = ({ itemsPerPage = 12, initialDa
                         onYearChange={setSelectedYear}
                     />
                 </div>
-                <NewsStats count={totalCount} hasFilters={hasActiveFilters} searchQuery={searchQuery} selectedYear={selectedYear} />
+                <NewsStats count={totalCount} searchQuery={searchQuery} selectedYear={selectedYear} />
                 
                 {news.length > 0 ? (
                     <>

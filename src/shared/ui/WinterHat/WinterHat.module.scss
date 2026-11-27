@@ -1,0 +1,25 @@
+.frame {
+  display: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+:global([data-winter]) .frame {
+  display: block;
+}
+
+.hat {
+  position: absolute;
+  left: 36.492%;
+  top: -15.377%;
+  width: 54.822%;
+  height: 47.687%;
+  background: url('/assets/icons/winter-hat.svg') center / 100% 100% no-repeat;
+}
+
+@media print {
+  .frame {
+    display: none !important;
+  }
+}

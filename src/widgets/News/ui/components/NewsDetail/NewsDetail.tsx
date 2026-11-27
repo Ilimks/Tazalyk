@@ -9,14 +9,11 @@ import { getNewsTitle, getNewsDescription, getNewsDate, type News } from '@/enti
 import styles from './NewsDetail.module.scss';
 
 const PLACEHOLDER_IMAGE = '/assets/images/placeholder-news.svg';
-// у́же этого отношения сторон снимок показываем целиком, на размытом фоне
 const TALL_RATIO = 1.25;
-// короткий первый абзац — вводка крупнее остального текста
 const LEAD_MAX = 340;
 const COPIED_MS = 2500;
 
 interface NewsDetailProps {
-    // новость и другие новости загружаются на сервере в app/[locale]/(main)/news/[id]/page.tsx
     news: News;
     relatedNews: News[];
 }
@@ -25,7 +22,6 @@ export const NewsDetail: React.FC<NewsDetailProps> = ({ news, relatedNews }) => 
     const locale = useLocale();
     const t = useTranslations('NewsID');
     const tMain = useTranslations('Main');
-    // без фотографии (или если она не загрузилась) новость начинается сразу с текста
     const [hasImage, setHasImage] = useState(Boolean(news.image));
     const imageUrl = news.image || PLACEHOLDER_IMAGE;
     const [isTall, setIsTall] = useState(false);
@@ -37,7 +33,6 @@ export const NewsDetail: React.FC<NewsDetailProps> = ({ news, relatedNews }) => 
     const dateLocale = locale === 'ky' ? 'ky-KG' : 'ru-RU';
     const dateOf = (item: News) => formatDate(getNewsDate(item), { format: 'long', locale: dateLocale });
 
-    // абзацы новости разделены переводом строки
     const paragraphs = useMemo(
         () => (description || '').split(/\n+/).map((text) => text.trim()).filter(Boolean),
         [description]
@@ -53,7 +48,6 @@ export const NewsDetail: React.FC<NewsDetailProps> = ({ news, relatedNews }) => 
             try {
                 await navigator.share({ title, text: description, url: window.location.href });
             } catch {
-                // пользователь закрыл окно «Поделиться»
             }
             return;
         }
@@ -94,7 +88,6 @@ export const NewsDetail: React.FC<NewsDetailProps> = ({ news, relatedNews }) => 
                     <article className={styles.article}>
                         {hasImage && (
                             <div className={`${styles.imageContainer} ${isTall ? styles.tall : ''}`}>
-                                {/* вертикальный снимок или афиша: целиком, поля закрывает размытая копия */}
                                 {isTall && (
                                     <Image src={imageUrl} alt="" fill sizes="200px" className={styles.backdrop} aria-hidden />
                                 )}
